@@ -3,13 +3,13 @@ close all;
 clear all;
 
 
-data = xlsread('FirstTo.xlsx', 'Guld');
-data = data(4063:end,1:4);
+data = xlsread('FirstTo.xlsx', 'BP');
+data = data(80:end,1:4);
 
 id = 1;
 tid = 2;
 value = 4; % penge
-treshold = [200 500 1000];
+treshold = [50 100 2000];
 nTres = 3;
 
 sz = size(data);
