@@ -1,6 +1,7 @@
 \input{setup/preamble.tex}% package inclusion and set up of the document
 \input{setup/macros.tex}% my new macros
-%\input{setup/glossaries.tex} % glossaries stuff
+\input{setup/glossaries.tex} % glossaries stuff
+
 \usepackage{lastpage}
 \usepackage{epstopdf}
 \usepackage{graphicx} %Matlab figures
@@ -12,19 +13,8 @@
 %
 \usepackage{siunitx}
 
-%\makeglossaries
-\defcitealias{ITU-R}{ITU-R P.676-10}
 
-\defcitealias{401}{CCSDS, 1993}
-\defcitealias{SFCG-4-3R3}{SFCC, 1998}
-\defcitealias{ITU5}{ITU, 2009}
-\defcitealias{ITU3}{ITU, 1997}
-\defcitealias{AMSAT}{AMSAT, 1994}
-\defcitealias{AMSATIARU}{IARU, 2015}
-\defcitealias{monopolVSdipol}{NCJRS, 2016}
-\defcitealias{LNA}{AMTL, 2007}
-\defcitealias{ARRLPowerLimit}{ARRL, 2016}
-\defcitealias{ModulationSpace}{CCSDS, 2009}
+%\defcitealias{401}{CCSDS, 1993}
 \graphicspath{{./figures/}}
 
 
@@ -72,18 +62,14 @@ Title={Communication Link for a Cubesat}
 \pdfbookmark[0]{Indholdsfortegnelse}{label:Indhold}
 \tableofcontents
 
-%\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype]
-
-%\glsaddall
-%\printglossary
-%\printglossary[type=\acronymtype]
+\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype]
 
 
 \cleardoublepage
 
 \include{formalia/preface}
 \cleardoublepage
-
+	
 
 %% problemanalysen %%
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
