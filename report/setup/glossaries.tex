@@ -1,7 +1,23 @@
 \usepackage{glossaries}
+\GlsSetQuote{+}
+\makeglossaries
+
+% compile order
+%
+% pdflatex
+% run in CMD makeindex -s main.ist -o main.gls main.glo
+% bitex 
+% pdflatex
+% pdflatex
+% view pdf
 
 %\newacronym{<label>}{<abbrv>}{<full>}
+%\newacronym{•}{•}{•}
 
+\newacronym{URC}{URC}{Ultra Reliable Communication}
+
+
+% old acronyms
 \newacronym{AAU}{AAU}{Aalborg University}
 \newacronym{AIS}{AIS}{automatic identification system}
 \newacronym{EPS}{EPS}{electronic power system}
@@ -72,14 +88,7 @@
 \newacronym{HAL}{HAL}{Hardware Abstraction Layer}
 \newacronym{RC}{RC}{Remote Controller}
 
-% acronymer der ikke er skrevet op
-%PC
-%RAW
-%YCbCr
-%DC
-%AC
-%RS.232
-%RGB \newacronym{RGB}{RGB}{red, green, blue}
+
 
 
 
