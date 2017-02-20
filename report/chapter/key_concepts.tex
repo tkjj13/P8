@@ -1,0 +1,21 @@
+\chapter{Key Concepts}
+\section{URC}
+\section{Diversity}
+Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies or replicas of a signal to the receiver. There is a lower chase that all of these copies of signals are going to have a deep fade at the same time \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other without the cost of more power consumption, reduced bit rate and complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
+Time diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
+Antenna diversity / Spatial diversity
+By having several antennas at both/or the receiver and transmitter a antenna diversity is achieved. With several antennas the signal can be combined together to process the signals into one. To get independently fading signals the signals need to be uncorrelated by separating the antennas least half a wavelength (micro diversity) \citep{diversityAntenna}. Antenna diversity comes at the cost of having to power more than one antenna.
+
+
+\section{Dynamic range}
+Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones. Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of NVAs it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \\\citep{AgilentNVA} \\
+In a normal receiver the dynamic range goes from the Third order intercept point and the sensitivity of the receiver. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the recovers noise figure. \citep{understandDynamic} This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range.\\
+To measure dynamic ranges to -60dB a special measurement setup would be required to increase the dynamic range.
+Measuring a very narrow bandwidth
+Averaging the noise so that the variance is reduced (but longer measuring time)
+
+
+\section{Rayleigh Fading}
+\section{Statistics}
+\subsection{Confidence Interval}
+\subsection{Distributions?}v
