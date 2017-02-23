@@ -10,14 +10,21 @@ By having several antennas at both/or the receiver and transmitter a antenna div
 
 
 \section{Dynamic range}
-Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of NVAs it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \\\citep{AgilentNVA} \\
+Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of NVAs it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \citep{AgilentNVA} \\
 In a normal receiver the dynamic range goes from the Third order intercept point and the sensitivity of the receiver(the dynamic range is set by the sensitivity of the receiver to the Third order intercept point). Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic} This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range.\\
 To measure with high dynamic ranges a special measurement setup would be required to increase the dynamic range.
 Measuring a very narrow bandwidth
 Averaging the noise so that the variance is reduced (but longer measuring time)
 
+The setup of the VNA measuring would have to take into account some factors to increase the dynamic range and have it be accurate. \\
+The intermediate frequency is a frequency that shifted to in order to easier process the signal. This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this epically helps the ADC that uses a lower sampling rate. 
+By setting the IF filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. The cost of using a narrowband is the measurement time, as the NVA would need several sweeps to cover a typical bandwidth.
+
+Dynamic Accuracy/range is effected by the non-linearity in the receiver chain, the worst part being the mixers and amplifiers since they introduce the most non-linearity. To measure the linearity of a receiver a power change measurements is preformed and compared to a reference level of power change that is accurate. This means that the linearity of a receiver as can be defined as LA =receiver measured power change / reference power change.
+Cross talk is the energy leakage between signal paths of the measuring system and this becomes a problem in high-loss transmission measurements. This is can be fixed by running an Isolation calibration \citep{crosstalk}. This accrues below the noise floor so averaging and low IF bandwidth must be used during calibration.
+At low power levels <-70dBm the main non-linearity comes from the analog to Digital converter. Quantizing error causes this when converting analog signals. The ADC used in NVA are top of the line and can use a Gaussian noise ditcher to combat the non linear nature of a ADC. 
 
 \section{Rayleigh Fading}
 \section{Statistics}
 \subsection{Confidence Interval}
-\subsection{Distributions?}v
+\subsection{Distributions?}
