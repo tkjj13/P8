@@ -1,7 +1,7 @@
 
-clear
-
-
+clear all
+close all
+clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% wideband data
 
@@ -72,8 +72,15 @@ S = abs(A).^2;
 
 S2 = S./repmat(sum(S,3),1,1,600);
 
-data = squeeze(S2(1,2,:));
+data = squeeze(S2(1,1,:));
 figure
-plot(data)
+x = linspace(-Fs/2,Fs/2,length(data));
+plot(x,data)
+
+sum(x*data)
+sqrt(sum(x.^2*data)-sum(x*data)^2)
+
+
+
 
 
