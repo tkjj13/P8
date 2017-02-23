@@ -7,17 +7,28 @@
 %drop out
 %5G
 
-In all communication an important measure is the channel in which the message is transmitted. For wireless communication, this is no different. The message is transmitted from a \gls{TX} through the air and to a \gls{RX}. This transmission can be done in different environments, which have different impacts on the received signal. Common for all the environments is they introduce fading, which if not accounted for can have devastating effects for the transmission. If the transmitted signal drops to low in power, the receiver can not received it and the signal will be lost. There are different tools to higher the chance for the receiver to receive signals that drops low and therefore higher the reliability of the communication link
+In all communication an important measure is the channel in which the message is transmitted. For wireless communication, this is no different. The message is transmitted from a \gls{TX} through the air and to a \gls{RX}. This transmission can be done in different environments, which have different impacts on the received signal. Common for all the environments is they introduce fading, which if not accounted for can have devastating effects for the transmission. 
 
-Fading occurs when multipath propagation is possible, that will introduce points in space where the waves adds either constructively or destructively. The constructive 
+Fading occurs when multipath propagation is possible, that will introduce points in space where the waves adds either constructively or destructively, as can be seen on \autoref{intro_fading}. The constructive spots is not of much interest as it is only a couple of dB's difference, however the destructive interference can create spots with losses that borders infinite dB's. These spots are called deep fades and is is where the communication might suffer a drop out. A drop out occurs if the transmitted signal drops below the RX sensitivity level so the signal is lost. There are different tools to heighten the chance for the RX to receive signals that drops low and therefore increase the reliability of the communication link
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/intro_fading.png}
+\caption{A graphical representation of two wave fronts meeting creating a fading pattern. Values in dB.}
+\label{intro_fading}
+\end{figure}
 
 \section{Motivation}
-With the development of the 5G wireless cellular network, a new concept have been introduced, \gls{URC}. Where earlier networks have run with a error rate on 0.1\%, with URC the error rate shall be under 0.001-0.0001\%
+With the development of the 5G wireless cellular network, a new concept have been introduced, \gls{URC}. Where earlier networks have run with a drop out probability of 0.1\%, with URC the drop out probability shall be under 0.001-0.0001\%. A problem about this is 
 
 
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/fading_gain.png}
+\caption{A graphical representation of two wave fronts meeting creating a fading pattern. Values in dB.}
+\label{fading_gain}
+\end{figure}
 
 
 \section{Project outline}
