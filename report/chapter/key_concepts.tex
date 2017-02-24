@@ -10,8 +10,8 @@ By having several antennas at both/or the receiver and transmitter a antenna div
 
 
 \section{Dynamic range}
-Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of NVAs it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \citep{AgilentNVA} \\
-In a normal receiver the dynamic range goes from the Third order intercept point and the sensitivity of the receiver(the dynamic range is set by the sensitivity of the receiver to the Third order intercept point). Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic} This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range.\\
+Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of \gls{VNA} it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \citep{AgilentNVA} \\
+In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic} This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range.\\
 
 \begin{figure}[H]
 \centering
@@ -20,21 +20,23 @@ In a normal receiver the dynamic range goes from the Third order intercept point
 \label{Block_VNA}
 \end{figure}
 
-The setup of the \gls{VNA} measuring would have to take into account some factors to increase the dynamic range and have it be accurate. Going though the \ref{Block_VNA} in order from left to right.
-The \gls{IF} is a frequency that shifted to in order to easier process the signal. This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this epically helps the \gls{ADC} that uses a lower sampling rate. 
+The setup of the \gls{VNA} measuring would have to take into account some factors to increase the dynamic range and still have the accuracy. Going through the \ref{Block_VNA} in order from left to right.
+The \gls{IF} is a frequency that shifted to in order to process the signal easier. This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
 By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. The cost of using a narrowband is the measurement time, as the \gls{VNA} would need several sweeps to cover a typical bandwidth. \\
 
-Dynamic Accuracy/range is effected by the non-linearity in the receiver chain, the worst part being the mixers and amplifiers since they introduce the most non-linearity. To measure the linearity of a receiver a power change measurements is preformed and compared to a reference level of power change that is accurate. This means that the linearity of a receiver as can be defined as:
+Dynamic range and accuracy are affected by the non-linearity in the receiver chain, the worst part are the mixers,\gls{ADC} and amplifiers since they introduce the most non-linearity. To measure the linearity of a receiver a power change measurements is preformed and compared to a reference level of power change that is accurate. This means that the linearity of a receiver as can be defined as:
 \begin{equation}
 Linearity = \frac{receiver \\\ measured \\\ power \\\ change}{reference \ power \ change}
 \label{Linearity}
 \end{equation}
  
 
-Cross talk is the energy leakage between signal paths of the measuring system and this becomes a problem in high-loss transmission measurements. This is can be fixed by running an isolation calibration \citep{crosstalk}. This accrues below the noise floor so averaging and low IF bandwidth must be used during calibration.
-At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Quantizing error causes this when converting analog signals. The \gls{ADC} used in \gls{VNA} are top of the line and can use a Gaussian noise ditcher to combat the non linear nature of a \gls{ADC}. 
+Cross talk is the energy leakage between signal paths of the measuring system and it can be a problem in high-loss transmission measurements. This can be fixed by running an isolation calibration \citep{crosstalk}.It occurs below the noise floor so averaging and low \gls{IF} filter bandwidth must be used during calibration.
+At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Quantizing error occurs when converting from analog to digital signals. The \gls{ADC} used in \gls{VNA} are top of the line and can use a Gaussian noise ditcher to combat the non linear nature of a \gls{ADC}. 
 
-Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every measured data will take twice as long.\citep{KeysightAVG}
+In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}
+
+Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
 
 
 \section{Rayleigh Fading}
