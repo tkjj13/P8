@@ -7,15 +7,15 @@
 %drop out
 %5G
 
-For all types of communication an important aspect is the channel through which the message is transmitted, for wireless communication, this is even more the case. The transmission of the message can be done in different environments, which have different impacts on the received signal. Common for all the environments is they introduce fading, which if not accounted for can have devastating effects for the transmission. 
+In all communication an important measure is the channel in which the message is transmitted. For wireless communication, this is no different. The message is transmitted from a \gls{TX} through the air and to a \gls{RX}. This transmission can be done in different environments, which have different impacts on the received signal. Common for all the environments is they introduce fading, which if not accounted for can have devastating effects for the transmission. 
 
-Fading occurs when multipath propagation is present, that will introduce points in space where the waves adds either constructively or destructively, as can be seen on \autoref{intro_fading}. The constructive spots is not of much interest as it is only a couple of dB's difference, however the destructive interference can create spots with losses that borders minus infinite dB's. These spots are called deep fades and is is where the communication might suffer a drop out. A drop out occurs if the transmitted signal drops below the RX sensitivity level so the signal is lost. There are different tools to heighten the chance for the RX to receive signals that drops low and therefore increase the reliability of the communication link
+Fading occurs when multipath propagation is possible, that will introduce points in space where the waves adds either constructively or destructively, as can be seen on \autoref{intro_fading}. The constructive spots is not of much interest as it is only a couple of dB's difference, however the destructive interference can create spots with losses that borders infinite dB's. These spots are called deep fades and is is where the communication might suffer a drop out. A drop out occurs if the transmitted signal drops below the RX sensitivity level so the signal is lost. There are different tools to heighten the chance for the RX to receive signals that drops low and therefore increase the reliability of the communication link
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/intro_fading.png}
-\caption{Fading gain from two wave fronts meeting, the deep fade spots have been elevated to allow for a better color resolution.}
+\caption{A graphical representation of two wave fronts meeting creating a fading pattern. Values in dB.}
 \label{intro_fading}
 \end{figure}
 
@@ -24,7 +24,7 @@ With the development of the 5G wireless cellular network, a new concept have bee
 Some of these application could be communications between self driving cars, where short message about position and speed can be send to other cars in the area, with low chance of needing re-transmission, which is importing in case of high alert situations. Other system that can gain advantages with a higher reliability communication link, is system, where the communication window is very small and therefore there is not time to re-transmit or using a lot of error coding.
 
 
-A problem about this is that to get this URC scenario, something have to be done to the channel. A way to get higher reliability is to transmit with a higher power level, so there gets a higher \gls{SNR} on the communication link. But even if the overall signal is higher, there will still be problem with fading in some points in space. 
+A problem about this is that to get this URC scenario, something have to be done to the channel. A way to get higher reliability is to transmit with a higher power level, so there gets a higher \gls{SNR} on the communication link. But even if the overall signal is higher, there will still be problem with fading in some points in space. This have been tested for reliability up to 99.99\%, which is shown on figure \ref{fading_gain}. But for higher reliability, it is hard to get enough measurements to actually get a good enough confidence interval, as the errors becomes such a rare event. Also the need of a high SNR request a lot from the equipment, as there is need for a big dynamic range, even for low signal power.
 
 
 \begin{figure}[H]
