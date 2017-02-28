@@ -9,7 +9,7 @@
 
 For all types of communication an important aspect is the channel through which the message is transmitted, for wireless communication, this is even more the case. The transmission of the message can be done in different environments, which have different impacts on the received signal. Common for all the environments is they introduce fading, which if not accounted for can have devastating effects for the transmission. 
 
-Fading occurs when multipath propagation is present, that will introduce points in space where the waves adds either constructively or destructively, as can be seen on \autoref{intro_fading}. The constructive spots is not of much interest as it is only a couple of dB's difference, however the destructive interference can create spots with losses that borders minus infinite dB's. These spots are called deep fades and is is where the communication might suffer a drop out. A drop out occurs if the transmitted signal drops below the RX sensitivity level so the signal is lost. There are different tools to heighten the chance for the RX to receive signals that drops low and therefore increase the reliability of the communication link
+Fading occurs when multipath propagation is present, that will introduce points in space where the waves adds either constructively or destructively, as can be seen on \autoref{intro_fading}. The constructive spots is not of much interest as it is only a couple of dB's difference, however the destructive interference can create spots with losses that borders minus infinite dB's. These spots are called deep fades and is is where the communication might suffer an outage. An outage occurs if the transmitted signal drops below the RX sensitivity level so the signal is lost. There are different tools to heighten the chance for the RX to receive signals that might experience deep fades and therefore increase the reliability of the communication link
 
 
 \begin{figure}[H]
@@ -20,7 +20,7 @@ Fading occurs when multipath propagation is present, that will introduce points 
 \end{figure}
 
 \section{Motivation}
-With the development of the 5G wireless cellular network, a new concept have been introduced, \gls{URC}. \todo{source} Where earlier networks have run with a drop out probability of 0.1\% \todo{source}, with URC the drop out probability shall be under 0.001-0.0001\% \todo{source}. The reason to introduce this new feature is to accommodate special needs in critical systems \todo{source}. Today those systems use a wired channel which provide a higher reliability, but comes with a greater cost both price wise and installation wise, however new critical system is also predicted to need this feature in the future \todo{source}. %By having a better reliability, there is a higher chance that some new application can be used on the cellular network. 
+With the development of the 5G wireless cellular network, a new concept have been introduced, \gls{URC}. \todo{source} Where earlier networks have run with an outage probability of 0.1\% \todo{source}, with URC the outage probability shall be under 0.001-0.0001\% \todo{source}. The reason to introduce this new feature is to accommodate special needs in critical systems \todo{source}. Today those systems use a wired channel which provide a higher reliability, but comes with a greater cost both price wise and installation wise, however new critical system is also predicted to need this feature in the future \todo{source}. %By having a better reliability, there is a higher chance that some new application can be used on the cellular network. 
 Some of the applications needing a URC channel could be self driving cars, in emergency cases, is it not only necessary to provide low latency the certainty of the message to arrive is also desired. %where short message about position and speed can be send to other cars in the area, with low chance of needing re-transmission, which is importing in case of high alert situations. 
 Other system that can gain advantages with URC, is systems where the communication window is very small and therefore do not have time for re-transmissions or a lot of data processing e.g. in error coding.
 
@@ -31,7 +31,7 @@ A problem about this is that to get this URC scenario, an in depth description o
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{figures/fading_gain.png}
-\caption{\gls{CDF} of fading gain in different channel environments.}
+\caption{\Gls{CDF} of fading gain in different channel environments.}
 \label{fading_gain}
 \end{figure}
 
