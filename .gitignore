@@ -72,7 +72,6 @@ acs-*.bib
 *.acr
 *.glg
 *.glo
-*.gls
 
 # gnuplottex
 *-gnuplottex-*
