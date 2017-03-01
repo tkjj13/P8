@@ -25,16 +25,26 @@ eval( sprintf( 'load %s/%s', InDataPath, InMeasName ) );
 
 PDP = mean( abs( IR( :, Tx, Rx, Pos ) ) .^2, 4 );
 PDP2 = mean( abs( IR( :, Tx, 2, Pos ) ) .^2, 4 );
+
+x = 0:DeltaTau:DeltaTau*(length(PDP)-1);
 figure(1)
 
-plot( 10*log10( PDP ) ); hold on;
-plot( 10*log10( PDP2 ) ); hold off;
-xlabel( 'Delay index' )
+plot(x, 10*log10( PDP ) ); hold on;
+plot(x,10*log10(exp(-51.71*10^6*x)))
+%plot(x, 10*log10( PDP2 ) ); hold off;
+xlabel( 'Delay time' )
 ylabel( 'Power [dB]' )
 title( 'Power-delay profile' )
+grid on
 
 
-
+figure(10)
+%x = 0:1e-11:DeltaTau*(length(PDP)-1);
+f = -1/(2*DeltaTau):1/(DeltaTau*(length(PDP)-1)):1/(2*DeltaTau);
+data = fftshift(abs(fft(10*log10(exp(-51.71*10^6*x)))));
+plot(f,data/max(data))
+grid
+return
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% narrowband data
 
