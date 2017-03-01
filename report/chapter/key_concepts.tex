@@ -28,6 +28,8 @@ Linearity = \frac{receiver \\\ measured \\\ power \\\ change}{reference \ power 
 Cross talk is the energy leakage between signal paths of the measuring system and it can be a problem in high-loss transmission measurements. This can be fixed by running an isolation calibration \citep{crosstalk}.It occurs below the noise floor so averaging and low \gls{IF} filter bandwidth must be used during calibration.
 At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Quantizing error occurs when converting from analog to digital signals. The \gls{ADC} used in \gls{VNA} are top of the line and can use a Gaussian noise ditcher to combat the non linear nature of a \gls{ADC}. 
 
+\todo{Add equations to the VNA claims, eg Time used vs Averaging factor(Seeptime vs noise floror reduction)}
+
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}
 
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
@@ -37,6 +39,8 @@ Diversity is used to combat fading in a wireless system. By using clever techniq
 Time diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
 Antenna diversity / Spatial diversity
 By having several antennas at both/or the receiver and transmitter a antenna diversity is achieved. With several antennas the signal can be combined together to process the signals into one. To get independently fading signals the signals need to be uncorrelated by separating the antennas least half a wavelength (micro diversity) \citep{diversityAntenna}. Antenna diversity comes at the cost of having to power more than one antenna.
+
+
 
 \section{Rayleigh Fading}
 \section{Statistics}
