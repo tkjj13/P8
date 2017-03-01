@@ -30,7 +30,13 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 
 \todo{Add equations to the VNA claims, eg Time used vs Averaging factor(Seeptime vs noise floror reduction)}
 
-In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}
+In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
+
+\begin{equation}
+Noisefloor = log_{2}(Number \ of \ avrages)\cdot 3dB +10log(B\cdot T_{0}\cdot k)
+\label{NFwithAVG}
+\end{equation}
+ 
 
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
 
