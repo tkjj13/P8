@@ -24,7 +24,7 @@ Fading occurs when multipath propagation is present, that will introduce points 
 \end{figure}
 
 \section{Motivation}
-The problem about fading is addressed already in cellular networks like \gls{LTE} or \gls{LTE-A} and many others, however with the development of the 5G network, new concepts is introduced. The 5G network is proposed to consist of three parts: \Gls{URLLC}, \gls{mMTC} and \gls{eMBBC} \citep{Petar5G}\todo{maybe new source}. Both the \gls{mMTC} and \gls{eMBBC} will be sort of extensions to the existing networks, focusing on either the number of users or the data rate respectively, the \gls{URLLC} will introduce some new problems mostly wrt. the reliability where earlier networks have run with an outage probability of 0.1\%, the URLLC part shall have an outage probability under 0.001-0.0001\% \todo{source}, but also by lowering the latency from (xx to xx) ms \todo{source}. By introducing this new feature, critical system with special needs might be able to use the cellular network instead of a wired channel, which today provide a higher reliability, but comes with a greater cost both price wise and installation wise. Another problem is that future systems is predicted to need this feature \todo{source}. %By having a better reliability, there is a higher chance that some new application can be used on the cellular network. 
+The problem about fading is addressed already in cellular networks like \gls{LTE} or \gls{LTE-A} and many others, however with the development of the 5G network, new concepts is introduced. The 5G network is proposed to consist of three parts: \Gls{URLLC}, \gls{mMTC} and \gls{eMBB} \citep{5G}. Both the \gls{mMTC} and \gls{eMBB} will be sort of extensions to the existing networks, focusing on either the number of users or the data rate respectively, the \gls{URLLC} will introduce some new problems mostly wrt. the reliability where earlier networks have run with an outage probability of 0.1\%, the URLLC part shall have an outage probability under 0.001-0.0001\% \todo{source}, but also by lowering the latency from (xx to xx) ms \todo{source}. By introducing this new feature, critical system with special needs might be able to use the cellular network instead of a wired channel, which today provide a higher reliability, but comes with a greater cost both price wise and installation wise. Another problem is that future systems is predicted to need this feature \todo{source}. %By having a better reliability, there is a higher chance that some new application can be used on the cellular network. 
 Some of the applications needing a URLLC channel could be self driving cars, in emergency cases, is it not only necessary to provide low latency the certainty of the message to arrive is also desired. %where short message about position and speed can be send to other cars in the area, with low chance of needing re-transmission, which is importing in case of high alert situations. 
 Other system that can gain advantages with URLLC, is systems where the communication window is very small and therefore do not have time for re-transmissions or a lot of data processing e.g. in error coding.
 
@@ -45,6 +45,8 @@ This might have been all right so far, but to achieve URLLC conditions, this the
 
 \section{Project outline}
 
+As stated the focus will be to measure and compare channel characteristics at \gls{URC} conditions. The project will not address the issue of low latency, as this is a completely different issue. This leaves two main aspects that needs investigation: The wireless channel and its practical limitations and the equipment needed to measure the channel effect as seen on \autoref{ChannelAndEquip}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/ProOutline.png}
@@ -52,8 +54,8 @@ This might have been all right so far, but to achieve URLLC conditions, this the
 \label{ChannelAndEquip}
 \end{figure}
 
-The channel is model with a assumption of Rayleigh..... 
+The next chapter will assess the issues in both of the aspects and break down the relationships between the different parameters.  
 
-%\Gls{URLLC} is a concept, that will be introduced with the new 5G Wireless Systems. \todo{source (Petar)} It is one's of the new features that will come with the 5G network. The 4G network and 4G LTE network works with a block/bit error rate on $10^{-3}$, which is a very normal standard of error rate. But URC introduces a error rate on $10^{-5}$-$10^{-6}$. This of course comes with cost of either higher signal needed to be send, to get a higher signal-to-noise ratio (SNR) or lower bit rates, to introduce more error coding. But the return of this, a higher reliability and a lower latency is introduced. By having this two features introduced, more automatic and/or high precision machines can be connected to the network. An example is the use of the cellular network, to get self-driving cars to communicated with each other. In the case, that a car have to make a fast braking action, this have to be communicated to the cars behind it, with high reliability and low latency. So be introducing this URC, the cellular network can be used for more than just communication between humans, but also for fast and precises communication between machines.
+
 
 
