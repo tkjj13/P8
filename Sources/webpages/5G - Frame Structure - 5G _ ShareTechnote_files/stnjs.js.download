@@ -1,0 +1,60 @@
+function home_de()
+{
+    var w = window.open("",           // URL (none specified)
+                        "_blank",  // Name (force it to be unique)
+                        "resizable,status,toolbar=yes,menubar=yes,fullscreen=yes");  // Features
+    // Get the Document object of the new window
+    var d = w.document;
+
+
+    // Output an HTML document, including a form, into the new window
+    // Note that we omit the optional call to document.open( )
+    d.write('<html>');
+    d.write('<head>');
+    d.write('<title> ShareTechnote - Differential Equation </title>');
+    d.write('</head>');
+    d.write('<frameset rows="93, 75%" cols="1*" border="0">');
+    d.write('<frame name="top" scrolling="no" namo_target_frame="contents" src="../top.html" noresize marginwidth="0" marginheight="0">');
+    d.write('<frameset rows="1*" cols="12%, 88%">');
+    d.write('<frame name="left" scrolling="no" marginwidth="0" marginheight="0" namo_target_frame="detail" src="../left_DifferentialEquation.html">');
+    d.write('<frame name="contents" scrolling="yes" marginwidth="0" marginheight="0" src="../html/Handbook_EngMath_Index.html#Differential_Equation_Introduction" namo_target_frame="contents">');
+    d.write('</frameset>');
+    d.moveTo(0, 0);
+    d.resizeTo(screen.width, screen.height);
+    // Remember to close the document when we're done
+    d.close( );
+
+    // Return true 
+    return true;
+}
+
+
+function home_5G()
+{
+    var w = window.open("",           // URL (none specified)
+                        "_blank",  // Name (force it to be unique)
+                        "resizable,status,toolbar=yes,menubar=yes,fullscreen=yes");  // Features
+    // Get the Document object of the new window
+    var d = w.document;
+
+
+    // Output an HTML document, including a form, into the new window
+    // Note that we omit the optional call to document.open( )
+    d.write('<html>');
+    d.write('<head>');
+    d.write('<title> ShareTechnote - 5G </title>');
+    d.write('</head>');
+    d.write('<frameset rows="93, 75%" cols="1*" border="0">');
+    d.write('<frame name="top" scrolling="no" namo_target_frame="contents" src="http://www.sharetechnote.com/top.html" noresize marginwidth="0" marginheight="0">');
+    d.write('<frameset rows="1*" cols="12%, 88%">');
+    d.write('<frame name="left" scrolling="no" marginwidth="0" marginheight="0" namo_target_frame="detail" src="http://www.sharetechnote.com/left_5G.html">');
+    d.write('<frame name="contents" scrolling="yes" marginwidth="0" marginheight="0" src="http://www.sharetechnote.com/html/5G/Handbook_5G_Index.html" namo_target_frame="contents">');
+    d.write('</frameset>');
+    d.moveTo(0, 0);
+    d.resizeTo(screen.width, screen.height);
+    // Remember to close the document when we're done
+    d.close( );
+
+    // Return true 
+    return true;
+}

@@ -1,0 +1,634 @@
+
+<!-- saved from url=(0069)http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title> 5G - Frame Structure - 5G | ShareTechnote </title>
+<meta name="description=" content=" This page will describe about various candiates for 5G Frame Structure">
+<script async="" src="./5G - Frame Structure - 5G _ ShareTechnote_files/analytics.js.download"></script><script src="./5G - Frame Structure - 5G _ ShareTechnote_files/stnjs.js.download"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<table border="0" width="800">
+    <tbody><tr>
+        <td width="897">
+            <p><b><font face="Verdana"><span style="font-size:14pt;">5G - Frame Structure&nbsp;&nbsp;&nbsp;&nbsp;</span></font></b><font face="Verdana"><span style="font-size:8pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home
+: <a href="javascript:home_5G();">www.sharetechnote.com</a></span></font></p>
+        </td>
+    </tr>
+    <tr>
+        <td width="897">
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><font face="Verdana"><span style="font-size:10pt;">&nbsp;
+			
+            <script type="text/javascript">
+    google_ad_client = "ca-pub-9961293861045757";
+    google_ad_slot = "5179659170";
+    google_ad_width = 728;
+    google_ad_height = 90;
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </script>
+<!-- Horiz_Wide_5G_FrameStructure -->
+            <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </script>
+			
+			</span></font>
+			
+
+
+</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font>
+            <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-39820307-1', 'auto');
+  ga('send', 'pageview');
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </script>
+
+			</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300">Frame Structure Candidates</font></b></span><font color="#993300"> </font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Even thoutgh there are many WhitePapers on 5G issued from many different organizations or companies now (as of Oct 2015), I haven't seen much document touching on Frame Structure of the 5G. As of now (as of Oct 2015), the only documents that I see dealing with these topic are a workshop document&nbsp;from Erricson and a document from METIS. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">In this page, I will start with introducing some of idea from these document and keep adding other ideas as I find more documents. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Even though there is no international specification for the detailed frame structure, it would be pretty obvious that the length of the subframe will be much shorter than the one we use in current LTE (1 ms subframe, 10 ms radio frame).</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900">Note 1 : The contents written in this page is mostly about the various ideas on FrameStructure discussed at early phase of 5G design (mostly before 3GPP activity got into full action). But I think this would give you important insights on what is the technical background of those specification that you will see in 3GPP technical specification. If you are studying Wireless / Cellular communication, what is described here will be more helpful than reading the dry 3GPP specificaiton. If you are more interested in the formal information based on 3GPP or 5G Pre Trial specification, refer to following pages.</font></span></p>
+            <ul>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a href="http://www.sharetechnote.com/html/5G/5G_Agreements.html#FrameStructure">3GPP Agreed items</a></font></span></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a href="http://www.sharetechnote.com/html/5G/5G_PreTrial_FrameStructure.html">Frame Structure in Pretrial specification</a></font></span></li>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">In this page, I will list various kinds of subframe structure with focus of symbol length, subcarrier spacing from various source as if we do brainstorming. I have two reasons why I put all the possibilities here. One is&nbsp;because there is no fixed standards yet and another reason is to give the readers more chance to see more diverse aspects of technical issues determining
+these basic parameters. Once 3GPP specification is fixed, you may see only very dry description of fixed parameters without any background information about why/how the standard is determined in that specific ways. Following all these ideas or discussions, it will be very helpful for you to understand the final standard when it is available. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Following is the topics discussed in this page.</span></font></p>
+            <ul>
+                <li><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Overall_Requirement">Overall Requirement for Frame Structure</a></span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Why_Short_Subframe">Why Short Subframe ? </a></span></font></li>
+                <li><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Factors_determining_Subframe_Structure">Factors determining Subframe Structure (Subcarrier Spacing, # of Subcarriers, # of Symbols etc)</a></span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Symbol_Length_SubCarrier_Spacing">Symbol Length/SubCarrier Spacing</a></span></font></li>
+                <ul>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#SymbolLength_SubcarrierSpacing_Ex1">Example 1</a></span></font><font face="Verdana"><span style="font-size:10pt;"> - Ericsson</span></font></li>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#SymbolLength_SubcarrierSpacing_Ex2">Example 2</a></span></font><font face="Verdana"><span style="font-size:10pt;"> - Ericsson</span></font></li>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#SymbolLength_SubcarrierSpacing_Ex3">Example 3</a> - </span><span style="font-size:10pt; line-height:100%;">Huawei and HiSilicon</span></font></li>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#SymbolLength_SubcarrierSpacing_Ex4">Example 4</a> - Intel</span></font></li>
+                </ul>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Subframe_Structure_Control_Reference">Subframe Structure - Control Channel and Reference Signal</a></span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Subframe_Structure_Control_Data">Subframe Structure - Control and Data</a></span></font></li>
+                <ul>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Subframe_Structure_Control_Data_Ex1">Example 1</a></span></font></li>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Subframe_Structure_Control_Data_Ex2">Example 2</a></span></font></li>
+                    <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Subframe_Structure_Control_Data_Ex3">Example 3</a></span></font></li>
+                </ul>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana"><font face="Verdana">&nbsp;</font></font></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#993300"><b><a name="Overall_Requirement">Overall Requirement for Frame Structure</a></b></font></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">Before we design anything, usually we need to set a certain criteria (requirement) to meet by the design. Same will apply to 5G Subframe design. What kind of criteria (requirement) we need to think of when we define the 5G subframe.</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">There is a&nbsp;long list of possible requirement described in R1-162206 ([<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_11">11</a>]) as summarized below. </span></font></p>
+            <ul>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">major components : TTI (Transmission Time Interval) and SF (Subframe)</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">allowing for scalability to address different services</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">support of multiplexing of different services (eMBB, mMTC, URLLC)</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">support of user multiplexing according to basestation-to-UE uplink/downlink and UE-to-UE sidelink</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">support of extreme physical properties, e.g, very wideband and narrow band, TDD and FDD, sub 6 Ghz and mmWave</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">efficient use of channel reciprocity in TDD (using frequent sounding opportunities)</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">support of&nbsp;dynamic TDD assignment with support for managing interference between source and destination pairs</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">support of self-contained subframe which enables a transmission and ACK/NACK in the same subframe. </span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">support of self-contained subframe with a single interlace structure</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">possible support of self-contained subframe with multiple&nbsp;interlace structure for forward compatibility and subject to overhead constraints for given target latency</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">support for modes where a short intermediate round of communication between the source cnad destination can occur within a subframe</span></font></li>
+                <li style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">support of tight coupling across aggregated carrier (i.e, supporting carrier aggregation)</span></font></li>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><a name="Why_Short_Subframe"><span style="font-size:10pt;"><font face="Verdana" color="#993300"><b>Why Short Subframe ?</b></font></span> </a></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">The main reason is pretty obvious. It is to meet such a short latency requirement in 5G. It is commonly agreed that the latency requirement would be only around 1 ms. In current LTE using 1 ms subframe, the latency in reality is in the range of several tens of ms and upto over 100 ms. So it can be easily guessed that the subframe length should be much shorter than 1 ms to meet the 1ms end-to-end
+radio latency requirement. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Then how short it should be ? How about 0.5 ms ? It may be OK if data transmission happens in a single step. But it may take several steps to complete a single data transfer as in the example below. If the single subframe length is 0.5 ms, it would be easily get over 1ms to complete the process. </span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">i) UE -&gt; NW : Scheduling Request</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">ii) UE &lt;- NW : Grant</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">iii) UE -&gt; NW : Data Transmission</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">iv) UE &lt;- NW : ACK/NACK</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">There is another reason for short subframe length and this is more related to physical properties of 5G operating frequency. In case when OFDM operates in very high frequency like mmWave, it is very difficult to make it work in such a short subcarrier spacing like 15 Khz as we do in current LTE. &nbsp;Usually frequency drift (like doppler shift or drift due to poor local oscillator)&nbsp;happens
+in propotion to operating frequency. If we use the frequency like 26 Ghz, even a small fraction of frequency drift happens, it would get easily over several tens of Khz. Therefore, it is highly likely that 5G will use OFDM with much wider sub carrier spacing (meaning Wide Subcarrier)&nbsp;comparing to current LTE. If the subcarrier width gets wider, the symbol length gets shorter (this is based on inverse relationship between frequency domain and time domain). If we assume that we will pack the same number of
+symbols within a subframe, the shorter symbol length would create shorter subframe. (I hope I would not confuse you). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300"><a name="Factors_determining_Subframe_Structure">Factors determining Subframe Structure (Subcarrier Spacing, #&nbsp;of Subcarriers,&nbsp;# of Symbols etc)</a></font></b></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">When I was reading various documents about possible subframe structures for 5G, the first questions poping up my mind was 'where these strange numbers (e.g, xx Khz subframe structure, xx symbols in a subframe, xx subcarriers etc). I think I could make some guess, but was not sure exact technical background to determine these numbers. And I found some technical background for this from 3GPP
+TDoc R1-162204 (<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_7">[7]</a>) and R-162157(<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_8">[8]</a>). Followings are the proposal from the document. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><b>Subcarrier Spacing</b></font></span><font face="Verdana"><span style="font-size:10pt;"> : It is proposed to be scaled as&nbsp;Delta_f * 2^K. This is to achieve high multiplexing efficiency between different numerologies ([7]). The subcarrier spacing varies with the frequency of the spectrum and/or maximum UE speed to minimize the impact of the Doppler shift and phase noise
+([8])</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><b>Number of Symbols per TTI</b></font></span><font face="Verdana"><span style="font-size:10pt;"> : It is proposed to be scaled as 2^M symbols per TTI. This is to ensure flexibile TTI downscaling for URLLC (Ultra Reliable Low Latency Communication) from 2^M symbols to 1 symbol([7]). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><b>CP Lengh</b></font></span><font face="Verdana"><span style="font-size:10pt;"> : CP length woud be determined by deployment types (e.g, outdoor or indoor) that has different delay spread requirements, and/or determined by frequency bands, service type (e.g, unicase or broadcast) or determined by whether beam forming technology is used or not ([8]). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><b>TTI Length</b></font></span><font face="Verdana"><span style="font-size:10pt;"> : TTI length would be determined by service types that has different latency requirement,&nbsp;or determined by&nbsp;downlink vs uplink vs sidelink.</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">The specific values for each parameters about the subframe structure would be determined by the service types that will be supported in a specific situation. The major categories of service types and fundamental requirements for each service type are described as follows in R1-162204([7]).</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_R1_162204_NumerologyRequirement_01.png" width="773" height="489" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300"><a name="Symbol_Length_SubCarrier_Spacing">Symbol Length/SubCarrier Spacing</a></font></b></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana"><font face="Verdana">&nbsp;</font></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">As in other aspect of frame structure, there are many different ideas has been proposed on&nbsp;Symbol length and subcarrier spacing. In thise section, I will introduce you some of these ideas.</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a name="SymbolLength_SubcarrierSpacing_Ex1">Example 1 &gt;</a></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Following illustration is based on data proposed in Ref [1]. This is designed with considersation of compatibility with current LTE. Three types of SubCarrier Spacing are shown here. The first one shows the subcarrier spacing and Symbol Length which is same as current LTE. The second one shows the subcarrier spacing gets 5 times wider than the current LTE and symbol length gets 5 times shorter
+comparing to the current LTE. The second one shows the subcarrier spacing gets 40&nbsp;times wider than the current LTE and symbol length gets 40&nbsp;times shorter comparing to the current LTE</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Erricson_Symbol_01.png" width="795" height="627" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a name="SymbolLength_SubcarrierSpacing_Ex2">Example 2 &gt;</a></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Following illustration is based on data proposed in Ref [1]. This is new subframe design. For now, I am not sure what is the advantage of these subcarrier/symbol&nbsp;structure comparing to the structure shown above. General trend is understandable. The wider the subcarrier spacing is, the shorter the symbol length is.&nbsp;This is physical property. But I am not sure how they come up with
+this specific (rather strange) number.&nbsp;I will get this updated as I find/understand more.</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Erricson_Symbol_02.png" width="795" height="627" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a name="SymbolLength_SubcarrierSpacing_Ex3">Example 3 &gt;</a></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">Followings are proposed by Huawei and HiSilicon in </span><span style="font-size:10pt;">R1-162167 (<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_8">[8]</a>). &nbsp;As you see here, it is proposed to use different subcarrier spacing, different CP length and even different TTI (I am not sure if exact the same parameter value like 15 Khz, 1 ms TTI will be used in mmWave, Low Latency subframe, but I think overal structure/concept itself is applicable). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><font face="Verdana"><span style="font-size:10pt;"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Huawei_Symbol_01.png" width="795" height="626" border="0"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">In real application, this proposal envison the possibility of using all these structure multiplexed together as illustrated below. (I think this kind of application is a main motivation of proposing a 5G waveform candidate called <a href="http://www.sharetechnote.com/html/5G/5G_Phy_Candidate_fOFDM.html">f-OFDM</a>). Feasibility of this type of multiplexing is examined in R1-163224 (<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_10">[10]</a>).</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Huawei_Symbol_02.png" width="782" height="285" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#009900"><a name="SymbolLength_SubcarrierSpacing_Ex4">Example 4 &gt;</a></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">Followings are proposed by Intel&nbsp;in </span><span style="font-size:10pt;">R1-162386&nbsp;(<a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_12">[12]</a>). Overall concept is similar to Example 1 and Example 2. I strongly recommend you to read this TDoc since it describes not only all these proposals but also pretty clear techical background for each of these proposals (options). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"> &nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Intel_Symbol_01.png" width="798" height="608" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300"><a name="Subframe_Structure_Control_Reference">Subframe Structure - Control Channel and Reference Signal</a></font></b></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Now let's look into the Subframe Structure in terms of resource element allocation. For this one as well, I will start introducing the proposal from Ericsson (Ref <a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_1">[1]</a>). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">As illustrated below, there can be two major types suggested. One is the type which is more like current LTE/LTE-Advanced and the other type is for new waveform. In LTE-Like structure, the reference signal is distribute over both time and frequency domain. But in new subframe, the reference signal is distributed across frequency domain only. In terms of time domain, it takes only one or more
+consecutive symbols. This is understandable because the subframe length is very short we can assume that the channel condition would not vary (meaning&nbsp;<a href="http://www.sharetechnote.com/html/Handbook_Communication_Coherence.html">coherent </a>)&nbsp;within a subframe. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Erricson_Subframe_01.png" width="617" height="541" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300"><a name="Subframe_Structure_Control_Data">Subframe Structure - Control and Data</a></font></b></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt; line-height:100%;">In this section, I will keep accumulating the examples of subframe structure from various papers and whitepapers. Each one would have its own design concept. We don't know which type of subframe will be defined by 3GPP yet. But reviewing various types of proposal will give you a lot of insight with various aspects and help you understand 3GPP specification when it is released.
+</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00"><a name="Subframe_Structure_Control_Data_Ex1">Example 1 &gt;</a></font></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">One interesting idea proposed by many players is the subframe structure in which both DL data and UL control (mainly for ACK/NACK for DL data) sits within the same subframe, so that DL transmission and corresponding ACK/NACK completes within the single TTI. It would be very challenging in Physical layer DSP or FPGA, but it think it would simplify the MAC layer HARQ process. You might have
+experience how much complicated (confusing) it become about HARQ process in LTE in TDD mode. I think this kind of subframe structure would clear up a lot of confusion.</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Erricson_Subframe_03.png" width="638" height="120" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Depending on configuration, they can concatenate multiple DL subframe and add only one UL control in the last subframe. This would result in a little bit longer latency, but it would remove a lot of overhead and increase throughput in the situation where the latency is not so critical. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Erricson_Subframe_04.png" width="668" height="104" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00"><a name="Subframe_Structure_Control_Data_Ex2">Example 2&nbsp;&gt;</a></font></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Another example of the proposed frame structure (Ref <a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_5">[5]</a>) is as follows. In this frame (subframe), you see both Tx Control and Rx Control so that they can transmit and receive the scheduling request and Grant with Synchronization signal in every frame. The frame length can be as short as 0.25 ms with subcarrier spacing of 60 Khz. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Nokia_Subframe_01.png" width="712" height="236" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">The details of each parameters (e.g, CP length, OFDM Symbol length, Subcarrier Spacing and Guard Periods) should be determined after further research. In most case, these parameters are in trade-off relationships so a lot of optimization research should be performed. (The section IV. LIMITS DUE TO THE OFDM FRAME LENGTH of Ref <a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_5">[5]</a> would
+give you pretty good insight on how these parameters are inter-related). Followings are some of the plots from the reference showing the relationships among several parameters (CP Length, Subcarrier Spacing (SCS), Spectrum Efficiency(SE))</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Let's first pick one trace and see what it means. I just picket the lowest trace (no special reason). I put a couple of number label (1), (2), (3). If you see the segment from (1)-(2), you see the spectrum efficiency gets better as CP length gets larger. But if you see the segment from (2)-(3), the spectrum efficiency gets worse as CP length gets larger. In the segment of (1)-(2), the effect
+of increasing robustness by the increasing CP length play dominant rolles and this is why the spectrum efficiency is increasing in the region. However, after it hits a peak (point (2)), the overhead caused by the increasing CP length is more dominant than the increased robustness. This is why the spectrum eifficiency is decreasing in the region. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Now let's compare among the four traces labelled as (A), (B), (C), (D). You see overal trend is similar meaning that Spectrum Efficiency is increasing to a certain point but start declining from the peak point. The differences among these traces are with SCS (Subcarrier Spacing). Trace (A) represents the case with the shortest SCS (75 Khz) and Trace (D) represents the case with the longest
+SCS (600 Khz). Trace (A) shows the higher spectrum efficiency than Trace (D). With the trends from (D) to (A), you may say the spectrum efficiency gets better as SCS gets shorter. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Then you may ask why they haven't tried even shorter SCS in this paper. It is not mentioned about the effect of even shorter SCS in this paper. I think it would still improve the spectrum efficiency if we get SCS a little bit shorter than that, but if we make it too short if the robustness of the communication gets worse due to weakness to phase noise. So too small SCS cannot be used in very
+high frequency. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Nokia_Subframe_Plot_01.png" width="716" height="386" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Following plot is the same experiement but in different environment from the previous one. &nbsp;The way you interpret the plot is exactly same as previous plot. Here, compare this plot to the previous plot. From this comparison, you would notice that Urban micro environment shows poorer spectrum efficiency than Indoor hotspot cases with the same CP and same SCS. We need to increase the CP
+length greatly to achieve the same spectrum efficiency as Indoor Hotspot case. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Nokia_Subframe_Plot_02.png" width="716" height="386" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00"><a name="Subframe_Structure_Control_Data_Ex3">Example 3&nbsp;&gt;</a></font></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Following is another example of subframe structure proposed in Ref <a href="http://www.sharetechnote.com/html/5G/5G_FrameStructure_Candidate.html#Ref_6">[6]</a> (I strongly recommend you to read this reference. You would get a lot of insight on various factors you need to consider when you design subframe structure). </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center"><img src="./5G - Frame Structure - 5G _ ShareTechnote_files/5G_FrameStructure_Candiate_Nokia_Subframe_02.png" width="468" height="341" border="0"></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="left">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="left"><font face="Verdana"><span style="font-size:10pt;">Following Table (5G Column) shows the detailed parameters about the subframe structure proposed in this paper. The above illustration is mappend to the '5G' columm. Other columns are presented here just for comparison. Some of the parameters are represented in the illustration but some of them are not in the illustration. So combine the illustration and the table in your brain
+to picture the complete details)</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="left">&nbsp;</p>
+            <table border="1" width="724" cellspacing="0" bordercolor="#CCCCCC" bordercolordark="white" bordercolorlight="#CCCCCC" align="center" height="319">
+                <tbody><tr>
+                    <td width="258" bgcolor="#CCFF33">
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Parameters</span></font></p>
+                    </td>
+                    <td width="92" bgcolor="#CCFF33">
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">5G</span></font></p>
+                    </td>
+                    <td width="92" bgcolor="#CCFF33">
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">LTE</span></font></p>
+                    </td>
+                    <td width="89" bgcolor="#CCFF33">
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">LTE-A</span></font></p>
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(5 CCs)</span></font></p>
+                    </td>
+                    <td width="171" colspan="2" bgcolor="#CCFF33">
+                        <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">802.11ac</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258" height="22">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Carrier Bandwidth [Mhz]</span></font></p>
+                    </td>
+                    <td width="92" height="22">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">200</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92" height="22">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">20</span></font></p>
+                    </td>
+                    <td width="89" height="22">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">100</span></font></p>
+                    </td>
+                    <td width="84" height="22">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">20</span></font></p>
+                    </td>
+                    <td width="83" height="22">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">160</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Subcarrier spacing [kHz]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">60</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">15</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">15</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">312.5</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">312.5</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Symbol Length [us]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">16.67</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">66.67</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">66.67</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">4</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">4</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">FFT size</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">4096</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">2048</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">5 x 2048</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">64</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">512</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Effective subcarriers</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">3300</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">1200</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">6000</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">56</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">484</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">TTI duration [ms]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">0.25</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">1</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">1</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">variable</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">variable</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Number of GPs</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">3</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">2</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">2</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Number of symbols per frame</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">14</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">14</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">14</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">n.a</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">n.a</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">CP duration [us]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">1</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">4.7 (short)</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">4.7 (short)</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">0.4 (short)</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">0.4 (short)</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">GAP duration [us]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">0.89</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">66.67 (min)</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">66.67 (min)</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">Overhead (CP+GAP) [%]</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">6.67</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">7.25</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">7.25</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">11</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">11</span></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="258">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">HARQ Process</span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><span style="font-size:10pt;"><font face="Verdana" color="blue">4</font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+                    </td>
+                    <td width="92">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">up to 15</span></font></p>
+                    </td>
+                    <td width="89">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">up to 75</span></font></p>
+                    </td>
+                    <td width="84">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                    <td width="83">
+                        <p align="center"><font face="Verdana"><span style="font-size:10pt;">none</span></font></p>
+                    </td>
+                </tr>
+            </tbody></table>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;" align="center">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Let's summarize the characteristics of this frame structure based on the description on the paper (I will try to express it in my own words).</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00">Separation of Control channel and Data channel in Time Domain</font></span><font face="Verdana"><span style="font-size:10pt;"> : As you see in the frame structure, Control channel and Data channel part is clearly separated. With this design, they can design the pipeline processing which is more cost effective. It means we can design separate independent processing module,
+one processing module is handling control channel only and the other processing module is handling data channel only. In this way, UE can process its dedicated control channel while (almost at the same time) it is tranmitting/recieving in the data parts. As a result, the latency can be decreased. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">This design can be helpful in power saving as well because UE can completely turn off the transmitter or reciever if the control channel part does not have any scheduling information for transmission or reception. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana"><font face="Verdana">&nbsp;</font></font></span><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00">Existance of DL and UL control channel in every frame</font></span><font face="Verdana"><span style="font-size:10pt;"> : In this frame, both DL and UL control channel always exists in every frame (subframe). It means Network can send DL control information in any subframe and UE can send UL control information in any subframe. In this way, even in TDD type of communication
+you don't need such a complicated resource allocation and HARQ report scheme as you see in current TDD LTE (If you are not familiar with how complicated/confusing the current TDD LTE scheduling/reporting method is, see these links : <a href="http://www.sharetechnote.com/html/LTE_TDD_Overview.html#HARQ_Timing">TDD HARQ</a>, <a href="http://www.sharetechnote.com/html/LTE_TDD_Overview.html#Ack_Nack_Feedback_Mode">TDD Reporting Mode</a>)</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00">UL only or DL only Data channe </font></span><font face="Verdana"><span style="font-size:10pt;">&nbsp;: The data channel part will be dedicated for DL only or UL only within the frame. Whether it will be DL only or UL only will be determined by the control channel. This would also help with power saving. If it is for DL only, the UE&nbsp;can completely turn off the transmitter
+during the data channel period. If it is for UL only, the UE can completely turn off the reciever during the data channel period. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00">DMRS (DeModulation Reference Signal)</font></span><font face="Verdana"><span style="font-size:10pt;">&nbsp;: The first symbol in data channel is dedicated for DMRS. <a href="http://www.sharetechnote.com/html/Handbook_LTE_Zadoff_Chu_Sequence.html">Zadoff-chu sequence</a> is used here because of its favorable cross-correlation properties. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="#00CC00">Large Subcarrier Spacing</font></span><font face="Verdana"><span style="font-size:10pt;"> : As you see in the table, the sub carrier spacing is 4 times larger than LTE/LTE-A subcarrier spacing. Due to this, the symbol length in this frame can be 4 times shorter than LTE/LTE-A symbol length. With this large subcarrier spacing, this waveform can be much more robust than LTE/LTE-A
+in terms of phase noise. As a result, we can implement this waveform at significantly higher frequency with relatively cheap device. </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;<font face="Verdana"><span style="font-size:10pt;"> </span></font><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font><font face="Verdana"><span style="font-size:10pt;"></span></font><font face="Verdana"><span style="font-size:10pt;"> </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><b><font face="Verdana" color="#993300">Reference</font></b></span></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_1">[1]</a> 5G - key component of the Networked Society</span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">RWS-150009 3GPP </span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">RAN Workshop on 5G </span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Phoenix, AZ, USA, September 17 – 18, 2015</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_2">[2] </a>METIS Deliverable D.2.4 Proposed Solution for New Radio Access</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_3">[3]</a> Achieving low latency and energy consumption by 5G TDD mode optimization</span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Eeva Lähetkangas (1), Kari Pajukoski (1), Jaakko Vihriälä (1), </span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Gilberto Berardinelli (2), Mads Lauridsen (2), Esa Tiirola (1), Preben Mogensen (2,3)</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(1) Nokia Solutions and Networks, Oulu, Finland</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(2) Department of Electronic Systems, Aalborg University, Denmark</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(3) Nokia Solutions and Networks, Aalborg, Denmark</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_4">[4]</a> 5G small cell optimized radio design</span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Preben Mogensen (1, 2), Kari Pajukoski (3), Esa Tiirola (3), Eeva Lähetkangas (3), Jaakko Vihriälä (3),</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Seppo Vesterinen (3), </span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Matti Laitila (3), Gilberto Berardinelli (2), Gustavo W. O. Da Costa (2), Luis G. U. Garcia (2),</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Fernando M. L. Tavares (2), Andrea F. Cattoni (2)</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(1) Nokia Siemens Networks, Aalborg, Denmark</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(2) Department of Electronic Systems, Aalborg University, Denmark</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(3) Nokia Siemens Networks, Oulu, Finland</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_5">[5]</a> Achieving low latency and energy consumption by 5G TDD mode optimization</span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Eeva Lähetkangas (1), Kari Pajukoski (1), Jaakko Vihriälä (1), Gilberto Berardinelli (2), Mads Lauridsen (2), Esa Tiirola (1), Preben Mogensen (2,3)</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(1) Nokia Solutions and Networks, Oulu, Finland</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(2) Department of Electronic Systems, Aalborg University, Denmark</span></font></p>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">(3) Nokia Solutions and Networks, Aalborg, Denmark</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana">&nbsp;</font><font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_6">[6]</a> 5G small cell optimized radio design</span></font></p>
+            <ul>
+                <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">Mogensen, Preben Elgaard; Pajukoski, Kari; Tiirola, Esa ; Lähetkangas, Eeva; Vihriälä, Jaakko; Vesterinen, Seppo; Laitila, Matti; Berardinelli, Gilberto; Da Costa, Gustavo Wagner Oliveira; Garcia, Luis Guilherme Uzeda; Tavares, Fernando Menezes Leitão; Cattoni, Andrea Fabio</span></font></p>
+            </ul>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_7">[7]</a> 3GPP R1-162204. 3GPP TSG RAN WG1 Meeting #84bis - Numerology Requirement </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>)</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_8">[8]</a> 3GPP R1-162167. 3GPP TSG RAN WG1 Meeting #84bis - Overview of 5G Framestructure</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>)</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_9">[9]</a> 3GPP R1-162156. 3GPP TSG RAN WG1 Meeting #84bis - Scenario &amp; design criteria on flexible numerologies</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>)</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_10">[10] </a>&nbsp;3GPP R1-163224. 3GPP TSG RAN WG1 Meeting #84bis - Feasibility of Mixing Numerology in an OFDM System</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>)</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_11">[11]</a> 3GPP R1-162206. 3GPP TSG RAN WG1 Meeting #84bis - FrameStructure Requirements(</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>)</p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;"><a name="Ref_12">[12]</a> 3GPP R1-162386. 3GPP TSG RAN WG1 Meeting #84bis - Numerology for new radio interface </span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><span style="font-size:10pt;"><font face="Verdana" color="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;== Highly&nbsp;recommended</font></span><font face="Verdana"><span style="font-size:10pt;"> (</span></font><a href="http://portal.3gpp.org/ngppapp/TdocList.aspx?meetingId=31661" target="_blank" style="font-family: Verdana; font-size: 13.3333px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">click here for TDocs</a>) </p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;"><font face="Verdana"><span style="font-size:10pt;">&nbsp;</span></font></p>
+            <p style="line-height:100%; margin-top:0; margin-bottom:0;">&nbsp;<font face="Verdana"><span style="font-size:10pt;"></span></font></p>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td width="897">&nbsp;</td>
+    </tr>
+</tbody></table>
+
+
+</body></html>
