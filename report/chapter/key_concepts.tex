@@ -42,9 +42,10 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
 
 \begin{equation}
-Noisefloor = log_{2}(Number \ of \ avrages)\cdot 3dB +10log(B\cdot T_{0}\cdot k)
+Noisefloor_{dBm} = log_{2}(Number \ of \ avrages)\cdot 3dB +10log(BW\cdot T_{0}\cdot k\cdot 1000) + NF
 \label{NFwithAVG}
 \end{equation}
+Where $BW$ is bandwidth $T_0$ is temperature of the system, $k$ is the boltzmann's constant and $NF$ if the noise figure.
  
 
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
