@@ -1,6 +1,61 @@
+\section{Not report ready (Thomas)}
+\begin{equation}
+\lambda = \frac{c}{f}
+\end{equation}
+
+\begin{equation}
+f_D=\frac{v}{\lambda}
+\end{equation}
+
+\begin{equation}
+BW = 2\cdot f_D
+\end{equation}
+
+\begin{equation}
+w = k \cdot T \cdot BW
+\end{equation}
 
 
+\begin{equation}
+w \propto BW \propto f \propto \frac{1}{v}
+\end{equation}
 
+
+Rayleigh fading
+\begin{equation}
+CDF: p(xs < x | \theta) = 1-exp\left(-\frac{x^2}{2\cdot \theta^2}\right)
+\end{equation}
+\begin{equation}
+CDF: p(SNRs < SNR | E\left(SNR\right)) = 1-exp\left(-\frac{SNRs}{E\left(SNR\right)}\right)
+\end{equation}
+
+\begin{equation}
+\mu(x) = \theta\cdot\sqrt{\frac{\pi}{2}}
+\end{equation}
+
+\begin{equation}
+var(x) = \frac{4-\pi}{2}\cdot \theta^2
+\end{equation}
+
+Interval:
+\begin{equation}
+\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
+\end{equation}
+Threshold, A
+
+\begin{equation}
+N \leq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
+\end{equation}
+
+Strict limitations
+\begin{equation}
+SNRs > 1
+\end{equation}
+
+Other limitations
+\begin{equation}
+E\left(SNR\right) \;>\, \frac{1}{raylinv(p,\theta)} 
+\end{equation}
 
 
 \chapter{The wireless channel}
