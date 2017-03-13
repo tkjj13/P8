@@ -8,7 +8,7 @@ margin = 0.1;
 
 n = round(logspace(1,10,1000));
 
-BER = logspace(-1,-7,100);
+BER = logspace(-1,-4,100);
 
 BERLim = BER*10^(margin/10);
 

@@ -85,11 +85,47 @@ In a wireless communication system the signal can reach the receiver from many d
 	\end{enumerate}
 Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles.
 
+To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
+If we look at Rayleigh fading channels for a narrow band system the channel gain can be written as:
+
+\begin{equation}
+H(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi (t))  \right ]
+\end{equation}
+Where $a_n$ , $\psi$ is the channels amplitude and the arguments for time delay and Doppler shift introduced by phase and time delay and is between $[0,2\pi]$
+If we assume that the random variables is not dependent on time, the process $H(t)$ will be wide sense stationary. This means that the Real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | H(t) \right |^2 $
+A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $
+These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples
+
+
+
+
 
 \section{Correlation/coherence function}
+
+\todo{More equation and examples relating to the channels autocorrelation and Power density function}
 % (Relation of number of samples to physical dimensions)
+The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. We have assumed Rayleigh fading for the channel but as stated earlier we don't have any tangible measurements as low as $10^{-6}$. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. 
+There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval. 
+
+Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
+
+Wireless channels autocorrelation is used to characterize how a random channel will change in time. Autocorrelations can be found for the temporal(time), frequency and spatial(space) domains inherent to wireless random channels. The Power Spectral density is a measure of the average spectral power in a random channel. Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows
+
+\begin{equation}
+\mathcal{F} ( h(t,f,l) ) =
+\mathcal{F}^{-1} ( H(f_d,\tau,\vec{L}) )
+\end{equation}
+$t$ is absolute time,$f$ is frequency and $L$ is length.
+Where $f_d$ is the Doppler, $\tau$ is the time shift and $\vec{L}$ is the wave-number.
+
 
 \section{Doppler}
-% (relation to bandwidth and time estimate)
+In the frequency domain we must have a bandwidth larger than our Doppler spread. Doppler spread is given by:
+\begin{equation}
+Doppler Spread = 2/\lambda \cdot v
+\end{equation}
+Where $\lambda$ is wavelength and $v$ is velocity.
+
+If we assume the system is moving slowly at $5m/s$ and we use a open $2.4Ghz$ frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80Hz. We know that the dynamic range of a VNA is dependant on the measurement bandwidth, and that we should use as low BW as possible. This means that we will set our BW to 80Hz. A 80Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading. So we can remove the delay spectra ; frequency domain to simplify our joint PSD. So we can only look at space and time joint PSD.
 
 \section{Introduction of noisy signal}
