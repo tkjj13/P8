@@ -93,12 +93,12 @@ H(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi (t))\right ] + i\left [\sum_
 \end{equation}
 Where $a_n$ , $\psi$ is the channels amplitude and the arguments for time delay and Doppler shift introduced by phase and time delay and is between $[0,2\pi]$
 If we assume that the random variables is not dependent on time, the process $H(t)$ will be wide sense stationary. This means that the Real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | H(t) \right |^2 $ is a Rayleigh random variable.
-A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives some practical problems. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.
+A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives some practical problems. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 
-When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal.
-A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta X = \frac{\lambda}{2}$ to let the measurement points have independent fading. If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points.
+When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^-6$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
+A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta X = \frac{\lambda}{2}$ to let the measurement points have independent fading. If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
 
 
 
