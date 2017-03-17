@@ -163,6 +163,20 @@ These two variables has to fit to the Rayleigh fading. The mean value is given b
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta X = \frac{\lambda}{2}$ to let the measurement points have independent fading. If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
 
+Now that we have measurements in the spatial domain we can increase our sample size by using uncorrelated samples in the frequency domain. For samples to be uncorrelated the frequency separation $\Delta f$ need to be as big as the coherence BW $B_{c}$. $B_{c}$ is statical measure dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment of witch a measurement is done. A exact value has to be determined from  a actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
+\begin{equation}
+\sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
+\end{equation}
+Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
+the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
+\begin{equation}
+B_C \approx \frac{1}{50 \cdot \sigma_{\tau}}
+\end{equation}
+This will gives us a $B_c$ approximation that has a coherence above 0.9. 
+
+If we look at a example from lecture at AAU we got a $B_c$ of 1Mhz in a multipath lab environment. With a delay profile of around 20ns. So in a small enviorment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
+\citep[Chapter 18.5]{RayFadeHandbook}
+
 
 
 
