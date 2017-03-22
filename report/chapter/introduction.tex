@@ -31,8 +31,19 @@ Some of the applications needing a URLLC channel could be self driving cars, in 
 Other system that can gain advantages with URLLC, is systems where the communication window is very small and therefore do not have time for re-transmissions or a lot of data processing e.g. in error coding.
 
 
-A problem about this is that to get this URLLC scenario, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so there gets a higher \gls{SNR} on the communication link. But even if the overall signal is higher, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level of around $10^{-3}$ - $10^{-4}$, any research for lower probability levels has assumed that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}.
+A problem about this is that to get this URLLC scenario, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so there gets a higher \gls{SNR} on the communication link. But even if the overall signal is higher, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level of around $10^{-3}$ - $10^{-4}$, any research for lower probability levels has assumed that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}. Therefore this report wants to investigate this untested assumptions of multipath fading.
 
+Problem statement:
+Ascertain with 90\% confidence that in a multipath environment, the cumulative distribution function of the fading gain can be assumed to increase in a log log linear fashion between -60dB and -20dB.
+
+To to this it is important to investigate the following points.
+
+\begin{enumerate}
+	\item Limit the 
+	\item Find out how many samples needed for a set confidence interval of 90\%.
+	\item Look into if there is a way to reduce the amount of samples needed by using statistical techniques.
+	\item Figure out a measurement setup to achieve these sample numbers.
+\end{enumerate}
 
 \begin{figure}[H]
 \centering
@@ -56,7 +67,13 @@ As stated the focus will be to measure and compare channel characteristics at UR
 \label{ChannelAndEquip}
 \end{figure}
 
-The next chapter will assess the issues in both of the aspects and break down the relationships between the different parameters.  
+
+
+\begin{enumerate}
+	\item 
+	\item 
+\end{enumerate}
+ 
 
 
 
