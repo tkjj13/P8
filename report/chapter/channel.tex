@@ -161,7 +161,17 @@ If we assume that the random variables is not dependent on time, the process $H(
 A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives some practical problems. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
-A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta X = \frac{\lambda}{2}$ to let the measurement points have independent fading. If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
+A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
+\begin{equation}
+R_x[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
+\end{equation}
+Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance.
+We want the correlation to be 0 so the fade is uncorrelated.
+\begin{equation}
+\frac{2\pi \Delta d}{\lambda} = 2.512 \Leftrightarrow \Delta d = 0.4 \lambda \approx \frac{\lambda}{2}
+\end{equation}
+
+ If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
 
 Now that we have measurements in the spatial domain we can increase our sample size by using uncorrelated samples in the frequency domain. For samples to be uncorrelated the frequency separation $\Delta f$ need to be as big as the coherence BW $B_{c}$. $B_{c}$ is statical measure dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment of witch a measurement is done. A exact value has to be determined from  a actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
@@ -170,7 +180,7 @@ Now that we have measurements in the spatial domain we can increase our sample s
 Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
 the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
 \begin{equation}
-B_C \approx \frac{1}{50 \cdot \sigma_{\tau}}
+B_C \approx \frac{1}{\sigma_{\tau}}
 \end{equation}
 This will gives us a $B_c$ approximation that has a coherence above 0.9. 
 \citep{RayFadeHandbook}
