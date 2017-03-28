@@ -199,14 +199,18 @@ We want the correlation to be 0 so the fade is uncorrelated.
 \end{equation}
 
 If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
-Her is the Time frequency relationship joint PSD and Autocorrelation:
+
+The other part of the frurier transfer pairs is the time frequency relationship joint PSD and Autocorrelation:
 \begin{equation}
 \mathcal{F} ( h(t,f) ) =
  S(f_d,\tau) )
 \end{equation}
 Where $t$ is time and $f$ is frequency. The autocorrelate function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
-Now that we have measurements in the spatial domain we can increase our sample size by using uncorrelated samples in the frequency domain. For samples to be uncorrelated the frequency separation $\Delta f$ need to be as big as the coherence BW $B_{c}$. $B_{c}$ is statical measure dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment of witch a measurement is done. A exact value has to be determined from  a actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
+Now that we have measurements in the spatial domain we can increase our sample size by using uncorrelated samples in the frequency domain. 
+\todo {move this part to after}
+
+For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment of witch a measurement is done. A exact value has to be determined from  a actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
 \sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
 \end{equation}
@@ -217,9 +221,17 @@ B_C \approx \frac{1}{\sigma_{\tau}}
 \end{equation}
 This will gives us a $B_c$ approximation that has a coherence above 0.5. 
 \citep{RayFadeHandbook}
-If we look at a example from lecture at AAU we got a $B_c$ of 1Mhz in a multipath lab environment. With a delay profile of around 20ns. So in a small enviorment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
+If we look at a example from lecture at AAU we got a $B_c$ of XX Mhz in a multipath lab environment. With a delay profile of around 20ns. So in a small enviorment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
 
+
+NEW SECTION SUMMATION SAMPLES:
+A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^-6$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
+
+
+There are several way to get more samples, we have been trough the frequency and space separation to get uncorrelated samples. But a important part is also to a antenna array that will multiply our number of samples taken at each time interval. So a $5\cdot 5$ antenna would gives us $5^2 = 25$ uncorrelated channels. If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees.
+
+NEW SECTION SUMMATION SAMPLES.
 \section{Doppler}
 In the frequency domain we must have a bandwidth larger than our Doppler spread. Doppler spread is given by:
 \begin{equation}
