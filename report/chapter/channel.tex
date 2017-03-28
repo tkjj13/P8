@@ -161,7 +161,34 @@ If we assume that the random variables is not dependent on time, the process $H(
 A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives some practical problems. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
-A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
+A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.
+
+
+
+\section{Correlation/coherence function}
+\todo {update number of samples needed after statistics. I have assumed $10^7$}
+The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^-6$ probability. Now how do we get $10^7$ uncorrelated samples?
+There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
+
+Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
+
+Wireless channels autocorrelation is used to characterize how a random channel will change in time. So it is only dependant on one parameter. Autocorrelations can be found for the temporal(time), frequency and spatial(space) domains inherent to wireless random channels. The Power Spectral density is a measure of the average spectral power in a random channel. Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows
+
+\begin{equation}
+\mathcal{F} ( h(t,f,L) ) =
+\mathcal{F}^{-1} ( H(f_d,\tau,\vec{L}) )
+\end{equation}
+$t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
+Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
+
+We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time space relationship Fourier transform pair.
+\begin{equation}
+\mathcal{F} ( h(t,\Delta d) ) =
+ S(f_d,\tau) )
+\end{equation}
+where $f_d$ is Doppler and $\Delta d$ is separation in space.
+
+The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
 \begin{equation}
 R_x[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
@@ -171,7 +198,13 @@ We want the correlation to be 0 so the fade is uncorrelated.
 \frac{2\pi \Delta d}{\lambda} = 2.512 \Leftrightarrow \Delta d = 0.4 \lambda \approx \frac{\lambda}{2}
 \end{equation}
 
- If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
+If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement}
+Her is the Time frequency relationship joint PSD and Autocorrelation:
+\begin{equation}
+\mathcal{F} ( h(t,f) ) =
+ S(f_d,\tau) )
+\end{equation}
+Where $t$ is time and $f$ is frequency. The autocorrelate function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 Now that we have measurements in the spatial domain we can increase our sample size by using uncorrelated samples in the frequency domain. For samples to be uncorrelated the frequency separation $\Delta f$ need to be as big as the coherence BW $B_{c}$. $B_{c}$ is statical measure dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment of witch a measurement is done. A exact value has to be determined from  a actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
@@ -182,33 +215,10 @@ the second central moment of $H(\tau)$. With the RMS delay spread we can find $B
 \begin{equation}
 B_C \approx \frac{1}{\sigma_{\tau}}
 \end{equation}
-This will gives us a $B_c$ approximation that has a coherence above 0.9. 
+This will gives us a $B_c$ approximation that has a coherence above 0.5. 
 \citep{RayFadeHandbook}
 If we look at a example from lecture at AAU we got a $B_c$ of 1Mhz in a multipath lab environment. With a delay profile of around 20ns. So in a small enviorment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
-
-
-
-
-
-\section{Correlation/coherence function}
-
-\todo{More equation and examples relating to the channels autocorrelation and Power density function}
-% (Relation of number of samples to physical dimensions)
-The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. We have assumed Rayleigh fading for the channel but as stated earlier we don't have any tangible measurements as low as $10^{-6}$. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. 
-There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval. 
-
-Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
-
-Wireless channels autocorrelation is used to characterize how a random channel will change in time. Autocorrelations can be found for the temporal(time), frequency and spatial(space) domains inherent to wireless random channels. The Power Spectral density is a measure of the average spectral power in a random channel. Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows
-
-\begin{equation}
-\mathcal{F} ( h(t,f,L) ) =
-\mathcal{F}^{-1} ( H(f_d,\tau,\vec{L}) )
-\end{equation}
-$t$ is absolute time,$f$ is frequency and $L$ is length.
-Where $f_d$ is the Doppler, $\tau$ is the time shift and $\vec{L}$ is the wave-number.
-
 
 \section{Doppler}
 In the frequency domain we must have a bandwidth larger than our Doppler spread. Doppler spread is given by:
