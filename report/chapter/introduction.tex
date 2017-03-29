@@ -31,10 +31,10 @@ Some of the applications needing a URLLC channel could be self driving cars, in 
 Other system that can gain advantages with URLLC, is systems where the communication window is very small and therefore do not have time for re-transmissions or a lot of data processing e.g. in error coding.
 
 
-A problem about this is that to get this URLLC scenario, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so there gets a higher \gls{SNR} on the communication link. But even if the overall signal is higher, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level of around $10^{-3}$ - $10^{-4}$, any research for lower probability levels has assumed that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}. This might have been all right so far, but to achieve URLLC conditions, this the channel conditions need to be verified to those levels. That will be the focus of this project. Therefore this report wants to investigate this untested assumptions of multipath fading. The problem when testing such channels is that current measuring systems are not designed for the needed dynamic range or the large amount of samples needed to measure these very deep fades. 
+The problem is that in URLLC scenario, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so the \gls{SNR} gets stronger on the communication link. But even if the overall signal is stronger, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level down to $10^{-3}$ - $10^{-4}$. Existing research are assuming that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}. This might have been all right so far, but to achieve URC conditions the channel needs to be tested for very low fades down to $-60dB$. Therefore this report wants to investigate untested assumptions made in multipath fading channels. The problem when testing such channels is that current measuring systems are not designed for the needed dynamic range or the large amount of samples needed to measure these very deep fades. 
 
 \textbf{General problem statement:}
-Design a measurement system that can handle very deep fades and a statistical method to process the data and compare to existing models used in URC.
+Design a measurement system that can handle very deep fades and a statistical method to process the data and compare to existing models used in URC channels.
 
 This can be further specified to a more technical problem statement:
 
@@ -51,7 +51,8 @@ To this it is important to investigate the following points:
 	\item Figure out how to obtain uncorrelated samples in space,time and frequency.
 	\item Balance the sample acquisition for available resources. 
 	\item Design  a measurement setup that can acquire the samples needed.
-	\item Measure the practical URC channel envelope statistics.
+	\item Specify a method to process the obtained channel measurements.
+	\item 
 	\item Analyse the measurement and link the results to the current assumptions.
 \end{itemize}
 
