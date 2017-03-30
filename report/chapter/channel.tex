@@ -192,7 +192,7 @@ The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let 
 \begin{equation}
 R_x[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
-Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance.
+Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
 We want the correlation to be 0 so the fade is uncorrelated.
 \begin{equation}
 \frac{2\pi \Delta d}{\lambda} = 2.512 \Leftrightarrow \Delta d = 0.4 \lambda \approx \frac{\lambda}{2}
@@ -208,17 +208,17 @@ The other part of the Fourier transfer pairs is the time frequency relationship 
 Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 The sample size can be further increase by using uncorrelated samples in the frequency domain. 
-For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations. The RMS delay spread $\sigma_{\tau}$ is given by:
+For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
 \sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
 \end{equation}
 Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
 the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
 \begin{equation}
-B_C \approx \frac{1}{\sigma_{\tau}}
+B_C \geq \frac{1}{2\pi \cdot \sigma_{\tau}}
 \end{equation}
-This will gives us a $B_c$ approximation that has a coherence above 0.5. 
-\citep{RayFadeHandbook}
+This will gives us a $B_c$ approximation that has a coherence under 0.5. 
+\citep{CohBW}
 If we look at a example from lecture at AAU we got a $B_c$ of XX Mhz in a multipath lab environment. With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
 
