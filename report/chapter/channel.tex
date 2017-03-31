@@ -157,8 +157,8 @@ If we look at Rayleigh fading channels for a narrow band system the channel gain
 H(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi (t))  \right ]
 \end{equation}
 
-If we assume that the random variables is not dependent on time, the process $H(t)$ will be wide sense stationary. This means that the Real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | H(t) \right |^2 $ is a Rayleigh random variable.
-A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives some practical problems. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
+If we assume that the random variables is not dependent on time, the impulse respond process $H(t)$ will be wide sense stationary. This means that the Real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | H(t) \right |^2 $ is a Rayleigh random variable.
+A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.
@@ -208,7 +208,7 @@ The other part of the Fourier transfer pairs is the time frequency relationship 
 Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 The sample size can be further increase by using uncorrelated samples in the frequency domain. 
-For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
+For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
 \sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
 \end{equation}
@@ -227,7 +227,9 @@ NEW SECTION SUMMATION SAMPLES:
 A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^-6$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
 
-There are several way to get more samples, we have been trough the frequency and space separation to get uncorrelated samples. But a important part is also to a antenna array that will multiply our number of samples taken at each time interval. So a $5\cdot 5$ antenna would gives us $5^2 = 25$ uncorrelated channels. If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees.
+There are several way to get more samples, we have been trough the frequency and space separation to get uncorrelated samples. But a important part is also to a antenna array that will multiply our number of samples taken at each time interval on the reviver and transmitter. So a $5\cdot 5$ antenna array would gives us $5^2 = 25$ uncorrelated channels. If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. If these to ideas are combined in a transmitter and multiple reviver scenario. If we take $5*5$ antenna arrays and place them in 5 different rooms a $5*5*5=125$ uncorrelated samples would be obtained.
+
+WWWWW MAKE A TABLE ABOUT DELAY SPREAD AND ENVIRONMENT Comparison Coherence BW wwww
 
 All these ways to get uncorrelated samples has to be balanced to physical restraint such as the area and time required to get the needed $10^7$ uncorrelated samples.
 NEW SECTION SUMMATION SAMPLES.
