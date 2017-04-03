@@ -139,12 +139,13 @@ Receiver sensitivity is defined as the weakest signal that can be observed and s
 \subsection{How to measure dynamic range}
 
 In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic}
+To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example below the intercept point of the third order products and the sensitivity level is at -100dB while the vertical line meets the fundamental signal at -32dB meaning that the dynamic range is 68dB.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.90\textwidth]{figures/Dynamic_range_calc.png}
-\caption{Determining the Dynamic Range from the spurs and sensitivity line.(WORK IN PROGRESS!!)}
+\caption{Determining the Dynamic Range from the spurs and sensitivity line.\citep{DRcalc}}
 \label{Dynamic_range_calc}
 \end{figure}
  
