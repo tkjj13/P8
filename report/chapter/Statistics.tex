@@ -1,0 +1,18 @@
+\chapter{Statistics}
+
+\subsection{Statistics method for rare events}
+As seen in previous chapters, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is there is a need of a high number of rare events to occur to get a high confidence interval for this events. 
+
+For simulations there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introduction this new distribution, there also needs to be introduced a weighting factor. This weighting factor is defined from the change in the different distribution. This weighting factor is used to go from the actually distribution to the new created distribution.
+
+Most of the other methods used in simulation to handle this problem with rare events, changes the distribution, as this is one of the known parameters for simulations. A problem when using these methods, is that in the real world the exactly distribution is not known, so weighting factor, that is the difference between the real and new created distribution can only be a estimate. But these methods can not be used in the real world to reduce the number of samples needed needed for this measurement campaign, as the distribution in the real world would have to be force fulled changed, so the rare events will happen more often. To do that, more deep fade spots have to be introduced into the room used for measurements, which can be done. But the measurements will not be the true picture of the distribution, unless the weighting factor is calculated precise enough and the new distribution is known.
+
+
+
+%Reduction of number of samples
+%- Important sampling
+%- Not useful
+
+\subsection{Statistics modeling from measurements}
+%Model/Regression (Maximum likely hood)
+%- Usage of bootstraping to estimate the a's in regression
