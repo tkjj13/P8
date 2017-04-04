@@ -233,7 +233,18 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 To measure $10^7$ uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m \cdot 2.5m$.
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 3 dimensions ($10m\cdot 10m \cdot 2.5m$) a total of:
-\todo {Re write equations so you find the VOLUME required and not use actually values, write it more general}
+\todo {Re write equations so you find the VOLUME required and not use
+ actually values, write it more general}
+\begin{equation}
+N = A_{div} \cdot \frac{BW}{B_c \cdot 2} \cdot \frac{V}{(\frac{\lambda}{2})^3}
+\label{howtosample}
+\end{equation} 
+
+\begin{equation}
+V = \frac{N\cdot (\frac{\lambda}{2})^3}{A_{div}\cdot \frac{BW}{B_c \cdot 2}}
+\label{howtovolume}
+\end{equation}
+ 
 \begin{equation}
 30 \cdot \frac{10m}{\frac{\lambda}{2}} \cdot \frac{2.5m}{\frac{\lambda}{2}} = 2 \cdot 10^6
 \end{equation}
