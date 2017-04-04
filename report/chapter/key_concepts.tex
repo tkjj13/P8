@@ -2,15 +2,122 @@
 
 \section{Basic receiver structure}
 
+A basic general receiver structure can be seen on \autoref{fig:basic_receiver_structure}. It consists of the most common blocks in a receiver, because of the block form it is possible to separate and analyse each block individually. 
 
-\section{Antenna}
-% (beamwidth)
+\begin{figure}[H]
+\centering
+\includegraphics[width= \textwidth]{figures/Receiver.pdf}
+\caption{A basic receiver structure.}
+\label{fig:basic_receiver_structure}
+\end{figure}
 
-\section{Reciever blocks}
-% (Bandwidth, noise figure)
+Each block will analysed with focus on the properties that could influence measurements on the fading gain i.e. gain, noise, distortion etc.
 
-\section{ADC}
-% (effective number of bits)
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{Antenna}
+	\begin{itemize}
+	\item Emission pattern
+	\item Effective gain
+	\item Reflection
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{LNA}}
+	\begin{itemize}
+	\item Gain
+	\item Noise factor
+	\item Distortion
+	\item Saturation
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{BP}}
+	\begin{itemize}
+	\item Phase delay/group delay
+	\item Settle time
+	\item Noise factor
+	\item Bandwidth
+	\end{itemize}	
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{Mixer}
+	\begin{itemize}
+	\item Non-linearities
+	\item Noise factor	
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{LO}}
+	\begin{itemize}
+	\item Drift
+		\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{LP}}
+	\begin{itemize}
+	\item Phase delay/group delay
+	\item Settle time
+	\item Noise factor
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{ADC}}
+	\begin{itemize}
+	\item Quantisation noise
+	\item Effective number of bits
+	\item Conversion time
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{itemize}
+\item \textbf{\Gls{PU}}
+	\begin{itemize}
+	 \item No direct problems
+	\end{itemize}
+\end{itemize}
+\end{minipage}
+
+
+These problems can be categorized into what can be accounted for during the measurement, what can be accounted for by calibrating the equipment and what can not be easily dealt with.
+
+\begin{itemize}
+\item Avoidable problems
+	\begin{itemize}
+	\item Settle time
+	\item Saturation
+	\end{itemize}
+\item Calibration problems
+	\begin{itemize}
+	\item Reflection
+	\item Gains
+	\item Phase delay/ group delay
+	\item Drift
+	\item Non-linearities
+	\item Effective number of bits
+	\end{itemize}
+\item Statistical problems
+	\begin{itemize}
+	\item Noise
+	\item Quantization noise
+	\end{itemize}
+\end{itemize}
+
+Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
+
 
 
 \section{Dynamic range}
@@ -32,13 +139,12 @@ Receiver sensitivity is defined as the weakest signal that can be observed and s
 \subsection{How to measure dynamic range}
 
 In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic}
-To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example below the intercept point of the third order products and the sensitivity level is at -100dB while the vertical line meets the fundamental signal at -32dB meaning that the dynamic range is 68dB.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.90\textwidth]{figures/Dynamic_range_calc.png}
-\caption{Determining the Dynamic Range from the spurs and sensitivity line.\citep{DRcalc}}
+\caption{Determining the Dynamic Range from the spurs and sensitivity line.(WORK IN PROGRESS!!)}
 \label{Dynamic_range_calc}
 \end{figure}
  
