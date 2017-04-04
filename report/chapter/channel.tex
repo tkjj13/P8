@@ -167,7 +167,7 @@ A  channel can be separated in  small scale and large scale fading. To determine
 
 \section{Coherence function}
 \todo {update number of samples needed after statistics. I have assumed $10^7$}
-The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^-6$ probability. Now how do we get $10^7$ uncorrelated samples?
+The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
 There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
 
 Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
@@ -231,7 +231,7 @@ To measure $10^7$ uncorrelated samples requires a elaborate test setup. The limi
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 3 dimensions ($10m\cdot 10m \cdot 2.5m$) a total of:
 \begin{equation}
-30 \cdot \frac{10m*2.5m}{\frac{\lambda}{2}}= 15000
+30 \cdot \frac{10m}{\frac{\lambda}{2}} \cdot \frac{2.5m}{\frac{\lambda}{2}} = 2 \cdot 10^6
 \end{equation}
 The total amount of spatial, frequency and antenna array uncorrelated samples is:
 \begin{equation}
