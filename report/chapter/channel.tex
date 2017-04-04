@@ -78,8 +78,11 @@ Based on \autoref{interval} assuming a interval threshold, A
 N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
 \end{equation}
 
-
-
+Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 20\%$ .Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
+\begin{equation}\label{sampleEQ}
+N=(1.645)^{2} \cdot \frac{1}{(0.2)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 6.765 \cdot 10^{6}
+\end{equation}
+Because the above procedure is an approximation we would generate $ 13.53 \cdot 10^{6} $ number of samples.
 \subsection{Limitation for measurement purposes}
 
 Strict limitations
@@ -169,7 +172,7 @@ A  channel can be separated in  small scale and large scale fading. To determine
 
 \section{Coherence function}
 \todo {update number of samples needed after statistics. I have assumed $10^7$}
-The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^-6$ probability. Now how do we get $10^7$ uncorrelated samples?
+The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
 There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
 
 Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
@@ -232,16 +235,18 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 To measure $10^7$ uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m \cdot 2.5m$.
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 3 dimensions ($10m\cdot 10m \cdot 2.5m$) a total of:
+\todo {Re write equations so you find the VOLUME required and not use actually values, write it more general}
 \begin{equation}
-30 \cdot \frac{10m*2.5m}{\frac{\lambda}{2}}= 15000
+30 \cdot \frac{10m}{\frac{\lambda}{2}} \cdot \frac{2.5m}{\frac{\lambda}{2}} = 2 \cdot 10^6
 \end{equation}
 The total amount of spatial, frequency and antenna array uncorrelated samples is:
 \begin{equation}
-30 \cdot 25 \cdot 15000 = 1.125 \cdot 10^7 samples
+30 \cdot 25 \cdot 2\cdot 10^6 = 150 \cdot 10^7 samples
 \end{equation}
-Actually moving the reviver 15000 times takes way to long to actually do, but this example calculation is just to show that it is possible to obtain $10^7$ samples.If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. 
+whitch is way more then we need.
+Actually moving the reviver $2 \cdot 10^6$ times takes way to long to actually do, but this example calculation is just to show that it is possible to obtain $10^7$ samples.If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. 
 
-A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^-6$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
+A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-6}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
 \section{Doppler}
 In the frequency domain we must have a bandwidth larger than our Doppler spread. Doppler spread is given by:
