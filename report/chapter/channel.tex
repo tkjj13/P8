@@ -78,8 +78,11 @@ Based on \autoref{interval} assuming a interval threshold, A
 N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
 \end{equation}
 
-
-
+Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 20\%$ .Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
+\begin{equation}\label{sampleEQ}
+N=(1.645)^{2} \cdot \frac{1}{(0.2)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 6.765 \cdot 10^{6}
+\end{equation}
+Because the above procedure is an approximation we would generate $ 13.53 \cdot 10^{6} $ number of samples.
 \subsection{Limitation for measurement purposes}
 
 Strict limitations
