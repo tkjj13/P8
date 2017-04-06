@@ -140,6 +140,15 @@ Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
 \end{equation}
 where $BW$ is the bandwidth $Te$ is the thermal temperature and the $NF$ is the noise figure of the reviver.
 
+Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very similar to the Signal to Noise Ratio(SNR). SINAD is a good way to describe the whole dynamic system of ADC because takes into account all the components that make noise and distortion,in other words takes into account the non-linearities. The difference between them can be shown in high frequencies because the SINAD gets affected by the distortions and degrades faster than the SNR that excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas:
+\begin{equation}
+\text{SINAD} = 20log\left(\frac{S}{N+D}\right)
+\end{equation}
+
+\begin{equation}
+\text{SNR} = 20log\left(\frac{S}{N}\right)
+\end{equation}
+where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 
 \subsection{How to measure dynamic range}
 
