@@ -139,7 +139,7 @@ N \propto E\left(SNR\right)\propto \frac{1}{w}
 %In wireless communication the path travelled is what is interesting, this is especially true when more than one path is possible.
 %Communication happens when a message is transmitted from a to b
 \todo {this part can be expanded upon use book from course chapter 6 intro}
-In a wireless communication system the signal can reach the receiver from many different reflective paths. This is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival.\citep{Fading} A more specific term called multipath fading is used to describe these effects. Depending on those effects the receiver may experience constructive or distractive interference. Basically it means that the signal it might get amplified or attenuated depending on the interference. Strong distractive interference is usually called deep fade and can lead to failure of the communication system for a short period of time. Cause of the multipath fading the channel can be affected in certain ways.
+In a wireless communication system the signal can reach the receiver from many different reflective paths. This is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival.\citep{Fading} A more specific term called multipath fading is used to describe these effects. Depending on those effects the receiver may experience constructive or distractive interference. Basically it means that the signal it might get amplified or attenuated depending on the interference. Strong distractive interference is usually called deep fade and can lead to failure of the communication system for a short period of time. A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant. Cause of the multipath fading the channel can be affected in certain ways.
 	\begin{enumerate}
 	\item Flat Fading : All the frequencies experience changes in amplitude over a period of time. That has as a result some reduction on the SNR.
 	\item Selective Fading : Different frequencies across the channel experience different changes in phase and amplitude. Sometimes deep fades may observed in the channel, causing problem in the communication.\citep{FlatSelective}
@@ -157,7 +157,7 @@ In a wireless communication system the signal can reach the receiver from many d
 
 
 Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles.
-In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution.
+In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
 
 To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
 If we look at Rayleigh fading channels for a narrow band system the channel gain can be written as:
@@ -170,7 +170,7 @@ If we assume that the random variables is not dependent on time, the impulse res
 A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
-A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant.
+
 
 
 
@@ -189,15 +189,37 @@ Wireless channels autocorrelation is used to characterize how a random channel w
 D\mathcal{F} ( h(t,f,L) ) =
 D\mathcal{F}^{-1} ( H(f_d,\tau,\Delta d) )
 \end{equation}
-$D\mathcal{F}$ is the double Fourier transform$t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
+$D\mathcal{F}$ is the double Fourier transform where $t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
 Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
 
-We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time space relationship Fourier transform pair.
+In a \gls{WSSUS} channel we are only interested in the time delay $\tau$ We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
+%\begin{equation}
+%\huge{\ h(\Delta d,\tau)}  \\ \small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\ \huge {S(f_d,\tau) \quad\quad\quad T(\Delta d,f)} \\
+%\small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\
+%\huge {\ H(f_d,f)}
+%\end{equation}
+
+\begin{center}
+$h(\Delta d,\tau)$\\
+\scalebox{0.5}{
+${\mathcal{F}\uparrow\downarrow \mathcal{F}^{-1}}$}\\
+$S(f_d,\tau)$ $\quad \quad$ $T(\Delta d,f)$\\
+\scalebox{0.5}{
+${\mathcal{F}\uparrow\downarrow \mathcal{F}^{-1}}$}\\
+\vspace{-1.9em}
 \begin{equation}
-\mathcal{F} ( h(t,\Delta d) ) =
- S(f_d,\tau) )
+H(f_d,f)
 \end{equation}
-where $f_d$ is Doppler and $\Delta d$ is separation in space.
+\end{center}
+
+
+$\Delta d$ is separation in space, $\tau$ is time delay ,$f$ is frequency, $f_d$ is the Doppler.
+
+%\begin{equation}
+%\mathcal{F} ( h(t,\Delta d) ) =
+% S(f_d,\tau) )
+%\end{equation}
+%where $f_d$ is Doppler and $\Delta d$ is separation in space.
 
 The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
 \begin{equation}
@@ -211,12 +233,12 @@ We want the correlation to be 0 so the fade is uncorrelated.
 
 If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} Too get uncorrelated  parallel measurement a antenna array with $\frac{\lambda}{2}$ separated antennas can be used for multi probe measurements. A antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. So a $5\cdot 5$ antenna array would gives us $5^2 = 25$ uncorrelated channels each measurement.
 
-The other part of the Fourier transfer pairs is the time frequency relationship joint PSD and Autocorrelation:
-\begin{equation}
-\mathcal{F} ( h(t,f) ) =
- S(f_d,\tau) )
-\end{equation}
-Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
+%The other part of the Fourier transfer pairs is the time frequency relationship joint PSD and Autocorrelation:
+%\begin{equation}
+%\mathcal{F} ( h(t,f) ) =
+% S(f_d,\tau) )
+%\end{equation}
+%Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 
 
