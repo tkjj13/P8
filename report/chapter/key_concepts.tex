@@ -13,110 +13,194 @@ A basic general receiver structure can be seen on \autoref{fig:basic_receiver_st
 
 Each block will analysed with focus on the properties that could influence measurements on the fading gain i.e. gain, noise, distortion etc.
 
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{Antenna}
-	\begin{itemize}
-	\item Emission pattern
-	\item Effective gain
-	\item Reflection
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LNA}}
-	\begin{itemize}
-	\item Gain
-	\item Noise factor
-	\item Distortion
-	\item Saturation
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{BP}}
-	\begin{itemize}
-	\item Phase delay/group delay
-	\item Settle time
-	\item Noise factor
-	\item Bandwidth
-	\end{itemize}	
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{Mixer}
-	\begin{itemize}
-	\item Non-linearities
-	\item Noise factor	
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LO}}
-	\begin{itemize}
-	\item Drift
-		\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LP}}
-	\begin{itemize}
-	\item Phase delay/group delay
-	\item Settle time
-	\item Noise factor
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{ADC}}
-	\begin{itemize}
-	\item Quantisation noise
-	\item Effective number of bits
-	\item Conversion time
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{PU}}
-	\begin{itemize}
-	 \item No direct problems
-	\end{itemize}
-\end{itemize}
-\end{minipage}
+\todo{find sources for all of this}
+\textbf{Antenna}\\
+When the signal $s(\theta,\phi,t)$ reaches the antenna, the antenna pattern influences the signal. This can be expressed as:
+\begin{equation}
+s(t) = \int_0^{2\pi} \! \int_0^\pi G_{ant}(\theta,\phi)\cdot s(\theta,\phi,t) \,\text{d}\phi \,\text{d}\theta
+\end{equation} 
+\begin{where}
+\va{$s(t)$}{is the received signal at the antenna}{W}
+\va{$s(\theta,\phi,t)$}{is the signal strength in the $\theta,\phi)$ direction}{W}
+\va{$G_{ant}(\theta,\phi)$}{is the gain in the $(\theta,\phi)$ direction}{1}
+\va{$\theta$}{is the azimuth angle}{rad}
+\va{$\phi$}{is the elevation}{rad}
+\end{where}
+The signal is then fed to the rest of the system typically there will be an impedance mismatch which can be formulated as:
+
+\begin{align}
+%x_V(t) = (1+\Gamma)\cdot s_V(t) \\
+%x_I(t) = (1-\Gamma)\cdot s_I(t) \\
+x_P(t) = (1-\Gamma^2)\cdot s(t) \label{eq:ref_power}
+\end{align}
+\begin{where}
+\va{$x_P(t)$}{is the power transmitted through to the system}{W}
+\va{$\Gamma$}{is the reflection coefficient}{1}
+\end{where}
+\textbf{\Gls{LNA}}\\
+When the signal is passed through the LNA it can be described as:
+
+\begin{equation}
+x_{LNA}(t) = G_{LNA}\left(x_P(t)\right)*x_P(t)
+\end{equation}
+\begin{where}
+\va{$x_{LNA}(t)$}{is the outputed signal from the LNA}{W}
+\va{$G_{LNA}\left(x_P(t)\right)$}{is the gain of the LNA}{1}
+\end{where}
+
+If the signal conforms to certain limits $G_{LNA}\left(x_P(t)\right)$ becomes a constant and the convolution becomes a multiplication, however if the power level reaches the saturation level then this is not the case and the complicated convolution is necessary. 
+\todo{is distortion part of this?}
+
+\textbf{\Gls{BP}}\\
+When the siganl is passed through a BP filter it can be described as
+\begin{equation}
+%x_{BP}(t) = H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)
+x_{BP}(t) = H_{BP}(t)*x_{LNA}
+\end{equation}
+\begin{where}
+\va{$x_{BP}(t)$}{is the signal outputted from the BP filter}{W}
+\va{$H_{BP}(t)$}{is the impulse response of the BP filter}{1}
+\end{where}
+
+Implications of this is the signal becomes band limited, however for the filter to work it needs to settle and it also introduces a group delay. 
 
 
-These problems can be categorized into what can be accounted for during the measurement, what can be accounted for by calibrating the equipment and what can not be easily dealt with.
+\textbf{Mixer}\\
+The mixer is the the only component that relies on its non-linearities in the chain. It takes two input namely the data caring signal and the mixing signal from the \gls{LO} a it can be modelled as:
+\begin{equation}
+%x_{Mixer}(t) = \left(H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)\right)\cdot sin\left(2\pi\cdot (f_{LO}+\epsilon_{drift}(t)) \cdot t\right)
+x_{Mixer}(t) = x_{BP}(t) \cdot sin\left(2\pi\cdot (f_{LO}+\epsilon_{drift}(t)) \cdot t\right)
+\end{equation}
+\begin{where}
+\va{$x_{Mixer}(t)$}{is the output from the mixer}{W}
+\va{$f_{LO}$}{is the frequency of the LO}{Hz}
+\va{$\epsilon_{drift}(t)$}{is the drift in frequency of the LO}{Hz}
+\end{where}
+\todo{problem with time dependency?}
 
-\begin{itemize}
-\item Avoidable problems
-	\begin{itemize}
-	\item Settle time
-	\item Saturation
-	\end{itemize}
-\item Calibration problems
-	\begin{itemize}
-	\item Reflection
-	\item Gains
-	\item Phase delay/ group delay
-	\item Drift
-	\item Non-linearities
-	\item Effective number of bits
-	\end{itemize}
-\item Statistical problems
-	\begin{itemize}
-	\item Noise
-	\item Quantization noise
-	\end{itemize}
-\end{itemize}
+Most of the distortion in the processed signal comes from this component.
 
-Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
+
+\textbf{\Gls{LP}}\\
+The LP filter make sure that the unwanted components of the signal gets reduced significantly. It is modelled in much the same manner as the BP filter. 
+\begin{equation}
+%x_{LP}(t) = H_{LP}(t)*\left(\left(H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)\right)\cdot \left(f_{LO}+\epsilon_{drift}(t)\right)\right)
+x_{LP}(t) = H_{LP}(t)*x_{Mixer}
+\end{equation}
+\begin{where}
+\va{$x_{LP}(t)$}{is the outputted from the LP filter}{W}
+\va{$H_{LP}(t)$}{is the impulse response of the LP filter}{1}
+\end{where}
+
+
+After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can process it.
+
+
+
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{Antenna}
+%	\begin{itemize}
+%	\item Emission pattern
+%	\item Effective gain
+%	\item Reflection
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LNA}}
+%	\begin{itemize}
+%	\item Gain
+%	\item Noise factor
+%	\item Distortion
+%	\item Saturation
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{BP}}
+%	\begin{itemize}
+%	\item Phase delay/group delay
+%	\item Settle time
+%	\item Noise factor
+%	\item Bandwidth
+%	\end{itemize}	
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{Mixer}
+%	\begin{itemize}
+%	\item Non-linearities
+%	\item Noise factor	
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LO}}
+%	\begin{itemize}
+%	\item Drift
+%		\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LP}}
+%	\begin{itemize}
+%	\item Phase delay/group delay
+%	\item Settle time
+%	\item Noise factor
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{ADC}}
+%	\begin{itemize}
+%	\item Quantisation noise
+%	\item Effective number of bits
+%	\item Conversion time
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{PU}}
+%	\begin{itemize}
+%	 \item No direct problems
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+
+
+%These problems can be categorized into what can be accounted for during the measurement, what can be accounted for by calibrating the equipment and what can not be easily dealt with.
+%
+%\begin{itemize}
+%\item Avoidable problems
+%	\begin{itemize}
+%	\item Settle time
+%	\item Saturation
+%	\end{itemize}
+%\item Calibration problems
+%	\begin{itemize}
+%	\item Reflection
+%	\item Gains
+%	\item Phase delay/ group delay
+%	\item Drift
+%	\item Non-linearities
+%	\item Effective number of bits
+%	\end{itemize}
+%\item Statistical problems
+%	\begin{itemize}
+%	\item Noise
+%	\item Quantization noise
+%	\end{itemize}
+%\end{itemize}
+%
+%Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
 
 
 
