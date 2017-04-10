@@ -181,7 +181,20 @@ There are several physical limitations that need to be balanced  in order to pro
 
 Wireless multipath fading channels have varying factors in 3 types of domains. These domains are the temporal(time), frequency and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure. Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
 
-Wireless channels autocorrelation is used to characterize how a random channel will change in time. So it is only dependant on one parameter. Autocorrelations can be found for the temporal(time), frequency and spatial(space) domains inherent to wireless random channels. The Power Spectral density is a measure of the average spectral power in a random channel. Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows
+A typical physical process can be described in two ways.In the time domain with some values of quantity $h$ as a function of time, so $h(t), -\infty < t < \infty$ In the frequency domain by a complex number H,which gives amplitude and phase as a function of the frequency, $f$ that is $H(f) -\infty < t < \infty$. These can be though of as two different representations that are connected by Fourier transforms.
+\begin{equation}
+H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
+h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
+\end{equation}
+If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). 
+If the time and space domain are separated  $h(\Delta d)$ $\Delta d$ is in meters and $H$ is the function of spatial frequency measured in cycles per meter or Doppler.
+
+Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The autocorrelation is related to the power density spectrum by another Fourier transform.  
+\begin{equation}
+S [cylces \. per \. meter/second]\Leftrightarrow R [meter/second]
+\end{equation}
+
+Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows:
 
 \todo {rewrite this part os its easier to follow( break up into smaller steps), use wireless course and book as ref.}
 
@@ -191,6 +204,8 @@ D\mathcal{F}^{-1} ( H(f_d,\tau,\Delta d) )
 \end{equation}
 $D\mathcal{F}$ is the double Fourier transform where $t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
 Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
+
+
 
 In a \gls{WSSUS} channel we are only interested in the time delay $\tau$ We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
 %\begin{equation}
@@ -226,7 +241,7 @@ The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let 
 R_x[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
 Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
-We want the correlation to be 0 so the fade is uncorrelated.
+We want the correlation to be 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.512.
 \begin{equation}
 \frac{2\pi \Delta d}{\lambda} = 2.512 \Leftrightarrow \Delta d = 0.4 \lambda \approx \frac{\lambda}{2}
 \end{equation}
