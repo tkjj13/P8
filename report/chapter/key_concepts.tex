@@ -1,7 +1,7 @@
 \chapter{Reciever structure}
 
 \section{Basic receiver structure}
-
+\label{basic_rev_struct}
 A basic general receiver structure can be seen on \autoref{fig:basic_receiver_structure}. It consists of the most common blocks in a receiver, because of the block form it is possible to separate and analyse each block individually. 
 
 \begin{figure}[H]
@@ -13,115 +13,198 @@ A basic general receiver structure can be seen on \autoref{fig:basic_receiver_st
 
 Each block will analysed with focus on the properties that could influence measurements on the fading gain i.e. gain, noise, distortion etc.
 
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{Antenna}
-	\begin{itemize}
-	\item Emission pattern
-	\item Effective gain
-	\item Reflection
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LNA}}
-	\begin{itemize}
-	\item Gain
-	\item Noise factor
-	\item Distortion
-	\item Saturation
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{BP}}
-	\begin{itemize}
-	\item Phase delay/group delay
-	\item Settle time
-	\item Noise factor
-	\item Bandwidth
-	\end{itemize}	
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{Mixer}
-	\begin{itemize}
-	\item Non-linearities
-	\item Noise factor	
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LO}}
-	\begin{itemize}
-	\item Drift
-		\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{LP}}
-	\begin{itemize}
-	\item Phase delay/group delay
-	\item Settle time
-	\item Noise factor
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{ADC}}
-	\begin{itemize}
-	\item Quantisation noise
-	\item Effective number of bits
-	\item Conversion time
-	\end{itemize}
-\end{itemize}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\begin{itemize}
-\item \textbf{\Gls{PU}}
-	\begin{itemize}
-	 \item No direct problems
-	\end{itemize}
-\end{itemize}
-\end{minipage}
+\todo{find sources for all of this}
+\textbf{Antenna}\\
+When the signal $s(\theta,\phi,t)$ reaches the antenna, the antenna pattern influences the signal. This can be expressed as:
+\begin{equation}
+s(t) = \int_0^{2\pi} \! \int_0^\pi G_{ant}(\theta,\phi)\cdot s(\theta,\phi,t) \,\text{d}\phi \,\text{d}\theta
+\end{equation} 
+\begin{where}
+\va{$s(t)$}{is the received signal at the antenna}{W}
+\va{$s(\theta,\phi,t)$}{is the signal strength in the $\theta,\phi)$ direction}{W}
+\va{$G_{ant}(\theta,\phi)$}{is the gain in the $(\theta,\phi)$ direction}{1}
+\va{$\theta$}{is the azimuth angle}{rad}
+\va{$\phi$}{is the elevation}{rad}
+\end{where}
+The signal is then fed to the rest of the system typically there will be an impedance mismatch which can be formulated as:
+
+\begin{align}
+%x_V(t) = (1+\Gamma)\cdot s_V(t) \\
+%x_I(t) = (1-\Gamma)\cdot s_I(t) \\
+x_P(t) = (1-\Gamma^2)\cdot s(t) \label{eq:ref_power}
+\end{align}
+\begin{where}
+\va{$x_P(t)$}{is the power transmitted through to the system}{W}
+\va{$\Gamma$}{is the reflection coefficient}{1}
+\end{where}
+\textbf{\Gls{LNA}}\\
+When the signal is passed through the LNA it can be described as:
+
+\begin{equation}
+x_{LNA}(t) = G_{LNA}\left(x_P(t)\right)*x_P(t)
+\end{equation}
+\begin{where}
+\va{$x_{LNA}(t)$}{is the outputed signal from the LNA}{W}
+\va{$G_{LNA}\left(x_P(t)\right)$}{is the gain of the LNA}{1}
+\end{where}
+
+If the signal conforms to certain limits $G_{LNA}\left(x_P(t)\right)$ becomes a constant and the convolution becomes a multiplication, however if the power level reaches the saturation level then this is not the case and the complicated convolution is necessary. 
+\todo{is distortion part of this?}
+
+\textbf{\Gls{BP}}\\
+When the siganl is passed through a BP filter it can be described as
+\begin{equation}
+%x_{BP}(t) = H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)
+x_{BP}(t) = H_{BP}(t)*x_{LNA}
+\end{equation}
+\begin{where}
+\va{$x_{BP}(t)$}{is the signal outputted from the BP filter}{W}
+\va{$H_{BP}(t)$}{is the impulse response of the BP filter}{1}
+\end{where}
+
+Implications of this is the signal becomes band limited, however for the filter to work it needs to settle and it also introduces a group delay. 
 
 
-These problems can be categorized into what can be accounted for during the measurement, what can be accounted for by calibrating the equipment and what can not be easily dealt with.
+\textbf{Mixer}\\
+The mixer is the the only component that relies on its non-linearities in the chain. It takes two input namely the data caring signal and the mixing signal from the \gls{LO} a it can be modelled as:
+\begin{equation}
+%x_{Mixer}(t) = \left(H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)\right)\cdot sin\left(2\pi\cdot (f_{LO}+\epsilon_{drift}(t)) \cdot t\right)
+x_{Mixer}(t) = x_{BP}(t) \cdot sin\left(2\pi\cdot (f_{LO}+\epsilon_{drift}(t)) \cdot t\right)
+\end{equation}
+\begin{where}
+\va{$x_{Mixer}(t)$}{is the output from the mixer}{W}
+\va{$f_{LO}$}{is the frequency of the LO}{Hz}
+\va{$\epsilon_{drift}(t)$}{is the drift in frequency of the LO}{Hz}
+\end{where}
+\todo{problem with time dependency?}
 
-\begin{itemize}
-\item Avoidable problems
-	\begin{itemize}
-	\item Settle time
-	\item Saturation
-	\end{itemize}
-\item Calibration problems
-	\begin{itemize}
-	\item Reflection
-	\item Gains
-	\item Phase delay/ group delay
-	\item Drift
-	\item Non-linearities
-	\item Effective number of bits
-	\end{itemize}
-\item Statistical problems
-	\begin{itemize}
-	\item Noise
-	\item Quantization noise
-	\end{itemize}
-\end{itemize}
+Most of the distortion in the processed signal comes from this component.
 
-Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
+
+\textbf{\Gls{LP}}\\
+The LP filter make sure that the unwanted components of the signal gets reduced significantly. It is modelled in much the same manner as the BP filter. 
+\begin{equation}
+%x_{LP}(t) = H_{LP}(t)*\left(\left(H_{BP}(t)*\left(G_{LNA}\left(x_P(t)\right)*x_P(t)\right)\right)\cdot \left(f_{LO}+\epsilon_{drift}(t)\right)\right)
+x_{LP}(t) = H_{LP}(t)*x_{Mixer}
+\end{equation}
+\begin{where}
+\va{$x_{LP}(t)$}{is the outputted from the LP filter}{W}
+\va{$H_{LP}(t)$}{is the impulse response of the LP filter}{1}
+\end{where}
+
+
+After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can process it. Going through this analysis different parameters affects the signal in the receiver, ending in a rather complicated  
+
+
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{Antenna}
+%	\begin{itemize}
+%	\item Emission pattern
+%	\item Effective gain
+%	\item Reflection
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LNA}}
+%	\begin{itemize}
+%	\item Gain
+%	\item Noise factor
+%	\item Distortion
+%	\item Saturation
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{BP}}
+%	\begin{itemize}
+%	\item Phase delay/group delay
+%	\item Settle time
+%	\item Noise factor
+%	\item Bandwidth
+%	\end{itemize}	
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{Mixer}
+%	\begin{itemize}
+%	\item Non-linearities
+%	\item Noise factor	
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LO}}
+%	\begin{itemize}
+%	\item Drift
+%		\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{LP}}
+%	\begin{itemize}
+%	\item Phase delay/group delay
+%	\item Settle time
+%	\item Noise factor
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{ADC}}
+%	\begin{itemize}
+%	\item Quantisation noise
+%	\item Effective number of bits
+%	\item Conversion time
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+%\begin{minipage}{0.48\textwidth}
+%\begin{itemize}
+%\item \textbf{\Gls{PU}}
+%	\begin{itemize}
+%	 \item No direct problems
+%	\end{itemize}
+%\end{itemize}
+%\end{minipage}
+
+
+%These problems can be categorized into what can be accounted for during the measurement, what can be accounted for by calibrating the equipment and what can not be easily dealt with.
+%
+%\begin{itemize}
+%\item Avoidable problems
+%	\begin{itemize}
+%	\item Settle time
+%	\item Saturation
+%	\end{itemize}
+%\item Calibration problems
+%	\begin{itemize}
+%	\item Reflection
+%	\item Gains
+%	\item Phase delay/ group delay
+%	\item Drift
+%	\item Non-linearities
+%	\item Effective number of bits
+%	\end{itemize}
+%\item Statistical problems
+%	\begin{itemize}
+%	\item Noise
+%	\item Quantization noise
+%	\end{itemize}
+%\end{itemize}
+%
+%Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
 
 
 
 \section{Dynamic range}
-Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming. For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of \gls{VNA} it must be  in tuned-receiver mode (Narrowband). If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \citep{AgilentNVA} \\
+Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
 With manual or automatic gain control,the total dynamic range of the receiver will allow it to accept a wider range of signal power.That isn't a problem as long as we want to observe the strongest signal or nearly the strongest one.The situation gets tricky when we want to observe a really weak signal in the presence of much stronger ones.That is the point where we are more interested in the instantaneous dynamic range.
 The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal.
 The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range.
@@ -133,8 +216,22 @@ MAXstr_{dBm} = (Sens) +(DR)
 Where MAXstr is the maximum strength of a receiving system,Sens is the sensitivity of the receiver and DR the dynamic range of the system.\citep{DyR}
 
 Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise ,Noise Figure and the Required prediction of SNR.It is normally a negative number(in dBm) and this means that a bigger number(more negative) equals a smaller signal.
+The thermal noise is given by:
+\begin{equation}
+Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
+\label{Noise1}
+\end{equation}
+where $BW$ is the bandwidth $Te$ is the thermal temperature and the $NF$ is the noise figure of the reviver.
 
+Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very similar to the Signal to Noise Ratio(SNR). SINAD is a good way to describe the whole dynamic system of ADC because takes into account all the components that make noise and distortion,in other words takes into account the non-linearities. The difference between them can be shown in high frequencies because the SINAD gets affected by the distortions and degrades faster than the SNR that excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas:
+\begin{equation}
+\text{SINAD} = 20log\left(\frac{S}{N+D}\right)
+\end{equation}
 
+\begin{equation}
+\text{SNR} = 20log\left(\frac{S}{N}\right)
+\end{equation}
+where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 
 \subsection{How to measure dynamic range}
 
@@ -148,7 +245,16 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 \label{Dynamic_range_calc}
 \end{figure}
  
- This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range.\\
+This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that shifted to in order to process the signal easier.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
+By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. 
+
+The cost of using a narrowband is the measurement time, as the system would require a longer time for the sweep to cover a typical bandwidth. The time this would take is given by:
+\todo{maybe write about averaging here and add it to the Time calculations}
+\begin{equation}
+T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
+\end{equation}
+where $IF_{BW}$ is the intermediate frequency bandwidth and $BW_{sweep}$ is the total bandwidth you want to measure.
+
 
 \subsection{Dynamic range in a VNA receiver}
 \begin{figure}[H]
@@ -158,9 +264,11 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 \label{Block_VNA}
 \end{figure}
 
-The setup of the \gls{VNA} measuring would have to take into account some factors to increase the dynamic range and still have the accuracy. Going through the \ref{Block_VNA} in order from left to right.
-The \gls{IF} is a frequency that shifted to in order to process the signal easier. This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
-By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. The cost of using a narrowband is the measurement time, as the \gls{VNA} would need several sweeps to cover a typical bandwidth. \\
+For Network analysers the dynamic range is the maximum signal power the receiver can measure minus the noise floor of the receiver. To achieve a higher dynamic range of \gls{VNA} it must be  in tuned-receiver mode (Narrowband).
+If you reduce the bandwidth then the overall noise floor will go down, so it logical that it would have higher dynamic range. \citep{AgilentNVA} \\
+%%The setup of the \gls{VNA} measuring would have to take into account some factors to increase the dynamic range and still have the accuracy. Going through the \ref{Block_VNA} in order from left to right.
+%%The \gls{IF} is a frequency that shifted to in order to process the signal easier. This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
+%%By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. The cost of using a narrowband is the measurement time, as the \gls{VNA} would need several sweeps to cover a typical bandwidth. \\
 
 Dynamic range and accuracy are affected by the non-linearity in the receiver chain, the worst part are the mixers,\gls{ADC} and amplifiers since they introduce the most non-linearity. To measure the linearity of a receiver a power change measurements is preformed and compared to a reference level of power change that is accurate. This means that the linearity of a receiver as can be defined as:
 \begin{equation}
@@ -176,13 +284,13 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
 
 \begin{equation}
-Noisefloor_{dBm} = log_{2}(Number \ of \ avrages)\cdot 3dB +10log(BW\cdot T_{0}\cdot k\cdot 1000) + NF
+Noisefloor_{dBm} = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF
 \label{NFwithAVG}
 \end{equation}
-Where $BW$ is bandwidth $T_0$ is temperature of the system, $k$ is the boltzmann's constant and $NF$ if the noise figure.
- 
-
+Where $IF_{BW}$ is  intermediate bandwidth $T_0$ is temperature of the system, $k$ is the Boltzmann's constant,$AVG$ is the averaging factor and $NF$ if the noise figure.
+To maximise the effectiveness of a \gls{VNA} the reviver $IF_{BW}$ should be high as possible for the dynamic range needed. So to get accurate samples with the needed dynamic range in the least amount of time the $IF_{BW}$ and $AVG_f$ must be balanced to minimise time spent on one measurement.
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
+
 
 \section{Diversity}
 % (effects?)
