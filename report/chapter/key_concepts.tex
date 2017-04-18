@@ -37,6 +37,7 @@ x_P(t) = (1-\Gamma^2)\cdot s(t) \label{eq:ref_power}
 \va{$x_P(t)$}{is the power transmitted through to the system}{W}
 \va{$\Gamma$}{is the reflection coefficient}{1}
 \end{where}
+
 \textbf{\Gls{LNA}}\\
 When the signal is passed through the LNA it can be described as:
 
@@ -93,7 +94,7 @@ x_{LP}(t) = H_{LP}(t)*x_{Mixer}
 \end{where}
 
 
-After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can process it. Going through this analysis different parameters affects the signal in the receiver, ending in a rather complicated expression. It can however be seen that there are three different types of problems. 
+After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can process it. Going through this analysis different parameters affects the signal in the receiver, ending in a rather complicated expression. It can however be seen that there are two different types of problems. 
 
 
 %\begin{minipage}{0.48\textwidth}
@@ -190,18 +191,18 @@ After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can pr
 	\item Phase delay/ group delay
 	\item Drift
 	\item Non-linearities
-	\item Effective number of bits
+	%\item Effective number of bits
 	\end{itemize}
-\item Statistical problems
-	\begin{itemize}
-	\item Noise
-	\item Quantization noise
-	\end{itemize}
+%\item Statistical problems
+%	\begin{itemize}
+%	\item Noise
+%	\item Quantization noise
+%	\end{itemize}
 \end{itemize}
 %
 %Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
 
-
+A filter needs approximately $\frac{1}{2\cdot fd_{max}}$\todo{find source (right now found from patricks mail} seconds to settle. This means a measurement should run for at least that amount of time, also the saturation can be avoided by lowering the transmit power. The frequency drift of a oscillator is typically $\pm 50ppm$ \todo{source, link is here} %$http://dk.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=45&storeId=10157&categoryId=700000058502&pageSize=25&showResults=true$}
 
 \section{Dynamic range}
 Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
@@ -245,7 +246,7 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 \label{Dynamic_range_calc}
 \end{figure}
  
-This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that is used to easier process  of the signal in the circuit.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
+This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that shifted to in order to process the signal easier.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. 
 By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. 
 
 The cost of using a narrowband is the measurement time, as the system would require a longer time for the sweep to cover a typical bandwidth. The time this would take is given by:
