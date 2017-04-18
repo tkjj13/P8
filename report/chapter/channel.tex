@@ -156,18 +156,24 @@ In a wireless communication system the signal can reach the receiver from many d
 %\subsection{Distributions?}
 
 
-Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles.
-In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
+Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. This channel scenario is multipath with the Rayleigh distribution and the continues-time channel impulse response:
+\begin{equation}
+c(t,\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
+\end{equation}
+Here $a_n(t)$ is amplitude, $\Phi_n(t)$ is phase, $\tau_n(t)$ is the time delay. These are connected to the $n$th path and the Dirac delta function $\delta(\cdot)$.
+In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum's Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
 
-To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
+%To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
 If we look at Rayleigh fading channels for a narrow band system the channel gain can be written as:
 
 \begin{equation}
-H(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi (t))  \right ]
+C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
 \end{equation}
-
-If we assume that the random variables is not dependent on time, the impulse respond process $H(t)$ will be wide sense stationary. This means that the Real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | H(t) \right |^2 $ is a Rayleigh random variable.
-A measurement has to measure the $ \left | H(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | H(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | H(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
+The $\psi_n(t)$ argument is due to the phase $\Phi_n(t)$ and time delay $\tau_n(t)$ created by Doppler shifts. This forms independent random variables  uniformly disturbed between $[-\pi,\pi]$
+If we assume that the random variables is not dependent on time, the impulse respond process $C(t)$ will be wide sense stationary. Given the central limit theorem that states:
+If Independent random variables are added, their sum goes towards a Gaussian distribution even if the variables themselves are not normally distributed \citep{CentralLimit}.  
+This means that the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | C(t) \right | $ is the Rayleigh random variable. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously received signal power at time t.
+A measurement has to measure the $ \left | C(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
@@ -187,18 +193,26 @@ H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
 h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
 \end{equation}
 If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). The $\Leftrightarrow$ represents the Fourier transform.
-If the time and space domain are separated  $h(\Delta d)$ $\Delta d$ is in meters and $H$ is the function of spatial frequency measured in cycles per meter or Doppler. \citep{FTandCORR}
+If the time and space domain are separated  $h(\Delta d)$ $\Delta d$ is in meters and $H$ is the function of spatial frequency measured in cycles per meter. \citep{FTandCORR}
 
-Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$ So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform. 
+Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$. So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
 \begin{equation}
-S(f) = \mathcal{F}(R(\tau)) = \int_{- \infty}^{\infty} R(\tau)e^{-j2 \pi \tau f} d \tau
+S(f) = \mathcal{F}(R(t)) = \int_{- \infty}^{\infty} R(t)e^{-j2 \pi t f} d t
 \end{equation}
 \begin{equation}
-R [meter/second] \Leftrightarrow
-S [cylces \ per \ meter/second]
+R [second] \Leftrightarrow
+S [cylces \ per \ second]
 \end{equation}
 
-where S is the Power spectra density and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. These forier pairs are 
+\begin{equation}
+S(f_fd) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-j2 \pi \Delta d f} d \Delta d
+\end{equation}
+\begin{equation}
+R [meter] \Leftrightarrow
+S [cylces \ per \ meter]
+\end{equation}
+
+where S is the Power spectra density and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
 
 Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
 
