@@ -186,26 +186,30 @@ A typical physical process can be described in two ways.In the time domain with 
 H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
 h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
 \end{equation}
-If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). 
+If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). The $\Leftrightarrow$ represents the Fourier transform.
 If the time and space domain are separated  $h(\Delta d)$ $\Delta d$ is in meters and $H$ is the function of spatial frequency measured in cycles per meter or Doppler. \citep{FTandCORR}
 
-Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The autocorrelation is related to the power density spectrum by another Fourier transform.  
+Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$ So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform. 
 \begin{equation}
-S [cylces \ per \ meter/second]\Leftrightarrow R [meter/second]
+S(f) = \mathcal{F}(R(\tau)) = \int_{- \infty}^{\infty} R(\tau)e^{-j2 \pi \tau f} d \tau
 \end{equation}
-where S is the Power spectra density and R is the autocorrelation.
+\begin{equation}
+R [meter/second] \Leftrightarrow
+S [cylces \ per \ meter/second]
+\end{equation}
 
-Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}. The Fourier transform pair is as follows:
+where S is the Power spectra density and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. These forier pairs are 
+
+Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
 
 \todo {rewrite this part os its easier to follow( break up into smaller steps), use wireless course and book as ref.}
 
-\begin{equation}
-D\mathcal{F} ( h(t,f,L) ) =
-D\mathcal{F}^{-1} ( H(f_d,\tau,\Delta d) )
-\end{equation}
-$D\mathcal{F}$ is the double Fourier transform where $t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
-Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
-
+%\begin{equation}
+%D\mathcal{F} ( h(t,f,L) ) =
+%D\mathcal{F}^{-1} ( H(f_d,\tau,\Delta d) )
+%\end{equation}
+%$D\mathcal{F}$ is the double Fourier transform where $t$ is absolute time,$f$ is frequency and $L$ position in space(1 dimension).
+%Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
 
 
 In a \gls{WSSUS} channel we are only interested in the time delay $\tau$ We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
@@ -218,10 +222,10 @@ In a \gls{WSSUS} channel we are only interested in the time delay $\tau$ We can 
 \begin{center}
 $h(\Delta d,\tau)$\\
 \scalebox{0.5}{
-${\mathcal{F}\uparrow\downarrow \mathcal{F}^{-1}}$}\\
+${\mathcal{F}\downarrow \uparrow \mathcal{F}^{-1}}$}\\
 $S(f_d,\tau)$ $\quad \quad$ $T(\Delta d,f)$\\
 \scalebox{0.5}{
-${\mathcal{F}\uparrow\downarrow \mathcal{F}^{-1}}$}\\
+${\mathcal{F} \downarrow \uparrow \mathcal{F}^{-1}}$}\\
 \vspace{-1.9em}
 \begin{equation}
 H(f_d,f)
