@@ -32,16 +32,16 @@ Some of the applications needing a URLLC channel could be self driving cars, eme
 Other system that can gain advantages with URLLC, is systems where the communication window is very small and therefore do not have time for re-transmissions or a lot of data processing for error coding.
 
 
-The problem is that in the URLLC scenarios, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so the \gls{SNR} gets stronger on the communication link. But even if the overall signal is stronger, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level down to $10^{-3}$ - $10^{-4}$. Existing research are assuming that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}. This might have been all right so far, but to achieve URC conditions the channel needs to be tested for very low fades down to $-60dB$. Therefore this report wants to investigate untested assumptions made in multipath fading channels. The problem when testing such channels is that current measuring systems are not designed for the needed dynamic range or the large amount of samples needed to measure these very deep fades. 
+The problem is that in the URLLC scenarios, an in depth description of the channel is needed. A way to get higher reliability is to transmit with a higher power level, so the \gls{SNR} gets stronger on the communication link. But even if the overall signal is stronger, there will still be problem with fading in some points in space as seen in \autoref{intro_fading}. Today descriptions of such channels have been verified to a probability level down to $10^{-3}$ - $10^{-4}$. Existing research are assuming that an extrapolation of the models extend to probability levels that are multiple magnitudes lower as seen in \autoref{fading_gain}. This might have been all right so far, but to achieve URLLC conditions the channel needs to be tested for very low fades down to $-60dB$. Therefore this report wants to investigate untested assumptions made in multipath fading channels. The problem when testing such channels is that current measuring systems are not designed for the needed dynamic range or the large amount of samples needed to measure these very deep fades. 
 
 \textbf{General problem statement:}
-Design a measurement system that can handle very deep fades and a statistical method to process the data and compare to existing models used in URC channels.
+Design a measurement system that can handle very deep fades and a statistical method to process the data and compare to existing models used in URLLC channels.
 
-This can be further specified to a more technical problem statement:
+This can be further specified to a more technical problem statement: \todo{Where do these numbers come from and why do we have two statements just after each other?!?}
 
 Ascertain with 90\% confidence with a 1 dB (25\%) margin that in a multipath environment, the cumulative distribution function of the fading gain can be assumed to increase in a log log linear fashion between -60dB and -20dB.
 
-To this it is important to investigate the following points:
+To this it is important to investigate the following points: \todo{I hope this is a list for us to remember on, or else this should be writing into text instead}
 
 \begin{itemize}
 	\item Find connections between channel statistics and sample size.
@@ -53,7 +53,6 @@ To this it is important to investigate the following points:
 	\item Balance the sample acquisition for available resources. 
 	\item Design  a measurement setup that can acquire the samples needed.
 	\item Specify a method to process the obtained channel measurements.
-	\item 
 	\item Analyse the measurement and link the results to the current assumptions.
 \end{itemize}
 
@@ -77,6 +76,7 @@ As stated the focus will be to measure and compare channel characteristics at UR
 \label{ChannelAndEquip}
 \end{figure}
 
+\todo{What is this?}
 The sections follow if structured this way.First the report will explain the system overview it will start with the physical and statistical relations and conclude in the number uncorrelated samples are needed to say with some (confidence) certainty that our findings are valid. Secondly the some general ideas in multipath and fading channels are explained. This will explain how to obtain uncorrelated samples.
 
 \begin{enumerate}
