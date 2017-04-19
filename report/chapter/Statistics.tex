@@ -1,6 +1,49 @@
 \chapter{Statistics}
 
-\subsection{Statistics method for rare events}
+\section{Brute force}
+\subsection{Statistical relations}
+
+
+Confidence interval at $1-\alpha$ level:
+\begin{equation}\label{interval}
+\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
+\end{equation}
+
+Based on \autoref{interval} assuming a interval threshold, A
+\begin{equation}\label{interval2}
+N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
+\end{equation}
+
+Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 25\%$ or 1 dB.Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
+\begin{equation}\label{sampleEQ}
+N=(1.645)^{2} \cdot \frac{1}{(0.25)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 4.3 \cdot 10^{6}
+\end{equation}
+Because the above procedure is an approximation we would generate $ 10 \cdot 10^{6} $ number of samples.
+\subsection{Limitation for measurement purposes}
+
+Strict limitations
+\begin{equation}
+SNRs > 1
+\end{equation}
+
+Other limitations
+\begin{equation}
+E\left(SNR\right) \;>\, \frac{1}{raylinv(p,\theta)} 
+\end{equation}
+
+\begin{where}
+\va{$x$}{is the individual sample}{NA}
+\va{$xs$}{is a treshold value for the samples}{NA}
+\va{$\theta$}{is the mode of the distribution}{NA}
+\va{$SNRs$}{is the threshold value of the signal-to-noise ratio}{1}
+\va{$SNR$}{is the individual sample of the signal-to-noise ratio}{1}
+\va{$N$}{number of samples}{1}
+\va{$z_{\frac{\alpha}{2}}$}{is the normalize interval from a standard distribution}{NA}
+\end{where}
+
+
+
+\section{Statistics method for rare events}
 As seen in previous chapters, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is there is a need of a high number of rare events to occur to get a high confidence interval for this events. 
 
 For simulations there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introduction this new distribution, there also needs to be introduced a weighting factor. This weighting factor is defined from the change in the different distribution. This weighting factor is used to go from the actually distribution to the new created distribution.
@@ -13,7 +56,7 @@ Most of the other methods used in simulation to handle this problem with rare ev
 %- Important sampling
 %- Not useful
 
-\subsection{Bootstrap}
+\section{Bootstrap}
 Another statistically aspect, which there are different method and techniques for, is how to determent the confidence interval at a certain confidence level. From the previous calculation of the number of samples needed in section \todo{Missing ref to section}, there is used a confidence level of 90\% \todo{Check this}. This is attain from doing a high number of measurements. This high number of measurements will be very time consuming. Hence there can be look at on a statistically method to determent the confidence interval, by having a lower number of samples. One of these methods is bootstrap.
 
 Bootstrap is a method, where one take a large amount of samples from big sample space. This surrogate population, as the measurements made up, will then be a estimate of true sample population. From this surrogate population a series of phantom samples are made. This is done with making a simulation, where there are used the same number of samples, as in the original measurements, where the samples are picked uniformly from the surrogate population. This process is done a few thousand times, where the wanted value wanted to measured can be put into a histogram, where normale usage of getting the confidence level can be used. As in case of a interval of 90\%, the upper and lower 5\% will be cut off and this will give the confidence interval.
