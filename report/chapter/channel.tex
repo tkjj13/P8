@@ -1,131 +1,131 @@
-\section{Relations (Not report ready (Thomas))} \todo{Need explanations and put into contest}
-
-\subsection{Physics relations}
-Relation between wavelength and frequency
-\begin{equation}
-\lambda = \frac{c}{f}
-\end{equation}
-
-Maximum Doppler frequency assuming Jakes Doppler spectrum
-\begin{equation}
-f_D=\frac{v}{\lambda}
-\end{equation}
-
-Minimum bandwidth based on Doppler frequency
-\begin{equation}
-BW = 2\cdot f_D
-\end{equation}
-
-Noise power calculation
-\begin{equation}
-w = k \cdot T \cdot BW
-\end{equation}
-
-Proportionality between variables
-\begin{equation}
-w \propto BW \propto f \cdot v
-\end{equation}
-
-\begin{where}
-\va{$\lambda$}{is the wavelength of the signal}{m}
-\va{$c$}{is the speed of light}{$\frac{\text{m}}{\text{s}}$}
-\va{$f$}{is the frequency of the signal}{Hz}
-\va{$f_D$}{is the Doppler spread}{Hz}
-\va{$v$}{is the relative velocity of the system}{$\frac{\text{m}}{\text{s}}$}
-\va{$BW$}{is the Bandwidth of the system}{Hz}
-\va{$w$}{is the noise in the system}{W}
-\va{$k$}{is Boltzmans constant}{$\frac{\text{w}\cdot\text{s}}{\text{K}}$}
-\va{$T$}{is the temperature of the system}{K}
-\end{where}
-
-
-
-\subsection{Statistical relations}
-CDF of Rayleigh fading
-\begin{equation}\label{rayleigh_CDF_std}
-p(xs < x | \theta) = 1-exp\left(-\frac{x^2}{2\cdot \theta^2}\right)
-\end{equation}
-
-
-Rewritten to SNR
-\begin{equation}\label{rayleigh_CDF}
-p(SNR < SNRs | E\left(SNR\right)) = 1-exp\left(-\frac{SNRs}{E\left(SNR\right)}\right)
-\end{equation}
-
-Closer look at the ratio from \autoref{rayleigh_CDF}
-\begin{equation}
-\frac{SNRs}{E\left(SNR\right)} = \frac{\frac{xs}{w}}{E\left(\frac{xs}{w}\right)} = \frac{xs}{E\left(xs\right)} 
-\end{equation}
-It is seen the noise does not influence the fading gain. %\todo{why does the noise not influence this?}
-
-Mean and variance of Rayleigh fading
-\begin{equation}
-\mu(x) = \theta\cdot\sqrt{\frac{\pi}{2}}
-\end{equation}
-
-\begin{equation}\label{rayleigh_var}
-var(x) = \frac{4-\pi}{2}\cdot \theta^2
-\end{equation}
-
-
-Confidence interval at $1-\alpha$ level:
-\begin{equation}\label{interval}
-\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
-\end{equation}
-
-Based on \autoref{interval} assuming a interval threshold, A
-\begin{equation}\label{interval2}
-N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
-\end{equation}
-
-Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 25\%$ or 1 dB.Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
-\begin{equation}\label{sampleEQ}
-N=(1.645)^{2} \cdot \frac{1}{(0.25)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 4.3 \cdot 10^{6}
-\end{equation}
-Because the above procedure is an approximation we would generate $ 10 \cdot 10^{6} $ number of samples.
-\subsection{Limitation for measurement purposes}
-
-Strict limitations
-\begin{equation}
-SNRs > 1
-\end{equation}
-
-Other limitations
-\begin{equation}
-E\left(SNR\right) \;>\, \frac{1}{raylinv(p,\theta)} 
-\end{equation}
-
-\begin{where}
-\va{$x$}{is the individual sample}{NA}
-\va{$xs$}{is a treshold value for the samples}{NA}
-\va{$\theta$}{is the mode of the distribution}{NA}
-\va{$SNRs$}{is the threshold value of the signal-to-noise ratio}{1}
-\va{$SNR$}{is the individual sample of the signal-to-noise ratio}{1}
-\va{$N$}{number of samples}{1}
-\va{$z_{\frac{\alpha}{2}}$}{is the normalize interval from a standard distribution}{NA}
-\end{where}
-
-
-
-
-\subsection{Further relations (Is this allowed?)}\todo{Have we check this?}
-
-
-From \autoref{rayleigh_CDF} and \autoref{rayleigh_CDF_std} it can be seen that
-\begin{equation}\label{thetaVsSNR}
-2\cdot\theta^2 = E\left(SNR\right)
-\end{equation}
-
-By combining \autoref{interval2} with \autoref{rayleigh_var} and \autoref{thetaVsSNR} the following relation can be obtained
-
-\begin{equation}
-N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2 = \left(\frac{z_{\frac{\alpha}{2}}}{A}\right)^2 \frac{4-\pi}{2}\cdot \theta^2 = \left(\frac{z_{\frac{\alpha}{2}}}{A}\right)^2 \cdot \frac{4-\pi}{2}\cdot \frac{E\left(SNR\right)}{2}
-\end{equation}
-
-From this relation the following proportionals can be found
-\begin{equation}
-N \propto E\left(SNR\right)\propto \frac{1}{w}
-\end{equation}
+%\section{Relations (Not report ready (Thomas))} \todo{Need explanations and put into contest}
+%
+%\subsection{Physics relations}
+%Relation between wavelength and frequency
+%\begin{equation}
+%\lambda = \frac{c}{f}
+%\end{equation}
+%
+%Maximum Doppler frequency assuming Jakes Doppler spectrum
+%\begin{equation}
+%f_D=\frac{v}{\lambda}
+%\end{equation}
+%
+%Minimum bandwidth based on Doppler frequency
+%\begin{equation}
+%BW = 2\cdot f_D
+%\end{equation}
+%
+%Noise power calculation
+%\begin{equation}
+%w = k \cdot T \cdot BW
+%\end{equation}
+%
+%Proportionality between variables
+%\begin{equation}
+%w \propto BW \propto f \cdot v
+%\end{equation}
+%
+%\begin{where}
+%\va{$\lambda$}{is the wavelength of the signal}{m}
+%\va{$c$}{is the speed of light}{$\frac{\text{m}}{\text{s}}$}
+%\va{$f$}{is the frequency of the signal}{Hz}
+%\va{$f_D$}{is the Doppler spread}{Hz}
+%\va{$v$}{is the relative velocity of the system}{$\frac{\text{m}}{\text{s}}$}
+%\va{$BW$}{is the Bandwidth of the system}{Hz}
+%\va{$w$}{is the noise in the system}{W}
+%\va{$k$}{is Boltzmans constant}{$\frac{\text{w}\cdot\text{s}}{\text{K}}$}
+%\va{$T$}{is the temperature of the system}{K}
+%\end{where}
+%
+%
+%
+%\subsection{Statistical relations}
+%CDF of Rayleigh fading
+%\begin{equation}\label{rayleigh_CDF_std}
+%p(xs < x | \theta) = 1-exp\left(-\frac{x^2}{2\cdot \theta^2}\right)
+%\end{equation}
+%
+%
+%Rewritten to SNR
+%\begin{equation}\label{rayleigh_CDF}
+%p(SNR < SNRs | E\left(SNR\right)) = 1-exp\left(-\frac{SNRs}{E\left(SNR\right)}\right)
+%\end{equation}
+%
+%Closer look at the ratio from \autoref{rayleigh_CDF}
+%\begin{equation}
+%\frac{SNRs}{E\left(SNR\right)} = \frac{\frac{xs}{w}}{E\left(\frac{xs}{w}\right)} = \frac{xs}{E\left(xs\right)} 
+%\end{equation}
+%It is seen the noise does not influence the fading gain. %\todo{why does the noise not influence this?}
+%
+%Mean and variance of Rayleigh fading
+%\begin{equation}
+%\mu(x) = \theta\cdot\sqrt{\frac{\pi}{2}}
+%\end{equation}
+%
+%\begin{equation}\label{rayleigh_var}
+%var(x) = \frac{4-\pi}{2}\cdot \theta^2
+%\end{equation}
+%
+%
+%Confidence interval at $1-\alpha$ level:
+%\begin{equation}\label{interval}
+%\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
+%\end{equation}
+%
+%Based on \autoref{interval} assuming a interval threshold, A
+%\begin{equation}\label{interval2}
+%N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
+%\end{equation}
+%
+%Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 25\%$ or 1 dB.Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
+%\begin{equation}\label{sampleEQ}
+%N=(1.645)^{2} \cdot \frac{1}{(0.25)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 4.3 \cdot 10^{6}
+%\end{equation}
+%Because the above procedure is an approximation we would generate $ 10 \cdot 10^{6} $ number of samples.
+%\subsection{Limitation for measurement purposes}
+%
+%Strict limitations
+%\begin{equation}
+%SNRs > 1
+%\end{equation}
+%
+%Other limitations
+%\begin{equation}
+%E\left(SNR\right) \;>\, \frac{1}{raylinv(p,\theta)} 
+%\end{equation}
+%
+%\begin{where}
+%\va{$x$}{is the individual sample}{NA}
+%\va{$xs$}{is a treshold value for the samples}{NA}
+%\va{$\theta$}{is the mode of the distribution}{NA}
+%\va{$SNRs$}{is the threshold value of the signal-to-noise ratio}{1}
+%\va{$SNR$}{is the individual sample of the signal-to-noise ratio}{1}
+%\va{$N$}{number of samples}{1}
+%\va{$z_{\frac{\alpha}{2}}$}{is the normalize interval from a standard distribution}{NA}
+%\end{where}
+%
+%
+%
+%
+%\subsection{Further relations (Is this allowed?)}\todo{Have we check this?}
+%
+%
+%From \autoref{rayleigh_CDF} and \autoref{rayleigh_CDF_std} it can be seen that
+%\begin{equation}\label{thetaVsSNR}
+%2\cdot\theta^2 = E\left(SNR\right)
+%\end{equation}
+%
+%By combining \autoref{interval2} with \autoref{rayleigh_var} and \autoref{thetaVsSNR} the following relation can be obtained
+%
+%\begin{equation}
+%N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2 = \left(\frac{z_{\frac{\alpha}{2}}}{A}\right)^2 \frac{4-\pi}{2}\cdot \theta^2 = \left(\frac{z_{\frac{\alpha}{2}}}{A}\right)^2 \cdot \frac{4-\pi}{2}\cdot \frac{E\left(SNR\right)}{2}
+%\end{equation}
+%
+%From this relation the following proportionals can be found
+%\begin{equation}
+%N \propto E\left(SNR\right)\propto \frac{1}{w}
+%\end{equation}
 \chapter{The wireless channel}
 % \chapter{Channel Dynamics} possible other headline
 
@@ -180,7 +180,7 @@ When measuring narrowband channels in a indoor environment the usual deep fades 
 
 
 
-\section{Coherence function}
+\section{Wireless channel characteristics}
 \todo {update number of samples needed after statistics. I have assumed $10^7$}
 The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
 There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
@@ -203,7 +203,27 @@ g(\Delta d)=\int_{- \infty}^{\infty}G(f_d)e^{2\pi ift} df_d
 \end{equation}
 If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. The space domain can be hard to visualize considering it can in 3 dimensions where $\Delta d = (x,y,z)$. This can be limited to 1 or 2 dimensions for simplification. \citep{FTandCORR}
 
-Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$. So it is only dependant on one parameter, the delay $\tau$. Autocorrelations can be found for the temporal(time,$t$), frequency ($f$) and spatial(space,$\Delta d$) domains inherent to wireless random channels. The Power Spectral density $H(t)$, $H(f)$ and $H(\Delta d)$ is a measure of the average spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$. let $h(t)$ be WSS:
+\begin{equation}
+R_x(t_1,t_2) = R_x(\tau) \ , \  \tau =t_2 - t_1  
+\end{equation}
+So it is only dependant on one parameter, the delay $\tau$. The $|R_x(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$, witch is the average power of $h(t)$. These autocorrelations are found with double Fourier transform and gives a stochastic average power of the channel:
+\begin{center}
+$R_h(\Delta d_1,\Delta d_1,\tau_1,\tau_2)$\\
+\scalebox{0.5}{
+${D\mathcal{F}\downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+$R_S(f_{d1},f_{d2},\tau_1,\tau_2)$ $\quad \quad$ $R_T(\Delta d_1,\Delta d_2,f_1,f_2)$\\
+\scalebox{0.5}{
+${D\mathcal{F} \downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+\vspace{-1.9em}
+\begin{equation}
+R_H(f_{d1},f_{d2},f_1,f_2)
+\end{equation}
+\end{center}
+Where $D\mathcal{F}$ is the double Fourier transform.
+
+
+The Power Spectral density $S(f)$ and $S(f_d)$ measure of the instant spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
 \begin{equation}
 S(f) = \mathcal{F}(R(t)) = \int_{- \infty}^{\infty} R(t)e^{-j2 \pi t f} d t
 \end{equation}
@@ -213,7 +233,7 @@ S [cylces \ per \ second]
 \end{equation}
 
 \begin{equation}
-S(f_fd) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-j2 \pi \Delta d f} d \Delta d
+S(f_d) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-j2 \pi \Delta d f} d \Delta d
 \end{equation}
 \begin{equation}
 R [meter] \Leftrightarrow
@@ -224,7 +244,6 @@ where S is the Power spectra density and R is the autocorrelation. $\mathcal{F}$
 
 Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
 
-\todo {rewrite this part os its easier to follow( break up into smaller steps), use wireless course and book as ref.}
 
 %\begin{equation}
 %D\mathcal{F} ( h(t,f,L) ) =
@@ -234,7 +253,9 @@ Doppler, delay and wave number spectra are defined and we can use Fourier transf
 %Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
 
 
-In a \gls{WSSUS} channel we are only interested in the time delay $\tau$ We can simplify this and look at he Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
+\section{Wide sense stationary uncorrelated scattering}
+
+In a \gls{WSSUS} channel we are only interested in the time delay $\tau$. We can simplify this and look at the Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
 %\begin{equation}
 %\huge{\ h(\Delta d,\tau)}  \\ \small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\ \huge {S(f_d,\tau) \quad\quad\quad T(\Delta d,f)} \\
 %\small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\
@@ -303,18 +324,19 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 
 \subsection{How to measure uncorrelated samples}
 \todo {rewrite in more general term and then use example values or make table}
-To measure the required samples from \autoref{sampleEQ} ($\approx 10^7$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m \cdot 2.5m$.
+To measure the required samples from \autoref{sampleEQ} ($\approx 10^7$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m$.
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
 \todo {Re write equations so you find the VOLUME required and not use
  actually values, write it more general}
 \begin{equation}
-N = A_{div} \cdot \frac{BW}{B_c \cdot 2} \cdot \frac{V}{(\frac{\lambda}{2})^2}
+N = A_{div} \cdot \frac{BW}{B_c \cdot 2} \cdot \frac{\Delta}{(\frac{\lambda}{2})^2}
 \label{howtosample}
 \end{equation} 
-
+Where $N$ is number of samples, $A_div$ is the antenna diversity, $\Delta$ is the area, $B_c$ is the coherence BW and $\lambda$ is the wavelength.
+\autoref{howtosample} can be used to found the area required given number of samples $N$ needed.
 \begin{equation}
-\Delta = \frac{N\cdot (\frac{\lambda}{2})^3}{A_{div}\cdot \frac{BW}{B_c \cdot 2}}
+\Delta  = \frac{N\cdot (\frac{\lambda}{2})^2}{A_{div}\cdot \frac{BW}{B_c \cdot 2}}
 \label{howtosqaure}
 \end{equation}
 If we assume a $10m \cdot 10m$ this gives us: 
