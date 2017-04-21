@@ -135,7 +135,6 @@
 \section{The idea of Multipath}
 % (basic intro / symbol introduction)
 %A general way to interpret communication is by assuming two persons Alice and Bob. When Alice successfully deliver her message to Bob the communication has been a success, unfortunately Charlie likes to tease Alice and Bob by interrupting the message while its under way, making the communication a failure. The interesting part here is what happens to the message under way that determines whether it results in a success or failure. 
-
 %In wireless communication the path travelled is what is interesting, this is especially true when more than one path is possible.
 %Communication happens when a message is transmitted from a to b
 \todo {this part can be expanded upon use book from course chapter 6 intro}
@@ -158,7 +157,7 @@ In a wireless communication system the signal can reach the receiver from many d
 \vaSB{$C(t)$}{Rayleigh impulse response process}{NA}
 \vaSB{$\left | \cdot \right |$}{absolute value of $|\cdot|$}{NA}
 
-\vaSB{$\mathbb{E}{[\cdot]}$}{Exception of $[\cdot]$}{NA}
+\vaSB{$\mathbb{E}{[\cdot]}$}{Expectation of $[\cdot]$}{NA}
 \vaSB{$f$}{Frequency}{1/s Hz}
 \vaSB{$h(t)$}{physical process as a function of t}{NA}
 \vaSB{$H(t)$}{physical process as a function of f}{NA}
@@ -181,6 +180,12 @@ In a wireless communication system the signal can reach the receiver from many d
 %%\vaSB{$$}{}{}
 \end{Symbol List}
 
+\subsection{Diversity}
+% (effects?)
+Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies or replicas of a signal to the receiver. There is a lower chance that all of these copies of signals are going to have a deep fade at the same time \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other without the cost of more power consumption, reduced bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
+Time diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
+Antenna diversity / Spatial diversity
+By having several antennas at both/or the receiver and transmitter a antenna diversity is achieved. With several antennas the signal can be combined together to process the signals into one. To get independently fading signals the signals need to be uncorrelated by separating the antennas least half a wavelength (micro diversity) \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
 
 
 	
@@ -213,8 +218,14 @@ A measurement has to measure the $ \left | C(t) \right |^2 $ and its estimation 
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
 When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
+\section{Doppler}
+Doppler spread is when the velocity of a wireless system causes a frequency shift for the signal of each path. The BW of a channel must be larger then the Doppler spread to function. Doppler spread is related to the velocity of the system given by:
+\begin{equation}
+Doppler Spread = 2/\lambda \cdot v
+\end{equation}
+Where $\lambda$ is wavelength and $v$ is velocity.
 
-
+If we assume the system is moving slowly at $5m/s$ and we use a open $2.4Ghz$ frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80Hz. We know that the dynamic range of system is dependant on the IF bandwidth, and that we should use as low BW as possible. A 80Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading. Given this definition of Doppler spread we can assume that this should not be a problem since our measurements BW must be higher to get enough samples.
 
 \section{Wireless channel characteristics}
 \todo {update number of samples needed after statistics. I have assumed $10^7$}
@@ -240,7 +251,7 @@ These can be though of as two different representations that are connected by Fo
 G(f_d)=\int_{- \infty}^{\infty}g(\Delta d)e^{-2\pi ift} d\Delta d \quad \Leftrightarrow \quad
 g(\Delta d)=\int_{- \infty}^{\infty}G(f_d)e^{2\pi ift} df_d
 \end{equation}
-If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. The space domain can be hard to visualize considering it can in 3 dimensions where $\Delta d = (x,y,z)$. This can be limited to 1 or 2 dimensions for simplification. \citep{FTandCORR}
+If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. The space domain can be hard to visualize considering it can have 3 dimensions where $\Delta d = (x,y,z)$. This can be limited to 1 or 2 dimensions for simplification. \citep{FTandCORR}
 
 Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$. let $h(t)$ be WSS:
 \begin{equation}
@@ -294,7 +305,8 @@ Doppler, delay and wave number spectra are defined and we can use Fourier transf
 
 \section{Wide sense stationary uncorrelated scattering}
 
-In a \gls{WSSUS} channel we are only interested in the time delay $\tau$. We can simplify this and look at the Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
+In a \gls{WSSUS} channel model the correlation function is time invariant and that the different scatters and their delays are uncorrelated. This means that the WSSUS channel model only need one parameter per domain. To specify space shifts that the shift in space is unchanged and gives uncorrelated Doppler shifts. Together with the unchanged shifts in frequency. WSSUS model gives a realistic way to describe short term fading of the channel. 
+Fourier transfer pairs in only two of the dimensions. Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
 %\begin{equation}
 %\huge{\ h(\Delta d,\tau)}  \\ \small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\ \huge {S(f_d,\tau) \quad\quad\quad T(\Delta d,f)} \\
 %\small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\
@@ -391,13 +403,6 @@ Actually moving the reviver $2 \cdot 10^6$ times takes way to long to actually d
 
 A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-6}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
-\section{Doppler}
-In the frequency domain we must have a bandwidth larger than our Doppler spread. Doppler spread is given by:
-\begin{equation}
-Doppler Spread = 2/\lambda \cdot v
-\end{equation}
-Where $\lambda$ is wavelength and $v$ is velocity.
 
-If we assume the system is moving slowly at $5m/s$ and we use a open $2.4Ghz$ frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80Hz. We know that the dynamic range of a VNA is dependant on the measurement bandwidth, and that we should use as low BW as possible. This means that we will set our BW to 80Hz. A 80Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading. So we can remove the delay spectra ; frequency domain to simplify our joint PSD. So we can only look at space and time joint PSD.
 
 \section{Introduction of noisy signal}
