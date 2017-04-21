@@ -2,7 +2,17 @@
 
 \section{Brute force}
 
-The first thing needed is to find is to find an estimate for the number of samples needed to achive 
+First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
+
+\begin{equation}
+\frac{z_{\frac{\alpha}{2}} \sqrt{\hat{\gamma}\left(1-\hat{\gamma}\right)/N}}{\hat{\gamma}} < m
+\end{equation} 
+\begin{where}
+\va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
+\va{$\hat{\gamma}$}{is the estimated probability}{1}
+\va{N}{is the number of samples}{1}
+\va{m}{is the margin around $\hat{\gamma}$}{1}
+\end{where}
 
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
