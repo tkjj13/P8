@@ -145,6 +145,42 @@ In a wireless communication system the signal can reach the receiver from many d
 	\item Selective Fading : Different frequencies across the channel experience different changes in phase and amplitude. Sometimes deep fades may observed in the channel, causing problem in the communication.\citep{FlatSelective}
 	\end{enumerate}
 
+\begin{Symbol List}
+\vaSB{$c(t)$}{Rayleigh continues-time channel impulse response}{NA}
+\vaSB{$t$}{Time}{s}
+\vaSB{$a$}{Amplitude}{NA}
+\vaSB{$\Psi$}{Phase}{NA}
+\vaSB{$\tau$}{time delay or time shift}{s}
+\vaSB{$\delta$}{Dirac delta}{1}
+\vaSB{$N$}{number of samples}{Na}
+\vaSB{$\psi$}{combination argument of $\Psi$ and $\tau$}{NA}
+\vaSB{$i$}{imaginary number}{NA}
+\vaSB{$C(t)$}{Rayleigh impulse response process}{NA}
+\vaSB{$\left | \cdot \right |$}{absolute value of $|\cdot|$}{NA}
+
+\vaSB{$\mathbb{E}{[\cdot]}$}{Exception of $[\cdot]$}{NA}
+\vaSB{$f$}{Frequency}{1/s Hz}
+\vaSB{$h(t)$}{physical process as a function of t}{NA}
+\vaSB{$H(t)$}{physical process as a function of f}{NA}
+\vaSB{$\mathcal{F}$}{Fourier transform}{NA}
+\vaSB{$D\mathcal{F}$}{Double Fourier transform}{NA}
+\vaSB{$\Delta d$}{Space, displacement}{m,$m^2$}
+\vaSB{$f_d$}{Spatial frequency, Doppler}{1/m}
+\vaSB{$R$}{Autocorrelation}{NA}
+\vaSB{$S$}{Power Spectral density PSD}{NA}
+\vaSB{$\lambda$}{wavelength}{m}
+
+\vaSB{$BW$}{Bandwidth}{Hz}
+\vaSB{$B_c$}{Coherence Bandwidth}{Hz}
+
+\vaSB{$\sigma_{\tau}$}{RMS delay spread}{NA}
+\vaSB{$f_c$}{Carrier frequency}{Hz}
+
+\vaSB{$\delta$}{Area}{$m^2$}
+\vaSB{$A_{div}$}{Antenna array diversity}{NA}
+%%\vaSB{$$}{}{}
+\end{Symbol List}
+
 
 
 	
@@ -164,7 +200,7 @@ Here $a_n(t)$ is amplitude, $\Phi_n(t)$ is phase, $\tau_n(t)$ is the time delay.
 In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum's Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
 
 %To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
-If we look at Rayleigh fading channels for a narrow band system the channel gain can be written as:
+If we look at Rayleigh fading channels for a narrow band system the channel has real and complex gain that can be written as:
 
 \begin{equation}
 C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
@@ -175,15 +211,18 @@ If Independent random variables are added, their sum goes towards a Gaussian dis
 This means that the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | C(t) \right | $ is the Rayleigh random variable. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously received signal power at time t.
 A measurement has to measure the $ \left | C(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
 These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
-When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20 off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
+When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
 
 
 
 \section{Wireless channel characteristics}
 \todo {update number of samples needed after statistics. I have assumed $10^7$}
-The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability. To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
+The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability.
+
+To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
 There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
+\todo {Remove this first part?}
 
 Wireless multipath fading channels have varying factors in two domains. These domains are the temporal(time) and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure.
 % Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
@@ -193,7 +232,7 @@ A typical physical process can be described further by splitting up the two doma
 H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
 h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
 \end{equation}
-If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). The $\Leftrightarrow$ represents the Fourier transform.
+If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). The $\Leftrightarrow$ represents the Fourier transform $\mathcal{F}$.
 
 In the space domain the representations are with some values of quantity $g$ as a function of space $\Delta d \ [m]$, so $g(\Delta d), -\infty < \Delta d < \infty$. The second representation is a function of the spatial frequency $f_d \ [\frac{1}{m}]$ by a complex number $G$,which gives amplitude and phase as a function of the spatial frequency(Doppler), $f_d$ that is $G(f_d) -\infty < f_d < \infty$.
 These can be though of as two different representations that are connected by Fourier transforms.
@@ -205,9 +244,9 @@ If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Le
 
 Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time. So $R$ is a measure of the rate of change given a channel $h(t)$. let $h(t)$ be WSS:
 \begin{equation}
-R_x(t_1,t_2) = R_x(\tau) \ , \  \tau =t_2 - t_1  
+R(t_1,t_2) = R(\tau) \ , \  \tau =t_2 - t_1  
 \end{equation}
-So it is only dependant on one parameter, the delay $\tau$. The $|R_x(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$, witch is the average power of $h(t)$. These autocorrelations are found with double Fourier transform and gives a stochastic average power of the channel:
+So it is only dependant on one parameter, the delay $\tau$. The $|R(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$, which is the average power of $h(t)$. These autocorrelations are found with double Fourier transform and gives a stochastic average power of the channel:
 \begin{center}
 $R_h(\Delta d_1,\Delta d_1,\tau_1,\tau_2)$\\
 \scalebox{0.5}{
@@ -223,9 +262,9 @@ R_H(f_{d1},f_{d2},f_1,f_2)
 Where $D\mathcal{F}$ is the double Fourier transform.
 
 
-The Power Spectral density $S(f)$ and $S(f_d)$ measure of the instant spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the power density spectrum by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+The Power Spectral density $S(f)$ and $S(f_d)$ measure of the instant spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the PSD by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
 \begin{equation}
-S(f) = \mathcal{F}(R(t)) = \int_{- \infty}^{\infty} R(t)e^{-j2 \pi t f} d t
+S(f) = \mathcal{F}(R(t)) = \int_{- \infty}^{\infty} R(t)e^{-i2 \pi t f} d t
 \end{equation}
 \begin{equation}
 R [second] \Leftrightarrow
@@ -233,14 +272,14 @@ S [cylces \ per \ second]
 \end{equation}
 
 \begin{equation}
-S(f_d) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-j2 \pi \Delta d f} d \Delta d
+S(f_d) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-i2 \pi \Delta d f} d \Delta d
 \end{equation}
 \begin{equation}
 R [meter] \Leftrightarrow
 S [cylces \ per \ meter]
 \end{equation}
 
-where S is the Power spectra density and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
+where S is the PSD and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
 
 Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
 
