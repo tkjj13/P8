@@ -4,7 +4,7 @@
 
 First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
 
-\begin{equation}
+\begin{equation}\label{eq:numSamples}
 \frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N}}}{\hat{\gamma}} < m
 \end{equation} 
 \begin{where}
@@ -32,7 +32,7 @@ From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to $10^{
 \end{table}
 
 \newpage
-\section{Statistics method for rare events}
+\subsection{Statistics method for rare events}
 As seen in \autoref{tab:numSample}, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
 
 For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, there is also introduced a weighting factor. This weighting factor is defined from the change in the distribution. This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
@@ -40,21 +40,20 @@ For simulation purposes there have been developed some methods to handle this pr
 Most of the other methods \todo{what other methods} used in simulation to handle this problem with rare events, also changes the distribution, as this is one of the known parameters for simulations and can therefore not be used. 
 
 
+As no useful statistical method has been found the required number of samples can not be reduced from \autoref{tab:numSample}. Therefore a compromise between the necessary number of samples, the more samples needed the longer it will take, and the confidence level and interval needs to be found. It is chosen to go for a 90\% confidence level and a 1 dB margin, as this is found to be a reasonable compromise. This means that $4.04E+6$ samples should be obtained during the measurement campaign. 
 
 %Reduction of number of samples
 %- Important sampling
 %- Not useful
 
-\section{Bootstrap}
-Another statistically aspect, which there are different method and techniques for, is how to determine the confidence interval at a certain confidence level. From the previous calculation of the number of samples needed in section \todo{Missing ref to section}, there is used a confidence level of 90\% \todo{Check this}. This is attain from doing a high number of measurements. This high number of measurements will be very time consuming. Hence there can be look at on a statistically method to determent the confidence interval, by having a lower number of samples. One of these methods is bootstrap.
+\section{Bootstrap Percentile Method}
+Another statistically aspect, for which there are different method and techniques, is how to determine the confidence interval at a certain confidence level from the measurements. From the previous section the number of samples needed to attain a confidence level of 90\% and a margin of 1 dB is found. However this is estimated based on theory and has no particular onset in the actual measurements, it is therefore necessary to find a method to evaluate the confidence based on the measurements. The method chosen is the \textit{Bootstrap Percentile Method} \citep{Bootstrap}.
 
-Bootstrap is a method, where one take a large amount of samples from big sample space. This surrogate population, as the measurements made up, will then be a estimate of true sample population. From this surrogate population a series of phantom samples are made. This is done with making a simulation, where there are used the same number of samples, as in the original measurements, where the samples are picked uniformly from the surrogate population. This process is done a few thousand times, where the wanted value wanted to measured can be put into a histogram, where normale usage of getting the confidence level can be used. As in case of a interval of 90\%, the upper and lower 5\% will be cut off and this will give the confidence interval.
+The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{X_B}$ until $\mathbf{X_B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
 
-This method will still need a high number of samples, as there is still needed for some rare events to occur. But the sample size do not need to be as large as seen in section \todo{More refs}. This comes from that there will instead be used computation power instead to generate these phantom samples, which replaces the many other real life sample. 
+This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
 
 \todo{Need example. A example used an example of our project, but on $10^{-3}$ would be great i think}
-
-\citep{Bootstrap}
 
 
 
