@@ -1,11 +1,11 @@
-\chapter{Statistics}
+\chapter{Estimation of Required Number of Samples}
 
-\section{Brute force}
+\section{Brute Force Estimation}
 
 First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
 
 \begin{equation}
-\frac{z_{\frac{\alpha}{2}} \sqrt{\hat{\gamma}\left(1-\hat{\gamma}\right)/N}}{\hat{\gamma}} < m
+\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N}}}{\hat{\gamma}} < m
 \end{equation} 
 \begin{where}
 \va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
@@ -14,42 +14,76 @@ First an estimate for the number of samples needed to achieve different confiden
 \va{m}{is the margin around $\hat{\gamma}$}{1}
 \end{where}
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to $10^{-5}$. With that estimations of the number of samples needed to uphold different confidence level and intervals can be found as seen in \autoref{tab:numSample}. 
+
 \begin{table}[H]
 \centering
 \begin{tabular}{c|l|l|l|l|l|l|}
 \multicolumn{2}{l}{}  & \multicolumn{5}{c}{\textbf{Confidence level}} \\ \cline{3-7} 
 \multicolumn{2}{l|}{}  & \textbf{80 \%} & \textbf{85 \%} & \textbf{90 \%} & \textbf{95 \%} & \textbf{99 \%} \\ \cline{2-7} 
-\multirow{5}{*}{\rotatebox{90}{\textbf{Confidence interval}}} & \textbf{$\pm$0.5 dB} & 11.0E+6 & 13.9E+6 & 18.2E+6 & 25.8E+6 & 44.6E+6 \\ \cline{2-7} 
+\multirow{5}{*}{{\rotatebox{90}{\textbf{Confidence interval}}}} & \textbf{$\pm$0.5 dB} & 11.0E+6 & 13.9E+6 & 18.2E+6 & 25.8E+6 & 44.6E+6 \\ \cline{2-7} 
  & \textbf{$\pm$1 dB} 	& 2.45E+6 	& 3.09E+6 	& 4.04E+6 	& 5.73E+6 	& 9.90E+6 \\ \cline{2-7} 
  & \textbf{$\pm$1.5 dB} & 965E+3 	& 1.22E+6 	& 1.59E+6 	& 2.26E+6 	& 3.90E+6 \\ \cline{2-7} 
  & \textbf{$\pm$2 dB} 	& 480E+3 	& 606E+3 	& 791E+3 	& 1.12E+6 	& 1.94E+6 \\ \cline{2-7} 
  & \textbf{$\pm$2.5 dB} & 271E+3 	& 342E+3 	& 447E+3 	& 634E+3 	& 1.10E+6 \\ \cline{2-7} 
 \end{tabular}
-\caption{My caption}
-\label{my-label}
+\caption{Estimated number of samples for different confidence levels and intervals.}
+\label{tab:numSample}
 \end{table}
 
-\subsection{Statistical relations}
+\newpage
+\section{Statistics method for rare events}
+As seen in \autoref{tab:numSample}, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
+
+For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, there is also introduced a weighting factor. This weighting factor is defined from the change in the distribution. This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
+
+Most of the other methods \todo{what other methods} used in simulation to handle this problem with rare events, also changes the distribution, as this is one of the known parameters for simulations and can therefore not be used. 
 
 
-Confidence interval at $1-\alpha$ level:
-\begin{equation}\label{interval}
-\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
-\end{equation}
 
-Based on \autoref{interval} assuming a interval threshold, A
-\begin{equation}\label{interval2}
-N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
-\end{equation}
+%Reduction of number of samples
+%- Important sampling
+%- Not useful
 
-Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 25\%$ or 1 dB.Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
-\begin{equation}\label{sampleEQ}
-N=(1.645)^{2} \cdot \frac{1}{(0.25)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 4.3 \cdot 10^{6}
-\end{equation}
-Because the above procedure is an approximation we would generate $ 10 \cdot 10^{6} $ number of samples.\citep{SampleNumURC}
-\subsection{Limitation for measurement purposes}
+\section{Bootstrap}
+Another statistically aspect, which there are different method and techniques for, is how to determine the confidence interval at a certain confidence level. From the previous calculation of the number of samples needed in section \todo{Missing ref to section}, there is used a confidence level of 90\% \todo{Check this}. This is attain from doing a high number of measurements. This high number of measurements will be very time consuming. Hence there can be look at on a statistically method to determent the confidence interval, by having a lower number of samples. One of these methods is bootstrap.
+
+Bootstrap is a method, where one take a large amount of samples from big sample space. This surrogate population, as the measurements made up, will then be a estimate of true sample population. From this surrogate population a series of phantom samples are made. This is done with making a simulation, where there are used the same number of samples, as in the original measurements, where the samples are picked uniformly from the surrogate population. This process is done a few thousand times, where the wanted value wanted to measured can be put into a histogram, where normale usage of getting the confidence level can be used. As in case of a interval of 90\%, the upper and lower 5\% will be cut off and this will give the confidence interval.
+
+This method will still need a high number of samples, as there is still needed for some rare events to occur. But the sample size do not need to be as large as seen in section \todo{More refs}. This comes from that there will instead be used computation power instead to generate these phantom samples, which replaces the many other real life sample. 
+
+\todo{Need example. A example used an example of our project, but on $10^{-3}$ would be great i think}
+
+\citep{Bootstrap}
+
+
+
+
+%\subsection{Statistics modeling from measurements}
+%Model/Regression (Maximum likely hood)
+%- Usage of bootstraping to estimate the a's in regression
+
+
+
+%\subsection{Statistical relations}
+%
+%
+%Confidence interval at $1-\alpha$ level:
+%\begin{equation}\label{interval}
+%\bar{x} \pm z_{\frac{\alpha}{2}} \cdot \sqrt{\frac{var(x)}{N}}
+%\end{equation}
+%
+%Based on \autoref{interval} assuming a interval threshold, A
+%\begin{equation}\label{interval2}
+%N \geq \left(z_{\frac{\alpha}{2}} \cdot \frac{\sqrt{var(x)}}{A} \right)^2
+%\end{equation}
+%
+%Using the normal approximation of the binomial proportion we  estimate the number of samples with 90\% confidence level and an interval threshold of $\pm 25\%$ or 1 dB.Based on the Equation 1.12 we have for $ \bar{x} = 10^{-5} $ :
+%\begin{equation}\label{sampleEQ}
+%N=(1.645)^{2} \cdot \frac{1}{(0.25)^{2}} \cdot \frac{1-\bar{x}}{\bar{x}} = 4.3 \cdot 10^{6}
+%\end{equation}
+%Because the above procedure is an approximation we would generate $ 10 \cdot 10^{6} $ number of samples.\citep{SampleNumURC}
+\subsection{Limitation for Measurement Purposes}
 
 Strict limitations
 \begin{equation}
@@ -73,33 +107,3 @@ E\left(SNR\right) \;>\, \frac{1}{raylinv(p,\theta)}
 
 
 
-\section{Statistics method for rare events}
-As seen in previous chapters, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is there is a need of a high number of rare events to occur to get a high confidence interval for this events. 
-
-For simulations there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introduction this new distribution, there also needs to be introduced a weighting factor. This weighting factor is defined from the change in the different distribution. This weighting factor is used to go from the actually distribution to the new created distribution.
-
-Most of the other methods used in simulation to handle this problem with rare events, changes the distribution, as this is one of the known parameters for simulations. A problem when using these methods, is that in the real world the exactly distribution is not known, so weighting factor, that is the difference between the real and new created distribution can only be a estimate. But these methods can not be used in the real world to reduce the number of samples needed needed for this measurement campaign, as the distribution in the real world would have to be force fulled changed, so the rare events will happen more often. To do that, more deep fade spots have to be introduced into the room used for measurements, which can be done. But the measurements will not be the true picture of the distribution, unless the weighting factor is calculated precise enough and the new distribution is known.
-
-
-
-%Reduction of number of samples
-%- Important sampling
-%- Not useful
-
-\section{Bootstrap}
-Another statistically aspect, which there are different method and techniques for, is how to determent the confidence interval at a certain confidence level. From the previous calculation of the number of samples needed in section \todo{Missing ref to section}, there is used a confidence level of 90\% \todo{Check this}. This is attain from doing a high number of measurements. This high number of measurements will be very time consuming. Hence there can be look at on a statistically method to determent the confidence interval, by having a lower number of samples. One of these methods is bootstrap.
-
-Bootstrap is a method, where one take a large amount of samples from big sample space. This surrogate population, as the measurements made up, will then be a estimate of true sample population. From this surrogate population a series of phantom samples are made. This is done with making a simulation, where there are used the same number of samples, as in the original measurements, where the samples are picked uniformly from the surrogate population. This process is done a few thousand times, where the wanted value wanted to measured can be put into a histogram, where normale usage of getting the confidence level can be used. As in case of a interval of 90\%, the upper and lower 5\% will be cut off and this will give the confidence interval.
-
-This method will still need a high number of samples, as there is still needed for some rare events to occur. But the sample size do not need to be as large as seen in section \todo{More refs}. This comes from that there will instead be used computation power instead to generate these phantom samples, which replaces the many other real life sample. 
-
-\todo{Need example. A example used an example of our project, but on $10^{-3}$ would be great i think}
-
-
-
-
-
-
-%\subsection{Statistics modeling from measurements}
-%Model/Regression (Maximum likely hood)
-%- Usage of bootstraping to estimate the a's in regression
