@@ -252,6 +252,9 @@ Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very s
 \text{SNR} = 20log\left(\frac{S}{N}\right)
 \end{equation}
 where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
+\subsection{SNR estimation}
+
+Because the noise might affect the deep fades of our signal, we need to set a minimum SNR level. By doing that we will be able to accept the measurements that are above this level and reject the ones that are affected from the noise. The way to do that is to assume the signal as a constant and the noise as a complex vector that changes.  We consider our constant signal as the value of a Rician distribution that doesn't change. Rician distribution fits in our situation because the K-factor that uses is a ratio of power in direct path to powers in the other scattered paths\citep{SpaceWirelessChan} meaning that matches our signal to noise ratio that we need to investigate. Given that we set our confidence interval of $\pm 1\%$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability distribution, we are able to estimate numerically the part of the K-factor that we are interested in.
 
 \subsection{How to measure dynamic range}
 
