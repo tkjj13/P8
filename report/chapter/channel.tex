@@ -379,6 +379,7 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 \citep[Chapter 18.5]{ComHandbook}
 
 \subsection{How to measure uncorrelated samples}
+\label{howtomeasureUS}
 \todo {rewrite in more general term and then use example values or make table}
 To measure the required samples from \autoref{sampleEQ} ($\approx 10^7$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m$.
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
@@ -408,6 +409,14 @@ Actually moving the reviver $2 \cdot 10^6$ times takes way to long to actually d
 
 A other problem with a taking $10^7$ samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-6}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
-
-
+\subsection{Time required to do measurements}
+The amount of time it requires to gather a samples is very important when working with a high number of samples. If one measurement requires 1 second to do for a total of $10^7$ seconds or 116 days of continues measurements. This of course is not practical to do. So it's obvious that a a automatic systems where you take several samples in parallel. If we use the same example as in \autoref{howtomeasureUS} and say the samples are in one dimension with a velocity of $1m/s$. The antenna array is spaced in another dimension so samples don't overlap.The time it would take to do a $100MHz$ sweep is dependant on the $IF_{BW}$ and dynamic range requirements discussed later, but  the time budget assumes at every $\frac{\lambda}{2} = 0.05m$ the setup can sweep the whole BW and get the 30 samples or $N_f$.So first lets calculate the amount of samples we can do per second $N_s$:
+\begin{equation}
+N_s = \frac{v}{\frac{\lambda}{2}}\cdot N_f \cdot A_{div}, \frac{1m/s}{0.05m} \cdot 30N \cdot 25N = 15000N_s
+\end{equation}
+Then the total time needed for a continues measurements:
+\begin{equation}
+T = \frac{N}{N_s} , \frac{10^7N}{15000N_s} = 667s \approx 12 minutes.
+\end{equation}
+The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to acquired the needed sample size. A speed of $1m/s$ over 12 minutes is equal to $720m$ in one dimensions so a two dimensional space separation is needed to reduce the room size requirement.. The practicality of this will be discussed in part II.
 %\section{Introduction of noisy signal}
