@@ -1,6 +1,36 @@
 \chapter{Statistics}
 
 \section{Brute force}
+
+First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
+
+\begin{equation}
+\frac{z_{\frac{\alpha}{2}} \sqrt{\hat{\gamma}\left(1-\hat{\gamma}\right)/N}}{\hat{\gamma}} < m
+\end{equation} 
+\begin{where}
+\va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
+\va{$\hat{\gamma}$}{is the estimated probability}{1}
+\va{N}{is the number of samples}{1}
+\va{m}{is the margin around $\hat{\gamma}$}{1}
+\end{where}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|l|l|l|l|l|l|}
+\multicolumn{2}{l}{}  & \multicolumn{5}{c}{\textbf{Confidence level}} \\ \cline{3-7} 
+\multicolumn{2}{l|}{}  & \textbf{80 \%} & \textbf{85 \%} & \textbf{90 \%} & \textbf{95 \%} & \textbf{99 \%} \\ \cline{2-7} 
+\multirow{5}{*}{\rotatebox{90}{\textbf{Confidence interval}}} & \textbf{$\pm$0.5 dB} & 11.0E+6 & 13.9E+6 & 18.2E+6 & 25.8E+6 & 44.6E+6 \\ \cline{2-7} 
+ & \textbf{$\pm$1 dB} 	& 2.45E+6 	& 3.09E+6 	& 4.04E+6 	& 5.73E+6 	& 9.90E+6 \\ \cline{2-7} 
+ & \textbf{$\pm$1.5 dB} & 965E+3 	& 1.22E+6 	& 1.59E+6 	& 2.26E+6 	& 3.90E+6 \\ \cline{2-7} 
+ & \textbf{$\pm$2 dB} 	& 480E+3 	& 606E+3 	& 791E+3 	& 1.12E+6 	& 1.94E+6 \\ \cline{2-7} 
+ & \textbf{$\pm$2.5 dB} & 271E+3 	& 342E+3 	& 447E+3 	& 634E+3 	& 1.10E+6 \\ \cline{2-7} 
+\end{tabular}
+\caption{My caption}
+\label{my-label}
+\end{table}
+
 \subsection{Statistical relations}
 
 
