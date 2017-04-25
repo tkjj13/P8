@@ -129,7 +129,7 @@
 \chapter{The wireless channel}
 % \chapter{Channel Dynamics} possible other headline
 
-
+\todo{intro describing the chapter}
 
 
 \section{The Idea of Multipath}
@@ -137,55 +137,64 @@
 %A general way to interpret communication is by assuming two persons Alice and Bob. When Alice successfully deliver her message to Bob the communication has been a success, unfortunately Charlie likes to tease Alice and Bob by interrupting the message while its under way, making the communication a failure. The interesting part here is what happens to the message under way that determines whether it results in a success or failure. 
 %In wireless communication the path travelled is what is interesting, this is especially true when more than one path is possible.
 %Communication happens when a message is transmitted from a to b
-\todo {this part can be expanded upon use book from course chapter 6 intro}
-In a wireless communication system the signal can reach the receiver from many different reflective paths. This is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival.\citep{Fading} A more specific term called multipath fading is used to describe these effects. Depending on those effects the receiver may experience constructive or distractive interference. Basically it means that the signal it might get amplified or attenuated depending on the interference. Strong distractive interference is usually called deep fade and can lead to failure of the communication system for a short period of time. A  channel can be separated in  small scale and large scale fading. To determine small scale fading a sufficient number of measurements has to be made within a area where the large scale fading is constant. Cause of the multipath fading the channel can be affected in certain ways.
-	\begin{enumerate}
-	\item Flat Fading : All the frequencies experience changes in amplitude over a period of time. That has as a result some reduction on the SNR.
-	\item Selective Fading : Different frequencies across the channel experience different changes in phase and amplitude. Sometimes deep fades may observed in the channel, causing problem in the communication.\citep{FlatSelective}
-	\end{enumerate}
 
-\begin{Symbol List}
-\vaSB{$c(t)$}{Rayleigh continues-time channel impulse response}{NA}
-\vaSB{$t$}{Time}{s}
-\vaSB{$a$}{Amplitude}{NA}
-\vaSB{$\Psi$}{Phase}{NA}
-\vaSB{$\tau$}{time delay or time shift}{s}
-\vaSB{$\delta$}{Dirac delta}{1}
-\vaSB{$N$}{number of samples}{Na}
-\vaSB{$\psi$}{combination argument of $\Psi$ and $\tau$}{NA}
-\vaSB{$i$}{imaginary number}{NA}
-\vaSB{$C(t)$}{Rayleigh impulse response process}{NA}
-\vaSB{$\left | \cdot \right |$}{absolute value of $|\cdot|$}{NA}
+In a wireless communication system the signal can reach the receiver from many different paths, this is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival.\citep{Fading} A more specific term to describe this is \textit{multipath fading}. Depending on the fading the receiver may experience constructive or destructive fading i.e. the signal might get amplified or attenuated due to the fading. Strong destructive fading is usually called deep fades and can lead to outages of the communication system for short periods of time. 
 
-\vaSB{$\mathbb{E}{[\cdot]}$}{Expectation of $[\cdot]$}{NA}
-\vaSB{$f$}{Frequency}{1/s Hz}
-\vaSB{$h(t)$}{physical process as a function of t}{NA}
-\vaSB{$H(t)$}{physical process as a function of f}{NA}
-\vaSB{$\mathcal{F}$}{Fourier transform}{NA}
-\vaSB{$D\mathcal{F}$}{Double Fourier transform}{NA}
-\vaSB{$\Delta d$}{Space, displacement}{m,$m^2$}
-\vaSB{$f_d$}{Spatial frequency, Doppler}{1/m}
-\vaSB{$R$}{Autocorrelation}{NA}
-\vaSB{$S$}{Power Spectral density PSD}{NA}
-\vaSB{$\lambda$}{wavelength}{m}
+Fading can be separated in  small scale and large scale fading \citep{FlatSelective}: 
 
-\vaSB{$BW$}{Bandwidth}{Hz}
-\vaSB{$B_c$}{Coherence Bandwidth}{Hz}
+\begin{tabular}{lp{13.1cm}}
+\textbf{Large scale} & is often called the path loss and is dependent on the distance between receiver and transmitter along with the terrain and obstacles in the area. \\ 
+\textbf{Small scale} & is a more stochastic measure, which is dependent on small changes in position of either the receiver, transmitter or obstacles. These changes might be very small down to mm or cm compared to the overall distance which might be km, however the effects can be very severe. Small scale fading is further split up into frequency flat and frequency selective fading:
+\end{tabular}
+\begin{tabular}{p{0.3cm}lp{11.7cm}}
+&\textit{Flat Fading} & All the frequencies experience the same changes in amplitude and phase over a period of time, this is seen as a change in SNR.\\
+&\textit{Selective Fading} & Different frequencies across the channel experience different changes in amplitude and phase. 
+\end{tabular}
 
-\vaSB{$\sigma_{\tau}$}{RMS delay spread}{NA}
-\vaSB{$f_c$}{Carrier frequency}{Hz}
 
-\vaSB{$\delta$}{Area}{$m^2$}
-\vaSB{$A_{div}$}{Antenna array diversity}{NA}
-%%\vaSB{$$}{}{}
-\end{Symbol List}
+
+%\begin{Symbol List}
+%\vaSB{$c(t)$}{Rayleigh continues-time channel impulse response}{NA}
+%\vaSB{$t$}{Time}{s}
+%\vaSB{$a$}{Amplitude}{NA}
+%\vaSB{$\Psi$}{Phase}{NA}
+%\vaSB{$\tau$}{time delay or time shift}{s}
+%\vaSB{$\delta$}{Dirac delta}{1}
+%\vaSB{$N$}{number of samples}{Na}
+%\vaSB{$\psi$}{combination argument of $\Psi$ and $\tau$}{NA}
+%\vaSB{$i$}{imaginary number}{NA}
+%\vaSB{$C(t)$}{Rayleigh impulse response process}{NA}
+%\vaSB{$\left | \cdot \right |$}{absolute value of $|\cdot|$}{NA}
+%
+%\vaSB{$\mathbb{E}{[\cdot]}$}{Expectation of $[\cdot]$}{NA}
+%\vaSB{$f$}{Frequency}{1/s Hz}
+%\vaSB{$h(t)$}{physical process as a function of t}{NA}
+%\vaSB{$H(t)$}{physical process as a function of f}{NA}
+%\vaSB{$\mathcal{F}$}{Fourier transform}{NA}
+%\vaSB{$D\mathcal{F}$}{Double Fourier transform}{NA}
+%\vaSB{$\Delta d$}{Space, displacement}{m,$m^2$}
+%\vaSB{$f_d$}{Spatial frequency, Doppler}{1/m}
+%\vaSB{$R$}{Autocorrelation}{NA}
+%\vaSB{$S$}{Power Spectral density PSD}{NA}
+%\vaSB{$\lambda$}{wavelength}{m}
+%
+%\vaSB{$BW$}{Bandwidth}{Hz}
+%\vaSB{$B_c$}{Coherence Bandwidth}{Hz}
+%
+%\vaSB{$\sigma_{\tau}$}{RMS delay spread}{NA}
+%\vaSB{$f_c$}{Carrier frequency}{Hz}
+%
+%\vaSB{$\delta$}{Area}{$m^2$}
+%\vaSB{$A_{div}$}{Antenna array diversity}{NA}
+%%%\vaSB{$$}{}{}
+%\end{Symbol List}
 
 \subsection{Diversity}
 % (effects?)
-Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies or replicas of a signal to the receiver. There is a lower chance that all of these copies of signals are going to have a deep fade at the same time \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other without the cost of more power consumption, reduced bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
-Time diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
+Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
+Temporal diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
 Antenna diversity / Spatial diversity
-By having several antennas at both/or the receiver and transmitter a antenna diversity is achieved. With several antennas the signal can be combined together to process the signals into one. To get independently fading signals the signals need to be uncorrelated by separating the antennas least half a wavelength (micro diversity) \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
+By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
 
 
 	
