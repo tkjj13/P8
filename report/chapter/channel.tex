@@ -193,12 +193,12 @@ Fading can be separated in  small scale and large scale fading \citep{FlatSelect
 % (effects?)
 Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
 Temporal diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
-Antenna diversity / Spatial diversity
+Antenna diversity / Spatial diversity:
 By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
 
 
 	
-\section{Rayleigh Fading}
+\section{Rayleigh Fading} \todo{sources for the text}
 % (confidence level vs number of samples)
 
 %\section{Statistics}
@@ -206,26 +206,40 @@ By having several antennas at either or both the receiver and transmitter, anten
 %\subsection{Distributions?}
 
 
-Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. This channel scenario is multipath with the Rayleigh distribution and the continues-time channel impulse response:
-\begin{equation}
-c(t,\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
+Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. In \autoref{eq:reyl_impulse_response} the impulse response of a Rayleigh fading channel can be seen \citep{MeasurementComplexRay}.
+\begin{equation}\label{eq:reyl_impulse_response}
+c(t;\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
 \end{equation}
-Here $a_n(t)$ is amplitude, $\Phi_n(t)$ is phase, $\tau_n(t)$ is the time delay. These are connected to the $n$th path and the Dirac delta function $\delta(\cdot)$.
-In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum's Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
+
+\begin{where}
+\va{$c(t;\tau)$}{is the impulse response of a fading channel}{1}
+\va{$t$}{is absolute time}{s}
+\va{$\tau$}{is delay from t}{s}
+\va{$N$}{is the number of reflective paths}{1}
+\va{$a_n$}{is the attenuation of the path}{1}
+\va{$\Phi_n$}{is the phase change of the path}{rad}
+\end{where}
+
+%In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible.  
 
 %To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
-If we look at Rayleigh fading channels for a narrow band system the channel has real and complex gain that can be written as:
+It should be mentioned that $t=0$ is assumed to be the time the first signal is received. If $N \rightarrow \infty$ the fading channels for a narrow band system can be expressed as \autoref{eq:inf_reyl_impulse_response} \citep{MeasurementComplexRay}. 
 
-\begin{equation}
-C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
+\begin{equation}\label{eq:inf_reyl_impulse_response}
+C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + j\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
 \end{equation}
-The $\psi_n(t)$ argument is due to the phase $\Phi_n(t)$ and time delay $\tau_n(t)$ created by Doppler shifts. This forms independent random variables  uniformly disturbed between $[-\pi,\pi]$
-If we assume that the random variables is not dependent on time, the impulse respond process $C(t)$ will be wide sense stationary. Given the central limit theorem that states:
-If Independent random variables are added, their sum goes towards a Gaussian distribution even if the variables themselves are not normally distributed \citep{CentralLimit}.  
-This means that the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | C(t) \right | $ is the Rayleigh random variable. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously received signal power at time t.
-A measurement has to measure the $ \left | C(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
-These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
-When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
+\begin{where}
+\va{$C(t)$}{is the impulse response of a Rayleigh fading channel}{1}
+\va{$\psi_n(t)$}{is due to $\Phi_n(t)$ and $\tau_n(t)$ and is induced by the Doppler shift}{rad}
+\end{where}
+
+If we assume that the random variables is not dependent on time, the impulse response process $C(t)$ will be \gls{WSS}. Given the central limit theorem that states:
+"\textit{...the distribution of the sum (or average) of a large number of independent, identically distributed variables will be approximately normal, regardless of the underlying distribution}" \citep{CentralLimit}.  
+Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumption of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals witch are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
+
+
+
+When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal, due to the fact that only a small amount of samples are used (<100) the deep fades that the Rayleigh model predicts ($10^{-5}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
 \section{Doppler}
 Doppler spread is when the velocity of a wireless system causes a frequency shift for the signal of each path. The BW of a channel must be larger then the Doppler spread to function. Doppler spread is related to the velocity of the system given by:
