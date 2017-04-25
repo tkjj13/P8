@@ -53,10 +53,14 @@ The Bootstrap method works on a surrogate population, a subset from the total sa
 
 This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
 
-\todo{Need example. A example used an example of our project, but on $10^{-3}$ would be great i think}
+An example have been simulated in matlab, where there have been taken $4.04 \cdot 10^6$ sample from $raylrnd$. These values are converted to dB, which give a CDF, which is the yellow line in \autoref{BS90}. By using the booth strap method 10.000 times and make a CDF for each trial. By taking the 500th highest and lowest value in each point in the CDF (which gives a 90\% confidence level), a interval is created, which is shown in \autoref{BS90}. It is seen that at low procentence level, that the interval becomes wider, as there is a less sample population for that part. At the $10^{-5}$ point, there is a interval on 1.63 dB, which lower than the wanted confidence interval for this number of samples. 
 
-
-
+\begin{figure}[H]
+\center
+\input{figures/Matlab_figures/BS90.tex}
+\caption{The estimated CDF from $4.3 \cdot 10^6$ samples. The confidence level is at 90\% and at $10^{-5}$ the confidence interval is on $\pm 1dB$.}
+\label{BS90}
+\end{figure}
 
 %\subsection{Statistics modeling from measurements}
 %Model/Regression (Maximum likely hood)
