@@ -1,5 +1,5 @@
 \chapter{Estimation of Required Number of Samples}
-
+\label{sec:statistics}
 \section{Brute Force Estimation}
 
 First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
@@ -32,7 +32,7 @@ From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to $10^{
 \end{table}
 
 \newpage
-\subsection{Statistics method for rare events}
+\subsection{Statistics method for rare events}\label{sampleEQ}
 As seen in \autoref{tab:numSample}, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
 
 For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, there is also introduced a weighting factor. This weighting factor is defined from the change in the distribution. This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
