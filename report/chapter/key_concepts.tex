@@ -254,8 +254,18 @@ Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very s
 where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 \subsection{SNR margin estimation}
 
-Because the noise might affect the deep fades of our signal, we need to set a minimum SNR level. By doing that we will be able to accept the measurements that are above this level and reject the ones that are affected from the noise. The way to do that is to assume the signal as a constant and the noise as a complex vector that changes.  We consider our constant signal as the value of a Rician distribution that doesn't change. 
-Rician distribution fits in our situation because the K-factor that it uses is a ratio of power in direct path to powers in the other scattered paths\citep{SpaceWirelessChan} meaning that the K-factor matches our SNR margin that we need to investigate.
+Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
+This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
+%By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
+The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
+\begin{equation}
+p = a^2 + 2\sigma^2
+\end{equation}
+\todo {change symbols}
+Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, \citep{SpaceWirelessChan} meaning that the K-factor matches the SNR margin that we need to estimate.
+\begin{equation}
+K = \frac{a^2}{2\sigma^2}
+\end{equation}
 Given that we set our confidence interval of $\pm 1\%$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
 \todo {Figure out how to do this in Matlab and make figures}
 
