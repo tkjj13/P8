@@ -131,6 +131,8 @@
 
 \todo{intro describing the chapter}
 
+This chapter deals with characterization of the channel and uses the Rayleigh fading model as a theoretical baseline. The model is used to investigate the  temporal and spatial domain of a channel and how to utilize both in the measurement campaign.
+
 
 \section{The Idea of Multipath}
 % (basic intro / symbol introduction)
@@ -193,12 +195,12 @@ Fading can be separated in  small scale and large scale fading \citep{FlatSelect
 % (effects?)
 Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
 Temporal diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
-Antenna diversity / Spatial diversity
+Antenna diversity / Spatial diversity:
 By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
 
 
 	
-\section{Rayleigh Fading}
+\section{Rayleigh Fading} \todo{sources for the text}
 % (confidence level vs number of samples)
 
 %\section{Statistics}
@@ -206,122 +208,203 @@ By having several antennas at either or both the receiver and transmitter, anten
 %\subsection{Distributions?}
 
 
-Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. This channel scenario is multipath with the Rayleigh distribution and the continues-time channel impulse response:
-\begin{equation}
-c(t,\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
+Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. In \autoref{eq:reyl_impulse_response} the impulse response of a Rayleigh fading channel can be seen \citep{MeasurementComplexRay}.
+\begin{equation}\label{eq:reyl_impulse_response}
+c(t;\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
 \end{equation}
-Here $a_n(t)$ is amplitude, $\Phi_n(t)$ is phase, $\tau_n(t)$ is the time delay. These are connected to the $n$th path and the Dirac delta function $\delta(\cdot)$.
-In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum's Doppler spread is clearly visible. The statistics of narrowband transmissions can be done by measuring on a  single frequency and the envelope will take the form of the Rayleigh distribution. 
+
+\begin{where}
+\va{$c(t;\tau)$}{is the impulse response of a fading channel}{1}
+\va{$t$}{is absolute time}{s}
+\va{$\tau$}{is delay from t}{s}
+\va{$N$}{is the number of reflective paths}{1}
+\va{$a_n$}{is the attenuation of the path}{1}
+\va{$\Phi_n$}{is the phase change of the path}{rad}
+\end{where}
+
+%In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible.  
 
 %To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
-If we look at Rayleigh fading channels for a narrow band system the channel has real and complex gain that can be written as:
+It should be mentioned that $t=0$ is assumed to be the time the first signal is received. If $N \rightarrow \infty$ the fading channels for a narrow band system can be expressed as \autoref{eq:inf_reyl_impulse_response} \citep{MeasurementComplexRay}. 
 
-\begin{equation}
-C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + i\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
+\begin{equation}\label{eq:inf_reyl_impulse_response}
+C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + j\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
 \end{equation}
-The $\psi_n(t)$ argument is due to the phase $\Phi_n(t)$ and time delay $\tau_n(t)$ created by Doppler shifts. This forms independent random variables  uniformly disturbed between $[-\pi,\pi]$
-If we assume that the random variables is not dependent on time, the impulse respond process $C(t)$ will be wide sense stationary. Given the central limit theorem that states:
-If Independent random variables are added, their sum goes towards a Gaussian distribution even if the variables themselves are not normally distributed \citep{CentralLimit}.  
-This means that the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variance. This gives a Rayleigh fading channel because $ \left | C(t) \right | $ is the Rayleigh random variable. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously received signal power at time t.
-A measurement has to measure the $ \left | C(t) \right |^2 $ and its estimation $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ this gives the power delay profile. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit pilot symbols witch are identically disturbed and estimate the mean.\citep{MeasurementComplexRay}
-These two variables has to fit to the Rayleigh fading. The mean value is given by the average across samples.
-When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal. Due to the fact that only a small amount of samples are used (>100) the deep fades that the Rayleigh model predicts ($10^{-6}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
+\begin{where}
+\va{$C(t)$}{is the impulse response of a Rayleigh fading channel}{1}
+\va{$\psi_n(t)$}{is due to $\Phi_n(t)$ and $\tau_n(t)$ and is induced by the Doppler shift}{rad}
+\end{where}
+
+If we assume that the random variables is not dependent on time, the impulse response process $C(t)$ will be \gls{WSS}. Given the central limit theorem that states:
+"\textit{...the distribution of the sum (or average) of a large number of independent, identically distributed variables will be approximately normal, regardless of the underlying distribution}" \citep{CentralLimit}.  
+Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumption of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals witch are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
+
+
+
+%When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal, due to the fact that only a small amount of samples are used (<100) the deep fades that the Rayleigh model predicts ($10^{-5}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
 \section{Doppler}
-Doppler spread is when the velocity of a wireless system causes a frequency shift for the signal of each path. The BW of a channel must be larger then the Doppler spread to function. Doppler spread is related to the velocity of the system given by:
+Doppler spread is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a channel must be larger then the Doppler spread to function. Doppler spread is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
 \begin{equation}
-Doppler Spread = 2/\lambda \cdot v
+f_d = \frac{2}{\lambda} \cdot v
 \end{equation}
-Where $\lambda$ is wavelength and $v$ is velocity.
+\begin{where}
+\va{$f_d$}{is the Doppler spread}{Hz}
+\va{$\lambda$}{is the wavelenght}{m}
+\va{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
+\end{where}
 
-If we assume the system is moving slowly at $5m/s$ and we use a open $2.4Ghz$ frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80Hz. We know that the dynamic range of system is dependant on the IF bandwidth, and that we should use as low BW as possible. A 80Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading. Given this definition of Doppler spread we can assume that this should not be a problem since our measurements BW must be higher to get enough samples.
+%If we assume the system is moving slowly at $5m/s$ and we use an open $2.4Ghz$ \todo{is these the values we expect} frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80 Hz. We know that the dynamic range of system is dependant on the IF bandwidth, and that we should use as low BW as possible \todo{source}. A 80 Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading \todo{source}. Given this definition of Doppler spread we can assume that this should not be a problem since our measurements BW must be higher to get enough samples \todo{source}.
 
 \section{Wireless channel characteristics}
-\todo {update number of samples needed after statistics. I have assumed $10^7$}
-The project have two connected parts, one where we investigate the proposed Rayleigh fading model and a part where we perform a measurement to see if it correct.  To model these extremely uncommon outages with low as $10^{-6}$ probability.
 
-To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
-There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
-\todo {Remove this first part?}
+%To accomplish a measurement with some degree of accuracy (confidence interval) we must understand the statistics and the parts that affect it. One thing that is clear though is that many uncorrelated samples are needed. We will assume that we need $10^7$ uncorrelated samples to get some degree of accuracy for $10^{-6}$ probability. Now how do we get $10^7$ uncorrelated samples?
+%There are several physical limitations that need to be balanced  in order to prove the claims of the Rayleigh fading model with a predefined confidence interval and to obtain a large amount of uncorrelated samples.
+%\todo {Remove this first part?}
 
-Wireless multipath fading channels have varying factors in two domains. These domains are the temporal(time) and spatial(space) domains \citep[p. 40-42]{stochasticWirelessChan}. These domains are connected and must be balanced to make the measurements possible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure.
+Wireless multipath fading channels are characterized in two domains, namely the temporal and spatial domains \citep[p. 40-42]{stochasticWirelessChan}. To achieve the desired amount of samples found in \autoref{sec:statistics}, utilization of both domains are necessary. The reason for this is the limited timeframe and available locations for the project.
+%These domains are connected\todo{how} and must be balanced to make the measurement campaign plausible. We have time constraints; as in we can't take measurements for several years. Space constraints; as we have a limited amount of space to measure.
 % Frequency constraints; to get high enough dynamic range to see very severe fading (-60dB) we are limited on bandwidth.
 
-A typical physical process can be described further by splitting up the two domains into two different representations.In the time domain with some values of quantity $h$ as a function of time $t \ [s]$, so $h(t), -\infty < t < \infty$. The second representation is a function of frequency $f \ [\frac{1}{s}]$ by a complex number $H$,which gives amplitude and phase as a function of the frequency, $f$ that is $H(f) -\infty < f < \infty$. These can be though of as two different representations that are connected by Fourier transforms.
-\begin{equation}
-H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
-h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
-\end{equation}
-If the units of $t$ is seconds,then $f$ is in cycles per second(Hz). The $\Leftrightarrow$ represents the Fourier transform $\mathcal{F}$.
+%A typical physical process can be described further by splitting up the two domains into two different representations.In the time domain with some values of quantity $h$ as a function of time $t \ [s]$, so $h(t), -\infty < t < \infty$. The second representation is a function of frequency $f \ [\frac{1}{s}]$ by a complex number $H$,which gives amplitude and phase as a function of the frequency, $f$ that is $H(f) -\infty < f < \infty$. These can be though of as two different representations that are connected by Fourier transforms.
 
-In the space domain the representations are with some values of quantity $g$ as a function of space $\Delta d \ [m]$, so $g(\Delta d), -\infty < \Delta d < \infty$. The second representation is a function of the spatial frequency $f_d \ [\frac{1}{m}]$ by a complex number $G$,which gives amplitude and phase as a function of the spatial frequency(Doppler), $f_d$ that is $G(f_d) -\infty < f_d < \infty$.
-These can be though of as two different representations that are connected by Fourier transforms.
-\begin{equation}
-G(f_d)=\int_{- \infty}^{\infty}g(\Delta d)e^{-2\pi ift} d\Delta d \quad \Leftrightarrow \quad
-g(\Delta d)=\int_{- \infty}^{\infty}G(f_d)e^{2\pi ift} df_d
-\end{equation}
-If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. The space domain can be hard to visualize considering it can have 3 dimensions where $\Delta d = (x,y,z)$. This can be limited to 1 or 2 dimensions for simplification. \citep{FTandCORR}
+The domains can further be split up into two different representations. In the temporal domain the channel can be a function of time or a function of frequency. These are two different representations that is connected by the Fourier transform as seen in \autoref{eq:temporal1} \citep[p. 43]{Wireless_CommunicationsBook}.
 
-Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
+\begin{equation}\label{eq:temporal1}
+%H(f)=\int_{- \infty}^{\infty}h(t)e^{-2\pi ift} dt \quad \Leftrightarrow \quad
+%h(t)=\int_{- \infty}^{\infty}H(f)e^{2\pi ift} df
+G_t(f) = \mathcal{F}(g_t(t))
+\end{equation}
+\begin{where}
+\va{$G_t(f)$}{is the frequency representation of the channels temporal domain}{1}
+\va{$g_t(t)$}{is the time representation of the channels temporal domain}{1}
+\end{where}
+
+%In the spatial domain the representations are with some values of quantity $g$ as a function of space $\Delta d \ [m]$, so $g(\Delta d), -\infty < \Delta d < \infty$. The second representation is a function of the spatial frequency $f_d \ [\frac{1}{m}]$ by a complex number $G$,which gives amplitude and phase as a function of the spatial frequency(Doppler), $f_d$ that is $G(f_d) -\infty < f_d < \infty$.
+%These can be though of as two different representations that are connected by Fourier transforms.
+
+The spatial domain can equally be a function of space or spatial frequency, which is also related by the Fourier transform as seen in \autoref{eq:spatial1} \citep[p. 43]{Wireless_CommunicationsBook}.
+
+\begin{equation}\label{eq:spatial1}
+%G(f_d)=\int_{- \infty}^{\infty}g(\Delta d)e^{-2\pi ift} d\Delta d \quad \Leftrightarrow \quad
+%g(\Delta d)=\int_{- \infty}^{\infty}G(f_d)e^{2\pi ift} df_d
+G_s(f_d) = \mathcal{F}(g_s(d))
+\end{equation}
+\begin{where}
+\va{$G_s(f_d)$}{is the spatial frequency representation of the channels spatial domain}{1}
+\va{$g_s(d)$}{is the space representation of the channels spatial domain}{1}
+\end{where}
+
+
+%If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. 
+The spatial domain is 3 dimensional given as $d = (x,y,z)$, in the analysis this can however be limited to 1 or 2 dimensions for simplicity \citep{FTandCORR}.
+
+%Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
+These domains and their representations can be combined in four different ways which is related by the Fourier transform as seen in \autoref{eq:channel_rep1} \citep[ch. 6.3]{The_Mobile_Radio_Propagation_Channelbook}.
 
 \begin{center}
-$h(\Delta d,\tau)$\\
-\scalebox{0.5}{
+$h(d,t)$\\
+\scalebox{0.75}{
 ${\mathcal{F}\downarrow \uparrow \mathcal{F}^{-1}}$}\\
-$S(f_d,\tau)$ $\quad \quad$ $T(\Delta d,f)$\\
-\scalebox{0.5}{
+$S(f_d,t)$ $\quad \quad$ $T( d,f)$\\
+\scalebox{0.75}{
 ${\mathcal{F} \downarrow \uparrow \mathcal{F}^{-1}}$}\\
 \vspace{-1.9em}
-\begin{equation}
+\begin{equation}\label{eq:channel_rep1}
 H(f_d,f)
 \end{equation}
 \end{center}
+\begin{where}
+\va{$h(d,t)$}{is the space variant impulse response function}{1}
+\va{$S(f_d,t)$}{is the output Doppler scattering function}{1}
+\va{$T(d,f)$}{is the Doppler-delay scattering function}{1}
+\va{$H(f_d,f)$}{is the space variant transfer function}{1}
+\end{where}
+%$\Delta d$ is separation in space, $\tau$ is time delay ,$f$ is frequency, $f_d$ is the Doppler.
 
 
-$\Delta d$ is separation in space, $\tau$ is time delay ,$f$ is frequency, $f_d$ is the Doppler.
 
-Since the channel behaviour are hard to predict, the normal method is to use statistical models to describe a channel in terms of probabilities. So the channel impulse respond $h(t)$ can be considered as random process.
-Wireless channels autocorrelation $R$ is used to characterize how a random channel will change in time.  So $R$ is a measure of the rate of change given a channel $h(t)$. let $h(t)$ be WSS:
-\begin{equation}
-R(t_1,t_2)_h = R(\tau) \ , \  \tau =t_2 - t_1  
+\section{Wide sense stationary uncorrelated scattering}
+
+Since the channel behaviour is hard to predict, the normal method is to use statistical models to describe a channel in terms of probabilities. So the channel impulse response is considered a random process. The \gls{ACF} of the channel is used to characterize changes in time and space.
+
+In a \gls{WSSUS} channel model the correlation function is time invariant and that the different scatters and their delays are uncorrelated. This means that the ACF of the channel only need one parameter per domain, because only the change in position and time affects the channel. WSSUS model gives a realistic way to describe short term fading of the channel \citep[ch. 6.5-6.6]{The_Mobile_Radio_Propagation_Channelbook}.
+
+This means that the general ACF can be simplified as seen in \autoref{eq:acf1}.
+\begin{equation}\label{eq:acf1}
+R_{h}(d_1,d_2,t_1,t_2) = R_{h}(\Delta d,\tau) 
 \end{equation}
-So it is only dependant on one parameter, the delay $\tau$. The $|R(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$, which is the average power of $h(t)$. The autocorrelation of $g(\Delta d)$ in the spatial domain gives a relationship that is dependant on the spatial position $\Delta d$. The joint autocorrelations are found with a double Fourier transform and gives a stochastic average power of the channel:
+\begin{where}
+\va{$R_{h}$}{is the \gls{ACF} of $h(d,t)$}{1}
+\va{$d_1,d_2$}{is two random positions}{m}
+\va{$\Delta d$}{is the change in position given as $d_2 - d_1$}{m}
+\va{$t_1,t_2$}{is two random time indices}{s}
+\va{$\tau$}{is the delay given as $t_2 - t_1$}{s}
+\end{where}
+
+%The $|R(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$ \todo{check source does not seem true}, which is the average power of $h(t)$. Under the same assumption of WSS the ACF of $g_s(d)$ in the spatial domain is also only dependent on the spatial offset, $\Delta d$. 
+The joint autocorrelations are found with a double Fourier transform and gives a stochastic average power of the channel:
+%\begin{center}
+%$R_h(\Delta d_1,\Delta d_1,\tau_1,\tau_2)$\\
+%\scalebox{0.5}{
+%${D\mathcal{F}\downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+%$R_S(f_{d1},f_{d2},\tau_1,\tau_2)$ $\quad \quad$ $R_T(\Delta d_1,\Delta d_2,f_1,f_2)$\\
+%\scalebox{0.5}{
+%${D\mathcal{F} \downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+%\vspace{-1.9em}
+%\begin{equation}
+%R_H(f_{d1},f_{d2},f_1,f_2)
+%\label{AutocorrDouble}
+%\end{equation}
+%\end{center}
+
 \begin{center}
-$R_h(\Delta d_1,\Delta d_1,\tau_1,\tau_2)$\\
-\scalebox{0.5}{
+$R_h(\Delta d,\tau)$\\
+\scalebox{0.75}{
 ${D\mathcal{F}\downarrow \uparrow D\mathcal{F}^{-1}}$}\\
-$R_S(f_{d1},f_{d2},\tau_1,\tau_2)$ $\quad \quad$ $R_T(\Delta d_1,\Delta d_2,f_1,f_2)$\\
-\scalebox{0.5}{
+$R_S(f_{d},\tau)$ $\quad \quad$ $R_T(\Delta d,\Delta f)$\\
+\scalebox{0.75}{
 ${D\mathcal{F} \downarrow \uparrow D\mathcal{F}^{-1}}$}\\
 \vspace{-1.9em}
 \begin{equation}
-R_H(f_{d1},f_{d2},f_1,f_2)
+R_H(f_{d},\Delta f)
 \label{AutocorrDouble}
 \end{equation}
 \end{center}
-Where $D\mathcal{F}$ is the double Fourier transform.
+
+\begin{where}
+\va{$R_h(\Delta d,\tau)$}{is the ACF of the space variant impulse response function}{1}
+\va{$R_S(f_{d},\tau)$}{is the ACF of the output Doppler scattering function}{1}
+\va{$R_T(\Delta d,\Delta f)$}{is the ACF of the Doppler-delay scattering function}{1}
+\va{$R_H(f_{d},\Delta f)$}{is the ACF of the space variant transfer function}{1}
+\end{where}
 
 
-The Power Spectral density $S(f)$ and $S(f_d)$ measure of the instant spectral power in a random channel. The PSD is non negative and symmetrical. The autocorrelation is related to the PSD by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+Because of the nature of the two domains are independent further analysis can be done separately. %The \gls{PSD} $S_H(f_d, \Delta f)$ measure the instant spectral power in a random channel. The PSD is non negative and symmetrical. 
+The autocorrelation is related to the PSD by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+
+%\begin{equation}
+%S_H(f_d, \Delta f) = \mathcal{F}(R_H(f_{d},\Delta f))
+%\end{equation}
+
+
 \begin{equation}
-S(f) = \mathcal{F}(R(t)) = \int_{- \infty}^{\infty} R(t)e^{-i2 \pi t f} d t
+S(\Delta f) = \mathcal{F}(R(t))
 \end{equation}
-\begin{equation}
-R [second] \Leftrightarrow
-S [cylces \ per \ second]
-\end{equation}
+\begin{equation*}
+S [cylces \ per \ second] \Leftrightarrow R [second]
+\end{equation*}
 
 \begin{equation}
-S(f_d) = \mathcal{F}(R(\Delta d )) = \int_{- \infty}^{\infty} R(\Delta d)e^{-i2 \pi \Delta d f} d \Delta d
+S(f_d) = \mathcal{F}(R(\Delta d ))
 \end{equation}
-\begin{equation}
-R [meter] \Leftrightarrow
-S [cylces \ per \ meter]
-\end{equation}
+\begin{equation*}
+S [cylces \ per \ meter] \Leftrightarrow R [meter]
+\end{equation*}
 
-where S is the PSD and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
+%where S is the PSD and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
 
-Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
+%Doppler, delay and wave number spectra are defined and we can use Fourier transform to find the Autocorrelation. In reality we want to look at relationships between factors that affect a random channel, with the joint autocorrelation functions and joint PSDs\citep{SpaceWirelessChan}.
 
 
 %\begin{equation}
@@ -332,9 +415,7 @@ Doppler, delay and wave number spectra are defined and we can use Fourier transf
 %Where $f_d$ is the Doppler, $\tau$ is the time shift and $\Delta d$ is the separation in space (wave number).
 
 
-\section{Wide sense stationary uncorrelated scattering}
 
-In a \gls{WSSUS} channel model the correlation function is time invariant and that the different scatters and their delays are uncorrelated. This means that the WSSUS channel model only need one parameter per domain. To specify space shifts that the shift in space is unchanged and gives uncorrelated Doppler shifts. Together with the unchanged shifts in frequency. This will simplify \autoref{AutocorrDouble} so it's only dependant two variables. WSSUS model gives a realistic way to describe short term fading of the channel \citep{WSSUSbook}.
 
 %\begin{equation}
 %\huge{\ h(\Delta d,\tau)}  \\ \small {\mathcal{F} \downarrow \uparrow \mathcal{F^{-1}}} \\ \huge {S(f_d,\tau) \quad\quad\quad T(\Delta d,f)} \\
@@ -390,11 +471,10 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 \subsection{How to measure uncorrelated samples}
 \label{howtomeasureUS}
 \todo {rewrite in more general term and then use example values or make table}
-To measure the required samples from \autoref{sampleEQ} ($\approx 10^7$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m$.
+To measure the required samples from \autoref{sampleEQ} ($\approx 4.04\cdot10^6$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m$.
 If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
-\todo {Re write equations so you find the VOLUME required and not use
- actually values, write it more general}
+
 \begin{equation}
 N = A_{div} \cdot \frac{BW}{B_c \cdot 2} \cdot \frac{\Delta}{(\frac{\lambda}{2})^2}
 \label{howtosample}
