@@ -266,9 +266,16 @@ Rician distribution fits in this situation because the K-factor that it depend u
 \begin{equation}
 K = \frac{a^2}{2\sigma^2}
 \end{equation}
-Given that we set our confidence interval of $\pm 1\%$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
+Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
 \todo {Figure out how to do this in Matlab and make figures}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
+\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
+\label{Rician_90}
+\end{figure}
 
+The results show that a SNR margin of 14dB is needed to have accurate reading of the deep fades.
 \subsection{How to measure dynamic range}
 
 In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic}
@@ -321,7 +328,7 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
 
 \begin{equation}
-Noisefloor_{dBm} = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF
+Noisefloor_{dBm} = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF 
 \label{NFwithAVG}
 \end{equation}
 Where $IF_{BW}$ is  intermediate bandwidth $T_0$ is temperature of the system, $k$ is the Boltzmann's constant,$AVG$ is the averaging factor and $NF$ if the noise figure.
