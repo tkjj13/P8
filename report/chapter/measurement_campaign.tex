@@ -2,5 +2,23 @@
 \section{Setup}
 The setup of the measurement will give the insight and solutions to the problems hypothesised in previous chapters. 
 \subsection{equipment}
-The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
+Keysight \gls{VNA} N5527A
+%The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
+\subsection{Specifications}
+In chapter 1 all the needed factors has been discussed. Now when the setup is designed it's important to set specifications.
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{final_specs}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Number of samples needed         & N           & 4.04 million   & $4.04 10^6$        \\ \hline
+Center Frequency                 & $f_c$       & 3Ghz           & $3 \cdot 10^9$     \\ \hline
+Wavelength                       & $\lambda$   & 10cm           & 0.1m               \\ \hline
+Coherence freq                   & $\Delta f$  & 3MHz           & $3 \cdot 10^6$     \\ \hline
+Dynamic range                    & DR          & 70dB           & $10^7$             \\ \hline
+Antenna diversity                & $A_{div}$   & 1x3            & 3                  \\ \hline
+Intermediate frequency bandwidth & $IF_BW$     & 10KHz          & $10 \cdot 10^3$ 10 \\ \hline
+\end{tabular}
+\end{table}
 \section{Results}
