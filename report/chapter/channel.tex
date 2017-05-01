@@ -434,10 +434,10 @@ The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let 
 \begin{equation}
 R_g[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
-Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
-We want the correlation to be 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.512.
+Where $R_g$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
+We want the correlation to be close 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.4048 \citep[p.335]{Jakes_microwave}.
 \begin{equation}
-\frac{2\pi \Delta d}{\lambda} = 2.512 \Leftrightarrow \Delta d = 0.4 \lambda \approx \frac{\lambda}{2}
+\frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
 \end{equation}
 
 If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} Too get uncorrelated  parallel measurement a antenna array with $\frac{\lambda}{2}$ separated antennas can be used for multi probe measurements. A antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. So a $5\cdot 5$ antenna array would gives us $5^2 = 25$ uncorrelated channels each measurement.
@@ -462,7 +462,7 @@ the second central moment of $H(\tau)$. With the RMS delay spread we can find $B
 B_C \geq \frac{1}{2\pi \cdot \sigma_{\tau}}
 \label{CohBW}
 \end{equation}
-This will gives us a $B_c$ approximation that has a coherence under 0.5. 
+This will gives us a $B_c$ approximation that has a coherence under 0.5. The coherence function will go towards 0 as $B_c  \rightarrow \infty $
 \citep{CohBW}
 If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multipath lab environment.
 \todo{might be somthing wrong with the matlab script, because the FCF shows more BW} With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
