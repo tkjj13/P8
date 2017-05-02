@@ -436,6 +436,15 @@ R_g[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
 Where $R_g$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
 We want the correlation to be close 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.4048 \citep[p.335]{Jakes_microwave}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/Bessel_wavlength.png}
+\caption{The coherence function scaled by wavelength.}
+\label{bessel_wave}
+\end{figure}
+
+
 \begin{equation}
 \frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
 \end{equation}
@@ -476,10 +485,11 @@ If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} th
 The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
 
 \begin{equation}
-N = A_{div} \cdot \frac{BW}{B_c \cdot 2} \cdot \frac{\Delta}{(\frac{\lambda}{2})^2}
+N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{BW}{B_c \cdot 2}}_\text{$N_f$} \cdot \underbrace{\frac{\Delta}{(\frac{\lambda}{2})^2}}_\text{$N_d$}
 \label{howtosample}
 \end{equation} 
-Where $N$ is number of samples, $A_div$ is the antenna diversity, $\Delta$ is the area, $B_c$ is the coherence BW and $\lambda$ is the wavelength.
+ 
+Where $N$ is number of samples(in antenna diversity,frequency and space), $A_{div}$ is the antenna diversity, $\Delta$ is the area, $B_c$ is the coherence BW and $\lambda$ is the wavelength.
 \autoref{howtosample} can be used to found the area required given number of samples $N$ needed.
 \begin{equation}
 \Delta  = \frac{N\cdot (\frac{\lambda}{2})^2}{A_{div}\cdot \frac{BW}{B_c \cdot 2}}
