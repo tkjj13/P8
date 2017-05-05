@@ -129,7 +129,6 @@
 \chapter{The wireless channel}
 % \chapter{Channel Dynamics} possible other headline
 
-\todo{intro describing the chapter}
 
 This chapter deals with characterization of the channel and uses the Rayleigh fading model as a theoretical baseline. The model is used to investigate the  temporal and spatial domain of a channel and how to utilize both in the measurement campaign.
 
@@ -243,13 +242,13 @@ Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the 
 
 %When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal, due to the fact that only a small amount of samples are used (<100) the deep fades that the Rayleigh model predicts ($10^{-5}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
-\section{Doppler}
-Doppler spread is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a channel must be larger then the Doppler spread to function. Doppler spread is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
-\begin{equation}
+\section{Doppler shift}
+Doppler shift is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a system must be larger then the maximum Doppler shift to work. The maximum Doppler shift is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
+\begin{equation}\label{eq:Doppler}
 f_d = \frac{2}{\lambda} \cdot v
 \end{equation}
 \begin{where}
-\va{$f_d$}{is the Doppler spread}{Hz}
+\va{$f_d$}{is the maximum Doppler shift}{Hz}
 \va{$\lambda$}{is the wavelenght}{m}
 \va{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
 \end{where}
@@ -332,18 +331,16 @@ In a \gls{WSSUS} channel model the correlation function is time invariant and th
 
 This means that the general ACF can be simplified as seen in \autoref{eq:acf1}.
 \begin{equation}\label{eq:acf1}
-R_{h}(d_1,d_2,t_1,t_2) = R_{h}(\Delta d,\tau) 
+R_{h}(d,d+\Delta d,t,t+\tau) = R_{h}(\Delta d,\tau) 
 \end{equation}
 \begin{where}
 \va{$R_{h}$}{is the \gls{ACF} of $h(d,t)$}{1}
-\va{$d_1,d_2$}{is two random positions}{m}
-\va{$\Delta d$}{is the change in position given as $d_2 - d_1$}{m}
-\va{$t_1,t_2$}{is two random time indices}{s}
-\va{$\tau$}{is the delay given as $t_2 - t_1$}{s}
+\va{$\Delta d$}{is a change in position}{m}
+\va{$\tau$}{is a time delay}{s}
 \end{where}
 
 %The $|R(\tau)| = \mathop{\mathbb{E}}(h(t))^2)$ \todo{check source does not seem true}, which is the average power of $h(t)$. Under the same assumption of WSS the ACF of $g_s(d)$ in the spatial domain is also only dependent on the spatial offset, $\Delta d$. 
-The joint autocorrelations are found with a double Fourier transform and gives a stochastic average power of the channel:
+The relation between joint autocorrelations are found using Fourier transform \citep[ch. 6.5-6.6]{The_Mobile_Radio_Propagation_Channelbook}:
 %\begin{center}
 %$R_h(\Delta d_1,\Delta d_1,\tau_1,\tau_2)$\\
 %\scalebox{0.5}{
@@ -361,10 +358,10 @@ The joint autocorrelations are found with a double Fourier transform and gives a
 \begin{center}
 $R_h(\Delta d,\tau)$\\
 \scalebox{0.75}{
-${D\mathcal{F}\downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+${\mathcal{F}\downarrow \uparrow \mathcal{F}^{-1}}$}\\
 $R_S(f_{d},\tau)$ $\quad \quad$ $R_T(\Delta d,\Delta f)$\\
 \scalebox{0.75}{
-${D\mathcal{F} \downarrow \uparrow D\mathcal{F}^{-1}}$}\\
+${\mathcal{F} \downarrow \uparrow \mathcal{F}^{-1}}$}\\
 \vspace{-1.9em}
 \begin{equation}
 R_H(f_{d},\Delta f)
@@ -380,27 +377,31 @@ R_H(f_{d},\Delta f)
 \end{where}
 
 
-Because of the nature of the two domains are independent further analysis can be done separately. %The \gls{PSD} $S_H(f_d, \Delta f)$ measure the instant spectral power in a random channel. The PSD is non negative and symmetrical. 
-The autocorrelation is related to the PSD by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+
+ %The \gls{PSD} $S_H(f_d, \Delta f)$ measure the instant spectral power in a random channel. The PSD is non negative and symmetrical. 
+%The autocorrelation is related to the \gls{PSD} by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
+In the measurement campaign knowledge about the correlation related to the change in position and shift in frequency is relevant as these parameters are typically the ones to manipulate. With out the actual measurements it is however often easier to get information of the correlation to the time delay and the Doppler spectrum, and a conversion between the parameters has to be performed using the relation described in \autoref{AutocorrDouble}.
+To help in the analysis it is assumed the two domains are independent and therefore analysis of the \gls{SCF} and \gls{FCF} can be done separately.
+
 
 %\begin{equation}
 %S_H(f_d, \Delta f) = \mathcal{F}(R_H(f_{d},\Delta f))
 %\end{equation}
 
 
-\begin{equation}
-S(\Delta f) = \mathcal{F}(R(t))
-\end{equation}
-\begin{equation*}
-S [cylces \ per \ second] \Leftrightarrow R [second]
-\end{equation*}
-
-\begin{equation}
-S(f_d) = \mathcal{F}(R(\Delta d ))
-\end{equation}
-\begin{equation*}
-S [cylces \ per \ meter] \Leftrightarrow R [meter]
-\end{equation*}
+%\begin{equation}
+%S(\Delta f) = \mathcal{F}(R(t))
+%\end{equation}
+%\begin{equation*}
+%S [cylces \ per \ second] \Leftrightarrow R [second]
+%\end{equation*}
+%
+%\begin{equation}
+%S(f_d) = \mathcal{F}(R(\Delta d ))
+%\end{equation}
+%\begin{equation*}
+%S [cylces \ per \ meter] \Leftrightarrow R [meter]
+%\end{equation*}
 
 %where S is the PSD and R is the autocorrelation. $\mathcal{F}$ represents the Fourier transform. 
 
@@ -429,10 +430,21 @@ S [cylces \ per \ meter] \Leftrightarrow R [meter]
 % S(f_d,\tau) )
 %\end{equation}
 %where $f_d$ is Doppler and $\Delta d$ is separation in space.
-\section{Coherence functions}
+
+
+%\section{Coherence functions}
+\subsection{\Gls{SCF}}
+As seen from \autoref{AutocorrDouble}, the SCF can be found by taking the Fourier transform of the Doppler spectrum. 
+
+\begin{equation}
+R_{h}(\Delta d) = \mathcal{F}(R_{S}(f_d))
+\end{equation}
+
+By assuming a frequency of 4 GHz and using \autoref{eq:Doppler}
+
 The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
 \begin{equation}
-R_g[\Delta d] = J_0\cdot(2\pi \frac{\Delta d}{\lambda})
+R_g[\Delta d] = J_0(2\pi \frac{\Delta d}{\lambda})
 \end{equation}
 Where $R_x$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
 We want the correlation to be 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.512.
