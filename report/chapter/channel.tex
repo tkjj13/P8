@@ -440,22 +440,27 @@ As seen from \autoref{AutocorrDouble}, the SCF can be found by taking the Fourie
 R_{h}(\Delta d) = \mathcal{F}(R_{S}(f_d))
 \end{equation}
 
-By assuming a frequency of 4 GHz and using \autoref{eq:Doppler}
+Assuming Rayleigh fading the ACF of the complex fading signal can be expressed with the zero order bessel function, $J_0$, as \citep[p.329]{Jakes_microwave}:
 
-The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
-\begin{equation}
-R_g[\Delta d] = J_0(2\pi \frac{\Delta d}{\lambda})
+\begin{equation}\label{eq:SCF}
+R_h(\Delta d) = J_0\left(2\pi \frac{\Delta d}{\lambda}\right)
 \end{equation}
-Where $R_g$ is the autocorrelation function in space $\Delta d$ is the difference in distance. $J_0$ is the Bessel function with order 0.
-We want the correlation to be close 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.4048 \citep[p.335]{Jakes_microwave}.
+
+A visual interpretation of this can be seen on \autoref{bessel_wave}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/Bessel_wavlength.png}
-\caption{The coherence function scaled by wavelength.}
+\caption{The coherence function from \autoref{eq:SCF} scaled by wavelength.}
 \label{bessel_wave}
 \end{figure}
 
+Gener
+We want the correlation to be close 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.4048 \citep[p.335]{Jakes_microwave}.
+
+
+
+The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
 
 \begin{equation}
 \frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
