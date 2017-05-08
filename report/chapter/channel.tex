@@ -520,3 +520,28 @@ T = \frac{N}{N_s} , \frac{10^7N}{15000N_s} = 667s \approx 12 minutes.
 \end{equation}
 The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to get the needed sample size. A speed of $1m/s$ over 12 minutes is equal to $720m$ in one dimensions so a two dimensional space separation is needed to reduce the room size requirement.. The practicality of this will be discussed in part II.
 %\section{Introduction of noisy signal}
+
+
+\section{ITU model for indoor attenuation}
+The the macro level path loss seen in wireless channels has to be taken into account. The ITU model gives us the macro path loss seen in indoor environments. The formula is as follows:
+\begin{equation}
+L = 20log (f) + Q log (d) + P_f(n) - 28
+\end{equation}
+
+\begin{where}
+\va{$L$}{is path loss}{dB}
+\va{$f$}{is frequency in Mega Hertz}{MHz}
+\va{$d$}{is distance}{m}
+\va{$Q$}{is the distance power loss coefficient\citep{ITU_indoor}}{1}
+\va{$P_f(n)$}{is the floor penetration factor with nth floors}{dB}
+\end{where}
+
+The values for N is given in \citep{ITU_indoor} at 4 GHz the value is 28 for a office environment. Given that the measurements will focus on one floor the $P_f(n)$ factor is removed. To find the received power the equation becomes:
+\begin{equation}
+P_{rx} = P_{tx} - 20log(f) - Q log (d) +28
+\end{equation}
+\begin{where}
+\va {$P_{rx}$}{is the received power}{dBm}
+\end{where}
+This gives the power seen at the receiver side and the needed  total dynamic range can be found.
+
