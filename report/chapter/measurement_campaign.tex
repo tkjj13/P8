@@ -2,7 +2,12 @@
 \section{Setup}
 The setup of the measurement will give the insight and solutions to the problems hypothesised in previous chapters. 
 \subsection{equipment}
-Keysight \gls{VNA} N5527A
+\label{equip}
+Keysight \gls{VNA} N5527A 
+
+Antenna array 4Ghz $f_c$.
+
+
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \subsection{Specifications}
 In chapter 1 all the needed factors has been discussed. Now when the setup is designed it's important to set specifications.
@@ -16,9 +21,17 @@ Number of samples needed         & N           & 4.04 million   & $4.04 10^6$   
 Center Frequency                 & $f_c$       & 4Ghz           & $4 \cdot 10^9$     \\ \hline
 Wavelength                       & $\lambda$   & 10cm           & 0.075m               \\ \hline
 Coherence freq                   & $\Delta f$  & 3MHz           & $3 \cdot 10^6$     \\ \hline
-Dynamic range                    & DR          & 70dB           & $10^7$             \\ \hline
+Dynamic range                    & DR          & 104dB           & $2\cdot 10^10$             \\ \hline
 Antenna diversity                & $A_{div}$   & 1x3            & 3                  \\ \hline
-Intermediate frequency bandwidth & $IF_BW$     & 10KHz          & $10 \cdot 10^3$ \\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$     & 10KHz          & $10 \cdot 10^3$ \\ \hline
 \end{tabular}
 \end{table}
+\subsection{Total Dynamic range}
+Given \autoref{total_prx} and the VNA specification given in \autoref{equip} we can find the total received power seen in the measurements and calculate the total dynamic range needed given the margin in \autoref{SNR_margin}:
+\begin{equation}
+L = 20log (4000MHz) + 28 \cdot log(8)-28 = 69dB
+\end{equation}
+\begin{equation}
+DR_{tot} = 69dB - 30dBm + 64dB = 104dB 
+\end{equation}
 \section{Results}
