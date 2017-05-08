@@ -35,7 +35,27 @@ From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to $10^{
 \subsection{Statistics method for rare events}\label{sampleEQ}
 As seen in \autoref{tab:numSample}, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
 
-For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, there is also introduced a weighting factor. This weighting factor is defined from the change in the distribution. This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
+For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, an example is given in \autoref{IMD}. There is also introduced a weighting factor, which is defined from the change in the distribution, see \autoref{IMW}. 
+
+\begin{minipage}[t]{0.48\textwidth}
+\begin{figure}[H]
+\input{figures/Matlab_figures/IMD.tex}
+\caption{An example on an old distribution (Rayleigh) and the wanted distribution (Gaussian)}
+\label{IMD}
+\end{figure}
+\end{minipage}%
+\begin{minipage}[t]{0.04\textwidth}
+
+\end{minipage}%
+\begin{minipage}[t]{0.48\textwidth}
+\begin{figure}[H]
+\input{figures/Matlab_figures/IMW.tex}
+\caption{The weighting factor between the two distribution on \autoref{IMD}}
+\label{IMW}
+\end{figure}
+\end{minipage}
+
+This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
 
 Most of the other methods \todo{what other methods} used in simulation to handle this problem with rare events, also changes the distribution, as this is one of the known parameters for simulations and can therefore not be used. 
 
@@ -49,7 +69,9 @@ As no useful statistical method has been found the required number of samples ca
 \section{Bootstrap Percentile Method}
 Another statistically aspect, for which there are different method and techniques, is how to determine the confidence interval at a certain confidence level from the measurements. From the previous section the number of samples needed to attain a confidence level of 90\% and a margin of 1 dB is found. However this is estimated based on theory and has no particular onset in the actual measurements, it is therefore necessary to find a method to evaluate the confidence based on the measurements. The method chosen is the \textit{Bootstrap Percentile Method} \citep{Bootstrap}.
 
-The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{X_B}$ until $\mathbf{X_B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
+The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{B}$ until $\mathbf{B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
+
+
 
 This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
 
