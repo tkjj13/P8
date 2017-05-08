@@ -253,7 +253,7 @@ Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very s
 \end{equation}
 where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 \subsection{SNR margin estimation}
-
+\label{SNR_margin}
 Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
 This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
 %By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
@@ -276,6 +276,11 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 \end{figure}
 
 The results show that a SNR margin of 14dB is needed to have accurate reading of the deep fades.
+\subsection{Required dynamic range}
+Given the pathloss from \autoref{total_prx} and the SNR margin above the total dynamic range requirement becomes:
+\begin{equation}
+DR_{tot} = L - P_tx + 64dB 
+\end{equation}
 \subsection{How to measure dynamic range}
 
 In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic}
