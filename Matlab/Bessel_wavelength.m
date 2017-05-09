@@ -9,5 +9,5 @@ line([0,2.4],[0,0],'Color','black','LineStyle','--');
 line([0.382,0.382],[0,-0.5],'Color','black','LineStyle','--');
 legend('J_0')
 title('Bessel Function J_0 with wavelengh');
-xlabel('Wavelength {\lambda}');
+xlabel('Spacing [{\lambda}]');
 ylabel('Coherence');
