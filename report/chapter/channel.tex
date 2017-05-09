@@ -440,7 +440,7 @@ As seen from \autoref{AutocorrDouble}, the SCF can be found by taking the Fourie
 R_{h}(\Delta d) = \mathcal{F}(R_{S}(f_d))
 \end{equation}
 
-Assuming Rayleigh fading the ACF of the complex fading signal can be expressed with the zero order bessel function, $J_0$, as \citep[p.329]{Jakes_microwave}:
+Assuming Rayleigh fading and a Jakes bathtub Doppler spectrum the ACF of the complex fading signal can be expressed with the zero order bessel function, $J_0$, as \citep[p.329]{Jakes_microwave}:
 
 \begin{equation}\label{eq:SCF}
 R_h(\Delta d) = J_0\left(2\pi \frac{\Delta d}{\lambda}\right)
@@ -455,15 +455,19 @@ A visual interpretation of this can be seen on \autoref{bessel_wave}.
 \label{bessel_wave}
 \end{figure}
 
-We want the correlation to be close 0 so the fade is uncorrelated. The first zero of the $J_0$ function is at 2.4048 \citep[p.335]{Jakes_microwave}.
+It is generally desired to have uncorrelated samples since this gives the most new information and if used in diversity schemes the most gain. The same is true here since correlation between the samples means that more samples is needed than calculated in \autoref{tab:numSample} \citep[p.335]{Jakes_microwave}. Therefore \autoref{eq:SCF} is solved for the first zero point.
 
 
+\begin{equation}
+%\frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
+\Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
+\end{equation}
+
+The correlation at $\frac{\lambda}{2}$ is not zero, however it is very unlikely that the Doppler spectrum is exactly 
 
 The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
 
-\begin{equation}
-\frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
-\end{equation}
+
 
 If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} Too get uncorrelated  parallel measurement a antenna array with $\frac{\lambda}{2}$ separated antennas can be used for multi probe measurements. A antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. So a $5\cdot 5$ antenna array would gives us $5^2 = 25$ uncorrelated channels each measurement.
 

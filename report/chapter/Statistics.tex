@@ -38,22 +38,23 @@ As seen in \autoref{tab:numSample}, there is a need of a high number of samples,
 For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, an example is given in \autoref{IMD}. There is also introduced a weighting factor, which is defined from the change in the distribution, see \autoref{IMW}. 
 
 \begin{minipage}[t]{0.48\textwidth}
+\centering
 \begin{figure}[H]
 \input{figures/Matlab_figures/IMD.tex}
 \caption{An example on an old distribution (Rayleigh) and the wanted distribution (Gaussian)}
 \label{IMD}
 \end{figure}
 \end{minipage}%
-\begin{minipage}[t]{0.04\textwidth}
-
-\end{minipage}%
+\hspace{0.03\textwidth}
 \begin{minipage}[t]{0.48\textwidth}
+\centering
 \begin{figure}[H]
 \input{figures/Matlab_figures/IMW.tex}
 \caption{The weighting factor between the two distribution on \autoref{IMD}}
 \label{IMW}
 \end{figure}
 \end{minipage}
+\vspace{1em}
 
 This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
 
