@@ -72,7 +72,12 @@ Another statistically aspect, for which there are different method and technique
 
 The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{B}$ until $\mathbf{B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
 
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/Bootstrap.pdf}
+\caption{Showcase of the bootstrap method, where the surrogate population $X$ is made of samples from the normal sample population $B$. From $X$ there are drawn new subsets $B$, at the same size as $X$.}
+\label{BSEX}
+\end{figure}
 
 This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
 
