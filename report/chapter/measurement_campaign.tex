@@ -11,7 +11,7 @@ The setup of the measurement will give the insight and solutions to the problems
 \subsection{equipment}
 \label{equip}
 Keysight PNA N5527A 
-10 Hz $IF_{bw} = -119dB$ Dynamic range.
+10 Hz $IF_{bw} = -119dB$ Dynamic range\citep{Key_PNA}.
 
 Antenna array 4Ghz $f_c$.
 
@@ -19,9 +19,9 @@ Antenna array 4Ghz $f_c$.
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \subsection{Specifications}
 In chapter 1 all the needed factors has been discussed. Now when the setup is designed it's important to set specifications.
-\begin{table}[]
+\begin{table}[h]
 \centering
-\caption{My caption}
+\caption{Some example specifications}
 \label{final_specs}
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -49,4 +49,43 @@ We assume that the noise floor of the \gls{VNA} scales linearly with a increased
            &= 10Hz \rightarrow 1kHz
 \end{split}
 \end{equation}
+\subsection{Sweep Time}
+Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
+The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_BW$ \citep{Key_PNA}.
+
+\begin{table}[h]
+\centering
+\caption{$IF_{BW} \ vs \ sweep time$}
+\label{my-label}
+\begin{tabular}{l|l}
+\hline
+$IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
+10              & 17834               \\
+100             & 1825                \\
+300             & 641                 \\
+1000            & 223                 \\
+3000            & 72                 
+\end{tabular}
+\end{table}
+
+This is only for 1 port so in our case this would be multiplied by 3 because of our 1x3 antenna setup.
+There is also some overhead for saving the data and switching antenna port.
+
+\subsection{Total Time}
+Let's use example where we can use a 1kHz $IF_BW$ and a antenna switching time of 10ms: 
+\begin{equation}
+T_{sweep total} = (223+10) \cdot 3   = 699ms.
+\end{equation}
+This means that every 700ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
+\begin{equation}
+\frac{0.0375m}{0.7s} = 0.054 m/s
+\end{equation}
+This gives a Doppler bandwidth of 1.44 Hz.
+and total time for moving 5 meters = 93s.
+and with the speculated 80000 samples per 5 meter walk(200 samples in frequency). we need around:
+\begin{equation}
+\frac{4.04 \cdot 10^6}{80000} = 50.5 walks
+\end{equation}
+or around 1.5h of measurement given 55.5 walks and 93s per walk and no wait time.
+
 \section{Results}
