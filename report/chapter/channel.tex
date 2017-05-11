@@ -242,17 +242,28 @@ Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the 
 
 %When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal, due to the fact that only a small amount of samples are used (<100) the deep fades that the Rayleigh model predicts ($10^{-5}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
-\section{Doppler shift}
-Doppler shift is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a system must be larger then the maximum Doppler shift to work. The maximum Doppler shift is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
+\section{Doppler bandwidth}
+Doppler bandwidth is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a system must be larger then the maximum Doppler bandwidth to work. The maximum Doppler bandwidth is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
 \begin{equation}\label{eq:Doppler}
 f_d = \frac{2}{\lambda} \cdot v
 \end{equation}
 \begin{where}
-\va{$f_d$}{is the maximum Doppler shift}{Hz}
-\va{$\lambda$}{is the wavelenght}{m}
+\va{$f_d$}{is the maximum Doppler bandwidth}{Hz}
+\va{$\lambda$}{is the wavelength}{m}
 \va{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
 \end{where}
 
+So our measurement bandwidth must be wider then the Doppler bandwidth. The equation can be changed to solve for relative velocity:
+\begin{equation}
+v = \frac{f_d}{\frac{2}{\lambda}} 
+\end{equation}
+
+Usually the minimum sweep bandwidth of measurement equipment is 10Hz. Given this we can find the maximum relative velocity the system can have with a $f_c$ of 4 GHz and a minimum sweep bandwidth:
+\begin{equation}
+\frac{10Hz}{\frac{2}{0.075m}} = 0.375 m/s
+\end{equation}
+
+In a indoor sense 0.375 m/s is very fast and the measurement will most likely have a much slower speed.
 %If we assume the system is moving slowly at $5m/s$ and we use an open $2.4Ghz$ \todo{is these the values we expect} frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80 Hz. We know that the dynamic range of system is dependant on the IF bandwidth, and that we should use as low BW as possible \todo{source}. A 80 Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading \todo{source}. Given this definition of Doppler spread we can assume that this should not be a problem since our measurements BW must be higher to get enough samples \todo{source}.
 
 \section{Wireless channel characteristics}

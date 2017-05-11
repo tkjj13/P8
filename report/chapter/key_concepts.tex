@@ -267,7 +267,6 @@ Rician distribution fits in this situation because the K-factor that it depend u
 K = \frac{a^2}{2\sigma^2}
 \end{equation}
 Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
-\todo {Figure out how to do this in Matlab and make figures}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
@@ -275,12 +274,20 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 \label{Rician_90}
 \end{figure}
 
-The results show that a SNR margin of 14dB is needed to have accurate reading of the deep fades.
+The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
 \subsection{Required dynamic range}
 Given the pathloss from \autoref{total_prx} and the SNR margin above the total dynamic range requirement becomes:
 \begin{equation}
-DR_{tot} = L - P_tx + 64dB 
+DR_{tot} = L - P_tx + SNR_m - G_f 
 \end{equation}
+\begin{where}
+\va{$DR_{tot}$}{Total dynamic range}{dB}
+\va{$SNR_m$}{is the SNR margin }{dB}
+\va{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
+\end{where}
+
+
+
 \subsection{How to measure dynamic range}
 
 In a normal receiver the dynamic range is set by the sensitivity of the receiver to the Third order intercept point. Third order intercept points are caused by over driving the receiver with too much input and that causes distortion and signal saturation. The sensitivity is more dependent on the operating environment and the receivers noise figure. \citep{understandDynamic}
