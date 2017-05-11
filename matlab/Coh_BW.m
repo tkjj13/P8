@@ -12,6 +12,6 @@ line([201,201],[1,0],'Color','black','LineStyle','--');
 line([150,250],[0.5,0.5],'Color','red','LineStyle','--');
 xlabel('Bandwidth \Delta f');
 ylabel('Coherence');
-title('Coherence Bandwith')
+title('Coherence Bandwidth')
 set(gca, 'XTickLabelMode', 'Manual')
 set(gca, 'XTick', [])

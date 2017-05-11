@@ -261,6 +261,7 @@ v = \frac{f_d}{\frac{2}{\lambda}}
 Usually the minimum sweep bandwidth of measurement equipment is 10Hz. Given this we can find the maximum relative velocity the system can have with a $f_c$ of 4 GHz and a minimum sweep bandwidth:
 \begin{equation}
 \frac{10Hz}{\frac{2}{0.075m}} = 0.375 m/s
+\label{min_vel}
 \end{equation}
 
 In a indoor sense 0.375 m/s is very fast and the measurement will most likely have a much slower speed.
@@ -507,6 +508,13 @@ This will gives us a $B_c$ approximation that has a coherence under 0.5. The coh
 If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multipath lab environment.
 \todo{might be somthing wrong with the matlab script, because the FCF shows more BW} With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/Coh_BW.png}
+\caption{The coherence bandwidth from \autoref{eq:SCF} scaled by wavelength.}
+\label{bessel_wave}
+\end{figure}
 
 \subsection{How to measure uncorrelated samples}
 \label{howtomeasureUS}
