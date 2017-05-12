@@ -472,16 +472,12 @@ It is generally desired to have uncorrelated samples since this gives the most n
 
 \begin{equation}
 %\frac{2\pi \Delta d}{\lambda} = 2.4048 \Leftrightarrow \Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
-\Delta d = 0.38 \lambda \approx \frac{\lambda}{2}
+\Delta d = 0.38 \lambda \approx 0.4 \lambda
 \end{equation}
 
-The correlation at $\frac{\lambda}{2}$ is not zero, however it is very unlikely that the Doppler spectrum is exactly as Jakes, this coupled with standard practice makes it easier to get
 
-The measurement points needs to be spaced $\Delta d = \frac{\lambda}{2}$ to let the measurement points have independent fading. This is assuming a uniformly distributed angle of arrival given:
+If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} To get uncorrelated parallel measurements an antenna array with $0.4 \lambda$ separated antennas can be used for multi probe measurements. An antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. 
 
-
-
-If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} Too get uncorrelated  parallel measurement a antenna array with $\frac{\lambda}{2}$ separated antennas can be used for multi probe measurements. A antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. So a $5\cdot 5$ antenna array would gives us $5^2 = 25$ uncorrelated channels each measurement.
 
 %The other part of the Fourier transfer pairs is the time frequency relationship joint PSD and Autocorrelation:
 %\begin{equation}
@@ -491,7 +487,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 %Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 
-
+\subsection{\Gls{FCF}}
 The sample size can be further increase by using uncorrelated samples in the frequency domain. 
 For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
 \begin{equation}
@@ -509,12 +505,14 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 \todo{might be somthing wrong with the matlab script, because the FCF shows more BW} With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/Coh_BW.png}
 \caption{The coherence bandwidth from \autoref{eq:SCF} scaled by wavelength.}
 \label{bessel_wave}
 \end{figure}
+
 
 \subsection{How to measure uncorrelated samples}
 \label{howtomeasureUS}

@@ -26,11 +26,17 @@ eval( sprintf( 'load %s/%s', InDataPath, InMeasName ) );
 PDP = mean( abs( IR( :, Tx, Rx, Pos ) ) .^2, 4 );
 PDP2 = mean( abs( IR( :, Tx, 2, Pos ) ) .^2, 4 );
 
-x = 0:DeltaTau:DeltaTau*(length(PDP)-1);
+PDP = PDP(1:end-1,:);
+
+k = 1;
+t0 = find(max(PDP(:,k))==PDP(:,k));
+x = 0:DeltaTau:DeltaTau*(length(PDP(t0:end,k))-1);
 figure(1)
 
-plot(x, 10*log10( PDP ) ); hold on;
-plot(x,10*log10(exp(-51.71*10^6*(x-2.5*10^(-8)))))
+
+plot(x, 10*log10( PDP(t0:end,k) ) ); hold on;
+%plot(x,10*log10(exp(-91.71*10^6*(x-2.5*10^(-8)))))
+plot(x,10*log10(exp(-51.71*10^6*(x+0.5e-7))))
 %plot(x, 10*log10( PDP2 ) ); hold off;
 xlabel( 'Delay time' )
 ylabel( 'Power [dB]' )
@@ -38,13 +44,37 @@ title( 'Power-delay profile' )
 grid on
 
 
+%plot(x,10*log10(1/17e-9*exp(-x/17e-9).*x));
+
 figure
-%x = 0:1e-11:DeltaTau*(length(PDP)-1);
-f = -1/(2*DeltaTau):1/(DeltaTau*(length(PDP)-1)):1/(2*DeltaTau);
-data = fftshift(abs(fft(10*log10(exp(-51.71*10^6*x)))));
-plot(f,data/max(data))
+%inc = 1e-11;
+%x = 0:inc:inc*(1e6-1);
+%f = -1/(2*inc):1/(max(x)):1/(2*inc);
+f = -1/(2*DeltaTau):1/(max(x)):1/(2*DeltaTau);
+data3 = fftshift(abs(fft((exp(-51.71*10^6*x))))); 
+%data2 = fftshift(abs(fft((1/17e-9*exp(-x/17e-9).*x)))); 
+data = fftshift(abs(fft(( PDP(t0:end,k) ))));
+plot(f,10*log10(data/max(data))); hold on;
+%plot(f, 10*log10(data2/max(data2)));
+plot(f, 10*log10(data3/max(data3)));
 grid
 title('Frequency correlation function')
+
+%%
+
+mTau = 0;
+mTau2 = 0;
+Scale = sum(PDP(t0:end,k));
+for n = 1:length(PDP(t0:end,k))-1
+   temp = PDP(t0+n,k)*(n)*DeltaTau/Scale;
+   temp2 = PDP(t0+n,k)*((n)*DeltaTau).^2/Scale;
+   mTau = mTau+temp;
+   mTau2 = mTau2+temp2;
+end
+
+RMS = sqrt(mTau2-mTau.^2)
+1/(2*pi*RMS)
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% narrowband data
 
