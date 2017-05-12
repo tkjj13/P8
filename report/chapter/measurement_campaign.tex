@@ -40,13 +40,13 @@ Given \autoref{total_prx} and the VNA specification given in \autoref{equip} we 
 L = 20log (4000MHz) + 28 \cdot log(5)-28 = 63.61dB \approx 64dB
 \end{equation}
 \begin{equation}
-DR_{tot} = 64dB - 30dBm + 64dB = 98dB 
+Noisefloor_tot = 64dB - 30dBm + 64dB = 98dB 
 \end{equation}
 We assume that the noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$. This would mean that a $IF_{BW}$ on the \gls{VNA} can be increased by:
 \begin{equation}
 \begin{split}
 &= IF_{BW} = 119dB-98dB = 21dB \\
-           &= 10Hz \rightarrow 1kHz
+           &= 10Hz \rightarrow 20dB \rightarrow 1kHz
 \end{split}
 \end{equation}
 \subsection{Sweep Time}
@@ -68,24 +68,23 @@ $IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-This is only for 1 port so in our case this would be multiplied by 3 because of our 1x3 antenna setup.
-There is also some overhead for saving the data and switching antenna port.
 
+There is also some overhead for saving the data.
 \subsection{Total Time}
-Let's use example where we can use a 1kHz $IF_BW$ and a antenna switching time of 10ms: 
+Let's use example where we can use a 1kHz $IF_BW$ a
 \begin{equation}
-T_{sweep total} = (223+10) \cdot 3   = 699ms.
+T_{sweep total} = 223ms
 \end{equation}
-This means that every 700ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
+This means that every 223ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
 \begin{equation}
-\frac{0.0375m}{0.7s} = 0.054 m/s
+\frac{0.0375m}{0.223s} = 0.17 m/s
 \end{equation}
-This gives a Doppler bandwidth of 1.44 Hz.
-and total time for moving 5 meters = 93s.
+This is under the $1m/s$ value found in \autoref{min_vel}
+and total time for moving 5 meters $\approx 30s$.
 and with the speculated 80000 samples per 5 meter walk(200 samples in frequency). we need around:
 \begin{equation}
 \frac{4.04 \cdot 10^6}{80000} = 50.5 walks
 \end{equation}
-or around 1.5h of measurement given 55.5 walks and 93s per walk and no wait time.
+or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wait time.
 
 \section{Results}
