@@ -10,15 +10,16 @@ The setup of the measurement will give the insight and solutions to the problems
 \end{figure}
 
 The idea is to do a pilot test of the room. This is to obtain the pathloss $L$ and the delay spread of the room $\sigma_\tau$. With these values we can find the coherence bandwidth $B_c$ and the fading gain can be calculated. 
-We suspect that since this is a multipath NLOS setup the delay spread and pathloss will be very similar across the room. But as a precaution the rooms pathloss and delay will be measured in a close,mid and far region from the doors where the signal originates.
+We suspect that since this is a multipath NLOS setup the delay spread and pathloss will be very similar across the room. But as a precaution the rooms pathloss and delay will be measured in a close,mid and far region from the doors where the signal originates. When the measurements are ongoing there will be some loss associated with body loss of the handsome scientist and clutter in the environment. This will give more multipath reflections compared to a a empty room.
+\todo {read and rewrite to proper English}
 
-With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. 
+With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. Given the results of the pilot test the amount of samples the sweep will obtain in frequency $N_f$ can be terminated. With this the amount of samples in space can be found to get a total of $4.04 \cdot 10^6$ samples.
 
 
 
 \subsection{equipment}
 \label{equip}
-Keysight PNA N5527A 4-port VNA with paraell measurments and supports a frequnecyes from 10MHz to 67 GHz.
+Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. The sweep data will me saved to a USB.
 
 Cables used have a loss of $0.5dB per m$ 
 Splitter to separate the signal to two TX antennas and point towards the doors for more equal distribution of signal.
@@ -51,7 +52,7 @@ Intermediate frequency bandwidth & $IF_{BW}$     & 10KHz          & $10 \cdot 10
 \end{tabular}
 \end{table}
 \section{Total Dynamic range}
-Given \autoref{total_prx} and the VNA specification given in \autoref{equip} we can find the total received power seen in the measurements and calculate the total dynamic range needed given the margin in \autoref{SNR_margin}:
+Given \autoref{eq:path_loss} and the VNA specification given in \autoref{equip} we can find the total received power seen in the measurements and calculate the total dynamic range needed given the margin in \autoref{SNR_margin}:
 \begin{equation}
 L = 20log (4000MHz) + 28 \cdot log(5)-28 = 63.61dB \approx 64dB
 \end{equation}
