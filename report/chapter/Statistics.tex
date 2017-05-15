@@ -58,7 +58,7 @@ For simulation purposes there have been developed some methods to handle this pr
 
 This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
 
-Most of the other methods \todo{what other methods} used in simulation to handle this problem with rare events, also changes the distribution, as this is one of the known parameters for simulations and can therefore not be used. 
+Most of the other rare event simulations tools (like Stochastic process rare event sampling and Transition path sampling) handle this problem with rare events, by using information about the distribution, to limit the number of samples and by not knowing the distribution, these methods can therefore not be used. 
 
 
 As no useful statistical method has been found the required number of samples can not be reduced from \autoref{tab:numSample}. Therefore a compromise between the necessary number of samples, the more samples needed the longer it will take, and the confidence level and interval needs to be found. It is chosen to go for a 90\% confidence level and a 1 dB margin, as this is found to be a reasonable compromise. This means that $4.04E+6$ samples should be obtained during the measurement campaign. 
