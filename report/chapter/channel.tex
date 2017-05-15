@@ -199,7 +199,7 @@ By having several antennas at either or both the receiver and transmitter, anten
 
 
 	
-\section{Rayleigh Fading} 
+\section{Rayleigh Fading} \todo{sources for the text}
 % (confidence level vs number of samples)
 
 %\section{Statistics}
@@ -488,19 +488,47 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 
 
 \subsection{\Gls{FCF}}
-The sample size can be further increase by using uncorrelated samples in the frequency domain. 
-For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
+%The sample size can be further increase by using uncorrelated samples in the frequency domain. 
+%For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
+%\begin{equation}
+%\sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
+%\end{equation}
+%Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
+%the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
+%\begin{equation}
+%B_C \geq \frac{1}{2\pi \cdot \sigma_{\tau}}
+%\label{CohBW}
+%\end{equation}
+%This will gives us a $B_c$ approximation that has a coherence under 0.5. The coherence function will go towards 0 as $B_c  \rightarrow \infty $
+%\citep{CohBW}
+%If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multipath lab environment.
+%\todo{might be somthing wrong with the matlab script, because the FCF shows more BW} With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
+%\citep[Chapter 18.5]{ComHandbook}
+%
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.75\textwidth]{figures/Coh_BW.png}
+%\caption{The coherence bandwidth from \autoref{eq:SCF} scaled by wavelength.}
+%\label{bessel_wave}
+%\end{figure}
+
+Just as with the SCF the FCF can also be found from \autoref{AutocorrDouble} by taking the Fourier transform of the \gls{PDP}. 
+
 \begin{equation}
-\sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
+R_{T}(\Delta f) = \mathcal{F}(R_{h}(\tau))
 \end{equation}
-Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
-the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
-\begin{equation}
-B_C \geq \frac{1}{2\pi \cdot \sigma_{\tau}}
-\label{CohBW}
+
+Assuming an exponentially decaying PDP the ACF of the complex fading signal can be expressed as:
+
+\begin{equation}\label{eq:FCF}
+R_T(\Delta f) = ???
 \end{equation}
-This will gives us a $B_c$ approximation that has a coherence under 0.5. The coherence function will go towards 0 as $B_c  \rightarrow \infty $
-\citep{CohBW}
+
+A visual interpretation of this can be seen on \autoref{bessel_wave}.
+
+The coherence bandwidth is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
+
 If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multipath lab environment.
 \todo{might be somthing wrong with the matlab script, because the FCF shows more BW} With a delay profile of around 20ns. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated.
 \citep[Chapter 18.5]{ComHandbook}
@@ -512,6 +540,7 @@ If we look at a example from lecture at AAU we got a $B_c$ of 10 Mhz in a multip
 \caption{The coherence bandwidth from \autoref{eq:SCF} scaled by wavelength.}
 \label{bessel_wave}
 \end{figure}
+
 
 
 \subsection{How to measure uncorrelated samples}
