@@ -132,7 +132,7 @@
 clear all
 clc
 close all
-S = 4040000/2;
+S = 4040000;
 Sm3 = round(S/(10^3));
 Boot = 10000;
 
