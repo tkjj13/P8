@@ -35,7 +35,7 @@ Antenna array 4Ghz $f_c$ With $>0.4 \lambda$ spacing.
 
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \subsection{Specifications}
-In chapter 1 all the needed factors has been discussed. Now when the setup is designed it's important to set specifications.
+In chapter 1 all the needed factors has been discussed. The parameter of the test setup and the requirements where:
 \begin{table}[H]
 \centering
 \caption{Some example specifications}
@@ -55,6 +55,7 @@ Transmit power & $P_{TX}$ & 17dBm \\ \hline
 Sweep time & $T_{sweep}$ &74.1msec \\ \hline
 \end{tabular}
 \end{table}
+These where the final values used in the VNA to do the measurements.
 \section{Total Dynamic range}
 Given \autoref{eq:path_loss} and the VNA specification given in \autoref{equip} we can find the total received power seen in the measurements and calculate the Noisefloor requirement $Noisefloor_{Req}$ needed given the margin in \autoref{SNR_margin}:
 \begin{equation}
