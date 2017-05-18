@@ -52,13 +52,11 @@ The HF lab was the room used for the measurements, it has  clutter and surfaces 
 %
 %With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. Given the results of the pilot test the amount of samples the sweep will obtain in frequency $N_f$ can be terminated. With this the amount of samples in space can be found to get a total of $4.04 \cdot 10^6$ samples. when the measurement starts the antenna array will be moved slowly in space. During the measurement the operate of the PNA will indicate how fast the person holding the antenna array should walk.
 
+
+
 \section{Equipment}
 Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. With a 4 port VNA a antenna setup in a 1 TX and 3 RX configuration will be used. Calibration can be done by connecting the cables together and do a simple normalization. The sweep data will be saved to a USB.
-N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz. The dynamic range of the VNA becomes:
-\begin{equation}
-DR = P_{RX}+119dBm 
-\label{NFvna}
-\end{equation}
+
 
 Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
 
@@ -69,7 +67,7 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
     \caption{Omnidirectional RX antenna array with $\frac{\lambda}{2}$ spacing}
 \end{figure}
-
+\todo{add a schematic overview of the room}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{pictures/Measurement/antenna_door.jpg}
@@ -109,48 +107,51 @@ After playing around with the test setup we discovered that to reduce the pathlo
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \chapter{Setup Parameter estimation}
 In chapter 1 all the needed factors has been discussed. The parameter of the test setup and the requirements where:
-\begin{table}[H]
-\centering
-\caption{Some example specifications}
-\label{final_specs}
-\begin{tabular}{|l|l|l|}
-\hline
-Number of samples needed         & N           & 4.04 million         \\ \hline
-Center Frequency                 & $f_c$       & 5Ghz             \\ \hline
-Wavelength                       & $\lambda$   & 6cm           \\ \hline
-Coherence freq                   & $\Delta f$  & 25MHz           \\ \hline
-Span & $\delta f$ & 1GH \\ \hline
-Dynamic range                    & DR          & XXdB            \\ \hline
-Antenna diversity                & $A_{div}$   & 1x3                    \\ \hline
-Intermediate frequency bandwidth & $IF_{BW}$     & 500Hz          \\ \hline
-Number of points per sweep & $N_{sweep}$ & 41 \\ \hline
-Transmit power & $P_{TX}$ & 17dBm \\ \hline
-Sweep time & $T_{sweep}$ &74.1msec \\ \hline
-\end{tabular}
-\end{table}
-These where the final values used in the VNA to do the measurements.
+
 \section{Dynamic range}
-\subsection{Tx power}
-\subsection{Pathloss}
-Given \autoref{eq:path_loss} and the VNA specification given in \autoref{equip} we can find the total received power seen in the measurements and calculate the Noisefloor requirement $Noisefloor_{Req}$ needed given the margin in \autoref{SNR_margin}:
+N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz\autoref{equip}. The dynamic range of the VNA becomes:
 \begin{equation}
-L = 20log (4000MHz) + 28 \cdot log(5)-28 = 63.61dB \approx 64dB
+DR = P_{RX}+119dBm 
+\label{NFvna}
 \end{equation}
-\subsection{IF-bandwidth(noise floor)}
-Given the margin the noisefloor needs to be at:
+
+\subsection{TX power}
+The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be around 15dBm\autoref{equip} depending on load from the different antennas.
+\subsection{Pathloss}
+Given \autoref{eq:path_loss} and the area of the room. The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
 \begin{equation}
-Noisefloor_{Req} = 17 -64dB -64dB = -111dBm 
+L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
+\label{eq:path_loss}
+\end{equation}
+
+The $P_{RX}$ becomes:
+\begin{equation}
+P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
+\end{equation}
+This gives a maximum dynamic range of:
+\begin{equation}
+DR = -41dBm+119dBm = 78dB
+\end{equation}
+
+
+\subsection{IF-bandwidth(noise floor)}
+Given the SNR margin $SNR_{M}$ and the $P_{RX}$ the noisefloor needs to be at:
+\begin{equation}
+Noisefloor_{Req} = -41dBm-64dB = -105dBm 
 \end{equation}
 The noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This would mean that a $IF_{BW}$ on the \gls{VNA} can be increased by:
 \begin{equation}
 \begin{split}
-&= IF_{BW} = -119dB+111dB = 8dB \\
-          \quad &= 10Hz \rightarrow 8dB \rightarrow 50Hz
+&= IF_{BW} = -119dB+105dB = 14dB \\
+          \quad &= 10Hz \rightarrow 14dB \rightarrow 250Hz
 \end{split}
 \end{equation}
+This means the $IF_{BW}$ can be at 250Hz, this will give us faster sweep times at the cost of dynamic range.
 \section{FCF}
+This section needs some values from similar environments 50-150ns delay.
+\section{Time estimation}
 Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
-The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_BW$ \citep{Key_PNA}.
+The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}.
 
 \begin{table}[H]
 \centering
@@ -167,8 +168,8 @@ $IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-There is also some overhead for saving the data. Since point value will be used when the $B_c$ is found.
-\section{Time estimation}
+There is also some overhead for saving the data. Since number of points used in the final setup is dependant $B_c$ the sweep time 
+
 Let's use example where we can use a 1kHz $IF_BW$ a
 \begin{equation}
 T_{sweep total} = 223ms
@@ -193,6 +194,26 @@ or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wai
 \subsection{coherence bandwidth}
 
 \chapter{Measurement of fading}
+\begin{table}[H]
+\centering
+\caption{Some example specifications}
+\label{final_specs}
+\begin{tabular}{|l|l|l|}
+\hline
+Number of samples needed         & N           & 4.04 million         \\ \hline
+Center Frequency                 & $f_c$       & 5Ghz             \\ \hline
+Wavelength                       & $\lambda$   & 6cm           \\ \hline
+Coherence freq                   & $\Delta f$  & 25MHz           \\ \hline
+Span & $\delta f$ & 1GH \\ \hline
+Dynamic range                    & DR          & XXdB            \\ \hline
+Antenna diversity                & $A_{div}$   & 1x3                    \\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$     & 500Hz          \\ \hline
+Number of points per sweep & $N_{sweep}$ & 41 \\ \hline
+Transmit power & $P_{TX}$ & 17dBm \\ \hline
+Sweep time & $T_{sweep}$ &74.1msec \\ \hline
+\end{tabular}
+\end{table}
+These where the final values used in the VNA to do the measurements.
 \section{setup}
 \section{results}
 \section{data processing}
