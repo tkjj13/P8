@@ -139,7 +139,7 @@ This chapter deals with characterization of the channel and uses the Rayleigh fa
 %In wireless communication the path travelled is what is interesting, this is especially true when more than one path is possible.
 %Communication happens when a message is transmitted from a to b
 
-In a wireless communication system the signal can reach the receiver from many different paths, this is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival.\citep{Fading} A more specific term to describe this is \textit{multipath fading}. Depending on the fading the receiver may experience constructive or destructive fading i.e. the signal might get amplified or attenuated due to the fading. Strong destructive fading is usually called deep fades and can lead to outages of the communication system for short periods of time. 
+In a wireless communication system the signal can reach the receiver from many different paths, this is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival \citep{Fading}. A more specific term to describe this is \textit{multipath fading}. Depending on the fading the receiver may experience constructive or destructive fading i.e. the signal might get amplified or attenuated due to the fading. Strong destructive fading is usually called deep fades and can lead to outages of the communication system for short periods of time. 
 
 Fading can be separated in  small scale and large scale fading \citep{FlatSelective}: 
 
@@ -191,11 +191,14 @@ Fading can be separated in  small scale and large scale fading \citep{FlatSelect
 %\end{Symbol List}
 
 \subsection{Diversity}
-% (effects?)
-Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}. The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
-Temporal diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
-Antenna diversity / Spatial diversity:
-By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.
+Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}.
+
+The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
+
+\begin{tabular}{lp{13.1cm}}
+\textbf{Temporal diversity} & By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
+\textbf{Spatial diversity} & By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.\\
+\end{tabular}
 
 \section{ITU model for indoor attenuation}
 For the large scale fading the path loss seen in the wireless channels has to be taken into account. The ITU model gives us the the large scale path loss seen in indoor environments. The formula is as follows:
