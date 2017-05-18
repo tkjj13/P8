@@ -13,18 +13,28 @@ A basic general receiver structure can be seen on \autoref{fig:basic_receiver_st
 
 Each block will analysed with focus on the properties that could influence measurements on the fading gain i.e. gain, noise, distortion etc.
 
-\todo{find sources for all of this}
 \textbf{Antenna}\\
-When the signal $s(\theta,\phi,t)$ reaches the antenna, the antenna pattern influences the received signal. This can be expressed as:
+In a line-of-sight case the received power can be expressed as \citep[p. 86]{balanis}:
+%\begin{equation}
+%s(t) = \int_0^{2\pi} \! \int_0^\pi G_{ant}(\theta,\phi)\cdot s(\theta,\phi,t) \,\text{d}\phi \,\text{d}\theta
+%\end{equation} 
+%\begin{where}
+%\va{$s(t)$}{is the received signal at the antenna}{W}
+%\va{$s(\theta,\phi,t)$}{is the signal strength in the $(\theta,\phi)$ direction}{W}
+%\va{$G_{ant}(\theta,\phi)$}{is the gain in the $(\theta,\phi)$ direction}{1}
+%\va{$\theta$}{is the azimuth angle}{rad}
+%\va{$\phi$}{is the elevation}{rad}
+%\end{where}
+
 \begin{equation}
-s(t) = \int_0^{2\pi} \! \int_0^\pi G_{ant}(\theta,\phi)\cdot s(\theta,\phi,t) \,\text{d}\phi \,\text{d}\theta
+P_r(t) = \frac{D_t\cdot A_r}{4\pi\cdot R^2}\cdot P_t(t)
 \end{equation} 
 \begin{where}
-\va{$s(t)$}{is the received signal at the antenna}{W}
-\va{$s(\theta,\phi,t)$}{is the signal strength in the $(\theta,\phi)$ direction}{W}
-\va{$G_{ant}(\theta,\phi)$}{is the gain in the $(\theta,\phi)$ direction}{1}
-\va{$\theta$}{is the azimuth angle}{rad}
-\va{$\phi$}{is the elevation}{rad}
+\va{$P_r(t)$}{is the received signal at the receiving antenna}{W}
+\va{$D_t$}{is the directivity of the transmitter antenna}{1}
+\va{$A_r$}{is the effective area of the receiving antenna}{$m^2$}
+\va{$R$}{is the distance between transmitter and receiver}{m}
+\va{$P_t(t)$}{is the transmitted signal at the transmit antenna}{W}
 \end{where}
 
 It might be possible to use this to gain a extra dimension in the measurement setup, however it might also be a problem as the assumptions for the Doppler spectrum and often relies on omnidirectional reception. Normally it is possible to calibrate the system to account for gain to find the actual signal level, however it is not possible to account for an imbalance in the antenna pattern. 
