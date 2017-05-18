@@ -1,5 +1,74 @@
-\chapter{Measurement Campaign}
-\section{Setup}
+\chapter{Available resources}
+
+\section{Environment}
+The HF lab was the room used for the measurements, it has  clutter and surfaces to give  multipath propagation. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[H]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{pictures/Measurement/walking_meas.jpg}
+    \caption{Area of the fading gain measurements}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[H]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{pictures/Measurement/walking_meas.jpg}
+    \caption{Room overview with antenna placement}
+  \end{minipage}
+\end{figure}
+
+
+\section{Equipment}
+Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. With a 4 port VNA a antenna setup in a 1 TX and 3 RX configuration will be used. Calibration can be done by connecting the cables together and do a simple normalization. The sweep data will be saved to a USB.
+N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz. The dynamic range of the VNA becomes:
+\begin{equation}
+DR = P_{RX}+119dBm 
+\label{NFvna}
+\end{equation}
+
+
+
+
+Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
+
+The TX antenna is a directional antenna with a gain of 12dBi at 5GHz.\todo {antenna gain appendix}
+The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
+    \caption{Omnidirectional RX antenna array with $\frac{\lambda}{2}$ spacing}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{pictures/Measurement/antenna_door.jpg}
+\caption{Directional TX antenna pointing at door.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/Gimp_figures/4portVNA.png}
+\caption{VNA connections}
+\label{connection_diagram}
+\end{figure}
+
+
+%\begin{figure}[!tbp]
+%  \centering
+%  \begin{minipage}[H]{0.4\textwidth}
+%    \includegraphics[width=\textwidth]{pictures/Measurement/antenna_door.jpg}
+%    \caption{Directional TX antenna.}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[H]{0.1\textwidth}
+%    \includegraphics[width=\textwidth]{pictures/Measurement/antenna_array.jpg}
+%    \caption{omnidirectional RX antenna array with $\frac{\lambda}{2}$ spacing}
+%  \end{minipage}
+%\end{figure}
+
+
+
+
+
 The setup of the measurement will give the insight and solutions to the problems hypothesised in previous chapters. 
 
 \begin{figure}[H]
@@ -13,7 +82,7 @@ The idea is to do a pilot test of the room. This is to obtain the pathloss $L$ a
 We suspect that since this is a multipath NLOS setup the delay spread and pathloss will be very similar across the room. But as a precaution the rooms pathloss and delay will be measured in a close,mid and far region from the doors where the signal originates. When the measurements are ongoing there will be some loss associated with body loss of the handsome scientist and clutter in the environment. This will give more multipath reflections compared to a a empty room.
 \todo {read and rewrite to proper English}
 
-With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. Given the results of the pilot test the amount of samples the sweep will obtain in frequency $N_f$ can be terminated. With this the amount of samples in space can be found to get a total of $4.04 \cdot 10^6$ samples.
+With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. Given the results of the pilot test the amount of samples the sweep will obtain in frequency $N_f$ can be terminated. With this the amount of samples in space can be found to get a total of $4.04 \cdot 10^6$ samples. when the measurement starts the antenna array will be moved slowly in space. During the measurement the operate of the PNA will indicate how fast the person holding the antenna array should walk.
 
 
 
@@ -30,8 +99,13 @@ DR = P_{tx}-119dBm
 \label{NFvna}
 \end{equation}
 
-Antenna array 4Ghz $f_c$ With $>0.4 \lambda$ spacing.
-\todo {pictures of antennas}
+
+\section{Final setup}
+After playing around with the test setup we discovered that to reduce the pathloss and cable loss the directonal TX atenna was moved closer to the door. Still NLOS was true as the antenna was outside of the room pointing at a open door.
+
+
+
+
 
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \subsection{Specifications}
