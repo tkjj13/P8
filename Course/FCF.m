@@ -67,3 +67,21 @@ disp('Coherence bandwidth calculated from RMS excess delay')
 disp(theoBW)
 
 disp(sprintf('%i / %i = %f',BW,theoBW,BW/theoBW))
+%%
+clc;
+close all;
+clear all;
+
+
+
+w = linspace(-250E6,250E6,1E2);
+a = 100E6;
+
+R = abs(-1./(1i*2*pi*w-a));
+
+plot(w/1E6,R/max(R));
+grid;
+xlabel('\Delta f [MHz]');
+ylabel('Coherence level');
+title('FCF');
+legend('a = -100E6');
