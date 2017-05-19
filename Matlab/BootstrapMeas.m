@@ -7,51 +7,55 @@
 % for n = 1:4040000
 %     Sample(n) = raylrnd(0.707)^2;    
 % end
-% O = sort(Sample);
-% 
-% 
-% P = zeros(4040000,1);
-% B = zeros(100,10000);
-% H = round(logspace(0 , log10(4.04*10^6), 100));
-% 
-% for q = 1:10000
-%     l = randi([1 4040000],4040000,1);
-%     for r = 1:4040000        
-%         P(r, 1) = O(l(r,1));
-%     end
-%     P = sort(P);
-%     for i = 1:100
-%         B(i,q) = P(H(1,i),1);
-%     end
-%     disp(q);
-% end
-% 
-% y = H/4040000;
-% b = 20*log10(B);
-% c = sort(b,2);
-% o = zeros(100,1);
-% 
-% for i = 1:100
-%         o(i,1) = O(H(1,i),1);
-% end
-% 
-% u = 20*log10(o);
-% 
-% figure
-% for j = 1:10000
-%     semilogy(c(:,j),y);
-%     hold on;
-% end
-% 
-% figure
-% semilogy(c(:,500),y);
-% hold on
-% semilogy(c(:,10000-500),y);
-% semilogy(u(:,1),y);
-% xlabel('Fading gain');
-% ylabel('CDF');
-% legend('Min','Max','Sample','Location', 'NorthWest');
-% grid;
+
+Sample = fade2;
+
+O = sort(Sample);
+
+
+P = zeros(4184460,1);
+B = zeros(100,10000);
+H = round(logspace(0 , log10(4184460), 100));
+
+for q = 1:10000
+    l = randi([1 4184460],4184460,1);
+    for r = 1:4184460        
+        P(r, 1) = O(l(r,1));
+    end
+    P = sort(P);
+    for i = 1:100
+        B(i,q) = P(H(1,i),1);
+    end
+    disp(q);
+end
+
+%%
+y = H/4184460;
+b = B;
+c = sort(b,2);
+o = zeros(100,1);
+
+for i = 1:100
+        o(i,1) = O(H(1,i),1);
+end
+
+u = o;
+
+figure
+for j = 1:10000
+    semilogy(c(:,j),y);
+    hold on;
+end
+
+figure
+semilogy(c(:,500),y);
+hold on
+semilogy(c(:,10000-500),y);
+semilogy(u(:,1),y);
+xlabel('Fading gain');
+ylabel('CDF');
+legend('Min','Max','Sample','Location', 'NorthWest');
+grid;
 % 
 % 
 % %% Regressiv
