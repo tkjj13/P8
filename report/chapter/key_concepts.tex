@@ -155,7 +155,8 @@ After this the \gls{ADC} quantise and digitalize the signal so a \gls{PU} can pr
 %%
 %Parameters that is critical to the measurements is the BW and the antenna pattern as these two directly influence the measurement of the channel. The rest only has indirect implications on the measurements. This is supported by related work in \citep{MeasurementComplexRay}
 \textbf{Noise}\\
-A problem that has not been addressed is the noise aspect. Another reason why the distortion is not the main concern is that the desired signal will be subject to a significant amount of fading meaning that 
+A problem that has not been addressed is the noise aspect, all components in the receiver chain produces noise. Normally the figure of interest is the noise power a typical model for the noise power is a Gaussian process. As this process is a random process the noise can not be accounted for by calibration as with the distortion. Furthermore the Rayleigh fading model is a complex Gaussian process which means that it can be next to impossible to distinguish between the contribution from fading and noise in the received signal. Based on these arguments it is assumed that noise is the dominant factor which needs to be accounted for where the distortion introduced by the components will be less and in most cases reduced further by calibration.
+
 
 \section{Dynamic range}
 Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
