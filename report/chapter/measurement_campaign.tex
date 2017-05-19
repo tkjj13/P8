@@ -148,7 +148,11 @@ The noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\cite
 \end{equation}
 This means the $IF_{BW}$ can be at 250Hz, this will give us faster sweep times at the cost of dynamic range.
 \section{FCF}
-This section needs some values from similar environments 50-150ns delay.
+The delay spread of a signal is very depandant on the enviroemnt. For this reason a pilot test will measure the delay in our pilot test. Simelar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office eniforments\citep{indoor_delay}. Since the measuremnt what to measure NLOS conditions $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_c$ which is inversely proportional. 
+\begin{equation}
+B_C \geq \frac{1}{50ns} \approx 20MHz
+\label{CohBW}
+\end{equation}
 \section{Time estimation}
 Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}.
@@ -168,23 +172,23 @@ $IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-There is also some overhead for saving the data. Since number of points used in the final setup is dependant $B_c$ the sweep time 
+There is also some overhead for saving the data. Since number of points used in the final setup is dependant $B_c$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
 
-Let's use example where we can use a 1kHz $IF_BW$ a
+Let's use example where we can use a 300Hz $IF_BW$ a
 \begin{equation}
-T_{sweep total} = 223ms
+T_{sweep total} = \frac{631}{4} = 160ms
 \end{equation}
-This means that every 223ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
+This means that every 160ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
 \begin{equation}
-\frac{0.0375m}{0.223s} = 0.17 m/s
+\frac{0.0375m}{0.160s} = 0.23 m/s
 \end{equation}
 This is under the $1m/s$ value found in \autoref{min_vel}
-and total time for moving 5 meters $\approx 30s$.
+and total time for moving 5 meters $\approx 22s$.
 and with the speculated 80000 samples per 5 meter walk(200 samples in frequency). we need around:
 \begin{equation}
 \frac{4.04 \cdot 10^6}{80000} = 50.5 walks
 \end{equation}
-or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wait time.
+or around 21 minuets of measurement given 55.5 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the needed $IF_{BW}$.
 
 \chapter{Measurement of PDP}
 \section{setup}
@@ -203,8 +207,8 @@ or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wai
 Number of samples needed         & N           & 4.04 million         \\ \hline
 Center Frequency                 & $f_c$       & 5Ghz             \\ \hline
 Wavelength                       & $\lambda$   & 6cm           \\ \hline
-Coherence freq                   & $\Delta f$  & 25MHz           \\ \hline
-Span & $\delta f$ & 1GH \\ \hline
+Coherence Bandwidth                   & $B_C$  & 25MHz           \\ \hline
+Span & $\Delta f$ & 1GHz \\ \hline
 Dynamic range                    & DR          & XXdB            \\ \hline
 Antenna diversity                & $A_{div}$   & 1x3                    \\ \hline
 Intermediate frequency bandwidth & $IF_{BW}$     & 500Hz          \\ \hline
