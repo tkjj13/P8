@@ -17,8 +17,6 @@
 
 
 
-
-
 \chapter{Available Resources}
 \section{Environment}
 The High frequency lab at \gls{AAU} was used for the measurements, it has  clutter and surfaces to give a good representation of a indoor multipath environment. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
@@ -104,9 +102,9 @@ After setting up everything we found out that $P_{RX}$ was lower then expected. 
 Before staring measuring the settings on the VNA needs to be determined. This means that the values has to be  balanced to get the needed data and to meet the physical limitations. Part I goes thorough the theory and the limiting factors has been discussed.
 
 \section{Dynamic range}
-N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz\autoref{equip}. The dynamic range of the VNA becomes:
+N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz \autoref{equip}. The dynamic range of the VNA becomes:
 \begin{equation}
-DR = P_{RX}+119dBm 
+DR_{MAX} = P_{RX}+119dBm 
 \label{NFvna}
 \end{equation}
 
@@ -125,7 +123,7 @@ P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
 \end{equation}
 This gives a maximum dynamic range of:
 \begin{equation}
-DR = -41dBm+119dBm = 78dB
+DR_{MAX} = -41dBm+119dBm = 78dB
 \end{equation}
 
 
@@ -169,7 +167,7 @@ $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 
 There is also some overhead for saving the data and frequency span. Since number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
 
-Let's use example where we can use a 300Hz $IF_BW$ a
+Let's  use an example where we can use a 300Hz $IF_BW$ a
 \begin{equation}
 T_{sweep total} = \frac{631}{4} = 160ms
 \end{equation}
@@ -179,11 +177,11 @@ This means that every 160ms we have to move $0.4 \lambda$ this gives a relative 
 \end{equation}
 This is under the $1m/s$ value used in \autoref{min_vel}
 and total time for moving 5 meters becomes $\approx 22s$.
-With the speculated 80000 samples per 5 meter walk(200 samples in frequency). we need around:
+With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3 RX antennas) the total number becomes:
 \begin{equation}
-\frac{4.04 \cdot 10^6}{80000} = 50.5 walks
+\frac{4.04 \cdot 10^6}{31200} = 130 \ walks
 \end{equation}
-or around 21 minuets of measurement given 55.5 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired Noisefloor.
+or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
 
 \chapter{Measurement of PDP}
 \section{setup}
