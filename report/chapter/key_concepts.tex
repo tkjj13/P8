@@ -187,38 +187,7 @@ Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very s
 \text{SNR} = 20log\left(\frac{S}{N}\right)
 \end{equation}
 where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
-\subsection{SNR margin estimation}
-\label{SNR_margin}
-Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
-This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
-%By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
-The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
-\begin{equation}
-p = a^2 + 2\sigma^2
-\end{equation}
-\todo {change symbols}
-Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, \citep{SpaceWirelessChan} meaning that the K-factor matches the SNR margin that we need to estimate.
-\begin{equation}
-K = \frac{a^2}{2\sigma^2}
-\end{equation}
-Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
-\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
-\label{Rician_90}
-\end{figure}
 
-The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
-The total dynamic range requirement becomes:
-\begin{equation}
-DR_{tot} = SNR_m - G_f , 14dB + 50dB = 64dB 
-\end{equation}
-\begin{where}
-\va{$DR_{tot}$}{Total dynamic range}{dB}
-\va{$SNR_m$}{is the SNR margin }{dB}
-\va{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
-\end{where}
 
 
 
@@ -236,13 +205,7 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example below the intercept point of the third order products and the sensitivity level is at -100dB while the vertical line meets the fundamental signal at -32dB meaning that the dynamic range is 68dB. 
 %This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that shifted to in order to process the signal easier.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. 
 
-\section{Time to do a sweep}
-The cost of using a narrowband is the measurement time, as the system would require a longer time for the sweep to cover a typical bandwidth. The time this would take is given by:
-\todo{maybe write about averaging here and add it to the Time calculations}
-\begin{equation}
-T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
-\end{equation}
-where $IF_{BW}$ is the intermediate frequency bandwidth and $BW_{sweep}$ is the total bandwidth you want to measure.
+
 
 
 \subsection{Dynamic range in a VNA receiver}
@@ -280,6 +243,13 @@ Where $IF_{BW}$ is  intermediate bandwidth $T_0$ is temperature of the system, $
 To maximise the effectiveness of a \gls{VNA} the reviver $IF_{BW}$ should be high as possible for the dynamic range needed. So to get accurate samples with the needed dynamic range in the least amount of time the $IF_{BW}$ and $AVG_f$ must be balanced to minimise time spent on one measurement.
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
 
+The cost of using a narrowband is the measurement time, as the system would require a longer time for the sweep to cover a typical bandwidth. The time this would take is given by:
+\todo{maybe write about averaging here and add it to the Time calculations}
+\begin{equation}
+T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
+\end{equation}
+where $IF_{BW}$ is the intermediate frequency bandwidth and $BW_{sweep}$ is the total bandwidth you want to measure.
+
 
 %\section{Diversity}
 %% (effects?)
@@ -287,6 +257,39 @@ Equipment drift is another source of error that can occur if we are operating in
 %Time diversity: By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
 %Antenna diversity / Spatial diversity
 %By having several antennas at both/or the receiver and transmitter a antenna diversity is achieved. With several antennas the signal can be combined together to process the signals into one. To get independently fading signals the signals need to be uncorrelated by separating the antennas least half a wavelength (micro diversity) \citep{diversityAntenna}. Antenna diversity comes at the cost of having to power more than one antenna.
+
+\subsection{SNR margin estimation}
+\label{SNR_margin}
+Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
+This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
+%By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
+The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
+\begin{equation}
+p = a^2 + 2\sigma^2
+\end{equation}
+\todo {change symbols}
+Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, \citep{SpaceWirelessChan} meaning that the K-factor matches the SNR margin that we need to estimate.
+\begin{equation}
+K = \frac{a^2}{2\sigma^2}
+\end{equation}
+Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
+\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
+\label{Rician_90}
+\end{figure}
+
+The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
+The total dynamic range requirement becomes:
+\begin{equation}
+DR_{tot} = SNR_m - G_f , 14dB + 50dB = 64dB 
+\end{equation}
+\begin{where}
+\va{$DR_{tot}$}{Total dynamic range}{dB}
+\va{$SNR_m$}{is the SNR margin }{dB}
+\va{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
+\end{where}
 
 
 \subsection{How to measure uncorrelated samples}
