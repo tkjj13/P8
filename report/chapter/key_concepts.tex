@@ -37,7 +37,7 @@ P_r(t) = \frac{D_t\cdot A_r}{4\pi\cdot R^2}\cdot P_t(t)
 \va{$P_t(t)$}{is the transmitted signal at the transmit antenna}{W}
 \end{where}
 
-It might be possible to use this to gain a extra dimension in the measurement setup, however it might also be a problem as the assumptions for the Doppler spectrum and often relies on omnidirectional reception. Normally it is possible to calibrate the system to account for gain to find the actual signal level, however it is not possible to account for an imbalance in the antenna pattern. 
+It might be possible to use this to gain a extra dimension in the measurement setup, however it might also be a problem as the assumptions for the Doppler spectrum often relies on omnidirectional reception. Normally it is possible to calibrate the system to account for gain to find the actual signal level, however it is not possible to account for an imbalance in the antenna pattern. 
 
 
 Impedance mismatch typically occur where the signal is fed from the antenna to the rest of the system, this can be formulated as \citep[p. 63]{balanis}:
@@ -162,13 +162,21 @@ A problem that has not been addressed is the noise aspect, all components in the
 Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
 With manual or automatic gain control,the total dynamic range of the receiver will allow it to accept a wider range of signal power.That isn't a problem as long as we want to observe the strongest signal or nearly the strongest one.The situation gets tricky when we want to observe a really weak signal in the presence of much stronger ones.That is the point where we are more interested in the instantaneous dynamic range.
 The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal.
-The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range.
+The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range\citep{DyR}.
 \begin{equation}
 MAXstr_{dBm} = (Sens) +(DR)
 \label{Max strength of a receiving system}
 \end{equation}
 
-Where $MAX_{str}$ is the maximum strength of a receiving system,Sens is the sensitivity of the receiver and DR the dynamic range of the system.\citep{DyR}
+\begin{where}
+\va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
+\va{$Sens$}{is the sensitivity of the receiver}{dB}
+\va{$DR$}{Dynamic range of the system}{dB}
+\end{where}
+
+
+
+%Where $MAX_{str}$ is the maximum strength of a receiving system,Sens is the sensitivity of the receiver and DR the dynamic range of the system.\citep{DyR}
 
 Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise ,Noise Figure and the Required prediction of SNR.It is normally a negative number(in dBm) and this means that a bigger number(more negative) equals a smaller signal.
 The thermal noise is given by:
@@ -176,9 +184,16 @@ The thermal noise is given by:
 Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
 \label{Noise1}
 \end{equation}
-where $BW$ is the bandwidth $Te$ is the thermal temperature and the $NF$ is the noise figure of the reviver.
+\begin{where}
+\va{$BW$}{is the bandwidth}{Hz}
+\va{$Te$}{is the thermal temperature}{Kelvin}
+\va{$NF$}{Noise figure of the receiver}{dB}
+\end{where}
 
-Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very similar to the Signal to Noise Ratio(SNR). SINAD is a good way to describe the whole dynamic system of ADC because takes into account all the components that make noise and distortion,in other words takes into account the non-linearities. The difference between them can be shown in high frequencies because the SINAD gets affected by the distortions and degrades faster than the SNR that excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas:
+
+
+Dynamic Range or else \gls{SINAD} is also very similar to the \gls{SNR}. \gls{SINAD} is a good way to describe the whole dynamic system of \gls{ADC} because it takes into account all the components that make noise and distortion, including the non-linearities. %In other words it takes into account the non-linearities.
+The difference between them can be shown in high frequencies because the \gls{SINAD} gets affected by the distortions and degrades faster than the \gls{SNR}. The reason is that it excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas\citep{SINADandSNR}:
 \begin{equation}
 \text{SINAD} = 20log\left(\frac{S}{N+D}\right)
 \end{equation}
@@ -186,22 +201,30 @@ Dynamic Range or else Signal to noise and Distortion Ratio(SINAD) is also very s
 \begin{equation}
 \text{SNR} = 20log\left(\frac{S}{N}\right)
 \end{equation}
-where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
+
+\begin{where}
+\va{$S$}{signal power}{W}
+\va{$N$}{Noise}{W}
+\va{$D$}{Distortion}{W}
+\end{where}
+%where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 \subsection{SNR margin estimation}
 \label{SNR_margin}
 Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
-This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
+This gives us the \gls{SNR} margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
 %By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
 The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
 \begin{equation}
 p = a^2 + 2\sigma^2
 \end{equation}
 \todo {change symbols}
-Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, \citep{SpaceWirelessChan} meaning that the K-factor matches the SNR margin that we need to estimate.
+Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that we need to estimate\cite[p.308]{Fading_Shadowing}.
 \begin{equation}
 K = \frac{a^2}{2\sigma^2}
 \end{equation}
-Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
+Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician \gls{CDF} matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
+\todo {matlab script in appendix}
+\todo{source on this whole?}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
