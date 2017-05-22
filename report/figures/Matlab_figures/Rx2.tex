@@ -1,0 +1,61 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=0,
+xmax=10,
+xlabel style={font=\color{white!15!black}},
+xlabel={Lag},
+ymin=-0.2,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={Sample Autocorrelation},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Sample Autocorrelation Function},
+xmajorgrids,
+ymajorgrids
+]
+\addplot[ycomb, color=red, mark size=2.0pt, mark=*, mark options={solid, fill=red, red}, forget plot] table[row sep=crcr] {%
+0	1\\
+1	0.304249896078104\\
+2	0.220814961394483\\
+3	0.197464352860603\\
+4	0.189854574182198\\
+5	0.188104197927255\\
+6	0.188229462518683\\
+7	0.189891165943081\\
+8	0.188348836285917\\
+9	0.182226877173502\\
+10	0.178407733723212\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0	0\\
+10	0\\
+};
+\addplot [color=blue, forget plot]
+  table[row sep=crcr]{%
+0.5	0.00138269146841955\\
+10	0.00138269146841955\\
+};
+\addplot [color=blue, forget plot]
+  table[row sep=crcr]{%
+0.5	-0.00138269146841955\\
+10	-0.00138269146841955\\
+};
+\addplot [color=black, forget plot]
+  table[row sep=crcr]{%
+0	0\\
+10	0\\
+};
+\end{axis}
+\end{tikzpicture}%
