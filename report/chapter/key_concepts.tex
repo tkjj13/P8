@@ -280,7 +280,6 @@ T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
 \begin{where}
 \va{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
 \va{$BW_{sweep}$}{total bandwidth you want to measure}{Hz}
-\va{}{}{}
 \end{where}
 
 
@@ -314,9 +313,9 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 \end{figure}
 
 The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
-The total dynamic range requirement becomes:
+The SNR requirement becomes:
 \begin{equation}
-DR_{tot} = SNR_m - G_f , 14dB + 50dB = 64dB 
+SNR = SNR_m - G_f , 14dB + 50dB = 64dB 
 \end{equation}
 \begin{where}
 \va{$DR_{tot}$}{Total dynamic range}{dB}

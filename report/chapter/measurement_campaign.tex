@@ -54,11 +54,11 @@ The High frequency lab at \gls{AAU} was used for the measurements, it has  clutt
 
 
 \section{Equipment}
-The machine used for the measurement was a Keysight PNA N5527A 4-port VNA with parallel port capture and supports frequencies from 10MHz to 67 GHz. With a 4 port VNA the antennas can be set in a 1 TX and 3 RX configuration. Calibration can be done by connecting the cables together and do a simple normalization. This normalization technique simplifies the calibration, but means a \gls{PA} can't be used.  The sweep data will be saved to a USB.
+The machine used for the measurement was a Keysight PNA N5527A 4-port VNA with parallel port capture and supports frequencies from 10MHz to 67 GHz.The VNA has a receiver $DR$ of 131dB. With a 4 port VNA the antennas can be set in a 1 TX and 3 RX configuration.This gives antenna diversity of 3. Calibration can be done by connecting the cables together and do a simple normalization. This normalization technique simplifies the calibration, but means a \gls{PA} can't be used.  The sweep data will be saved to a USB.
 
 Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
 
-The TX antenna is a directional antenna with a gain of 12dBi at 5GHz.\todo {antenna gain appendix}
+The TX antenna is a directional antenna with a gain $G_{TX}=12dBi$ at 5GHz.\todo {antenna gain appendix}
 The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
 \begin{figure}[H]
 \centering
@@ -83,7 +83,7 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \label{connection_diagram}
 \end{figure}
 
-After setting up everything we found out that $P_{RX}$ was lower then expected. To increase the $P_{RX}$ the TX antenna was moved closer to the door and a shorter cable was used. The NLOS condition was still fulfilled. 
+The RX antennas was connected directly to the VNA before the coupling (blue box in \autoref{connection_diagram})to reduce the attenuation. After setting up everything we found out that $P_{RX}$ was lower then expected. To increase the $P_{RX}$ the TX antenna was moved closer to the door and a shorter cable was used. The NLOS condition was still fulfilled. 
 
 %Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. The sweep data will me saved to a USB.
 %
@@ -101,17 +101,21 @@ After setting up everything we found out that $P_{RX}$ was lower then expected. 
 \chapter{Setup Parameter estimation}
 Before staring measuring the settings on the VNA needs to be determined. This means that the values has to be  balanced to get the needed data and to meet the physical limitations. Part I goes thorough the theory and the limiting factors has been discussed.
 
-\section{Dynamic range}
-N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz \autoref{equip}. The dynamic range of the VNA becomes:
+\section{SNR}
+The SNR is the value that is required to see the fading without disturbance from the noise floor. N5527A has a $-119dB$ noise floor without averaging with at 10Hz $IF_{BW}$ between 1-10GHz \citep{Key_PNA}. The \gls{SNR} of the VNA becomes:
 \begin{equation}
-DR_{MAX} = P_{RX}+119dBm 
+SNR = P_{RX}+119dBm 
 \label{NFvna}
 \end{equation}
 
+\begin{where}
+\va{$P_{RX}$}{Received power}{dBm}
+\end{where}
+
 \subsection{TX power}
-The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be around 15dBm\autoref{equip} depending on load from the different antennas.
+The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be around 15dBm \citep{Key_PNA} depending on load from the different antennas.
 \subsection{Pathloss}
-Given \autoref{eq:path_loss} and the area of the room. The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
+The ITU pathloss model from \autoref{ITU_model} is used. The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
 \begin{equation}
 L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
 \label{eq:path_loss}
@@ -121,25 +125,25 @@ The $P_{RX}$ becomes:
 \begin{equation}
 P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
 \end{equation}
-This gives a maximum dynamic range of:
+This gives a SNR of:
 \begin{equation}
-DR_{MAX} = -41dBm+119dBm = 78dB
+SNR = -41dBm+119dBm = 78dB
 \end{equation}
 
 
 \subsection{IF-bandwidth(noise floor)}
-Given the SNR margin $SNR_{M}$ and the $P_{RX}$ the noisefloor needs to be at:
+Given the $SNR_{M}$ fround in \autoref{SNR_margin} and the $P_{RX}$ the noise-floor needs to be at:
 \begin{equation}
 Noisefloor_{Req} = -41dBm-64dB = -105dBm 
 \end{equation}
-The noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased by:
+The noise-floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased by:
 \begin{equation}
 \begin{split}
 &= IF_{BW} = -119dB+105dB = 14dB \\
           \quad &= 10Hz \rightarrow 14dB \rightarrow 250Hz
 \end{split}
 \end{equation}
-This means the $IF_{BW}$ can be at 250Hz and gives a faster sweep times at the cost of dynamic range.
+This means the $IF_{BW}$ can be at 250Hz and still meet the requirement with a faster sweep times at the cost of SNR.
 \section{FCF}
 The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment  measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
 \begin{equation}
@@ -165,11 +169,11 @@ $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-There is also some overhead for saving the data and frequency span. Since number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
+There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
 
-Let's  use an example where we can use a 300Hz $IF_BW$ a
+Let's  use an example where we can use a 300Hz $IF_BW$:
 \begin{equation}
-T_{sweep total} = \frac{631}{4} = 160ms
+T_{sweep \ total} = \frac{631}{4} = 160ms
 \end{equation}
 This means that every 160ms we have to move $0.4 \lambda$ this gives a relative velocity of:
 \begin{equation}
