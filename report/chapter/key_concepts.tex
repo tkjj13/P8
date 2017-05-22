@@ -161,33 +161,34 @@ A problem that has not been addressed is the noise aspect, all components in the
 \section{Dynamic range}
 Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
 With manual or automatic gain control,the total dynamic range of the receiver will allow it to accept a wider range of signal power.That isn't a problem as long as we want to observe the strongest signal or nearly the strongest one.The situation gets tricky when we want to observe a really weak signal in the presence of much stronger ones.That is the point where we are more interested in the instantaneous dynamic range.
-The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal.
-The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range\citep{DyR}.
+The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal\citep{DyR}.
+%The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range\citep{DyR}.
 \begin{equation}
-MAXstr_{dBm} = (Sens) +(DR)
-\label{Max strength of a receiving system}
+DR = MAX_{str} -Sens
+\label{Dynamic_range_def}
 \end{equation}
 
 \begin{where}
-\va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
-\va{$Sens$}{is the sensitivity of the receiver}{dB}
 \va{$DR$}{Dynamic range of the system}{dB}
+\va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
+\va{$Sens$}{is the sensitivity of the receiver}{dBm}
 \end{where}
 
 
 
 %Where $MAX_{str}$ is the maximum strength of a receiving system,Sens is the sensitivity of the receiver and DR the dynamic range of the system.\citep{DyR}
 
-Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise ,Noise Figure and the Required prediction of SNR.It is normally a negative number(in dBm) and this means that a bigger number(more negative) equals a smaller signal.
-The thermal noise is given by:
+Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise, Noise Figure and the Required SNR quality at the output. The sensitivity is normally expressed in dBm where the values are negative because the sensitivity is usually under 1 Milliwatt. The sensitivity is given by:
 \begin{equation}
-Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
+Sens = 10log(BW\cdot Te\cdot k\cdot 1000) + NF + SNR_{Req}
 \label{Noise1}
 \end{equation}
 \begin{where}
 \va{$BW$}{is the bandwidth}{Hz}
-\va{$Te$}{is the thermal temperature}{Kelvin}
+\va{$Te$}{The thermal temperature of the system}{Kelvin}
 \va{$NF$}{Noise figure of the receiver}{dB}
+\va{$k$}{Boltzmann's constant}{1}
+\va{$SNR_{Req}$}{Required SNR}{dB}
 \end{where}
 
 
@@ -201,9 +202,6 @@ The difference between them can be shown in high frequencies because the \gls{SI
 \begin{equation}
 \text{SNR} = 20log\left(\frac{S}{N}\right)
 \end{equation}
-<<<<<<< HEAD
-where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
-=======
 
 \begin{where}
 \va{$S$}{signal power}{W}
@@ -211,33 +209,6 @@ where S represents the signal power,N the Noise and D the Distortion.\citep{SINA
 \va{$D$}{Distortion}{W}
 \end{where}
 %where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
-\subsection{SNR margin estimation}
-\label{SNR_margin}
-Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
-This gives us the \gls{SNR} margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
-%By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
-The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
-\begin{equation}
-p = a^2 + 2\sigma^2
-\end{equation}
-\todo {change symbols}
-Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that we need to estimate\cite[p.308]{Fading_Shadowing}.
-\begin{equation}
-K = \frac{a^2}{2\sigma^2}
-\end{equation}
-Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician \gls{CDF} matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
-\todo {matlab script in appendix}
-\todo{source on this whole?}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
-\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
-\label{Rician_90}
-\end{figure}
->>>>>>> origin/master
-
-
-
 
 \subsection{How to measure dynamic range}
 
@@ -250,7 +221,7 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 \caption{Determining the Dynamic Range from the spurs and sensitivity line.(WORK IN PROGRESS!!)}
 \label{Dynamic_range_calc}
 \end{figure}
-To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example below the intercept point of the third order products and the sensitivity level is at -100dB while the vertical line meets the fundamental signal at -32dB meaning that the dynamic range is 68dB. 
+To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal this is the $MAX_{STR}$ of a receiver. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example above the intercept point of the third order products and the sensitivity level is at $-100dBm$ while the vertical line meets the fundamental signal at the $-32dBm$ meaning that the dynamic range is $68dB$. 
 %This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that shifted to in order to process the signal easier.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. 
 
 
@@ -287,7 +258,16 @@ In the digital signal processing of the \gls{VNA} averaging be applied to reduce
 Noisefloor_{dBm} = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF 
 \label{NFwithAVG}
 \end{equation}
-Where $IF_{BW}$ is  intermediate bandwidth $T_0$ is temperature of the system, $k$ is the Boltzmann's constant,$AVG$ is the averaging factor and $NF$ if the noise figure.
+
+\begin{where}
+\va{$IF_{BW}$}{intermediate bandwidth}{Hz}
+\va{$Te$}{The thermal temperature of the system}{Kelvin}
+\va{$k$}{Boltzmann's constant}{1}
+\va{$AVG_f$}{is the averaging factor}{1}
+\va{$NF$}{Noise figure}{dB}
+\end{where}
+
+
 To maximise the effectiveness of a \gls{VNA} the reviver $IF_{BW}$ should be high as possible for the dynamic range needed. So to get accurate samples with the needed dynamic range in the least amount of time the $IF_{BW}$ and $AVG_f$ must be balanced to minimise time spent on one measurement.
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
 
@@ -296,7 +276,12 @@ The cost of using a narrowband is the measurement time, as the system would requ
 \begin{equation}
 T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
 \end{equation}
-where $IF_{BW}$ is the intermediate frequency bandwidth and $BW_{sweep}$ is the total bandwidth you want to measure.
+
+\begin{where}
+\va{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
+\va{$BW_{sweep}$}{total bandwidth you want to measure}{Hz}
+\va{}{}{}
+\end{where}
 
 
 %\section{Diversity}
