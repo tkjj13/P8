@@ -17,17 +17,16 @@
 
 
 
-
-
 \chapter{Available Resources}
 \section{Environment}
-The HF lab was the room used for the measurements, it has  clutter and surfaces to give  multipath propagation. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
+The High frequency lab at \gls{AAU} was used for the measurements, it has  clutter and surfaces to give a good representation of a indoor multipath environment. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
 
 \begin{figure}[H]
   \centering
   \begin{minipage}[H]{0.4\textwidth}
     \includegraphics[width=\textwidth]{pictures/Measurement/walking_meas.jpg}
     \caption{Area of the fading gain measurements}
+    \label{walk_area}
   \end{minipage}
   \hfill
   \begin{minipage}[H]{0.4\textwidth}
@@ -55,8 +54,7 @@ The HF lab was the room used for the measurements, it has  clutter and surfaces 
 
 
 \section{Equipment}
-Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. With a 4 port VNA a antenna setup in a 1 TX and 3 RX configuration will be used. Calibration can be done by connecting the cables together and do a simple normalization. The sweep data will be saved to a USB.
-
+The machine used for the measurement was a Keysight PNA N5527A 4-port VNA with parallel port capture and supports frequencies from 10MHz to 67 GHz. With a 4 port VNA the antennas can be set in a 1 TX and 3 RX configuration. Calibration can be done by connecting the cables together and do a simple normalization. This normalization technique simplifies the calibration, but means a \gls{PA} can't be used.  The sweep data will be saved to a USB.
 
 Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
 
@@ -65,7 +63,7 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
-    \caption{Omnidirectional RX antenna array with $\frac{\lambda}{2}$ spacing}
+    \caption{Omnidirectional RX antenna array with $0.4 \lambda$ spacing}
 \end{figure}
 \todo{add a schematic overview of the room}
 \begin{figure}[H]
@@ -85,6 +83,8 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \label{connection_diagram}
 \end{figure}
 
+After setting up everything we found out that $P_{RX}$ was lower then expected. To increase the $P_{RX}$ the TX antenna was moved closer to the door and a shorter cable was used. The NLOS condition was still fulfilled. 
+
 %Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. The sweep data will me saved to a USB.
 %
 %Cables used have a loss of $0.5dB per m$ 
@@ -97,21 +97,14 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 %\end{equation}
 
 
-\section{Final setup}
-After playing around with the test setup we discovered that to reduce the pathloss and cable loss the directonal TX atenna was moved closer to the door. Still NLOS was true as the antenna was outside of the room pointing at a open door.
-
-
-
-
-
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
 \chapter{Setup Parameter estimation}
-In chapter 1 all the needed factors has been discussed. The parameter of the test setup and the requirements where:
+Before staring measuring the settings on the VNA needs to be determined. This means that the values has to be  balanced to get the needed data and to meet the physical limitations. Part I goes thorough the theory and the limiting factors has been discussed.
 
 \section{Dynamic range}
-N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz\autoref{equip}. The dynamic range of the VNA becomes:
+N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz \autoref{equip}. The dynamic range of the VNA becomes:
 \begin{equation}
-DR = P_{RX}+119dBm 
+DR_{MAX} = P_{RX}+119dBm 
 \label{NFvna}
 \end{equation}
 
@@ -130,7 +123,7 @@ P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
 \end{equation}
 This gives a maximum dynamic range of:
 \begin{equation}
-DR = -41dBm+119dBm = 78dB
+DR_{MAX} = -41dBm+119dBm = 78dB
 \end{equation}
 
 
@@ -139,19 +132,23 @@ Given the SNR margin $SNR_{M}$ and the $P_{RX}$ the noisefloor needs to be at:
 \begin{equation}
 Noisefloor_{Req} = -41dBm-64dB = -105dBm 
 \end{equation}
-The noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This would mean that a $IF_{BW}$ on the \gls{VNA} can be increased by:
+The noise floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased by:
 \begin{equation}
 \begin{split}
 &= IF_{BW} = -119dB+105dB = 14dB \\
           \quad &= 10Hz \rightarrow 14dB \rightarrow 250Hz
 \end{split}
 \end{equation}
-This means the $IF_{BW}$ can be at 250Hz, this will give us faster sweep times at the cost of dynamic range.
+This means the $IF_{BW}$ can be at 250Hz and gives a faster sweep times at the cost of dynamic range.
 \section{FCF}
-This section needs some values from similar environments 50-150ns delay.
+The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment  measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
+\begin{equation}
+B_C \geq \frac{1}{50ns} \approx 20MHz
+\label{CohBW}
+\end{equation}
 \section{Time estimation}
 Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
-The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}.
+The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
 \begin{table}[H]
 \centering
@@ -159,7 +156,7 @@ The Keysight PNA N5527A gives the following sweep times for a 201 point with dif
 \label{my-label}
 \begin{tabular}{l|l}
 \hline
-$IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
+$IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 10              & 17834               \\
 100             & 1825                \\
 300             & 641                 \\
@@ -168,23 +165,23 @@ $IF_BW${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-There is also some overhead for saving the data. Since number of points used in the final setup is dependant $B_c$ the sweep time 
+There is also some overhead for saving the data and frequency span. Since number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
 
-Let's use example where we can use a 1kHz $IF_BW$ a
+Let's  use an example where we can use a 300Hz $IF_BW$ a
 \begin{equation}
-T_{sweep total} = 223ms
+T_{sweep total} = \frac{631}{4} = 160ms
 \end{equation}
-This means that every 223ms we have to move $\frac{\lambda}{2}$ this gives a relative velocity of:
+This means that every 160ms we have to move $0.4 \lambda$ this gives a relative velocity of:
 \begin{equation}
-\frac{0.0375m}{0.223s} = 0.17 m/s
+\frac{0.0375m}{0.160s} = 0.23 m/s
 \end{equation}
-This is under the $1m/s$ value found in \autoref{min_vel}
-and total time for moving 5 meters $\approx 30s$.
-and with the speculated 80000 samples per 5 meter walk(200 samples in frequency). we need around:
+This is under the $1m/s$ value used in \autoref{min_vel}
+and total time for moving 5 meters becomes $\approx 22s$.
+With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3 RX antennas) the total number becomes:
 \begin{equation}
-\frac{4.04 \cdot 10^6}{80000} = 50.5 walks
+\frac{4.04 \cdot 10^6}{31200} = 130 \ walks
 \end{equation}
-or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wait time.
+or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
 
 \chapter{Measurement of PDP}
 \section{setup}
@@ -192,29 +189,33 @@ or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wai
 \section{data processing}
 \subsection{delay spread}
 \subsection{coherence bandwidth}
+After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
 
 \chapter{Measurement of fading}
 \begin{table}[H]
 \centering
-\caption{Some example specifications}
+\caption{Final setting on VNA}
 \label{final_specs}
 \begin{tabular}{|l|l|l|}
 \hline
 Number of samples needed         & N           & 4.04 million         \\ \hline
 Center Frequency                 & $f_c$       & 5Ghz             \\ \hline
 Wavelength                       & $\lambda$   & 6cm           \\ \hline
-Coherence freq                   & $\Delta f$  & 25MHz           \\ \hline
-Span & $\delta f$ & 1GH \\ \hline
+Coherence Bandwidth                   & $B_C$  & 25MHz           \\ \hline
+Span & $\Delta f$ & 1GHz \\ \hline
 Dynamic range                    & DR          & XXdB            \\ \hline
 Antenna diversity                & $A_{div}$   & 1x3                    \\ \hline
 Intermediate frequency bandwidth & $IF_{BW}$     & 500Hz          \\ \hline
+Cable loss & $L_{C}$     & 7dB          \\ \hline
 Number of points per sweep & $N_{sweep}$ & 41 \\ \hline
 Transmit power & $P_{TX}$ & 17dBm \\ \hline
+Antenna Gain & $G_{ANT}$ & 12dBi \\ \hline
 Sweep time & $T_{sweep}$ &74.1msec \\ \hline
 \end{tabular}
 \end{table}
-These where the final values used in the VNA to do the measurements.
+   
 \section{setup}
+The setup was done by moving the antenna array back-and forth in the measurement area in \autoref{walk_area} at three different heights. The toal amount of 5 meter walks done was $3 \cdot 18 = 162$ for a total of 810m.
 \section{results}
 \section{data processing}
 \subsection{stationarity}
