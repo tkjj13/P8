@@ -42,15 +42,9 @@ end
 u = o;
 
 figure
-for j = 1:10000
-    semilogy(c(:,j),y);
-    hold on;
-end
-
-figure
-semilogy(c(:,500),y);
+semilogy(c(:,5000),y);
 hold on
-semilogy(c(:,10000-500),y);
+semilogy(c(:,100000-5000),y);
 semilogy(u(:,1),y);
 xlabel('Fading gain');
 ylabel('CDF');
