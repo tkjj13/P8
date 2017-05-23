@@ -161,33 +161,34 @@ A problem that has not been addressed is the noise aspect, all components in the
 \section{Dynamic range}
 Dynamic range in RF systems is the ability of the receiver to pick out weak signals compared to the strong ones(the range of the low signals to the high signals which the receiver can operate). Think about it as trying to hear a person talking when somebody in the room is screaming.  
 With manual or automatic gain control,the total dynamic range of the receiver will allow it to accept a wider range of signal power.That isn't a problem as long as we want to observe the strongest signal or nearly the strongest one.The situation gets tricky when we want to observe a really weak signal in the presence of much stronger ones.That is the point where we are more interested in the instantaneous dynamic range.
-The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal.
-The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range\citep{DyR}.
+The instantaneous dynamic range is specified as the difference between the strongest to the weakest signal(in dB) that can be present in a receiver's pass band while the receiver is meeting full specified performance in receiving and processing the weaker signal\citep{DyR}.
+%The maximum strength that a receiving system can accept and process depends on the sensitivity of the receiver and it's dynamic range\citep{DyR}.
 \begin{equation}
-MAXstr_{dBm} = (Sens) +(DR)
-\label{Max strength of a receiving system}
+DR = MAX_{str} -Sens
+\label{Dynamic_range_def}
 \end{equation}
 
 \begin{where}
-\va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
-\va{$Sens$}{is the sensitivity of the receiver}{dB}
 \va{$DR$}{Dynamic range of the system}{dB}
+\va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
+\va{$Sens$}{is the sensitivity of the receiver}{dBm}
 \end{where}
 
 
 
 %Where $MAX_{str}$ is the maximum strength of a receiving system,Sens is the sensitivity of the receiver and DR the dynamic range of the system.\citep{DyR}
 
-Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise ,Noise Figure and the Required prediction of SNR.It is normally a negative number(in dBm) and this means that a bigger number(more negative) equals a smaller signal.
-The thermal noise is given by:
+Receiver sensitivity is defined as the weakest signal that can be observed and still provide a sufficient quality output.Sensitivity is determined by the sum of Thermal Noise, Noise Figure and the Required SNR quality at the output. The sensitivity is normally expressed in dBm where the values are negative because the sensitivity is usually under 1 Milliwatt. The sensitivity is given by:
 \begin{equation}
-Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
+Sens = 10log(BW\cdot Te\cdot k\cdot 1000) + NF + SNR_{Req}
 \label{Noise1}
 \end{equation}
 \begin{where}
 \va{$BW$}{is the bandwidth}{Hz}
-\va{$Te$}{is the thermal temperature}{Kelvin}
+\va{$Te$}{The thermal temperature of the system}{Kelvin}
 \va{$NF$}{Noise figure of the receiver}{dB}
+\va{$k$}{Boltzmann's constant}{1}
+\va{$SNR_{Req}$}{Required SNR}{dB}
 \end{where}
 
 
@@ -195,49 +196,19 @@ Noise_{dBm} = 10log(BW\cdot Te\cdot k\cdot 1000) + NF
 Dynamic Range or else \gls{SINAD} is also very similar to the \gls{SNR}. \gls{SINAD} is a good way to describe the whole dynamic system of \gls{ADC} because it takes into account all the components that make noise and distortion, including the non-linearities. %In other words it takes into account the non-linearities.
 The difference between them can be shown in high frequencies because the \gls{SINAD} gets affected by the distortions and degrades faster than the \gls{SNR}. The reason is that it excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas\citep{SINADandSNR}:
 \begin{equation}
-\text{SINAD} = 20log\left(\frac{S}{N+D}\right)
+\text{SINAD} = 20log\left(\frac{s}{w+d}\right)
 \end{equation}
 
 \begin{equation}
-\text{SNR} = 20log\left(\frac{S}{N}\right)
+\text{SNR} = 20log\left(\frac{s}{w}\right)
 \end{equation}
-<<<<<<< HEAD
-where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
-=======
 
 \begin{where}
-\va{$S$}{signal power}{W}
-\va{$N$}{Noise}{W}
-\va{$D$}{Distortion}{W}
+\va{$s$}{signal power}{W}
+\va{$w$}{Noise}{W}
+\va{$d$}{Distortion}{W}
 \end{where}
 %where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
-\subsection{SNR margin estimation}
-\label{SNR_margin}
-Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
-This gives us the \gls{SNR} margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
-%By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
-The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
-\begin{equation}
-p = a^2 + 2\sigma^2
-\end{equation}
-\todo {change symbols}
-Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that we need to estimate\cite[p.308]{Fading_Shadowing}.
-\begin{equation}
-K = \frac{a^2}{2\sigma^2}
-\end{equation}
-Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician \gls{CDF} matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
-\todo {matlab script in appendix}
-\todo{source on this whole?}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
-\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
-\label{Rician_90}
-\end{figure}
->>>>>>> origin/master
-
-
-
 
 \subsection{How to measure dynamic range}
 
@@ -247,10 +218,11 @@ In a normal receiver the dynamic range is set by the sensitivity of the receiver
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.90\textwidth]{figures/Dynamic_range_calc.png}
-\caption{Determining the Dynamic Range from the spurs and sensitivity line.(WORK IN PROGRESS!!)}
+\caption{Determining the Dynamic Range from the spurs and sensitivity line.}
 \label{Dynamic_range_calc}
 \end{figure}
-To calculate the dynamic range we are interested on the third order products.The second order products they get filtered out due to the big distance from the original frequencies.When we have the third order products we draw a vertical line from the intercept point of the sensitivity and the third order products till the fundamental signal. This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level. In our example below the intercept point of the third order products and the sensitivity level is at -100dB while the vertical line meets the fundamental signal at -32dB meaning that the dynamic range is 68dB. 
+To calculate the dynamic range is important to have the third order products.The second order products they get filtered out due to the big distance from the original frequencies.In the place that the third order products meet the sensitivity we draw a vertical line to the fundamental signal.
+This distance between the two lines defines the strength of the strong output signals that will cause distortion at the sensitivity level.Also the point that the vertical line meets the fundamental signal is the $MAX_{str}$. In the example above, the intercept point of the third order products and the sensitivity level is at $-100dBm$ while the vertical line meets the fundamental signal at $-32dBm$ meaning that the dynamic range is $68dB$. 
 %This means that a RF receiver is highly dependent on the mixer and amplifier with regards to dynamic range. A measurement system would take into account the factors listed in \autoref{basic_rev_struct} to increase the dynamic range. Going through the \autoref{fig:basic_receiver_structure} in order from left to right. The receivers \gls{IF} is the frequency that shifted to in order to process the signal easier.  This is done in the first stages of a receiver. This frequency is normally lower than the transmitted RF frequency, this especially helps the \gls{ADC} that uses a lower sampling rate. By setting the \gls{IF} filter to a very narrow bandwidth (narrowband) the noise floor goes down and increases the dynamic range. 
 
 
@@ -284,10 +256,20 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
 
 \begin{equation}
-Noisefloor_{dBm} = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF 
+W = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF 
 \label{NFwithAVG}
 \end{equation}
-Where $IF_{BW}$ is  intermediate bandwidth $T_0$ is temperature of the system, $k$ is the Boltzmann's constant,$AVG$ is the averaging factor and $NF$ if the noise figure.
+
+\begin{where}
+\va{$W$}{Noise-floor}{dBm}
+\va{$IF_{BW}$}{intermediate bandwidth}{Hz}
+\va{$Te$}{The thermal temperature of the system}{Kelvin}
+\va{$k$}{Boltzmann's constant}{1}
+\va{$AVG_f$}{is the averaging factor}{1}
+\va{$NF$}{Noise figure}{dB}
+\end{where}
+
+
 To maximise the effectiveness of a \gls{VNA} the reviver $IF_{BW}$ should be high as possible for the dynamic range needed. So to get accurate samples with the needed dynamic range in the least amount of time the $IF_{BW}$ and $AVG_f$ must be balanced to minimise time spent on one measurement.
 Equipment drift is another source of error that can occur if we are operating in a place with different environmental factors for a long period of time.
 
@@ -296,7 +278,11 @@ The cost of using a narrowband is the measurement time, as the system would requ
 \begin{equation}
 T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
 \end{equation}
-where $IF_{BW}$ is the intermediate frequency bandwidth and $BW_{sweep}$ is the total bandwidth you want to measure.
+
+\begin{where}
+\va{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
+\va{$BW_{sweep}$}{total bandwidth you want to measure}{Hz}
+\end{where}
 
 
 %\section{Diversity}
@@ -329,9 +315,9 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 \end{figure}
 
 The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
-The total dynamic range requirement becomes:
+The SNR requirement becomes:
 \begin{equation}
-DR_{tot} = SNR_m - G_f , 14dB + 50dB = 64dB 
+SNR = SNR_m - G_f , 14dB + 50dB = 64dB 
 \end{equation}
 \begin{where}
 \va{$DR_{tot}$}{Total dynamic range}{dB}
@@ -388,15 +374,14 @@ If the area of the measurement is not big enough to take all the measurements di
 A other problem with a taking $4.04\cdot10^6$  uncorrelated samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-5}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
 \subsection{Time required to do measurements}
-\todo{Write more general or remove/move to part II}
-When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $10^7$, the total measuring time would be 116 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel is needed. The time budget uses the values from  \autoref{howtomeasureUS} and assumes the samples are measured continuously in one dimension with a velocity of $1m/s$. 
-The antenna array is spaced in a different dimension so samples don't overlap. The time it would take to do a $100MHz$ sweep is dependant on the $IF_{BW}$ and dynamic range requirements discussed later. The calculation assumes that system can do a full sweep over the BW at every $\frac{\lambda}{2} = 0.05m$ and get the 30 samples in frequency or $N_f$. So first lets calculate the amount of samples we can do per second $N_s$:
+\todo{Has been written more general, but it solves on setting a velocity; which we dont do later in part II.Think thats okey tho}
+When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $4.04 \cdot 10^6$, the total measuring time would be 47 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel is needed. One way to do this is by using several antennas. The antenna array is spaced in a different dimension so samples don't overlap. The time it would take to do a sweep over a frequency span $\Delta f$ is dependant on the $IF_{BW}$ and dynamic range requirements discussed later. If the calculation assumes that system can do a full sweep over the $\Delta f$ at every $0.4 \ \lambda$ and get all the samples in frequency or $N_f$.Then the amount of samples per second $N_s$ becomes:
 \begin{equation}
-N_s = \frac{v}{\frac{\lambda}{2}}\cdot N_f \cdot A_{div}, \frac{1m/s}{0.05m} \cdot 30N \cdot 25N = 15000N_s
+N_s = \frac{v}{0.4 \ \lambda} \cdot N_f \cdot A_{div}
 \end{equation}
 Then the total time needed for a continues measurements:
 \begin{equation}
-T = \frac{N}{N_s} , \frac{10^7N}{15000N_s} = 667s \approx 12 minutes.
+T = \frac{N}{N_s}
 \end{equation}
-The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to get the needed sample size. A speed of $1m/s$ over 12 minutes is equal to $720m$ in one dimensions so a two dimensional space separation is needed to reduce the room size requirement.. The practicality of this will be discussed in part II.
+The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to get the needed sample size. Together with the dynamic range requirement to see these deep fades, this becomes a equation that needs to be balanced to reduce the measurement time to practical conditions. Some estimated parameters of this will be discussed part II.
 %\section{Introduction of noisy signal}
