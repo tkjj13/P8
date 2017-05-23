@@ -8,7 +8,7 @@
 %     Sample(n) = raylrnd(0.707)^2;    
 % end
 
-Sample = fade2;
+Sample = fade3;
 
 O = sort(Sample);
 
@@ -17,7 +17,7 @@ P = zeros(4184460,1);
 B = zeros(100,10000);
 H = round(logspace(0 , log10(4184460), 100));
 
-for q = 1:10000
+for q = 1:100000
     l = randi([1 4184460],4184460,1);
     for r = 1:4184460        
         P(r, 1) = O(l(r,1));
