@@ -300,11 +300,19 @@ The estimation assume the signal as a constant and the noise as a complex vector
 \begin{equation}
 p = a^2 + 2\sigma^2
 \end{equation}
-\todo {change symbols}
+
+\begin{where}
+\va{$a^2$}{is the power in dominant component}{W}
+\va{$\sigma^2$}{is the local-mean scattered
+ power}{W}
+\va{K}{The K factor}{1}
+\end{where}
+
 Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that we need to estimate\cite[p.308]{Fading_Shadowing}.
 \begin{equation}
 K = \frac{a^2}{2\sigma^2}
 \end{equation}
+
 Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
 \begin{figure}[H]
 \centering
@@ -313,10 +321,10 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 \label{Rician_90}
 \end{figure}
 
-The results show that a SNR margin $SNR_m$ of 14dB is needed to have accurate reading of the deep fades.
-The SNR requirement becomes:
+The results show that a margin of 14dB is needed to have accurate reading of the deep fades.
+The $SNR_M$ requirement becomes:
 \begin{equation}
-SNR = SNR_m - G_f , 14dB + 50dB = 64dB 
+SNR_M = 14dB - G_f , 14dB + 50dB = 64dB 
 \end{equation}
 \begin{where}
 \va{$DR_{tot}$}{Total dynamic range}{dB}
