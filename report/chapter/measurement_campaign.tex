@@ -280,6 +280,14 @@ From the auto-correlation, it can be seen, that there is a high correlation betw
 \input{figures/Matlab_figures/Rx2.tex}
 \input{figures/Matlab_figures/Rx3.tex}
 \subsection{CDF}
-confidence values - bootstrap
+The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times.
+
+\begin{figure}[H]
+\input{figures/Matlab_figures/BS90Meas5_23.tex}
+\caption{CDF of the measurements of the fading channel. The min and max is the 90\% confidence level made with the bootstrap method, run 100,000 times.}
+\label{CDFFinalBS}
+\end{figure}
+
+From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected. 
 
 \section{Results}
