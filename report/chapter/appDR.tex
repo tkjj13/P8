@@ -1,0 +1,46 @@
+\section{Average SNR During Measurement Campaign}
+\label{app:SNR}
+
+To find the average SNR during the measurements, a separate set of measurements are performed. This is done because the PNA N5227A can not directly show the noise floor. 
+
+\subsection{Setup}
+The setup is almost identical to the one use during the measurement and can be seen in \autoref{final_specs} with the only change being the number of points in frequency that is swept is increase from 41 to 801. Each sweep is then transformed from frequency domain to time domain using a Keiser window with parameters TBD. 20 random points is chosen from the test area described in \autoref{Environment} where the measurements are performed. 
+
+\subsection{Procedure}
+\begin{enumerate}
+	\item Connect all the equipment as described in \autoref{connected_setup}
+	\item Turn on PNA N5227A
+	\item Add trace B/R1, C/R1 and D/R1  
+	\item Input all settings into PNA N5227A
+	\item Make transform of all traces
+	\item Setup data logger script as:
+	\begin{itemize}
+		\item Save at end of sweep
+		\item Manually save
+		\item csv file format
+		\item dB magnitude and phase
+		\item brose to noise folder
+		\item save as noise
+	\end{itemize}
+	\item Move RX to point 1
+	\item Press save
+	\item Repeat 5 and 6 for the rest of the points	
+\end{enumerate}
+
+
+\subsection{Results}
+As it is the SNR that is of interest the phase component can be discarded. The average across the 60 measurements can be seen in \autoref{fig:SNRMeas}.
+
+\begin{figure}[H]
+\centering
+\input{figures/PDPMeas.tex}
+\caption{Average values for each delay increment.}
+\label{fig:SNRMeas}
+\end{figure}
+
+\subsection{Data Processing}
+The SNR is found as the difference between the strongest component and the noise floor. As can be seen from \autoref{fig:SNRMeas} the strongest component is around -78 dB. Similarly it can be seen that the noise floor is slightly below -145 dB. The SNR can then be calculated as:
+
+\begin{equation}
+SNR = Signal - Noise_{floor} = -78dB + 145dB = 67 dB
+\end{equation}

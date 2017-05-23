@@ -67,6 +67,7 @@ disp('Coherence bandwidth calculated from RMS excess delay')
 disp(theoBW)
 
 disp(sprintf('%i / %i = %f',BW,theoBW,BW/theoBW))
+return
 %%
 clc;
 close all;

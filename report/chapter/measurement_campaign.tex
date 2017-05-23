@@ -20,7 +20,7 @@
 
 
 \chapter{Available Resources}
-\section{Environment}
+\section{Environment} \label{Environment}
 The HF lab was the room used for the measurements, it has  clutter and surfaces to give  multipath propagation. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
 
 \begin{figure}[H]
@@ -54,7 +54,7 @@ The HF lab was the room used for the measurements, it has  clutter and surfaces 
 
 
 
-\section{Equipment}
+\section{Equipment}\label{equipment}
 Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. With a 4 port VNA a antenna setup in a 1 TX and 3 RX configuration will be used. Calibration can be done by connecting the cables together and do a simple normalization. The sweep data will be saved to a USB.
 
 
@@ -75,8 +75,9 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \end{figure}
 
 
-\label{equip}
+
 \subsection{Connected setup}
+\label{connected_setup}
 
 \begin{figure}[H]
 \centering
@@ -109,14 +110,14 @@ After playing around with the test setup we discovered that to reduce the pathlo
 In chapter 1 all the needed factors has been discussed. The parameter of the test setup and the requirements where:
 
 \section{Dynamic range}
-N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz\autoref{equip}. The dynamic range of the VNA becomes:
+N5527A has a $-119dB$ noise floor without averaging with a 10Hz $IF_{BW}$ at 1-10GHz\autoref{equipment}. The dynamic range of the VNA becomes:
 \begin{equation}
 DR = P_{RX}+119dBm 
 \label{NFvna}
 \end{equation}
 
 \subsection{TX power}
-The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be around 15dBm\autoref{equip} depending on load from the different antennas.
+The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be around 15dBm\autoref{equipment} depending on load from the different antennas.
 \subsection{Pathloss}
 Given \autoref{eq:path_loss} and the area of the room. The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
 \begin{equation}
@@ -191,34 +192,55 @@ or around 25 minuets of measurement given 55.5 walks and 30s per walk and no wai
 \section{results}
 \section{data processing}
 \subsection{delay spread}
-\subsection{coherence bandwidth}
+\subsection{coherence bandwidth}\label{sec:coherence_bandwidth}
 
 \chapter{Measurement of fading}
+The environment of fading measurements is described in \autoref{Environment}. As for the final settings it can be seen in \autoref{final_specs}.
 \begin{table}[H]
 \centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Name}					& \textbf{Symbol} & \textbf{Value} 	& \textbf{Reference} 		\\ \hline
+Number of samples needed        & N           	& 4.04 million      & \autoref{sec:statistics}	\\ \hline
+Center Frequency                & $f_c$       	& 5Ghz              & \autoref{equipment}		\\ \hline
+Wavelength                      & $\lambda$   	& 6cm           	& \autoref{equipment}		\\ \hline
+Coherence freq                  & $\Delta f$  	& 25MHz   			& \autoref{sec:coherence_bandwidth} \\ \hline
+Span 							& $\delta f$ 	& 1GH 				& TBD \\ \hline
+Dynamic range                   & DR          	& XXdB            	& TBD \\ \hline
+Antenna diversity               & $A_{div}$   	& 1x3    			& \autoref{equipment} 		\\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& TBD \\ \hline
+Number of points per sweep 		& $N_{sweep}$ 	& 41				& TBD \\ \hline
+Transmit power 					& $P_{TX}$ 		& 17dBm				& \autoref{equipment} 		\\ \hline
+Sweep time 						& $T_{sweep}$ 	& 74.1msec			& TBD \\ \hline
+\end{tabular}
 \caption{Some example specifications}
 \label{final_specs}
-\begin{tabular}{|l|l|l|}
-\hline
-Number of samples needed         & N           & 4.04 million         \\ \hline
-Center Frequency                 & $f_c$       & 5Ghz             \\ \hline
-Wavelength                       & $\lambda$   & 6cm           \\ \hline
-Coherence freq                   & $\Delta f$  & 25MHz           \\ \hline
-Span & $\delta f$ & 1GH \\ \hline
-Dynamic range                    & DR          & XXdB            \\ \hline
-Antenna diversity                & $A_{div}$   & 1x3                    \\ \hline
-Intermediate frequency bandwidth & $IF_{BW}$     & 500Hz          \\ \hline
-Number of points per sweep & $N_{sweep}$ & 41 \\ \hline
-Transmit power & $P_{TX}$ & 17dBm \\ \hline
-Sweep time & $T_{sweep}$ &74.1msec \\ \hline
-\end{tabular}
 \end{table}
+
 These where the final values used in the VNA to do the measurements.
 \section{setup}
 \section{results}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height = \textwidth, angle = -90]{figures/rawFadingMeas.pdf}
+\caption{raw data}
+\label{fig:rawFadingMeas}
+\end{figure}
+
+
+
 \section{data processing}
+\begin{figure}[H]
+\centering
+\includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
+\caption{raw data}
+\label{fig:meanFading}
+\end{figure}
+
 \subsection{stationarity}
-K-factor
+K-factor 
+
 \subsection{achieved dynamic range}
 \subsection{frequency correlation}
 \subsection{space correlation}
