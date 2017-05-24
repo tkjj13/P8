@@ -193,12 +193,16 @@ Fading can be separated in  small scale and large scale fading \citep{FlatSelect
 \subsection{Diversity}
 Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}.
 
-The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system. \\
-
+The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources.There are several ways to achieve diversity in a wireless system:
+ 
 \begin{tabular}{lp{13.1cm}}
 \textbf{Temporal diversity} & By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
 \textbf{Spatial diversity} & By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.\\
+\textbf{Frequency diversity} & By transmitting the same data on two frequencies that have independently fading signals. This comes at a cost of reducing the systems spectral efficiency.
 \end{tabular}
+
+If an average increase of a few dB in \gls{SNR} was all diversity provided, increasing the transmit power would be better. But spatial diversity has the effect of changing the distribution of \gls{SNR} for the modulated signal, this effect is what combats the deep fades. It should be noted that spatial diversity sees a diminishing effect when increasing the number of antennas.
+To get the maximum gain from diversity uncorrelated signals are required. While a correlation coefficient of 0 is highly unlikely to obtain in reality. The improvements start to deteriorate if the correlation coefficient exceeds 0.3. Still improvements are seen up to 0.8 correlation \citep[317]{The_Mobile_Radio_Propagation_Channelbook}.
 
 \section{ITU model for indoor attenuation}
 \label{ITU_model}

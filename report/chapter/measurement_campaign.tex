@@ -63,18 +63,27 @@ Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for t
 
 The TX antenna is a directional antenna with a gain $G_{TX}=12dBi$ at 5GHz.\todo {antenna gain appendix}
 The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[H]{0.42\textwidth}
+    \includegraphics[width=\textwidth]{pictures/Measurement/antenna_door.jpg}
+    \caption{TX antenna placement, pointing towards the door.}
+    \label{antennadoor}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[H]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{pictures/Measurement/dirrecional_antenna.jpg}
+    \caption{Both sides of the directional TX antenna up close.}
+  \end{minipage}
+\end{figure}
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
     \caption{Omnidirectional RX antenna array with $0.4 \lambda$ spacing}
 \end{figure}
-\todo{add a schematic overview of the room}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{pictures/Measurement/antenna_door.jpg}
-\caption{Directional TX antenna pointing at door.}
-\end{figure}
-
 
 
 \subsection{Connected setup}
@@ -165,12 +174,12 @@ B_C \geq \frac{1}{50ns} \approx 20MHz
 \label{CohBW}
 \end{equation}
 \section{Time estimation}
-Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
+When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $4.04 \cdot 10^6$, the total measuring time would be 47 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel with a high sweep time.
+Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_{BW}$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
 \begin{table}[H]
 \centering
-\caption{$IF_{BW} \ vs \ sweep time$}
 \label{my-label}
 \begin{tabular}{l|l}
 \hline
@@ -181,6 +190,7 @@ $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 1000            & 223                 \\
 3000            & 72                 
 \end{tabular}
+\caption{$IF_{BW} \ vs \ sweep time$}
 \end{table}
 
 There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
@@ -211,7 +221,7 @@ or around 48 minuets of continues measurement given 130 walks and 22s per walk. 
 After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
 
 
-\chapter{Measurement of Fading}
+\chapter{Measurement of fading}
 The environment of fading measurements is described in \autoref{Environment}. As for the final settings it can be seen in \autoref{final_specs}.
 \begin{table}[H]
 \centering
@@ -222,7 +232,7 @@ Number of samples needed        & N           	& 4.04 million      & \autoref{se
 Center Frequency                & $f_c$       	& 5Ghz              & \autoref{equipment}		\\ \hline
 Wavelength                      & $\lambda$   	& 6cm           	& \autoref{equipment}		\\ \hline
 Coherence Bandwidth             & $B_C$		  	& 25MHz   			& \autoref{sec:coherence_bandwidth} \\ \hline
-Span 							& $\delta f$ 	& 1GH 				& TBD \\ \hline
+Span 							& $\Delta f$ 	& 1GH 				& TBD \\ \hline
 Dynamic range                   & DR          	& XXdB            	& TBD \\ \hline
 Antenna diversity               & $A_{div}$   	& 1x3    			& \autoref{equipment} 		\\ \hline
 Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& TBD \\ \hline
@@ -238,62 +248,29 @@ Sweep time 						& $T_{sweep}$ 	& 74.1msec			& TBD \\ \hline
 
 These where the final values used in the VNA to do the measurements.
 
-\section{Setup}
+\section{setup}
 The setup was done by moving the antenna array back-and forth in the measurement area in \autoref{walk_area} at three different heights. The toal amount of 5 meter walks done was $3 \cdot 18 = 162$ for a total of 810m.
-
-
-
-\section{Data Processing}
-
-Before concluding anything from the data, it is first analysed to check if the made assumptions are valid. The assumptions include a stationary channel, uncorrelated samples and finally that the data is Rayleigh distributed.
-
-\subsection{Raw data}
-
-In total 4.184.460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}.
+\section{results}
 
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/rawFadingMeas.pdf}
-\caption{The measured samples spaced in frequency and space.}
+\caption{raw data}
 \label{fig:rawFadingMeas}
 \end{figure}
 
 
-\subsection{Stationarity}
-To see if the channel is stationary it has to be checked in both the frequency domain and the spatial domain. The first step in doing this is to average across the other domain. The result of this can be seen in \autoref{fig:meanFading}. 
 
+\section{data processing}
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
-\caption{Average values across the frequency and space domain respectively.}
+\caption{raw data}
 \label{fig:meanFading}
 \end{figure}
 
-Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
-
-A condition that has to be met is that no dominant componet is present, to check this all samples are normalized with regards to the mean values seen in \autoref{fig:meanFading}, the normalize data is then fitted to a Rician distribution and the non-centrality parameter is found using matlabs \textit{fitdist} function as can be seen in \autoref{lst:a_value}. 
-
-\lstset{language=Matlab, caption={Code implementation of the a value calculation.}, label=lst:a_value}
-\begin{lstlisting}
-% The measured values is stored in data which is a 41x102060 matrix with
-% the rows being frequency samples and the coloums being space samples
-
-PL = repmat(mean(data,2),1,102060);   % Determine PL by averaging across space dimension 
-dataN = data./PL;                     % Normalize data wrt. frequency
-dataS = reshape(dataN,41*102060,1);   % Reshape to vector format
-
-pd = fitdist(dataS,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter for space domain
-
-PL = repmat(mean(data,1),41,1);       % Determine PL by averaging across frequency dimension
-dataN = data./PL;                     % Normalize data wrt. space
-dataF = reshape(dataN,41*102060,1);   % Reshape to vector format
-
-pd = fitdist(dataF,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter for frequency domain
-\end{lstlisting}
-
-From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
+\subsection{stationarity}
+K-factor 
 
 \subsection{achieved dynamic range}
 \subsection{frequency correlation}
@@ -306,19 +283,19 @@ From this it can be found that the non-centrality parameter of the two domains a
 
 \subsection{space correlation}
 \subsection{approximate N equivalent}
-
-As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \todo{Ref to Rx in space}, it can be seen that the correlation between two adjacent samples is XXX in space. 
-
-
-\subsection{CDF}
-The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times.
+As seen in previous section, the wanted correlation is not for filled, so all the measurements can not be seen as independent. To find the approximated number of independent samples, the auto correlation between measurements is found, seen in \autoref{Rx1mm}
 
 \begin{figure}[H]
-\input{figures/Matlab_figures/BS90Meas5_23.tex}
-\caption{CDF of the measurements of the fading channel. The min and max is the 90\% confidence level made with the bootstrap method, run 100,000 times.}
-\label{CDFFinalBS}
+\input{figures/Matlab_figures/Rx1.tex}
+\caption{The auto-correlation between all measurements.}
+\label{Rx1mm}
 \end{figure}
 
-From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected.
+From the auto-correlation, it can be seen, that there is a high correlation between each adjacent measurement on 0.44 and for 
+
+\input{figures/Matlab_figures/Rx2.tex}
+\input{figures/Matlab_figures/Rx3.tex}
+\subsection{CDF}
+confidence values - bootstrap
 
 \section{Results}

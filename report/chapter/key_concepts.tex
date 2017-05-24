@@ -380,14 +380,14 @@ If the area of the measurement is not big enough to take all the measurements di
 
 A other problem with a taking $4.04\cdot10^6$  uncorrelated samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-5}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
-\subsection{Time required to do measurements}
-When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $4.04 \cdot 10^6$, the total measuring time would be 47 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel is needed. One way to do this is by using several antennas. The antenna array is spaced in a different dimension so samples don't overlap. The time it would take to do a sweep over a frequency span $\Delta f$ is dependant on the $IF_{BW}$ and dynamic range requirements discussed later. If the calculation assumes that system can do a full sweep over the $\Delta f$ at every $0.4 \ \lambda$ and get all the samples in frequency or $N_f$.Then the amount of samples per second $N_s$ becomes:
-\begin{equation}
-N_s = \frac{v}{0.4 \ \lambda} \cdot N_f \cdot A_{div}
-\end{equation}
-Then the total time needed for a continues measurements:
-\begin{equation}
-T = \frac{N}{N_s}
-\end{equation}
-The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to get the needed sample size. Together with the dynamic range requirement to see these deep fades, this becomes a equation that needs to be balanced to reduce the measurement time to practical conditions. Some estimated parameters of this will be discussed part II.
-%\section{Introduction of noisy signal}
+%\subsection{Time required to do measurements}
+%When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $4.04 \cdot 10^6$, the total measuring time would be 47 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel is needed. One way to do this is by using several antennas. The antenna array is spaced in a different dimension so samples don't overlap. The time it would take to do a sweep over a frequency span $\Delta f$ is dependant on the $IF_{BW}$ and dynamic range requirements discussed later. If the calculation assumes that system can do a full sweep over the $\Delta f$ at every $0.4 \ \lambda$ and get all the samples in frequency or $N_f$.Then the amount of samples per second $N_s$ becomes:
+%\begin{equation}
+%N_s = \frac{v}{0.4 \ \lambda} \cdot N_f \cdot A_{div}
+%\end{equation}
+%Then the total time needed for a continues measurements:
+%\begin{equation}
+%T = \frac{N}{N_s}
+%\end{equation}
+%The total time budget shows that multiple uncorrelated samples must be acquired at a relative high speed in order to get the needed sample size. Together with the dynamic range requirement to see these deep fades, this becomes a equation that needs to be balanced to reduce the measurement time to practical conditions. Some estimated parameters of this will be discussed part II.
+%%\section{Introduction of noisy signal}
