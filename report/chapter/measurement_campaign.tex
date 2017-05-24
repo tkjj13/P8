@@ -61,8 +61,7 @@ The machine used for the measurement was a Keysight PNA N5527A 4-port VNA with p
 
 Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
 
-The TX antenna is a directional antenna with a gain $G_{TX}=12dBi$ at 5GHz.\todo {antenna gain appendix}
-The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
+The TX antenna is a directional antenna with a gain $G_{TX}=12.7dBi$ at 4.5GHz and $G_{TX}=10.7$ at 5.5GHz. The full gain chart of the antenna can be found in appendix \autoref{ant_adix}.This difference will be accounted for during analysing of the data. The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
 
 \begin{figure}[H]
   \centering
@@ -83,6 +82,7 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
     \caption{Omnidirectional RX antenna array with $0.4 \lambda$ spacing}
+    \label{DirAnt}
 \end{figure}
 
 
@@ -96,7 +96,7 @@ The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacin
 \label{connection_diagram}
 \end{figure}
 
-The RX antennas was connected directly to the VNA before the coupling (blue box in \autoref{connection_diagram})to reduce the attenuation. After setting up everything we found out that $P_{RX}$ was lower then expected. To increase the $P_{RX}$ the TX antenna was moved closer to the door and a shorter cable was used. The NLOS condition was still fulfilled. 
+The RX antennas was connected directly to the VNA before the coupling (blue box in \autoref{connection_diagram})to reduce the attenuation. After setting up everything we found out that $P_{RX}$ was lower then expected. To increase the $P_{RX}$ the TX antenna was moved closer to the door and a shorter cable was used, this can be seen \autoref{antennadoor}. The NLOS condition was still fulfilled. 
 
 %Keysight PNA N5527A 4-port VNA with parallel measurements and supports a frequencies from 10MHz to 67 GHz. The sweep data will me saved to a USB.
 %
