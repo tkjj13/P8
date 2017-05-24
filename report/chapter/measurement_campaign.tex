@@ -303,14 +303,9 @@ pd.s                                  % Show non-centrality parameter for freque
 From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
 
 
-\subsection{Achieved dynamic range}
-\subsection{Frequency correlation}
+\subsection{Frequency, antenna and space correlation}
+From \todo{ref to the place, where we talk about correlation and make the statement of the value}
 
-%\begin{figure}[H]
-%\includegraphics[width=\textwidth]{figures/Correlation.pdf}
-%\caption{Correlation between frequency and antenna separation}
-%\label{Rx1mm}
-%\end{figure}
 \begin{minipage}{0.33\textwidth}
 \input{figures/FCF_fromData.tex}
 \end{minipage}%
@@ -321,12 +316,7 @@ From this it can be found that the non-centrality parameter of the two domains a
 \input{figures/SCF_fromData.tex}
 \end{minipage}
 
-
-\subsection{Space correlation}
 \subsection{Approximate N equivalent}
-
-As seen in previous section, the wanted correlation is not for filled, so all the measurements can not be seen as independent. To find the approximated number of independent samples, the auto correlation between measurements is found, seen in \autoref{Rx1mm}
-
 
 As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \todo{Ref to Rx in space}, it can be seen that the correlation between two adjacent samples is \todo{Number} in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert normal Rx and Rx2}.
 
@@ -343,8 +333,6 @@ The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS
 \caption{The CDF of the measurements. The 90\% confidence level is found with the bootstrap method run 100,000.}
 \label{CDFFinalBS}
 \end{figure}
-
-\subsection{CDF}
 
 
 \section{Results}
