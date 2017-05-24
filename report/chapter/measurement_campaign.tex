@@ -213,12 +213,12 @@ With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3
 or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
 
 \chapter{Measurement of PDP}
-\section{setup}
-\section{results}
-\section{data processing}
-\subsection{delay spread}
+\section{Setup}
+\section{Results}
+\section{Data processing}
+\subsection{Delay spread}
 
-\subsection{coherence bandwidth}\label{sec:coherence_bandwidth}
+\subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
 After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
 \todo{add also Nsweep as part of this}
 
@@ -251,9 +251,9 @@ Sweep time 						& $T_{sweep}$ 	& 74.1msec			& \autoref{sec:setup_parameter} \\ 
 
 These where the final values used in the VNA to do the measurements.
 
-\section{setup}
+\section{Setup}
 The setup was done by moving the antenna array back-and forth in the measurement area in \autoref{walk_area} at three different heights. The toal amount of 5 meter walks done was $3 \cdot 18 = 162$ for a total of 810m.
-\section{results}
+\section{Results}
 
 \begin{figure}[H]
 \centering
@@ -264,7 +264,7 @@ The setup was done by moving the antenna array back-and forth in the measurement
 
 
 
-\section{data processing}
+\section{Data processing}
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
@@ -273,7 +273,7 @@ The setup was done by moving the antenna array back-and forth in the measurement
 \end{figure}
 
 
-\subsection{stationarity}
+\subsection{Stationarity}
 K-factor 
 
 Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
@@ -303,8 +303,8 @@ pd.s                                  % Show non-centrality parameter for freque
 From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
 
 
-\subsection{achieved dynamic range}
-\subsection{frequency correlation}
+\subsection{Achieved dynamic range}
+\subsection{Frequency correlation}
 
 %\begin{figure}[H]
 %\includegraphics[width=\textwidth]{figures/Correlation.pdf}
@@ -322,8 +322,8 @@ From this it can be found that the non-centrality parameter of the two domains a
 \end{minipage}
 
 
-\subsection{space correlation}
-\subsection{approximate N equivalent}
+\subsection{Space correlation}
+\subsection{Approximate N equivalent}
 
 As seen in previous section, the wanted correlation is not for filled, so all the measurements can not be seen as independent. To find the approximated number of independent samples, the auto correlation between measurements is found, seen in \autoref{Rx1mm}
 
