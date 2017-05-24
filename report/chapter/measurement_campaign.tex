@@ -213,12 +213,12 @@ With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3
 or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
 
 \chapter{Measurement of PDP}
-\section{setup}
-\section{results}
-\section{data processing}
-\subsection{delay spread}
+\section{Setup}
+\section{Results}
+\section{Data processing}
+\subsection{Delay spread}
 
-\subsection{coherence bandwidth}\label{sec:coherence_bandwidth}
+\subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
 After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
 \todo{add also Nsweep as part of this}
 
@@ -251,9 +251,9 @@ Sweep time 						& $T_{sweep}$ 	& 74.1msec			& \autoref{sec:setup_parameter} \\ 
 
 These where the final values used in the VNA to do the measurements.
 
-\section{setup}
+\section{Setup}
 The setup was done by moving the antenna array back-and forth in the measurement area in \autoref{walk_area} at three different heights. The toal amount of 5 meter walks done was $3 \cdot 18 = 162$ for a total of 810m.
-\section{results}
+\section{Results}
 
 \begin{figure}[H]
 \centering
@@ -264,7 +264,7 @@ The setup was done by moving the antenna array back-and forth in the measurement
 
 
 
-\section{data processing}
+\section{Data processing}
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
@@ -273,7 +273,7 @@ The setup was done by moving the antenna array back-and forth in the measurement
 \end{figure}
 
 
-\subsection{stationarity}
+\subsection{Stationarity}
 K-factor 
 
 Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
@@ -303,8 +303,8 @@ pd.s                                  % Show non-centrality parameter for freque
 From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
 
 
-\subsection{achieved dynamic range}
-\subsection{frequency correlation}
+\subsection{Achieved dynamic range}
+\subsection{Frequency correlation}
 
 %\begin{figure}[H]
 %\includegraphics[width=\textwidth]{figures/Correlation.pdf}
@@ -322,8 +322,8 @@ From this it can be found that the non-centrality parameter of the two domains a
 \end{minipage}
 
 
-\subsection{space correlation}
-\subsection{approximate N equivalent}
+\subsection{Space correlation}
+\subsection{Approximate N equivalent}
 
 As seen in previous section, the wanted correlation is not for filled, so all the measurements can not be seen as independent. To find the approximated number of independent samples, the auto correlation between measurements is found, seen in \autoref{Rx1mm}
 
@@ -331,7 +331,7 @@ As seen in previous section, the wanted correlation is not for filled, so all th
 As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \todo{Ref to Rx in space}, it can be seen that the correlation between two adjacent samples is \todo{Number} in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert normal Rx and Rx2}.
 
 
-The drawback from removal of half of the samples, is that the confidence level/interval wanted in \todo{ref to bruteforce part}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to XXX or the confidence interval widened to XXX or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
+The drawback from removal of half of the samples, is that the confidence level/interval wanted in \todo{ref to bruteforce part}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to 76\% or the confidence interval widened to $\pm 1.33dB$ or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
 
 
 \subsection{CDF}
@@ -339,16 +339,12 @@ The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS
 
 
 \begin{figure}[H]
-\input{figures/Matlab_figures/Rx1.tex}
-\caption{The auto-correlation between all measurements.}
-\label{Rx1mm}
+\input{figures/Matlab_figures/BS90Meas5_23.tex}
+\caption{The CDF of the measurements. The 90\% confidence level is found with the bootstrap method run 100,000.}
+\label{CDFFinalBS}
 \end{figure}
 
-From the auto-correlation, it can be seen, that there is a high correlation between each adjacent measurement on 0.44 and for 
-
-\input{figures/Matlab_figures/Rx2.tex}
-\input{figures/Matlab_figures/Rx3.tex}
 \subsection{CDF}
-confidence values - bootstrap
+
 
 \section{Results}
