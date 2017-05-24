@@ -283,17 +283,17 @@ dataN = data./PL;                     % Normalize data wrt. frequency
 dataS = reshape(dataN,41*102060,1);   % Reshape to vector format
 
 pd = fitdist(dataS,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter
+pd.s                                  % Show non-centrality parameter for space domain
 
 PL = repmat(mean(data,1),41,1);       % Determine PL by averaging across frequency dimension
 dataN = data./PL;                     % Normalize data wrt. space
 dataF = reshape(dataN,41*102060,1);   % Reshape to vector format
 
 pd = fitdist(dataF,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter
+pd.s                                  % Show non-centrality parameter for frequency domain
 \end{lstlisting}
 
- 
+From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
 
 \subsection{achieved dynamic range}
 \subsection{frequency correlation}
