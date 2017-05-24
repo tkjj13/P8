@@ -111,9 +111,10 @@ The RX antennas was connected directly to the VNA before the coupling (blue box 
 
 
 %The most important part of the setup is the equipment and how they are connected. The R\&S Spectrum Analyser (model FPL9KHz-6GHz) is the center of the setup. This is the receiver of our system and gives us a readout of the spectrum in terms of power (dBm) and frequency (Hz). The two main setting on the Spectrum analyser is IF filter bandwidth and resolution. These two values gives us a sweep time.
-\chapter{Setup Parameter estimation}
+\chapter{Setup Parameter estimation}\label{sec:setup_parameter}
 Before staring measuring the settings on the VNA needs to be determined. This means that the values has to be  balanced to get the needed data and to meet the physical limitations. Part I goes thorough the theory and the limiting factors has been discussed.
 
+\todo{parameters we set: Tx power, Span, Center frequency, IFbw, Nsweep}
 
 
 \section{TX power}
@@ -219,7 +220,7 @@ or around 48 minuets of continues measurement given 130 walks and 22s per walk. 
 
 \subsection{coherence bandwidth}\label{sec:coherence_bandwidth}
 After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
-
+\todo{add also Nsweep as part of this}
 
 \chapter{Measurement of fading}
 The environment of fading measurements is described in \autoref{Environment}. As for the final settings it can be seen in \autoref{final_specs}.
@@ -234,13 +235,15 @@ Wavelength                      & $\lambda$   	& 6cm           	& \autoref{equip
 Coherence Bandwidth             & $B_C$		  	& 25MHz   			& \autoref{sec:coherence_bandwidth} \\ \hline
 Span 							& $\Delta f$ 	& 1GH 				& TBD \\ \hline
 Dynamic range                   & DR          	& XXdB            	& TBD \\ \hline
+Span 							& $f_{Span}$ 	& 1GHz 				& \autoref{sec:setup_parameter} \\ \hline
+Average SNR	                   	& SNR          	& 67dB            	& appendix  \ref{app:SNR} 	\\ \hline
 Antenna diversity               & $A_{div}$   	& 1x3    			& \autoref{equipment} 		\\ \hline
-Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& TBD \\ \hline
-Cable loss 						& $L_{C}$     	& 7dB         		& TBD \\ \hline
-Number of points per sweep 		& $N_{sweep}$ 	& 41				& TBD \\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& \autoref{sec:setup_parameter} \\ \hline
+Cable loss 						& $L_{C}$     	& 7dB         		& \autoref{equipment} 		\\ \hline
+Number of points per sweep 		& $N_{sweep}$ 	& 41				& \autoref{sec:coherence_bandwidth} \\ \hline
 Transmit power 					& $P_{TX}$ 		& 17dBm				& \autoref{equipment} 		\\ \hline
-Antenna Gain 					& $G_{ANT}$ 	& 12dBi 			& TBD\\ \hline
-Sweep time 						& $T_{sweep}$ 	& 74.1msec			& TBD \\ \hline
+Antenna Gain 					& $G_{ANT}$ 	& 12dBi 			& \autoref{equipment} \\ \hline
+Sweep time 						& $T_{sweep}$ 	& 74.1msec			& \autoref{sec:setup_parameter} \\ \hline
 \end{tabular}
 \caption{Final setting on VNA}
 \label{final_specs}
@@ -269,8 +272,36 @@ The setup was done by moving the antenna array back-and forth in the measurement
 \label{fig:meanFading}
 \end{figure}
 
+
 \subsection{stationarity}
 K-factor 
+
+Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
+
+A condition that has to be met is that no dominant componet is present, to check this all samples are normalized with regards to the mean values seen in \autoref{fig:meanFading}, the normalize data is then fitted to a Rician distribution and the non-centrality parameter is found using matlabs \textit{fitdist} function as can be seen in \autoref{lst:a_value}. 
+
+\lstset{caption={Code implementation of the a value calculation.}, label=lst:a_value}
+\begin{lstlisting}
+% The measured values is stored in data which is a 41x102060 matrix with
+% the rows being frequency samples and the coloums being space samples
+
+PL = repmat(mean(data,2),1,102060);   % Determine PL by averaging across space dimension 
+dataN = data./PL;                     % Normalize data wrt. frequency
+dataS = reshape(dataN,41*102060,1);   % Reshape to vector format
+
+pd = fitdist(dataS,'Rician');         % Fit data to a Rician distribution
+pd.s                                  % Show non-centrality parameter for space domain
+
+PL = repmat(mean(data,1),41,1);       % Determine PL by averaging across frequency dimension
+dataN = data./PL;                     % Normalize data wrt. space
+dataF = reshape(dataN,41*102060,1);   % Reshape to vector format
+
+pd = fitdist(dataF,'Rician');         % Fit data to a Rician distribution
+pd.s                                  % Show non-centrality parameter for frequency domain
+\end{lstlisting}
+
+From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
+
 
 \subsection{achieved dynamic range}
 \subsection{frequency correlation}
@@ -280,10 +311,32 @@ K-factor
 %\caption{Correlation between frequency and antenna separation}
 %\label{Rx1mm}
 %\end{figure}
+\begin{minipage}{0.33\textwidth}
+\input{figures/FCF_fromData.tex}
+\end{minipage}%
+\begin{minipage}{0.33\textwidth}
+\input{figures/ACF_fromData.tex}
+\end{minipage}%
+\begin{minipage}{0.33\textwidth}
+\input{figures/SCF_fromData.tex}
+\end{minipage}
+
 
 \subsection{space correlation}
 \subsection{approximate N equivalent}
+
 As seen in previous section, the wanted correlation is not for filled, so all the measurements can not be seen as independent. To find the approximated number of independent samples, the auto correlation between measurements is found, seen in \autoref{Rx1mm}
+
+
+As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \todo{Ref to Rx in space}, it can be seen that the correlation between two adjacent samples is \todo{Number} in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert normal Rx and Rx2}.
+
+
+The drawback from removal of half of the samples, is that the confidence level/interval wanted in \todo{ref to bruteforce part}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to XXX or the confidence interval widened to XXX or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
+
+
+\subsection{CDF}
+The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times.
+
 
 \begin{figure}[H]
 \input{figures/Matlab_figures/Rx1.tex}
