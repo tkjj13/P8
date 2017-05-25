@@ -39,12 +39,46 @@ The High frequency lab at \gls{AAU} was used for the measurements, it has  clutt
 
 
 \section{IF-bandwidth(noise floor)}
-Given the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ the diffrence can be used to increese the $IF_{BW}$:
+To find the correct value for $IF_{BW}$ first it's important to acquire the $SNR$ based on the pathloss model mentioned on \autoref{ITU_model}.
+\subsection{Pathloss}
+The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
+
+
+\begin{equation}
+L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
+\label{eq:path_loss}
+\end{equation}
+
+The $P_{RX}$ becomes:
+\begin{equation}
+P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
+\label{NFvna}
+\end{equation}
+
+\subsection{SNR}
+N5527A has a $-119dB$ noise floor without averaging at 10Hz $IF_{BW}$ between 1-10GHz \citep{Key_PNA}. The \gls{SNR} of the VNA  is defined as:
+\begin{equation}
+SNR = P_{RX}+W
+\end{equation}
+
+\begin{where}
+\va{$P_{RX}$}{is the Received power}{dBm}
+\va{$W$}{ is the Noise-floor}{dBm}
+\end{where}
+
+This gives a SNR of:
+\begin{equation}
+SNR = -41dBm+119dBm = 78dB
+\label{eq:SNR}
+\end{equation}
+
+\subsection{Theoretic IF-bandwidth}
+Now by finding the difference between the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ found in \autoref{eq:SNR} we get the amount of $dBs$ that noise floor can be increased without affecting the ability to measure deep fades:
 \begin{equation}
   78dB-64dB = 14dB 
 \end{equation}
 
-The noise-floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased to:
+The noise-floor of the \gls{VNA} scales linearly with an increased $IF_{BW}$\citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{VNA} can be increased to:
 
 \begin{equation}
 IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
