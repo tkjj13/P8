@@ -1,33 +1,29 @@
 \subsection{Frequency, antenna and space correlation}
-From \todo{ref to the place, where we talk about correlation and make the statement of the value}, the maximum wanted correlation is 0.3. If the correlation is under this value, it will be seen as independent in this report. Across the three dimension that the measurements is measured in, frequencies, different antennas and space, the auto correlation is found, which can be seen in \autoref{1}, \ref{2} and \ref{3}.
+From \todo{ref to the place, where we talk about correlation and make the statement of the value}, the maximum wanted correlation is 0.3. If the correlation is under this value, it will be seen as independent in this report. Across the three dimension that the measurements is measured in, frequencies, different antennas and space, the auto correlation is found, which can be seen in \autoref{4}.
 
-\begin{minipage}{0.33\textwidth}
 \begin{figure}[H]
-\begin{center}
+\captionsetup{belowskip=0em}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/FCF_fromData.tex}
 \caption{Auto correlation across frequencies samples.}
 \label{1}
-\end{center}
-\end{figure}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\begin{figure}[H]
-\begin{center}
+\end{subfigure}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/ACF_fromData.tex}
 \caption{Auto correlation across antennas samples.}
 \label{2}
-\end{center}
-\end{figure}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\begin{figure}[H]
-\begin{center}
+\end{subfigure}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/SCF_fromData.tex}
 \caption{Auto correlation across space samples.}
 \label{3}
-\end{center}
+\end{subfigure}
+\captionsetup{belowskip=-1.5em}
+\caption{Auto correlation across the different dimension, which the measurements are measured in.}
+\label{4}
 \end{figure}
-\end{minipage}
+
+The correlation across frequencies, seen in \autoref{1}, shows that the correlation between the samples is small enough, to be considered independent, with a maximum correlation of 0.168 at lag one. At lag three and higher, the cor
 
 
 \subsection{Approximate N Equivalent}
