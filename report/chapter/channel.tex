@@ -519,7 +519,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 %Where $\bar{\tau}$ is the mean excess delay $(\bar{\tau}^{2})$ is 
 %the second central moment of $H(\tau)$. With the RMS delay spread we can find $B_c$ by approximation:
 %\begin{equation}
-%B_C \geq \frac{1}{2\pi \cdot \sigma_{\tau}}
+%B_C \geq \frac{1}{\sigma_{\tau}}
 %\label{CohBW}
 %\end{equation}
 %This will gives us a $B_c$ approximation that has a coherence under 0.5. The coherence function will go towards 0 as $B_c  \rightarrow \infty $
@@ -561,7 +561,24 @@ A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen
 \label{fig:FCF}
 \end{figure}
 
-As the coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment. 
+As the coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment.
+There are approximations for the $B_C$ for exponential decaying \gls{PDP}s
+\citep{RayFadeHandbook}.They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
+\begin{equation}
+\sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
+\end{equation}
+
+\begin{where}
+\va{$\bar{\tau}$}{is the mean excess delay of \gls{PDP}}{s}
+\va{$(\bar{\tau}^{2})$}{is 
+the second central moment of \gls{PDP}}{s}
+\end{where}
+
+With the $\sigma_{\tau}$ we can find $B_C$ by approximation\citep{gold_wireless}:
+\begin{equation}
+B_C \geq \frac{1}{\sigma_{\tau}}
+\label{CohBW}
+\end{equation}
 
 
 
