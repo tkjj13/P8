@@ -184,6 +184,8 @@ B_C \geq \frac{1}{50ns} \approx 20MHz
 \label{CohBW}
 \end{equation}
 \section{Time estimation}
+When trying to obtain a high number of samples, time becomes a very limiting factor. For this reason a estimation of total measurement time or a time budget is helpful. If one sample takes 1 second to measure and the required samples size is $4.04 \cdot 10^6$, the total measuring time would be 47 days of continues measurements. This of course is not practical to do. So it's obvious that a automatic systems that takes several samples in parallel with a high sweep time is needed.
+
 Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
