@@ -33,33 +33,39 @@ freqData(n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} data_{(n,m,k)}
 \label{fig:meanFading}
 \end{figure}
 
-It can be seen that there is a drop of around 4 dB across the frequency, this drop can be explained by 2 factors first the antenna gain varies with around 2 dB across the frequency span \appref{ant_adix}, the other part is the \gls{PL} is dependent on frequency, by comparing PL of a free space path loss model, it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. Those two factors together can explain the drop in mean power across the span. 
+It can be seen that there is a drop of around 4 dB across the frequency, this drop can be explained by 2 factors first the antenna gain varies with around 2 dB across the frequency span \appref{ant_adix}, the other part is the \gls{PL} is dependent on frequency, by comparing PL of a free space path loss model, it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. Those two factors together can explain the drop in mean power across the span. As this can be explained the data is adjusted as:
 
-Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
+\begin{equation}
+data2 =  data \oslash \left(freqData\cdot ones(1,M,K)\right)
+\end{equation}
 
-A condition that has to be met is that no dominant componet is present, to check this all samples are normalized with regards to the mean values seen in \autoref{fig:meanFading}, the normalize data is then fitted to a Rician distribution and the non-centrality parameter is found using matlabs \textit{fitdist} function as can be seen in \autoref{lst:a_value}. 
 
-\lstset{caption={Code implementation of the a value calculation.}, label=lst:a_value}
-\begin{lstlisting}
-% The measured values is stored in data which is a 41x102060 matrix with
-% the rows being frequency samples and the coloums being space samples
 
-PL = repmat(mean(data,2),1,102060);   % Determine PL by averaging across space dimension 
-dataN = data./PL;                     % Normalize data wrt. frequency
-dataS = reshape(dataN,41*102060,1);   % Reshape to vector format
+%Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
 
-pd = fitdist(dataS,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter for space domain
+%A condition that has to be met is that no dominant componet is present, to check this all samples are normalized with regards to the mean values seen in \autoref{fig:meanFading}, the normalize data is then fitted to a Rician distribution and the non-centrality parameter is found using matlabs \textit{fitdist} function as can be seen in \autoref{lst:a_value}. 
 
-PL = repmat(mean(data,1),41,1);       % Determine PL by averaging across frequency dimension
-dataN = data./PL;                     % Normalize data wrt. space
-dataF = reshape(dataN,41*102060,1);   % Reshape to vector format
+%\lstset{caption={Code implementation of the a value calculation.}, label=lst:a_value}
+%\begin{lstlisting}
+%% The measured values is stored in data which is a 41x102060 matrix with
+%% the rows being frequency samples and the coloums being space samples
+%
+%PL = repmat(mean(data,2),1,102060);   % Determine PL by averaging across space dimension 
+%dataN = data./PL;                     % Normalize data wrt. frequency
+%dataS = reshape(dataN,41*102060,1);   % Reshape to vector format
+%
+%pd = fitdist(dataS,'Rician');         % Fit data to a Rician distribution
+%pd.s                                  % Show non-centrality parameter for space domain
+%
+%PL = repmat(mean(data,1),41,1);       % Determine PL by averaging across frequency dimension
+%dataN = data./PL;                     % Normalize data wrt. space
+%dataF = reshape(dataN,41*102060,1);   % Reshape to vector format
+%
+%pd = fitdist(dataF,'Rician');         % Fit data to a Rician distribution
+%pd.s                                  % Show non-centrality parameter for frequency domain
+%\end{lstlisting}
 
-pd = fitdist(dataF,'Rician');         % Fit data to a Rician distribution
-pd.s                                  % Show non-centrality parameter for frequency domain
-\end{lstlisting}
-
-From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
+%From this it can be found that the non-centrality parameter of the two domains are 0.0267 and 0.0319 for space and frequency domain respectively. That means that any dominant component is negligible compared to the random components, and it can therefore by concluded that the channel behaves stationary.
 
 %\begin{figure}
 %\input{figures/Norm_sapce_3.tex}
