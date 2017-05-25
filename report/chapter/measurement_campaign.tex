@@ -33,6 +33,7 @@ The High frequency lab at \gls{AAU} was used for the measurements, it has  clutt
   \hfill
   \begin{minipage}[H]{0.5\textwidth}
     \includegraphics[width=\textwidth]{figures/HFLABmarked.png}
+    \label{meas_area}
     \caption{Room overview. TX antenna marked in \textcolor{red}{red} and RX antenna area marked in \textcolor{blue}{blue}.}
   \end{minipage}
 \end{figure}
@@ -86,7 +87,6 @@ The TX antenna is a directional antenna with a gain $G_{TX}=12.7dBi$ at 4.5GHz a
     \caption{Omnidirectional RX antenna array with $0.4 \lambda$ spacing}
     \label{DirAnt}
 \end{figure}
-\todo{add a schematic overview of the room}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{pictures/Measurement/antenna_door.jpg}
@@ -224,15 +224,24 @@ or around 48 minuets of continues measurement given 130 walks and 22s per walk. 
 
 \chapter{Measurement of PDP}
 \section{Setup}
-To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. The PNA is prefomring a inverse FFT of the frequnecy to get to the time.
+To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. The PNA is preforming a inverse FFT of the frequency to get to the time.
 \section{Results}
 The PDP 
 \section{Data processing}
 \subsection{Delay spread}
-
+The PDP profile is measured at 20 different positions in the measuring area in \autoref{meas_area}. These PDPs are averaged across to get a overall PDP of the area. It's clearly a exponential PDP and this means that the coherence bandwidth can be estimated from the previous used approximation from \autoref{}. First the RMS delay spread is calculated from the measured PDP. This gives $\sigma_{\tau} = 14ns$. This is a lower value then the estimated spread.
+\todo {fill in values, matlab equations}
 \subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
-After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
-\todo{add also Nsweep as part of this}
+$B_C$ determined from the RMS delay spread $\sigma_{\tau}$ because they are inversely proportionate:
+\begin{equation}
+B_C = \frac{1}{14ns} = 71.43 MHz 
+\end{equation}
+This approximation method gives a higher $B_C$ then expected for the frequency to be uncorrelated. This would give a number of sweep points $N_{sweep} = 14$ and would increase our measurement time drastically.
+
+\subsection{Coherence bandwidth test}
+To figure out a balanced value of our $B_C$  a extra test was done. By doing a measurement with $B_C = 5MHz$ and making \gls{ACF} of the values:
+\todo{insert pic of autocorrelation test}
+Her the test show a correlation of <0.2 with a $B_C = 25MHz$. This value is alot closer to the estimation. This would give a  $N_{sweep} = 40$.
 
 \chapter{Measurement of Fading}
 The environment of fading measurements is described in \autoref{Environment}. As for the final settings it can be seen in \autoref{final_specs}.
