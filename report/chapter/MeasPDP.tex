@@ -15,20 +15,19 @@ The PDP profile is measured at 20 different positions in the measuring area in \
 \section{Data processing}
 
 \subsection{Delay spread}
-It's clearly a exponential PDP and this means that the coherence bandwidth can be estimated from the previous used approximation from \autoref{}. First the RMS delay spread is calculated from the measured PDP. This gives $\sigma_{\tau} = 14ns$. This is a lower value then the estimated spread.
+It's clearly a exponential PDP and this means that the coherence bandwidth can be estimated from the previous used approximation from \autoref{bc_aprox}. First the RMS delay spread is calculated from the measured PDP. This gives $\sigma_{\tau} = 14ns$. This is a lower value then the estimated spread.
 \todo {fill in values, matlab equations}
 \subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
 %After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
-$B_C$ determined from the RMS delay spread $\sigma_{\tau}$ because they are inversely proportionate:
-+\begin{equation}
+$B_C$ RMS delay spread $\sigma_{\tau}$ because becomes $14ns$. By using the approximation method this gives a $B_C$ of:
+\begin{equation}
 B_C = \frac{1}{14ns} = 71.43 MHz 
 \end{equation}
-This approximation method gives a higher $B_C$ then expected for uncorrelated frequencies. This would give a number of sweep points $N_{sweep} = 14$ and would increase our measurement time drastically.
+The $\sigma_{\tau}$ is much shorter then expected and $B_C$ becomes larger. This $B_C$ would give a number of sweep points $N_{sweep} = 14$ and would increase our measurement time drastically.
 
-\subsection{Coherence bandwidth test}
 To figure out a balanced value of $B_C$ an extra test was done. By doing a measurement with $B_C = 5MHz$ and making \gls{ACF} of the values:
 
 \todo{insert pic of autocorrelation test}
 
-Here the test show a correlation of <0.2 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimation. This would give a  $N_{sweep} = 40$.
+Here the test show a correlation of <0.2 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimation and increasing the $B_C$ the correlation coefficient starts to flatten out. A $B_C = 25MHz$ would give a  $N_{sweep} = 40$ and is much more desirable then with the approximation method.
 

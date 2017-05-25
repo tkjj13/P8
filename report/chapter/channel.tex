@@ -511,6 +511,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 
 
 \subsection{\Gls{FCF}}
+\label{bc_aprox}
 %The sample size can be further increase by using uncorrelated samples in the frequency domain. 
 %For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
 %\begin{equation}
@@ -563,7 +564,7 @@ A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen
 
 As the coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment.
 There are approximations for the $B_C$ for exponential decaying \gls{PDP}s
-\citep{RayFadeHandbook}.They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
+\citep{RayFadeHandbook}. They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
 \begin{equation}
 \sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
 \end{equation}
