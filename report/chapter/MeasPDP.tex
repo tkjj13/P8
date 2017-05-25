@@ -1,11 +1,34 @@
 \chapter{Measurement of PDP}
+To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. 
 \section{Setup}
-To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. The PNA is prefomring a inverse FFT of the frequnecy to get to the time.
+The PNA is preforming a frequency sweep and using an inverse FFT of the frequency to convert to time domain.
+The PDP profile is measured at 20 different positions in the measuring area in \autoref{meas_area} and averaged over. 
 \section{Results}
-The PDP 
-\section{Data processing}
-\subsection{Delay spread}
 
+\begin{figure}[H]
+\centering
+\input{figures/PDPMeas.tex}
+\caption{PDP average values for each delay increment. The exponential decay is clearly seen between 100ns and 300ns}
+
+\label{fig:SNRMeas}
+\end{figure}
+\section{Data processing}
+
+\subsection{Delay spread}
+It's clearly a exponential PDP and this means that the coherence bandwidth can be estimated from the previous used approximation from \autoref{}. First the RMS delay spread is calculated from the measured PDP. This gives $\sigma_{\tau} = 14ns$. This is a lower value then the estimated spread.
+\todo {fill in values, matlab equations}
 \subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
-After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
-\todo{add also Nsweep as part of this}
+%After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
+$B_C$ determined from the RMS delay spread $\sigma_{\tau}$ because they are inversely proportionate:
++\begin{equation}
+B_C = \frac{1}{14ns} = 71.43 MHz 
+\end{equation}
+This approximation method gives a higher $B_C$ then expected for uncorrelated frequencies. This would give a number of sweep points $N_{sweep} = 14$ and would increase our measurement time drastically.
+
+\subsection{Coherence bandwidth test}
+To figure out a balanced value of $B_C$ an extra test was done. By doing a measurement with $B_C = 5MHz$ and making \gls{ACF} of the values:
+
+\todo{insert pic of autocorrelation test}
+
+Here the test show a correlation of <0.2 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimation. This would give a  $N_{sweep} = 40$.
+
