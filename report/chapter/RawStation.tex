@@ -53,32 +53,39 @@ To visualize the data is restructured such that it matches the area it has been 
 \begin{minipage}{0.9\textwidth}
 
 \begin{figure}[H]
+\centering
 \captionsetup{belowskip=0em}
 \begin{subfigure}[b]{0.326\textwidth}
 \includegraphics[width=\textwidth]{figures/Not_Norm_space_1.png}
-\caption{Hallos}
-\label{1}
+\caption{Low height \\ approx. 70 cm}
+\label{Not_norm_low}
 \end{subfigure}
 \begin{subfigure}[b]{0.326\textwidth}
 \includegraphics[width=\textwidth]{figures/Not_Norm_space_2.png}
-\caption{Hallos}
-\label{2}
+\caption{Medium height \\ approx. 120 cm}
+\label{Not_norm_medium}
 \end{subfigure}
 \begin{subfigure}[b]{0.326\textwidth}
 \includegraphics[width=\textwidth]{figures/Not_Norm_space_3.png}
-\caption{Hallos}
-\label{3}
+\caption{High height \\ approx. 170 cm}
+\label{Not_norm_high}
 \end{subfigure}
-\captionsetup{belowskip=-1.5em}
-\caption{Hallos}
-\label{3}
+%\captionsetup{belowskip=-1.5em}
+\caption{The measurements is restructured to be approximately where they was measured compared to each other.}
+\label{fig:Not_norm_space}
 \end{figure}
 \end{minipage}%
 \begin{minipage}{0.1\textwidth}
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \includegraphics[width=\textwidth]{figures/Not_Norm_space_colorbar.png}
 \end{figure}
 \end{minipage}
+
+It can be seen from \autoref{fig:Not_norm_space} that the power level in the middle of the room is stronger than on the borders. The reason for this is believed to be the directionality of the transmit antenna. The transmit antenna was located outside and shooting in to the room as can be seen on \autoref{antennadoor}, so the main lobe might have been reflected from the wall directly to the middle of the measurement area. Because of this the area can not be said to be stationary so to combat this a moving average is used to normalize the mean power level across the area. The drawback of using a moving average is that it might affect the fading in the measurement, therefore as many point as possible should be in the average to make the influence as little as possible, however if too many points is in the average the stationarity issue would not be solved. It is chosen to average across 40 space samples.
+
+\begin{equation}
+MA = \frac{1}{40}\cdot \Big(spaceData*ones(40,1)\Big)
+\end{equation}
 
 
 %Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
