@@ -108,27 +108,30 @@ The number of points used in the final setup is dependant $B_C$ and the $F_{span
 
 \section{Time estimation}
 \label{TIME_EST}
-Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
+Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_{BW}$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
 \begin{table}[H]
 \centering
-\caption{$IF_{BW} \ vs \ sweep time$}
 \label{my-label}
-\begin{tabular}{l|l}
+\begin{tabular}{|l|l|}
 \hline
 $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
+\hline
 10              & 17834               \\
 100             & 1825                \\
 300             & 641                 \\
 1000            & 223                 \\
-3000            & 72                 
+3000            & 72            \\
+\hline 
 \end{tabular}
+\caption{$IF_{BW} \ vs \ Sweep time$}
 \end{table}
 
-There is also some overhead for saving the data and frequency span. This will reduce the sweep time by quarter.
+There is also some overhead for saving the data and frequency span.
 
-Let's  use an example where we can use a 300Hz $IF_BW$:
+
+Let's use an example with a $IF_{BW} = 300Hz$ and assume a 50 point measurements takes a quarter of the time:
 \begin{equation}
 T_{sweep \ total} = \frac{631}{4} = 160ms
 \end{equation}
