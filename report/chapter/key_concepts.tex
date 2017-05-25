@@ -327,7 +327,6 @@ The $SNR_M$ requirement becomes:
 SNR_M = 14dB - G_f , 14dB + 50dB = 64dB 
 \end{equation}
 \begin{where}
-\va{$DR_{tot}$}{Total dynamic range}{dB}
 \va{$SNR_m$}{is the SNR margin }{dB}
 \va{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
 \end{where}
@@ -342,7 +341,7 @@ To measure the required samples from \autoref{sampleEQ} ($\approx 4.04\cdot10^6$
 %The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
 
 \begin{equation}
-N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{BW}{B_c \cdot 2}}_\text{$N_f$} \cdot \underbrace{\frac{\Delta}{(\frac{\lambda}{2})^2}}_\text{$N_d$}
+N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{f_{span}}{B_c }}_\text{$N_f$} \cdot \underbrace{\frac{\Delta}{(\frac{\lambda}{2})^2}}_\text{$N_d$}
 \label{howtosample}
 \end{equation} 
  
@@ -354,6 +353,7 @@ N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{BW}{B_c \cdot 2}}_
 \va{$A_{div}$}{antenna diversity}{1}
 \va{$\Delta$}{is the area }{$m^2$}
 \va{$B_c$}{is the coherence BW }{Hz}
+\va{$f_{span}$}{ is the frequency span}{Hz}
 \va{$\lambda$}{wavelength}{m}
 \end{where} 
  
@@ -362,7 +362,7 @@ N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{BW}{B_c \cdot 2}}_
 \autoref{howtosample} can be used to found the area required given number of samples $N$ needed.
 
 \begin{equation}
-\Delta  = \frac{N\cdot (\frac{\lambda}{2})^2}{A_{div}\cdot \frac{BW}{B_c \cdot 2}}
+\Delta  = \frac{N\cdot (\frac{\lambda}{2})^2}{A_{div}\cdot \frac{BW}{B_c}}
 \label{howtosqaure}
 \end{equation}
 
@@ -377,7 +377,7 @@ If the area of the measurement is not big enough to take all the measurements di
 %\end{equation}
 %which is way more then we need.
 %Actually moving the reviver $2 \cdot 10^6$ times takes way to long to actually do, but this example calculation is just to show that it is possible to obtain $10^7$ samples.If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. 
-
+\todo{move this?}
 A other problem with a taking $4.04\cdot10^6$  uncorrelated samples is that the channel may be changing because of frequency shift or movement. This will make the samples uncorrelated, but you are in danger of measuring a completely different channel. Here comes the non-stationary principle into play. A argument could be made that the $10^{-5}$ fading is so dependant on the environment that a measurement would only be valid for this exact room or situation you are measuring.
 
 %\subsection{Time required to do measurements}
