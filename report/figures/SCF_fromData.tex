@@ -9,35 +9,28 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=0.8\textwidth,
-height=0.7\textwidth,
-at={(0.756in,0.482in)},
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
 scale only axis,
 xmin=-0.5,
 xmax=10.5,
-xlabel={Lags},
-xmajorgrids,
-ymin=-0.4,
+ymin=0,
 ymax=1,
-%ylabel={Correlation},
-ymajorgrids,
-axis background/.style={fill=white},
-legend style={legend cell align=left,align=left,draw=white!15!black}
+axis background/.style={fill=white}
 ]
-\addplot[ycomb,color=mycolor1,solid,mark=o,mark options={solid}] plot table[row sep=crcr] {%
+\addplot[ycomb,color=mycolor1,solid,mark=o,mark options={solid},forget plot] plot table[row sep=crcr] {%
 0	1\\
-1	0.569162574789438\\
-2	0.344435508447973\\
-3	0.261498330064642\\
-4	0.220468390451925\\
-5	0.19896803835742\\
-6	0.184853097999834\\
-7	0.17444588999812\\
-8	0.167644063920708\\
-9	0.162911754175178\\
-10	0.158398649695999\\
+1	0.446453657125975\\
+2	0.166031145901975\\
+3	0.0829513313951041\\
+4	0.0486305387455832\\
+5	0.0325291019554667\\
+6	0.022523770099968\\
+7	0.015971849256527\\
+8	0.0122852010406734\\
+9	0.0104318980798105\\
+10	0.00883653842906621\\
 };
-\addlegendentry{SCF};
-
 \end{axis}
 \end{tikzpicture}%
