@@ -1,33 +1,54 @@
 \chapter{Measurement of PDP}
 To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. 
 \section{Setup}
-The PNA is preforming a frequency sweep and using an inverse FFT of the frequency to convert to time domain.
+The PNA is preforming a frequency sweep and using an inverse transformation to convert from the frequency to the time domain.
 The PDP profile is measured at 20 different positions in the measuring area in \autoref{meas_area} and averaged over. 
-\section{Results}
 
-\begin{figure}[H]
+\begin{table}[H]
 \centering
-\input{figures/PDPMeas.tex}
-\caption{PDP average values for each delay increment. The exponential decay is clearly seen between 100ns and 300ns}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Name}					& \textbf{Symbol} & \textbf{Value} 	& \textbf{Reference} 		\\ \hline
+Center Frequency                & $f_c$       	& 5Ghz              & \autoref{equipment}		\\ \hline
+Span 							& $f_{Span}$ 	& 1GHz 				& \autoref{sec:setup_parameter} \\ \hline
+Average SNR	                   	& SNR          	& 67dB            	& appendix  \ref{app:SNR} 	\\ \hline
+Antenna diversity               & $A_{div}$   	& 1x3    			& \autoref{equipment} 		\\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& \autoref{sec:setup_parameter} \\ \hline
+Cable loss 						& $L_{C}$     	& 7dB         		& \autoref{equipment} 		\\ \hline
+Number of points per sweep 		& $N_{sweep}$ 	& 801				& \autoref{sec:coherence_bandwidth} \\ \hline
+Transmit power 					& $P_{TX}$ 		& 17dBm				& \autoref{equipment} 		\\ \hline
+Antenna Gain 					& $G_{ANT}$ 	& 12dBi 			& \autoref{equipment} \\ \hline
+Sweep time 						& $T_{sweep}$ 	& 1448msec			& \autoref{sec:setup_parameter} \\ \hline
+\end{tabular}
+\caption{VNA settings during PDP measurements}
+\label{pdp_specs}
+\end{table}
 
-\label{fig:SNRMeas}
-\end{figure}
+%\section{Results}
+%
+%\begin{figure}[H]
+%\centering
+%\input{figures/PDPMeas.tex}
+%\caption{PDP average values for each delay increment. The exponential decay is clearly seen between 100ns and 300ns}
+%\label{fig:SNRMeas}
+%\end{figure}
+
 \section{Data processing}
-
+The raw PDP results can be seen in \appref{app:SNR} \autoref{fig:SNRMeas}.
 \subsection{Delay spread}
-It's clearly a exponential PDP and this means that the coherence bandwidth can be estimated from the previous used approximation from \autoref{bc_aprox}. First the RMS delay spread is calculated from the measured PDP. This gives $\sigma_{\tau} = 14ns$. This is a lower value then the estimated spread.
-\todo {fill in values, matlab equations}
+The PDP shows a exponential decay and this means a coherence bandwidth can be estimated from the previous used approximation from \autoref{bc_aprox}. The RMS delay spread is calculated from the measured PDP and gives $\sigma_{\tau} = 14ns$.
+
 \subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
-%After the PDP measurements the $B_C$ determined. Together with the $B_C$ and $\Delta f$ the $N_{sweep}$ becomes 41. This will give uncorrelated samples in frequency.
-$B_C$ RMS delay spread $\sigma_{\tau}$ because becomes $14ns$. By using the approximation method this gives a $B_C$ of:
+
+$B_C$ can be found from $\sigma_{\tau}$, by using the approximation method:
 \begin{equation}
 B_C = \frac{1}{14ns} = 71.43 MHz 
 \end{equation}
-The $\sigma_{\tau}$ is much shorter then expected and $B_C$ becomes larger. This $B_C$ would give a number of sweep points $N_{sweep} = 14$ and would increase our measurement time drastically.
+This $B_C$ would give a number of sweep points $N_{sweep} = 14$ and would decrease our  frequency samples drastically compared to the estimations in \autoref{TIME_EST}.
 
 To figure out a balanced value of $B_C$ an extra test was done. By doing a measurement with $B_C = 5MHz$ and making \gls{ACF} of the values:
 
 \todo{insert pic of autocorrelation test}
 
-Here the test show a correlation of <0.2 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimation and increasing the $B_C$ the correlation coefficient starts to flatten out. A $B_C = 25MHz$ would give a  $N_{sweep} = 40$ and is much more desirable then with the approximation method.
+Here the test show a correlation of <0.2 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimation and increasing the $B_C$ the correlation coefficient starts to flatten out. A $B_C = 25MHz$ gives a $N_{sweep} = 40$ and is much more desirable then with the approximation method.
 

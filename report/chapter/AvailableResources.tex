@@ -63,6 +63,7 @@ B_C \geq \frac{1}{50ns} \approx 20MHz
 \label{CohBW}
 \end{equation}
 \section{Time estimation}
+\label{TIME_EST}
 Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
@@ -81,7 +82,7 @@ $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 \end{tabular}
 \end{table}
 
-There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
+There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 samples in frequency.  This will reduce the sweep time by quarter.
 
 Let's  use an example where we can use a 300Hz $IF_BW$:
 \begin{equation}
