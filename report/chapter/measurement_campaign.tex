@@ -61,11 +61,8 @@ The machine used for the measurement was a Keysight PNA N5527A 4-port VNA with p
 
 Cables used have a loss of $0.5dB  \ per \ m$. 3 10m cables and 1 4m cable for the RX and TX antennas respectively. This gives a total cable loss $L_c$ of 7dB.
 
-<<<<<<< HEAD
-The TX antenna is a directional antenna with a gain $G_{TX}=12dBi$ at 5GHz.\todo {antenna gain appendix}
-The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
-=======
-The TX antenna is a directional antenna with a gain $G_{TX}=12.7dBi$ at 4.5GHz and $G_{TX}=10.7$ at 5.5GHz. The full gain chart of the antenna can be found in appendix \autoref{ant_adix}.This difference will be accounted for during analysing of the data. The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
+
+The TX antenna is a directional antenna with a gain $G_{TX}=12.7dBi$ at 4.5GHz and $G_{TX}=10.7$ at 5.5GHz. The full gain chart of the antenna can be found in appendix \ref{ant_adix}.This difference will be accounted for during analysing of the data. The RX antenna array is a omnidirectional antenna with a 5Ghz $f_c$ and a spacing of $>0.4 \lambda$.
 
 \begin{figure}[H]
   \centering
@@ -82,7 +79,7 @@ The TX antenna is a directional antenna with a gain $G_{TX}=12.7dBi$ at 4.5GHz a
 \end{figure}
 
 
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/Measurement/antenna_array.jpg}
@@ -262,7 +259,6 @@ These where the final values used in the VNA to do the measurements.
 
 \section{Setup}
 The setup was done by moving the antenna array back-and forth in the measurement area in \autoref{walk_area} at three different heights. The toal amount of 5 meter walks done was $3 \cdot 18 = 162$ for a total of 810m.
-<<<<<<< HEAD
 
 
 
@@ -273,9 +269,6 @@ Before concluding anything from the data, it is first analysed to check if the m
 \subsection{Raw data}
 
 In total 4.184.460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}.
-=======
-\section{Results}
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
 
 \begin{figure}[H]
 \centering
@@ -288,10 +281,7 @@ In total 4.184.460 samples have been collected, the values are represented in \a
 \subsection{Stationarity}
 To see if the channel is stationary it has to be checked in both the frequency domain and the spatial domain. The first step in doing this is to average across the other domain. The result of this can be seen in \autoref{fig:meanFading}. 
 
-<<<<<<< HEAD
-=======
-\section{Data processing}
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
+
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
@@ -299,13 +289,7 @@ To see if the channel is stationary it has to be checked in both the frequency d
 \label{fig:meanFading}
 \end{figure}
 
-<<<<<<< HEAD
-=======
 
-\subsection{Stationarity}
-K-factor 
-
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
 Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
 
 A condition that has to be met is that no dominant componet is present, to check this all samples are normalized with regards to the mean values seen in \autoref{fig:meanFading}, the normalize data is then fitted to a Rician distribution and the non-centrality parameter is found using matlabs \textit{fitdist} function as can be seen in \autoref{lst:a_value}. 
@@ -353,13 +337,9 @@ From \todo{ref to the place, where we talk about correlation and make the statem
 \input{figures/SCF_fromData.tex}
 \end{minipage}
 
-<<<<<<< HEAD
 
-\subsection{space correlation}
-\subsection{approximate N equivalent}
-=======
-\subsection{Approximate N equivalent}
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
+\subsection{Approximate N Equivalent}
+
 
 As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \todo{Ref to Rx in space}, it can be seen that the correlation between two adjacent samples is \todo{Number} in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert normal Rx and Rx2}.
 
@@ -372,17 +352,12 @@ The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS
 
 \begin{figure}[H]
 \input{figures/Matlab_figures/BS90Meas5_23.tex}
-<<<<<<< HEAD
+
 \caption{CDF of the measurements of the fading channel. The min and max is the 90\% confidence level made with the bootstrap method, run 100,000 times.}
 \label{CDFFinalBS}
 \end{figure}
 
 From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected.
-=======
-\caption{The CDF of the measurements. The 90\% confidence level is found with the bootstrap method run 100,000.}
-\label{CDFFinalBS}
-\end{figure}
 
->>>>>>> 058209033b3e6182c077984bb0ec18304347e3ae
 
 \section{Results}
