@@ -1,0 +1,99 @@
+\chapter{Available Resources}
+
+\section{Environment} \label{Environment}
+The High frequency lab at \gls{AAU} was used for the measurements, it has  clutter and surfaces to give a good representation of a indoor multipath environment. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
+
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[H]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{pictures/Measurement/walking_meas.jpg}
+    \caption{Area of the fading gain measurements}
+    \label{walk_area}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[H]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{figures/HFLABmarked.png}
+    \caption{Room overview. TX antenna marked in \textcolor{red}{red} and RX antenna area marked in \textcolor{blue}{blue}.}
+  \end{minipage}
+\end{figure}
+
+%The setup of the measurement will give the insight and solutions to the problems hypothesised in previous chapters. 
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.75\textwidth]{figures/Gimp_figures/MeasSetup.png}
+%\caption{Sketch of the room}
+%\label{room sketch}
+%\end{figure}
+%
+%The idea is to do a pilot test of the room. This is to obtain the pathloss $L$ and the delay spread of the room $\sigma_\tau$. With these values we can find the coherence bandwidth $B_c$ and the fading gain can be calculated. 
+%We suspect that since this is a multipath NLOS setup the delay spread and pathloss will be very similar across the room. But as a precaution the rooms pathloss and delay will be measured in a close,mid and far region from the doors where the signal originates. When the measurements are ongoing there will be some loss associated with body loss of the handsome scientist and clutter in the environment. This will give more multipath reflections compared to a a empty room.
+%\todo {read and rewrite to proper English}
+%
+%With the pilot test done the full measurement can begin. This will use the same setup as for the pilot test, but with three reviver antennas measuring in parallel and different settings on the VNA. Given the results of the pilot test the amount of samples the sweep will obtain in frequency $N_f$ can be terminated. With this the amount of samples in space can be found to get a total of $4.04 \cdot 10^6$ samples. when the measurement starts the antenna array will be moved slowly in space. During the measurement the operate of the PNA will indicate how fast the person holding the antenna array should walk.
+
+
+\input{chapter/Equipment.tex}
+
+
+\section{IF-bandwidth(noise floor)}
+Given the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ the diffrence can be used to increese the $IF_{BW}$:
+\begin{equation}
+  78dB-64dB = 14dB 
+\end{equation}
+
+The noise-floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased to:
+
+\begin{equation}
+IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
+\end{equation}
+%\begin{equation}
+%\begin{split}
+%&= IF_{BW} = -119dB+105dB = 14dB \\
+%          \quad &= 10Hz \rightarrow 14dB \rightarrow 250Hz
+%\end{split}
+%\end{equation}
+A higher $IF_{BW}$ of 250Hz  gives a faster sweep time and still meets the requirements set by the $SNR_M$.
+\section{FCF}
+The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
+\begin{equation}
+B_C \geq \frac{1}{50ns} \approx 20MHz
+\label{CohBW}
+\end{equation}
+\section{Time estimation}
+Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
+The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
+
+\begin{table}[H]
+\centering
+\caption{$IF_{BW} \ vs \ sweep time$}
+\label{my-label}
+\begin{tabular}{l|l}
+\hline
+$IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
+10              & 17834               \\
+100             & 1825                \\
+300             & 641                 \\
+1000            & 223                 \\
+3000            & 72                 
+\end{tabular}
+\end{table}
+
+There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
+
+Let's  use an example where we can use a 300Hz $IF_BW$:
+\begin{equation}
+T_{sweep \ total} = \frac{631}{4} = 160ms
+\end{equation}
+This means that every 160ms we have to move $0.4 \lambda$ this gives a relative velocity of:
+\begin{equation}
+\frac{0.0375m}{0.160s} = 0.23 m/s
+\end{equation}
+This is under the $1m/s$ value used in \autoref{min_vel}
+and total time for moving 5 meters becomes $\approx 22s$.
+With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3 RX antennas) the total number becomes:
+\begin{equation}
+\frac{4.04 \cdot 10^6}{31200} = 130 \ walks
+\end{equation}
+or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
