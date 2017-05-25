@@ -3,23 +3,29 @@ From \todo{ref to the place, where we talk about correlation and make the statem
 
 \begin{minipage}{0.33\textwidth}
 \begin{figure}[H]
+\begin{center}
 \input{figures/FCF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across frequencies samples.}
 \label{1}
+\end{center}
 \end{figure}
 \end{minipage}%
 \begin{minipage}{0.33\textwidth}
 \begin{figure}[H]
+\begin{center}
 \input{figures/ACF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across antennas samples.}
 \label{2}
+\end{center}
 \end{figure}
 \end{minipage}%
 \begin{minipage}{0.33\textwidth}
 \begin{figure}[H]
+\begin{center}
 \input{figures/SCF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across space samples.}
 \label{3}
+\end{center}
 \end{figure}
 \end{minipage}
 
@@ -27,10 +33,18 @@ From \todo{ref to the place, where we talk about correlation and make the statem
 \subsection{Approximate N Equivalent}
 
 
-As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.45 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert  Rx2}.
+As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.45 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag (0.165) will nearly equal to the correlation for two lag (0.166), before removal of half the samples, seen in \autoref{32}.
 
 
-The drawback from removal of half of the samples, is that the confidence level/interval wanted in ,\autoref{sec:statistics}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to 76\% or the confidence interval widened to $\pm 1.33dB$ or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
+\begin{figure}[H]
+\begin{center}
+\input{figures/SCF_fromData_sub2.tex}
+\caption{Auto correlation across space samples, where every other sample is removed..}
+\label{32}
+\end{center}
+\end{figure}
+
+The drawback from removal of half of the samples, is that the confidence level/interval wanted in \autoref{sec:statistics}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to 76\% or the confidence interval widened to $\pm 1.33dB$ or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
 
 
 \subsection{CDF}
