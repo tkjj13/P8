@@ -1,36 +1,46 @@
 \subsection{Frequency, antenna and space correlation}
-From \todo{ref to the place, where we talk about correlation and make the statement of the value}, the maximum wanted correlation is 0.3. If the correlation is under this value, it will be seen as independent in this report. Across the three dimension that the measurements is measured in, frequencies, different antennas and space, the auto correlation is found, which can be seen in \autoref{1}, \ref{2} and \ref{3}.
+From \todo{ref to the place, where we talk about correlation and make the statement of the value}, the maximum wanted correlation is 0.3. If the correlation is under this value, it will be seen as independent in this report. Across the three dimension that the measurements is measured in, frequencies, different antennas and space, the auto correlation is found, which can be seen in \autoref{4}.
 
-\begin{minipage}{0.33\textwidth}
 \begin{figure}[H]
+\captionsetup{belowskip=0em}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/FCF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across frequencies samples.}
 \label{1}
-\end{figure}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\begin{figure}[H]
+\end{subfigure}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/ACF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across antennas samples.}
 \label{2}
-\end{figure}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\begin{figure}[H]
+\end{subfigure}
+\begin{subfigure}[b]{0.326\textwidth}
 \input{figures/SCF_fromData.tex}
-\caption{Hallos}
+\caption{Auto correlation across space samples.}
 \label{3}
+\end{subfigure}
+\captionsetup{belowskip=-1.5em}
+\caption{Auto correlation across the different dimension, which the measurements are measured in.}
+\label{4}
 \end{figure}
-\end{minipage}
+
+The correlation across frequencies, seen in \autoref{1}, shows that the correlation between the samples is small enough, to be considered independent, with a maximum correlation of 0.168 at lag one. At lag three and higher, the cor
 
 
 \subsection{Approximate N Equivalent}
 
 
-As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.45 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag will nearly equal to the correlation for two lag, before removal of half the samples, seen in \todo{insert  Rx2}.
+As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.45 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag (0.165) will nearly equal to the correlation for two lag (0.166), before removal of half the samples, seen in \autoref{32}.
 
 
-The drawback from removal of half of the samples, is that the confidence level/interval wanted in ,\autoref{sec:statistics}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to 76\% or the confidence interval widened to $\pm 1.33dB$ or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
+\begin{figure}[H]
+\begin{center}
+\input{figures/SCF_fromData_sub2.tex}
+\caption{Auto correlation across space samples, where every other sample is removed..}
+\label{32}
+\end{center}
+\end{figure}
+
+The drawback from removal of half of the samples, is that the confidence level/interval wanted in \autoref{sec:statistics}, can not be for filled, as the number of independent samples is not high enough. With the lower number of independent samples, the wider the confidence interval or lower confidence level can be for filled. By cutting the sample pool down to half (2,092,230 samples), either the confidence level should be lowered to 76\% or the confidence interval widened to $\pm 1.33dB$ or both shall be lowered/widened. With the usage of the bootstrap method, the confidence level can be set at the wanted level and the confidence interval can then be found.
 
 
 \subsection{CDF}
@@ -43,7 +53,16 @@ The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS
 \label{CDFFinalBS}
 \end{figure}
 
-From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected.
+From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected and it inside the calculated $\pm 1.33dB$ interval calculated with the half amount of independent samples.
 
 
 \section{Results}
+The results from the measurements of the fading gives a CDF, that compared to Rayleigh fading, seen in \todo{Make figure}, gives a MSE on \todo{find number}. The measurements do not for filled the wanted confidence interval with the wanted confidence level, as the correlation in space is not low enough to be seen as independent. An approximation sets the total number of independent samples to be around half the size of the total sample population (2,092,230).
+
+
+
+
+
+
+
+

@@ -39,12 +39,46 @@ The High frequency lab at \gls{AAU} was used for the measurements, it has  clutt
 
 
 \section{IF-bandwidth(noise floor)}
-Given the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ the diffrence can be used to increese the $IF_{BW}$:
+To find the correct value for $IF_{BW}$ first it's important to acquire the $SNR$ based on the pathloss model mentioned on \autoref{ITU_model}.
+\subsection{Pathloss}
+The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
+
+
+\begin{equation}
+L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
+\label{eq:path_loss}
+\end{equation}
+
+The $P_{RX}$ becomes:
+\begin{equation}
+P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
+\label{NFvna}
+\end{equation}
+
+\subsection{SNR}
+N5527A has a $-119dB$ noise floor without averaging at 10Hz $IF_{BW}$ between 1-10GHz \citep{Key_PNA}. The \gls{SNR} of the VNA  is defined as:
+\begin{equation}
+SNR = P_{RX}+W
+\end{equation}
+
+\begin{where}
+\va{$P_{RX}$}{is the Received power}{dBm}
+\va{$W$}{ is the Noise-floor}{dBm}
+\end{where}
+
+This gives a SNR of:
+\begin{equation}
+SNR = -41dBm+119dBm = 78dB
+\label{eq:SNR}
+\end{equation}
+
+\subsection{Theoretic IF-bandwidth}
+Now by finding the difference between the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ found in \autoref{eq:SNR} we get the amount of $dBs$ that noise floor can be increased without affecting the ability to measure deep fades:
 \begin{equation}
   78dB-64dB = 14dB 
 \end{equation}
 
-The noise-floor of the \gls{VNA} scales linearly with a increased $IF_{BW}$\citep{PNA_scale}. This means that a $IF_{BW}$ on the \gls{VNA} can be increased to:
+The noise-floor of the \gls{VNA} scales linearly with an increased $IF_{BW}$\citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{VNA} can be increased to:
 
 \begin{equation}
 IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
@@ -56,34 +90,48 @@ IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
 %\end{split}
 %\end{equation}
 A higher $IF_{BW}$ of 250Hz  gives a faster sweep time and still meets the requirements set by the $SNR_M$.
-\section{FCF}
+
+\section{Center frequency and Span}
+The $f_{c}$ chosen in the setup is $5GHz$ because of available antenna array.
+
+The $f_{Span}$ of $1GHz$ is chosen because it fits with a $\pm 1dBi$ gain from the TX antenna chart in Appendix \ref{ant_adix}.
+
+\todo{maybe move this to equipment}
+\section{Number of sweep points}
 The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
 \begin{equation}
 B_C \geq \frac{1}{50ns} \approx 20MHz
 \label{CohBW}
 \end{equation}
+
+The number of points used in the final setup is dependant $B_C$ and the $F_{span}$. If we use the span of 1GHz and a $B_C$ of 20MHz this gives 50 samples in frequency.
+
 \section{Time estimation}
-Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_BW$.
+\label{TIME_EST}
+Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_{BW}$.
 The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
 
 \begin{table}[H]
 \centering
-\caption{$IF_{BW} \ vs \ sweep time$}
 \label{my-label}
-\begin{tabular}{l|l}
+\begin{tabular}{|l|l|}
 \hline
 $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
+\hline
 10              & 17834               \\
 100             & 1825                \\
 300             & 641                 \\
 1000            & 223                 \\
-3000            & 72                 
+3000            & 72            \\
+\hline 
 \end{tabular}
+\caption{$IF_{BW} \ vs \ Sweep time$}
 \end{table}
 
-There is also some overhead for saving the data and frequency span. The number of points used in the final setup is dependant $B_C$ and the $\Delta f$. If we use the span of 1GHz and a Coherence bandwidth of 20MHz this gives 50 points. This will reduce the sweep time by quarter.
+There is also some overhead for saving the data and frequency span.
 
-Let's  use an example where we can use a 300Hz $IF_BW$:
+
+Let's use an example with a $IF_{BW} = 300Hz$ and assume a 50 point measurements takes a quarter of the time:
 \begin{equation}
 T_{sweep \ total} = \frac{631}{4} = 160ms
 \end{equation}

@@ -196,7 +196,7 @@ Diversity is used to combat fading in a wireless system. By using clever techniq
 The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources.There are several ways to achieve diversity in a wireless system:
  
 \begin{tabular}{lp{13.1cm}}
-\textbf{Temporal diversity} & By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate. Usually a forward error correction code is added instead of just re transmitting the signals several times. This comes at he cost of increased latency and lower bitrate.  \\
+\textbf{Temporal diversity} & By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate and latency. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
 \textbf{Spatial diversity} & By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.\\
 \textbf{Frequency diversity} & By transmitting the same data on two frequencies that have independently fading signals. This comes at a cost of reducing the systems spectral efficiency.
 \end{tabular}
@@ -259,7 +259,7 @@ C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + j\left [\su
 
 If we assume that the random variables is not dependent on time, the impulse response process $C(t)$ will be \gls{WSS}. Given the central limit theorem that states:
 "\textit{...the distribution of the sum (or average) of a large number of independent, identically distributed variables will be approximately normal, regardless of the underlying distribution}" \citep{CentralLimit}.  
-Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumption of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals witch are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
+Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumption of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals which are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
 
 
 
@@ -511,6 +511,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 
 
 \subsection{\Gls{FCF}}
+\label{bc_aprox}
 %The sample size can be further increase by using uncorrelated samples in the frequency domain. 
 %For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
 %\begin{equation}
@@ -563,7 +564,7 @@ A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen
 
 As the coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment.
 There are approximations for the $B_C$ for exponential decaying \gls{PDP}s
-\citep{RayFadeHandbook}.They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
+\citep{RayFadeHandbook}. They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
 \begin{equation}
 \sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
 \end{equation}

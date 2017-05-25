@@ -65,33 +65,4 @@ Before staring measuring the settings on the VNA needs to be determined. This me
 
 \section{TX power}
 The transmit power $P_{TX}$ is the maximum power the VNA can transmit without getting overloaded. This should be as high as possible but given that a \gls{PA} is not used this should be around 15dBm \citep{Key_PNA} depending on load from the different antennas and the VNA.
-\section{Pathloss}
-The ITU pathloss model from \autoref{ITU_model} is used. The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
-
-
-\begin{equation}
-L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
-\label{eq:path_loss}
-\end{equation}
-
-The $P_{RX}$ becomes:
-\begin{equation}
-P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
-\label{NFvna}
-\end{equation}
-\subsection{SNR}
- N5527A has a $-119dB$ noise floor without averaging at 10Hz $IF_{BW}$ between 1-10GHz \citep{Key_PNA}. The \gls{SNR} of the VNA  is defined as:
-\begin{equation}
-SNR = P_{RX}+W
-\end{equation}
-
-\begin{where}
-\va{$P_{RX}$}{is the Received power}{dBm}
-\va{$W$}{ is the Noise-floor}{dBm}
-\end{where}
-
-This gives a SNR of:
-\begin{equation}
-SNR = -41dBm+119dBm = 78dB
-\end{equation}
 
