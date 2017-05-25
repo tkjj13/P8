@@ -4,7 +4,7 @@ Before concluding anything from the data, it is first analysed to check if the m
 
 \subsection{Raw data}
 
-In total 4.184.460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}.
+In total 4.184.460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}. Here all the space samples has been concatenated to visualize the data.
 
 \begin{figure}[H]
 \centering
@@ -15,16 +15,25 @@ In total 4.184.460 samples have been collected, the values are represented in \a
 
 
 \subsection{Stationarity}
-To see if the channel is stationary it has to be checked in both the frequency domain and the spatial domain. The first step in doing this is to average across the other domain. The result of this can be seen in \autoref{fig:meanFading}. 
+To see if the channel is stationary it has to be checked in both the frequency domain and the spatial domain. 
 
+\textbf{Frequency domain}
+
+The data is structured in 3 domains freq x antenna x walk/space, with N, M and K being the number of points in each dimension. To analyse stationarity in frequency an average is taken across the other two domains as:
+
+\begin{equation}\label{eq:freqMean}
+freqData(n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} data_{(n,m,k)}
+\end{equation}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
-\caption{Average values across the frequency and space domain respectively.}
+%\includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
+\input{figures/meanFadingFreq.tex}
+\caption{Average values across the frequency as per \autoref{eq:freqMean}, with values converted from linear scale to dB.}
 \label{fig:meanFading}
 \end{figure}
 
+It can be seen that there is a drop of around 4 dB across the frequency, this drop can be explained by 2 factors first the antenna gain varies with around 2 dB across the frequency span \appref{ant_adix}, the other part is the \gls{PL} is dependent on frequency, by comparing PL of a free space path loss model, it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. Those two factors together can explain the drop in mean power across the span. 
 
 Note the reason for the spuriousness in the spatial domain has to do with the average being taken only over the 41 frequency samples at each position, where the the more smooth line in the frequency domain is an average across 102.060 samples in space. It can however be seen directly that the power level seems more or less constant across all spatial points, where it drops with frequency. This is expected as the \gls{PL} is dependent on the wavelength.  
 
