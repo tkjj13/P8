@@ -121,29 +121,25 @@ It needs to be checked if:
 R(n,n+\Delta n) = R(\Delta n) 
 \end{equation}
 
-First the frequency data is found based on the normalized data in the same fashion as \autoref{eq:freqMean}:
-\begin{equation}
-freqData_{norm, (n)} = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} data3_{(n,m,k)}
-\end{equation}
-
-From the frequency data the sample mean and sample variance is found as:
+First the the sample mean and sample variance is found for each point in space as:
 
 \begin{align}
-\mu &= \frac{1}{N}\sum_{n = 1}^{N} freqData_{norm, (n)} \\
-s_f^2 &= \frac{1}{N-1}\sum_{n = 1}^{N} \left( freqData_{norm, (n)} - \mu \right)^2
+\mu_{(m,k)} &= \frac{1}{N}\sum_{n = 1}^{N} data3_{(n,m,k)} \\
+s_{f,(m,k)}^2 &= \frac{1}{N-1}\sum_{n = 1}^{N} \left( data3_{(n,m,k)} - \mu_{(m,k)} \right)^2 
 \end{align}
 
-Each element of the cross covariance matrix can be found as the sample covariance divided with the sample variance:
+Each element in space the cross covariance matrix is found as the sample covariance divided with the sample variance:
 \begin{equation}
-R(n,n+\Delta n) = \frac{\left(freqData_{norm, (n)}-\mu\right)\cdot \left(freqData_{norm, (n+\Delta n)}-\mu\right)}{s_f^2}
+C(n,n+\Delta n,m,k) = \frac{\left(data3_{(n,m,k)}-\mu_{(m,k)}\right)\cdot \left(data3_{(n+\Delta n,m,k)}-\mu_{(m,k)}\right)}{s_{f,(m,k)}^2}
 \end{equation}
 
-%This can also be extended to the full matrix as:
-%\begin{equation}
-%R = \frac{1}{s_f^2}\cdot \left((freqData_{norm}-\mu)\cdot (freqData_{norm}^T-mu)\right)
-%\end{equation}
+The average across all space samples are then found as:
+\begin{equation}
+R(n,n+\Delta n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} C(n,n+\Delta n,m,k)
+\end{equation}
 
-The final step is to show that \autoref{eq:autocovariance_check} is true. If this is true all diagonal lines in R would have a constant value, that implies that the variance across diagonal elements is 0. 
+
+The final step is to show that \autoref{eq:autocovariance_check} is true. If this is true all diagonal lines in R would have a constant value, that implies that the variance across the diagonal line elements is 0. 
 
 \begin{align}
 &\mu_{R(\Delta n)} = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R(n,n+\Delta n) \\
