@@ -1,0 +1,61 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.7\textwidth,
+height=0.4\textwidth,
+at={(0.758in,0.481in)},
+scale only axis,
+scaled y ticks = false,
+y tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+xmin=-0.5,
+xmax=30.5,
+xlabel = $\Delta n$,
+ymajorgrids,
+ymin=0,
+ymax=0.025,
+ylabel = $s^2_{\Delta n}$,
+axis background/.style={fill=white}
+]
+\addplot[ycomb,color=mycolor1,solid,mark=o,mark options={solid},forget plot] plot table[row sep=crcr] {%
+0	0.0239994535570242\\
+1	0.00155347561399147\\
+2	0.000333132530399424\\
+3	4.42952964310783e-05\\
+4	6.91463617776512e-05\\
+5	0.000140552123495002\\
+6	0.00018743076774746\\
+7	0.000236684877793891\\
+8	0.000291324870818997\\
+9	0.000331910825749033\\
+10	0.000371904245897478\\
+11	0.00039280175885968\\
+12	0.000448157932287774\\
+13	0.00046607349315818\\
+14	0.000475171842259718\\
+15	0.000466606546009396\\
+16	0.000459354658352822\\
+17	0.000469730606803343\\
+18	0.000476346246957716\\
+19	0.000483291253215299\\
+20	0.00052789844826084\\
+21	0.000599881231205234\\
+22	0.000587411820871848\\
+23	0.000573953897934685\\
+24	0.000499460691984749\\
+25	0.000456959069830855\\
+26	0.000421847342166333\\
+27	0.000400310575870904\\
+28	0.000396373029801933\\
+29	0.000345580578532402\\
+30	0.000347170193328993\\
+};
+\end{axis}
+\end{tikzpicture}%

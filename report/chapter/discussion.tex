@@ -1,17 +1,17 @@
 \chapter{Discussion}
+
+When designing a measurement campaign prerequisites are important. A large part of the project was understanding how channel behaviour and how this can be represented in a stochastic manner.
+
+A more extensive measurement over several days in different rooms was considered but analysing and validating the method was prioritized.
+
 \section{Uncertainties}
-One of the biggest unsertiency in this prosject is when the freuqnecy span is realtivily big 1Ghz do you acually measure the same channel;Stationariness principle
-\todo {Errors when measureing the PDP and the autocorr of the area, becase we moved around and there is not unefomly power}
 
-When designing a measurement campaign prerequisites are important. A large part of the project was understanding how channel behaviour and how this can be represented in a stochastic manner. 
+Gathering the number of samples needed to validate the measured data has proven to be difficult. A big point is that the theory assumes uncorrelated data but in reality completely uncorrelated samples are hard to obtain. For this reason a much larger sample pool is needed compared to the estimation. 
 
-Gathering the number of samples needed for to validate the measured data has proven to be difficult. A big point is that the theory assumes uncorrelated data, but in reality completely uncorrelated samples are hard to obtain. For this reason a much larger sample pool then estimated is needed and will take a long time, where measurements needs to be over several days in different places.
+Since the measurements was done by holding and moving the antenna, its fair to say that human errors are present. This is due to the difficulty on maintaining constant speed and stable movement. This is impossible to accomplish without a more elaborate setup with a motorized rail or arm. Because of the limited time where the equipment was available all the measurements were done in one day.
 
-Since the spatial part of the measurements was done by a human holding and moving with the  antenna it would be fair to say that human errors would be present in the measurement. This is due to the different heights needed to hold the antenna and the low speed that the subject was supposed to move. This is a very hard thing to accomplish without an elaborate setup with motorized rail or arm. Because of the limited time where the equipment was available all the measurements was limited to one day.
+While analysing the measured data an antenna pattern became apparent. To account for this a moving average was used. Averaging over the spatial area also has the effect of averaging over eventual fades but a completely homogeneous path-loss environment is hard to obtain in a small sized measurement.
 
-The limited time with the equipment.
-
-
-Averaging over the spatial area also has the effect of averaging over eventual fades, but a completely homogeneous path-loss is hard to obtain in small sized measurement.
+To achieve a large number of samples in frequency, a wide $f_{span}$ was used. In a case like this it's important to consider the stationarity of the channel. A wide $f_{span}$ will give more uncorrelated samples in frequency but you are in danger of measuring a completely different channel. An argument could be made that deep fades are so dependant on the environment that a measurement would only be valid for that specific room or situation being measured.
 
 \section{Comparison of Measurements and Theory}

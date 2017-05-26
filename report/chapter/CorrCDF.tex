@@ -23,17 +23,24 @@ From \todo{ref to the place, where we talk about correlation and make the statem
 \label{4}
 \end{figure}
 
-The correlation across frequencies, seen in \autoref{1}, shows that the correlation between the samples is small enough, to be considered independent, with a maximum correlation of 0.168 at lag one. At lag three and higher, the correlation is going under zero. \todo{Explain why, mail Patrick}.
+The auto correlation is calculated with \autoref{EQcor}, across the different domains.
 
-The correlation across the antennas, seen in \autoref{2}, shows that the correlation between the antennas samples is small enough to be considered independent. \todo{Explain the negativ part again}.
+\begin{equation}
+1
+\label{EQcor}
+\end{equation}
 
+The correlation across frequencies, seen in \autoref{1}, shows that the correlation between the samples is small enough, to be considered independent, with a maximum correlation of 0.168 at lag one. At lag three the correlation becomes negative, but goes towards zero, when the lag get high. \todo{Talk about negative values}
 
+The correlation across the antennas, seen in \autoref{2}, shows that the correlation between the antennas samples is small enough to be considered independent. The reason for the correlation gets negative, is the same as for the frequencies.
+
+The correlation across space, seen in \autoref{3}, shows a high correlation between adjacent samples in the space domain. This high correlation of 0.446 is over the level of correlation, before the samples will be seen as independent. A reason why the high correlation, is if the samples have been taken to close to each other and therefore not been taken with the spacing of \todo{Find number}, which is the needed distance to get independent samples, stated in \todo{Ref to there}.
 
 
 \subsection{Approximate N Equivalent}
 
 
-As seen in previous sections, the samples are correlated, both in frequency and space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.45 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag (0.165) will nearly equal to the correlation for two lag (0.166), before removal of half the samples, seen in \autoref{32}.
+As seen in previous sections, the samples are too correlated in space. As not all samples are independent, there is not enough independent samples to for filled the number of wanted independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, it will be looked at the how to lower the correlation between the samples. As seen from the previous sections, the big problem, is the correlation in space, which is the only place, where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.446 in space. By removing every other sample, the correlation between adjacent samples will be removed and the correlation for one lag (0.165) will nearly equal to the correlation for two lag (0.166), before removal of half the samples, seen in \autoref{32}.
 
 
 \begin{figure}[H]
@@ -52,7 +59,6 @@ The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS
 
 \begin{figure}[H]
 \input{figures/Matlab_figures/BS90Meas5_23.tex}
-
 \caption{CDF of the measurements of the fading channel. The min and max is the 90\% confidence level made with the bootstrap method, run 100,000 times.}
 \label{CDFFinalBS}
 \end{figure}
