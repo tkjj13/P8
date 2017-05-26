@@ -14,7 +14,7 @@ In total 4.184.460 samples have been collected, the values are represented in \a
 \end{figure}
 
 
-\subsection{Stationarity}
+\subsection{Stationarity}\label{sec:meas_stationarity}
 To see if the channel is stationary is to check if the measurements conform to the criteria of \gls{WSSUS}. This is done by checking \gls{WSS} in the frequency domain} and \gls{US} in the spatial domain. The criteria for this is a constant mean and a autocorrelation that is only dependent on delay between samples \citep[ch. 5]{The_Mobile_Radio_Propagation_Channelbook}. 
 
 \textbf{Frequency domain mean}
@@ -142,7 +142,7 @@ R(n,n+\Delta n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} C(n,n+\Delt
 The final step is to show that \autoref{eq:autocovariance_check} is true. If this is true all diagonal lines in R would have a constant value, that implies that the variance across the diagonal line elements is 0. 
 
 \begin{align}
-&\mu_{R(\Delta n)} = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R(n,n+\Delta n) \\
+&\mu_{R(\Delta n)} = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R(n,n+\Delta n) \label{EQcor}\\
 s_{\Delta n}^2 = &\frac{1}{N-|\Delta n|-1}\sum_{n = 1}^{N-|\Delta n|} \left( R(n,n+\Delta n) - \mu_{R(\Delta n)} \right)^2 \label{eq:variance_of_covariance}
 \end{align}
 

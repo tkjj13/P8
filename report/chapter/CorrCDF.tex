@@ -24,18 +24,11 @@ From \autoref{div_chap} it's found that correlation shouldn't exceed 0.3 to maxi
 \label{4}
 \end{figure}
 
-The autocorrelation is calculated with \autoref{EQcor}, across the different domains.
+The autocorrelation is calculated with \autoref{EQcor}, across the different domains. The correlation across frequencies, seen in \autoref{1}, is less than 0.3 and are therefore considered independent. It can be seen that at lag three the correlation becomes negative, but goes towards zero, when the lag gets high. Normally this would mean that the signal is out of phase, howecver as it is power values that is not the case, however here it implies thatone of the two compared values is generally always below the mean power level. \todo{Check with patricks answer (Talk about negative values)}
 
-\begin{equation}
-1
-\label{EQcor}
-\end{equation}
+The correlation across the antennas, seen in \autoref{2}, shows that the correlation between the antennas samples is also small enough to be considered independent. The reason for the correlation gets negative, is the same as for the frequencies.
 
-The correlation across frequencies, seen in \autoref{1}, shows that the correlation between the samples is small enough, to be considered independent, with a maximum correlation of 0.168 at lag one. At lag three the correlation becomes negative, but goes towards zero, when the lag get high. \todo{Talk about negative values}
-
-The correlation across the antennas, seen in \autoref{2}, shows that the correlation between the antennas samples is small enough to be considered independent. The reason for the correlation gets negative, is the same as for the frequencies.
-
-The correlation across space, seen in \autoref{3}, shows a high correlation between adjacent samples in the space domain. This high correlation of 0.446 is over the level of correlation, before the samples will be seen as independent. A reason why the high correlation, is if the samples have been taken to close to each other and therefore not been taken with the spacing of $0.4 \lambda$, which is the needed distance to get independent samples, stated in \autoref{SCFchap}.
+The correlation across space, seen in \autoref{3}, shows a high correlation between adjacent samples in the space domain. This high correlation of 0.446 is over the acceptable level of correlation, for the samples to be considered independent. The reason for the high correlation could be, the samples have been taken to close to each other and therefore not been taken with the spacing of $0.4 \lambda$, which is the needed distance to get independent samples, stated in \autoref{SCFchap}, or it could be due to the problems mentioned in \autoref{sec:meas_stationarity}.
 
 
 \subsection{Approximate N Equivalent}
