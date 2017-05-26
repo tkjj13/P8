@@ -36,7 +36,7 @@ Sweep time 						& $T_{sweep}$ 	& 1448msec			& \autoref{sec:setup_parameter} \\ 
 \section{Data processing}
 The raw PDP results can be seen in \appref{app:SNR} \autoref{fig:SNRMeas}.
 \subsection{Delay spread}
-The PDP shows a exponential decay and this means a coherence bandwidth can be estimated from the previous used approximation from \autoref{bc_aprox}. The RMS delay spread is calculated from the measured PDP and gives $\sigma_{\tau} = 14ns$.
+The PDP shows a exponential decay, meaning the coherence bandwidth can be estimated from the previous used approximation in \autoref{bc_aprox}. The RMS delay spread is calculated from the measured PDP and gives $\sigma_{\tau} = 14ns$.
 
 \subsection{Coherence bandwidth}\label{sec:coherence_bandwidth}
 
@@ -46,7 +46,8 @@ B_C = \frac{1}{14ns} = 71.43 MHz
 \end{equation}
 This $B_C$ would give a number of sweep points $N_{sweep} = 14$ and would decrease our  frequency samples drastically compared to the estimations in \autoref{TIME_EST}.
 
-To figure out a balanced value of $B_C$ an extra test was done. By doing a measurement with $B_C = 5MHz$ and making a \gls{ACF} of the values:
+Because the $B_C$ is higher than expected a 
+an extra test was done. This measurement was done with $B_C = 5MHz$ and making an \gls{ACF} of the values:
 
 \begin{figure}[H]
 \centering
@@ -55,5 +56,5 @@ To figure out a balanced value of $B_C$ an extra test was done. By doing a measu
 \label{fig:coh_test}
 \end{figure}
 
-Here the test show a correlation of <0.3 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimated $B_C$ and increasing it has little effect on the  the correlation coefficient because it flattens out. A $B_C = 25MHz$ gives a $N_{sweep} = 40$ and is much more desirable then what the approximation method gave.
+Here the \gls{AFC} show a correlation of <0.3 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimated $B_C$ and increasing it has little effect on the correlation coefficient because it flattens out. A $B_C = 25MHz$ gives a $N_{sweep} = 40$ and is more desirable than what the approximation method gave.
 
