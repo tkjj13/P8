@@ -6,12 +6,12 @@
 First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
 
 \begin{equation}\label{eq:numSamples}
-\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N}}}{\hat{\gamma}} < m
+\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N_{tot}}}}{\hat{\gamma}} < m
 \end{equation} 
 \begin{where}
 \va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
 \va{$\hat{\gamma}$}{is the estimated probability}{1}
-\va{N}{is the number of samples}{1}
+\va{$N_{tot}$}{is the total number of samples needed}{1}
 \va{m}{is the margin around $\hat{\gamma}$}{1}
 \end{where}
 
@@ -68,7 +68,7 @@ As no useful statistical method has been found the required number of samples ca
 %- Important sampling
 %- Not useful
 
-\section{Bootstrap Percentile Method}
+\section{Bootstrap Percentile Method}\label{sec_bootstrap}
 Another statistically aspect, for which there are different method and techniques, is how to determine the confidence interval at a certain confidence level from the measurements. From the previous section the number of samples needed to attain a confidence level of 90\% and a margin of 1 dB is found. However this is estimated based on theory and has no particular onset in the actual measurements, it is therefore necessary to find a method to evaluate the confidence based on the measurements. The method chosen is the \textit{Bootstrap Percentile Method} \citep{Bootstrap}.
 
 The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{B}$ until $\mathbf{B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.

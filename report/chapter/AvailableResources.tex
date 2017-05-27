@@ -39,46 +39,47 @@ The High frequency lab at \gls{AAU} was used for the measurements, it has  clutt
 
 
 \section{IF-bandwidth(noise floor)}
-To find the correct value for $IF_{BW}$ first it's important to acquire the $SNR$ based on the pathloss model mentioned on \autoref{ITU_model}.
-\subsection{Pathloss}
-The planned walking route in the room is around 6 meters from the antenna. This gives a pathloss value of:
+To find the correct value for $IF_{BW}$ it is done by finding the expected received power and estimating the $IF_{BW}$ from that to obtain the needed SNR. 
 
+\subsection{Expected Received Power}
+The planned walking route in the room is around 6 meters from the antenna. Using \autoref{ITU_model} this gives a pathloss value of:
 
 \begin{equation}
 L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
 \label{eq:path_loss}
 \end{equation}
 
-The $P_{RX}$ becomes:
-\begin{equation}
-P_{RX} = 15dBm + 12dBi - 68dB = -41dBm
+The $P_{RX}$ then becomes:
+\begin{align}
+P_{RX} &= P_{TX} + G_{TX} - L \\
+P_{RX} &= 15dBm + 12dBi - 68dB = -41dBm
 \label{NFvna}
-\end{equation}
-
-\subsection{SNR}
-N5527A has a $-119dB$ noise floor without averaging at 10Hz $IF_{BW}$ between 1-10GHz \citep{Key_PNA}. The \gls{SNR} of the VNA  is defined as:
-\begin{equation}
-SNR = P_{RX}+W
-\end{equation}
-
+\end{align}
 \begin{where}
+\va{$L$}{is the expected path loss}{dB}
 \va{$P_{RX}$}{is the Received power}{dBm}
-\va{$W$}{ is the Noise-floor}{dBm}
 \end{where}
 
-This gives a SNR of:
-\begin{equation}
-SNR = -41dBm+119dBm = 78dB
-\label{eq:SNR}
-\end{equation}
 
 \subsection{Theoretic IF-bandwidth}
-Now by finding the difference between the $SNR_{M}$ found in \autoref{SNR_margin} and the $SNR$ found in \autoref{eq:SNR} we get the amount of $dBs$ that noise floor can be increased without affecting the ability to measure deep fades:
-\begin{equation}
-  78dB-64dB = 14dB 
-\end{equation}
 
-The noise-floor of the \gls{VNA} scales linearly with an increased $IF_{BW}$\citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{VNA} can be increased to:
+The $SNR_m$ is known from \autoref{needed_SNR} to be 64 dB. Giving a maximum noise floor as:
+
+\begin{align}
+W_{max} &= P_{RX}-SNR_m\\
+W_{max} &= -41 dBm -64 dBm = -105 dBm
+\end{align}
+\begin{where}
+\va{$W_{max}$}{is the maximum noise floor allowed}{dBm}
+\end{where}
+
+Between 1-10GHz without averaging the N5527A has a noise floor $W_{IF}$, of $-119dBm$ with a 10Hz $IF_{BW}$ \citep{Key_PNA}. Now by finding the difference between the $W_{max}$ and the noise floor of the N5227A we get the amount of $dB$'s that noise floor can be increased without affecting the ability to measure deep fades:
+\begin{align}
+diff &= W_{max}-W_{IF}\\
+diff &= -105dBm+119dBm = 14dBm 
+\end{align}
+
+The noise-floor of the \gls{VNA} scales linearly with an increased $IF_{BW}$ \citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{VNA} can be increased to:
 
 \begin{equation}
 IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
@@ -92,11 +93,11 @@ IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
 A higher $IF_{BW}$ of 250Hz  gives a faster sweep time and still meets the requirements set by the $SNR_M$.
 
 \section{Center frequency and Span}
-The $f_{c}$ chosen in the setup is $5GHz$ because of available antenna array.
+The $f_{c}$ chosen in the setup is 5 GHz  because of available antenna array seen in \autoref{OmniDirAnt} has a spacing that matches this frequency.
 
-The $f_{Span}$ of $1GHz$ is chosen because it fits with a $\pm 1dBi$ gain from the TX antenna chart in Appendix \ref{ant_adix}.
+The span is chosen based on two conditions first it needs to not influence the spacing of the antenna array to much secondly the TX antenna needs to have a reasonable equal gain. From \appref{ant_adix} it can be seen that a span of 1 GHz fits roughly with $\pm 1$ dBi gain from the TX antenna.
 
-\todo{maybe move this to equipment}
+
 \section{Number of sweep points}
 The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
 \begin{equation}
@@ -133,7 +134,7 @@ There is also some overhead for saving the data and frequency span.
 
 Let's use an example with a $IF_{BW} = 300Hz$ and assume a 50 point measurements takes a quarter of the time:
 \begin{equation}
-T_{sweep \ total} = \frac{631}{4} = 160ms
+T_{sweep} = \frac{631}{4} = 160ms
 \end{equation}
 This means that every 160ms we have to move $0.4 \lambda$ this gives a relative velocity of:
 \begin{equation}

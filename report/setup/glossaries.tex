@@ -118,6 +118,184 @@
 \newacronym{HAL}{HAL}{Hardware Abstraction Layer}
 \newacronym{RC}{RC}{Remote Controller}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{nomencl}
+\makenomenclature
+%\printnomenclature[6em]
+% https://tex.stackexchange.com/questions/112884/how-to-achieve-nomenclature-entries-like-symbol-description-dimension-and-uni
+
+\newcommand{\DimensUnits}[2]{{#1\hfill}%
+\makebox[4em]{#2\hfill}\ignorespaces}
+\newcommand{\nomwithdim}[3]{\nomenclature{#1}%
+{\DimensUnits{#2}{#3}}}
+\newcommand{\insertnomheaders}{\item[\bfseries Symbol]%
+\DimensUnits{\textbf{Description}}{\textbf{Units}}}
+
+\renewcommand{\nomgroup}[1]{%
+%  \item[\large\bfseries
+%  \ifstrequal{#1}{A}{Acronyms}{%
+%  \ifstrequal{#1}{R}{Roman Symbols}{%
+%  \ifstrequal{#1}{G}{Greek Symbols}{%
+%  \ifstrequal{#1}{S}{Superscripts}{% 
+%  \ifstrequal{#1}{U}{Subscripts}{%   
+%  \ifstrequal{#1}{X}{Other Symbols}{}}}}}}]
+  \insertnomheaders
+  }
+
+\nomwithdim{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
+\nomwithdim{$\hat{\gamma}$}{is the estimated probability}{1}
+\nomwithdim{$N_{tot}$}{is the total number of samples needed}{1}
+\nomwithdim{m}{is the margin around $\hat{\gamma}$}{1}
+
+\nomwithdim{$L$}{is path loss}{dB}
+\nomwithdim{$f$}{is frequency in Mega Hertz}{MHz}
+\nomwithdim{$d$}{is distance}{m}
+\nomwithdim{$Q$}{is the distance power loss coefficient\citep{ITU_indoor}}{1}
+\nomwithdim{$P_f(n)$}{is the floor penetration factor with nth floors}{dB}
+
+\nomwithdim{$c(t;\tau)$}{is the impulse response of a fading channel}{1}
+\nomwithdim{$t$}{is absolute time}{s}
+\nomwithdim{$\tau$}{is delay from t}{s}
+\nomwithdim{$N$}{is the number of reflective paths}{1}
+\nomwithdim{$a_n$}{is the attenuation of the path}{1}
+\nomwithdim{$\Phi_n$}{is the phase change of the path}{rad}
+
+\nomwithdim{$C(t)$}{is the impulse response of a Rayleigh fading channel}{1}
+\nomwithdim{$\psi_n(t)$}{is due to $\Phi_n(t)$ and $\tau_n(t)$ and is induced by the Doppler shift}{rad}
+
+\nomwithdim{$f_d$}{is the maximum Doppler bandwidth}{Hz}
+\nomwithdim{$\lambda$}{is the wavelength}{m}
+\nomwithdim{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
+
+\nomwithdim{$G_t(f)$}{is the frequency representation of the channels temporal domain}{1}
+\nomwithdim{$g_t(t)$}{is the time representation of the channels temporal domain}{1}
+
+\nomwithdim{$G_s(f_d)$}{is the spatial frequency representation of the channels spatial domain}{1}
+\nomwithdim{$g_s(d)$}{is the space representation of the channels spatial domain}{1}
+
+\nomwithdim{$h(d,t)$}{is the space variant impulse response function}{1}
+\nomwithdim{$S(f_d,t)$}{is the output Doppler scattering function}{1}
+\nomwithdim{$T(d,f)$}{is the Doppler-delay scattering function}{1}
+\nomwithdim{$H(f_d,f)$}{is the space variant transfer function}{1}
+
+\nomwithdim{$R_{h}$}{is the \gls{ACF} of $h(d,t)$}{1}
+\nomwithdim{$\Delta d$}{is a change in position}{m}
+\nomwithdim{$\tau$}{is a time delay}{s}
+
+\nomwithdim{$R_h(\Delta d,\tau)$}{is the ACF of the space variant impulse response function}{1}
+\nomwithdim{$R_S(f_{d},\tau)$}{is the ACF of the output Doppler scattering function}{1}
+\nomwithdim{$R_T(\Delta d,\Delta f)$}{is the ACF of the Doppler-delay scattering function}{1}
+\nomwithdim{$R_H(f_{d},\Delta f)$}{is the ACF of the space variant transfer function}{1}
+\nomwithdim{$\Delta f$}{is the frequency separation}{Hz}
+
+\nomwithdim{$a$}{is the slope of the PDP, a < 0}{1/s}
+
+\nomwithdim{$\sigma_{\tau}$}{is the RMS excess delay of the \gls{PDP}}{s}
+\nomwithdim{$\bar{\tau}$}{is the mean excess delay of the \gls{PDP}}{s}
+\nomwithdim{$\bar{\tau}^{2}$}{is the second central moment of the \gls{PDP}}{s}
+
+\nomwithdim{$P_r(t)$}{is the received signal at the receiving antenna}{W}
+\nomwithdim{$D_t$}{is the directivity of the transmitter antenna}{1}
+\nomwithdim{$A_r$}{is the effective area of the receiving antenna}{$m^2$}
+\nomwithdim{$R$}{is the distance between transmitter and receiver}{m}
+\nomwithdim{$P_t(t)$}{is the transmitted signal at the transmit antenna}{W}
+
+\nomwithdim{$x_P(t)$}{is the power transmitted through to the system}{W}
+\nomwithdim{$\Gamma$}{is the reflection coefficient}{1}
+
+\nomwithdim{$x_{LNA}(t)$}{is the outputed signal from the LNA}{W}
+\nomwithdim{$G_{LNA}\left(x_P(t)\right)$}{is the gain of the LNA dependent on the input power}{1}
+
+\nomwithdim{$x_{BP}(t)$}{is the signal outputted from the BP filter}{W}
+\nomwithdim{$H_{BP}(t)$}{is the impulse response of the BP filter}{1}
+
+\nomwithdim{$x_{Mixer}(t)$}{is the output from the mixer}{W}
+\nomwithdim{$f_{LO}$}{is the frequency of the LO}{Hz}
+\nomwithdim{$\epsilon_{drift}(t)$}{is the drift in frequency of the LO}{Hz}
+
+\nomwithdim{$x_{LP}(t)$}{is the outputted from the LP filter}{W}
+\nomwithdim{$H_{LP}(t)$}{is the impulse response of the LP filter}{1}
+
+\nomwithdim{$DR$}{is the dynamic range of the system}{dB}
+\nomwithdim{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
+\nomwithdim{$Sens$}{is the sensitivity of the receiver}{dBm}
+
+\nomwithdim{Sens}{is the sensitivity of the receiver}{dBm}
+\nomwithdim{$BW$}{is the bandwidth of the system}{Hz}
+\nomwithdim{$Te$}{is the equivalent noise temperature of the antenna}{K}
+\nomwithdim{$NF$}{is the noise figure of the receiver}{dB}
+\nomwithdim{$k$}{is the Boltzmann's constant}{$\frac{J}{K}$}
+\nomwithdim{$SNR_{Req}$}{Required SNR}{dB}
+
+\nomwithdim{SINAD}{is the signal to noise and distortion ratio}{1}
+\nomwithdim{SNR}{is the signal to noise ratio}{1}
+\nomwithdim{$s$}{is the signal power}{W}
+\nomwithdim{$w$}{is the noise power}{W}
+\nomwithdim{$d$}{is the distortion power}{W}
+
+\nomwithdim{$W$}{is the Noise-floor}{dBm}
+\nomwithdim{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
+\nomwithdim{$AVG_f$}{is the averaging factor}{1}
+
+\nomwithdim{$T$}{is the time a measurement sweep takes}{s}
+\nomwithdim{$BW_{sweep}$}{is the total bandwidth you want to measure}{Hz}
+
+\nomwithdim{$a^2$}{is the power in dominant component}{W}
+\nomwithdim{$\sigma^2$}{is the local-mean scattered power}{W}
+\nomwithdim{K}{The K factor}{1}
+
+\nomwithdim{$SNR_m$}{is the SNR margin }{dB}
+\nomwithdim{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
+
+\nomwithdim{$N_{tot}$}{is the total samples}{1}
+\nomwithdim{$N_a$}{is the number of parallel antenna samples}{1}
+\nomwithdim{$N_f$}{is the number of samples in frequency}{1}
+\nomwithdim{$N_d$}{is the number of samples in space}{1}
+\nomwithdim{$A$}{is the area }{$m^2$}
+\nomwithdim{$B_c$}{is the coherence BW }{Hz}
+\nomwithdim{$f_{span}$}{ is the frequency span}{Hz}
+
+\nomwithdim{$L$}{is the expected path loss}{dB}
+\nomwithdim{$P_{RX}$}{is the Received power}{dBm}
+
+\nomwithdim{$W_{max}$}{is the maximum noise floor allowed}{dBm}
+
+\nomwithdim{$\overrightarrow{freqData}$}{is the mean value for the different frequencies}{1}
+\nomwithdim{$K$}{is the number of elements in the antenna dimension, 3}{1}
+\nomwithdim{$M$}{is the number of spatial points measured, 34020}{1}
+\nomwithdim{$\textbf{data}$}{is the measured data as ratio of input to output}{1}
+
+\nomwithdim{$\textbf{data2}$}{is the data normalized with regards to frequency imbalance}{1}
+\nomwithdim{$\overrightarrow{ones(1,M)}$}{is a vector of ones with dimension 1xM}{1}
+
+\nomwithdim{$\overrightarrow{spaceData}$}{is the mean value for the different spatial samples}{1}
+\nomwithdim{$N$}{is the number of frequency points measured, 41}{1}
+
+\nomwithdim{$\overrightarrow{MA}$}{is the moving average of the spatial samples}{1}
+\nomwithdim{$\textbf{data3}$}{is the normalize data in frequency and space}{1}
+
+\nomwithdim{$R_f$}{is the autocorrelation of the frequency samples}{1}
+\nomwithdim{$\Delta n$}{is the correlation distance in frequency}{1}
+
+\nomwithdim{$\mu_{f}$}{is the sample mean of the frequency samples}{1}
+\nomwithdim{$\textbf{s}^2_f$}{is the sample variance of the frequency samples}{1}
+
+\nomwithdim{$C_f$}{is the cross correlation between sample ($n,m,k$) and ($n+\Delta n,m,k$)}{1}
+
+\nomwithdim{$\mu_{R_f}$}{is the mean autocorrelation function}{1}
+\nomwithdim{$s_{R_f}^2$}{is the variance of the autocorrelation samples}{1}
+
+\nomwithdim{$\overrightarrow{x}$}{is the 1-dimensional sorted array of \textit{data3}}{1}
+\nomwithdim{$p(\overrightarrow{x_{(i)}})$}{is the CDF of measured data}{1}
+
+\nomwithdim{$err$}{is the relative error between measured CDF and Rayleigh CDF}{1}
+
+%$T_{sweep}$
+%$G_{TX}$
+%$L_C$
+
 
 
 

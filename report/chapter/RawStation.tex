@@ -4,7 +4,7 @@ Before concluding anything from the data, it is first analysed to check if the m
 
 \subsection{Raw data}
 
-In total 4.184.460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}. Here all the space samples has been concatenated to visualize the data.
+In total 4,184,460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}. Here all the space samples has been concatenated to visualize the data.
 
 \begin{figure}[H]
 \centering
@@ -141,6 +141,10 @@ It needs to be checked if:
 \begin{equation}\label{eq:autocovariance_check}
 R_f(n,n+\Delta n) = R_f(\Delta n) 
 \end{equation}
+\begin{where}
+\va{$R_f$}{is the autocorrelation of the frequency samples}{1}
+\va{$\Delta n$}{is the correlation distance in frequency}{1}
+\end{where}
 
 First the the sample mean and sample variance is found for each point in space as:
 
@@ -148,11 +152,18 @@ First the the sample mean and sample variance is found for each point in space a
 \mathbf{\mu}_{f,(m,k)} &= \frac{1}{N}\sum_{n = 1}^{N} \textbf{data3}_{(n,m,k)} \\
 \textbf{s}_{f,(m,k)}^2 &= \frac{1}{N-1}\sum_{n = 1}^{N} \left( \textbf{data3}_{(n,m,k)} - \mathbf{\mu}_{f,(m,k)} \right)^2 
 \end{align}
+\begin{where}
+\va{$\mu_{f}$}{is the sample mean of the frequency samples}{1}
+\va{$\textbf{s}^2_f$}{is the sample variance of the frequency samples}{1}
+\end{where}
 
 Each element in space the cross covariance matrix is found as the sample covariance divided with the sample variance:
 \begin{equation}
 C_f(n,n+\Delta n,m,k) = \frac{\left(\textbf{data3}_{(n,m,k)}-\mu_{f,(m,k)}\right)\cdot \left(\textbf{data3}_{(n+\Delta n,m,k)}-\mu_{f,(m,k)}\right)}{\textbf{s}_{f,(m,k)}^2}
 \end{equation}
+\begin{where}
+\va{$C_f$}{is the cross correlation between sample ($n,m,k$) and ($n+\Delta n,m,k$)}{1}
+\end{where}
 
 The average across all space samples are then found as:
 \begin{equation}
@@ -166,6 +177,10 @@ The final step is to show that \autoref{eq:autocovariance_check} is true. If thi
 &\mu_{R_f}(\Delta n) = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R_f(n,n+\Delta n) \label{EQcor}\\
 s_{R_f}^2(\Delta n) = &\frac{1}{N-|\Delta n|-1}\sum_{n = 1}^{N-|\Delta n|} \left( R_f(n,n+\Delta n) - \mu_{R_f}(\Delta n) \right)^2 \label{eq:variance_of_covariance}
 \end{align}
+\begin{where}
+\va{$\mu_{R_f}$}{is the mean autocorrelation function}{1}
+\va{$s_{R_f}^2$}{is the variance of the autocorrelation samples}{1}
+\end{where}
 
 The result of \autoref{eq:variance_of_covariance} can be seen in \autoref{fig:var_freq}, as $R_f(n,n+\Delta n)$ is an even function only the positive values of $\Delta n$ is shown.
 

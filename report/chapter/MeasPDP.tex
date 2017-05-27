@@ -12,12 +12,12 @@ The PDP profile is measured at 20 different positions in the measuring area in \
 Center Frequency                & $f_c$       	& 5Ghz              & \autoref{equipment}		\\ \hline
 Span 							& $f_{Span}$ 	& 1GHz 				& \autoref{sec:setup_parameter} \\ \hline
 Average SNR	                   	& SNR          	& 67dB            	& appendix  \ref{app:SNR} 	\\ \hline
-Antenna diversity               & $A_{div}$   	& 1x3    			& \autoref{equipment} 		\\ \hline
+Antenna diversity               & $N_a$   		& 1x3    			& \autoref{equipment} 		\\ \hline
 Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& \autoref{sec:setup_parameter} \\ \hline
 Cable loss 						& $L_{C}$     	& 7dB         		& \autoref{equipment} 		\\ \hline
 Number of points per sweep 		& $N_{sweep}$ 	& 801				& \autoref{sec:coherence_bandwidth} \\ \hline
 Transmit power 					& $P_{TX}$ 		& 17dBm				& \autoref{equipment} 		\\ \hline
-Antenna Gain 					& $G_{ANT}$ 	& 12dBi 			& \autoref{equipment} \\ \hline
+Antenna Gain 					& $G_{TX}$ 		& 12dBi 			& \autoref{equipment} \\ \hline
 Sweep time 						& $T_{sweep}$ 	& 1448msec			& \autoref{sec:setup_parameter} \\ \hline
 \end{tabular}
 \caption{VNA settings during PDP measurements}
@@ -34,7 +34,15 @@ Sweep time 						& $T_{sweep}$ 	& 1448msec			& \autoref{sec:setup_parameter} \\ 
 %\end{figure}
 
 \section{Data processing}
-The raw PDP results can be seen in \appref{app:SNR} \autoref{fig:SNRMeas}.
+The raw PDP results can be seen on \autoref{fig:SNRMeas}.
+
+\begin{figure}[H]
+\centering
+\input{figures/PDPMeas.tex}
+\caption{Average values for each delay increment.}
+\label{fig:SNRMeas}
+\end{figure}
+
 \subsection{Delay spread}
 The PDP shows a exponential decay, meaning the coherence bandwidth can be estimated from the previous used approximation in \autoref{bc_aprox}. The RMS delay spread is calculated from the measured PDP and gives $\sigma_{\tau} = 14ns$.
 

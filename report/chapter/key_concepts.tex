@@ -168,7 +168,7 @@ DR = MAX_{str} -Sens
 \label{Dynamic_range_def}
 \end{equation}
 \begin{where}
-\va{$DR$}{Dynamic range of the system}{dB}
+\va{$DR$}{is the dynamic range of the system}{dB}
 \va{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
 \va{$Sens$}{is the sensitivity of the receiver}{dBm}
 \end{where}
@@ -183,10 +183,11 @@ Sens = 10log(BW\cdot Te\cdot k\cdot 1000) + NF + SNR_{Req}
 \label{Noise1}
 \end{equation}
 \begin{where}
-\va{$BW$}{is the bandwidth}{Hz}
-\va{$Te$}{The thermal temperature of the system}{Kelvin}
-\va{$NF$}{Noise figure of the receiver}{dB}
-\va{$k$}{Boltzmann's constant}{1}
+\va{Sens}{is the sensitivity of the receiver}{dBm}
+\va{$BW$}{is the bandwidth of the system}{Hz}
+\va{$Te$}{is the equivalent noise temperature of the antenna}{K}
+\va{$NF$}{is the noise figure of the receiver}{dB}
+\va{$k$}{is the Boltzmann's constant}{$\frac{J}{K}$}
 \va{$SNR_{Req}$}{Required SNR}{dB}
 \end{where}
 
@@ -194,18 +195,17 @@ Sens = 10log(BW\cdot Te\cdot k\cdot 1000) + NF + SNR_{Req}
 
 Dynamic Range or else \gls{SINAD} is also very similar to the \gls{SNR}. \gls{SINAD} is a good way to describe the whole dynamic system of \gls{ADC} because it takes into account all the components that make noise and distortion, including the non-linearities. %In other words it takes into account the non-linearities.
 The difference between them can be shown in high frequencies because the \gls{SINAD} gets affected by the distortions and degrades faster than the \gls{SNR}. The reason is that it excludes the first 5 harmonics that are dominant.The clear difference can be shown from the two formulas\citep{SINADandSNR}:
-\begin{equation}
-\text{SINAD} = 20log\left(\frac{s}{w+d}\right)
-\end{equation}
-
-\begin{equation}
-\text{SNR} = 20log\left(\frac{s}{w}\right)
-\end{equation}
+\begin{align}
+\text{SINAD} &= 20log\left(\frac{s}{w+d}\right)\\
+\text{SNR} &= 20log\left(\frac{s}{w}\right) \label{eq:SNR_formula}
+\end{align}
 
 \begin{where}
-\va{$s$}{signal power}{W}
-\va{$w$}{Noise}{W}
-\va{$d$}{Distortion}{W}
+\va{SINAD}{is the signal to noise and distortion ratio}{1}
+\va{SNR}{is the signal to noise ratio}{1}
+\va{$s$}{is the signal power}{W}
+\va{$w$}{is the noise power}{W}
+\va{$d$}{is the distortion power}{W}
 \end{where}
 %where S represents the signal power,N the Noise and D the Distortion.\citep{SINADandSNR}
 
@@ -255,17 +255,14 @@ At low power levels <-70dBm the main non-linearity comes from the \gls{ADC}. Qua
 In the digital signal processing of the \gls{VNA} averaging be applied to reduce the noise.Given the noise is uncorrelated, by averaging the measured(complex) data the noise component will approach zero.That means that our end signal in the output will be with less noise.Every time that our average is getting doubled, the signal to noise ratio is increased by 3dB. The problem is that by averaging the double of every data point the measurement will take twice as long.\citep{KeysightAVG}. The total noise floor is then given by:
 
 \begin{equation}
-W = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{0}\cdot k\cdot 1000) + NF 
+W = log_{2}(AVG_f)\cdot 3dB +10log(IF_{BW}\cdot T_{e}\cdot k\cdot 1000) + NF 
 \label{NFwithAVG}
 \end{equation}
 
 \begin{where}
-\va{$W$}{Noise-floor}{dBm}
-\va{$IF_{BW}$}{intermediate bandwidth}{Hz}
-\va{$Te$}{The thermal temperature of the system}{Kelvin}
-\va{$k$}{Boltzmann's constant}{1}
+\va{$W$}{is the Noise-floor}{dBm}
+\va{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
 \va{$AVG_f$}{is the averaging factor}{1}
-\va{$NF$}{Noise figure}{dB}
 \end{where}
 
 
@@ -278,8 +275,8 @@ T = \frac{1}{IF_{BW}} \cdot \frac{BW_{sweep}}{IF_{BW}}
 \end{equation}
 
 \begin{where}
-\va{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
-\va{$BW_{sweep}$}{total bandwidth you want to measure}{Hz}
+\va{$T$}{is the time a measurement sweep takes}{s}
+\va{$BW_{sweep}$}{is the total bandwidth you want to measure}{Hz}
 \end{where}
 
 
@@ -302,8 +299,7 @@ p = a^2 + 2\sigma^2
 
 \begin{where}
 \va{$a^2$}{is the power in dominant component}{W}
-\va{$\sigma^2$}{is the local-mean scattered
- power}{W}
+\va{$\sigma^2$}{is the local-mean scattered power}{W}
 \va{K}{The K factor}{1}
 \end{where}
 
@@ -322,7 +318,7 @@ Given that we set our confidence interval of $\pm 1$dB around the value of our c
 
 The results show that a margin of 14dB is needed to have accurate reading of the deep fades.
 The $SNR_M$ requirement becomes:
-\begin{equation}
+\begin{equation}\label{needed_SNR}
 SNR_M = 14dB - G_f , 14dB + 50dB = 64dB 
 \end{equation}
 \begin{where}
@@ -340,20 +336,18 @@ To measure the required samples from \autoref{sampleEQ} ($\approx 4.04\cdot10^6$
 %The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
 
 \begin{equation}
-N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{f_{span}}{B_c }}_\text{$N_f$} \cdot \underbrace{\frac{\Delta}{(\frac{\lambda}{2})^2}}_\text{$N_d$}
+N_{tot} = N_a \cdot \underbrace{\frac{f_{span}}{B_c }}_{N_f} \cdot \underbrace{\frac{A}{(\frac{\lambda}{2})^2}}_{N_d}
 \label{howtosample}
 \end{equation} 
  
 \begin{where}
-\va{$N$}{Total samples}{1}
-\va{$N_a$}{parallel antenna samples}{1}
-\va{$N_f$}{samples in frequency}{1}
-\va{$N_d$}{samples in space}{1}
-\va{$A_{div}$}{antenna diversity}{1}
-\va{$\Delta$}{is the area }{$m^2$}
+\va{$N_{tot}$}{is the total samples}{1}
+\va{$N_a$}{is the number of parallel antenna samples}{1}
+\va{$N_f$}{is the number of samples in frequency}{1}
+\va{$N_d$}{is the number of samples in space}{1}
+\va{$A$}{is the area }{$m^2$}
 \va{$B_c$}{is the coherence BW }{Hz}
 \va{$f_{span}$}{ is the frequency span}{Hz}
-\va{$\lambda$}{wavelength}{m}
 \end{where} 
  
 %Where $N$ is number of samples(in antenna diversity,frequency and space), $A_{div}$ is the antenna diversity, $\Delta$ is the area, $B_c$ is the coherence BW and $\lambda$ is the wavelength.
@@ -361,7 +355,7 @@ N = \underbrace{A_{div}}_\text{$N_a$} \cdot \underbrace{\frac{f_{span}}{B_c }}_\
 \autoref{howtosample} can be used to found the area required given number of samples $N$ needed.
 
 \begin{equation}
-\Delta  = \frac{N\cdot (\frac{\lambda}{2})^2}{A_{div}\cdot \frac{BW}{B_c}}
+A  = \frac{N_{tot}\cdot (\frac{\lambda}{2})^2}{N_a\cdot \frac{f_{span}}{B_c}}
 \label{howtosqaure}
 \end{equation}
 

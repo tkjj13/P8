@@ -410,6 +410,7 @@ R_H(f_{d},\Delta f)
 \va{$R_S(f_{d},\tau)$}{is the ACF of the output Doppler scattering function}{1}
 \va{$R_T(\Delta d,\Delta f)$}{is the ACF of the Doppler-delay scattering function}{1}
 \va{$R_H(f_{d},\Delta f)$}{is the ACF of the space variant transfer function}{1}
+\va{$\Delta f$}{is the frequency separation}{Hz}
 \end{where}
 
 
@@ -568,13 +569,13 @@ As the coherence bandwidth is highly dependant on the actual environment in whic
 There are approximations for the $B_C$ for exponential decaying \gls{PDP}s
 \citep{RayFadeHandbook}. They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
 \begin{equation}
-\sigma_{\tau} = \sqrt{\bar{\tau} - {(\bar{\tau}^{2})}}
+\sigma_{\tau} = \sqrt{\bar{\tau} - {\bar{\tau}^{2}}}
 \end{equation}
 
 \begin{where}
-\va{$\bar{\tau}$}{is the mean excess delay of \gls{PDP}}{s}
-\va{$(\bar{\tau}^{2})$}{is 
-the second central moment of \gls{PDP}}{s}
+\va{$\sigma_{\tau}$}{is the RMS excess delay of the \gls{PDP}}{s}
+\va{$\bar{\tau}$}{is the mean excess delay of the \gls{PDP}}{s}
+\va{$\bar{\tau}^{2}$}{is the second central moment of the \gls{PDP}}{s}
 \end{where}
 
 With the $\sigma_{\tau}$ we can find $B_C$ by approximation\citep{gold_wireless}:

@@ -31,7 +31,7 @@ The correlation across the antennas, seen in \autoref{2}, shows that the correla
 The correlation across space, seen in \autoref{3}, shows a high correlation between adjacent samples in the space domain. This high correlation of 0.446 is over the acceptable level of correlation, for the samples to be considered independent. The reason for the high correlation could be, the samples have been taken to close to each other and therefore not been taken with the spacing of $0.4 \lambda$, which is the needed distance to get independent samples, stated in \autoref{SCFchap}, or it could be due to the problems mentioned in \autoref{sec:meas_stationarity}.
 
 
-\subsection{Approximate N Equivalent}
+\subsection{Approximate N Equivalent}\label{approxN}
 
 
 As seen in previous sections, the samples are too correlated in space. As not all samples are independent, there is not enough independent samples to fulfil required number of independent samples, which was calculated in \autoref{sec:Brute}. To find the equivalent number of independent samples, that can be produces from the measurements, the method used is to remove samples from the population strategically to lower the correlation between the samples. As seen from the previous sections the big problem is the correlation in space, which is the only place where the correlation exceeds the maximum wanted correlation. From \autoref{3}, it can be seen that the correlation between two adjacent samples is 0.446 in space. By removing all samples measured at every other spatial point, the correlation between adjacent samples will be removed and the correlation for one lag (0.165) will be nearly equal to the correlation for two lag (0.166), before the removal of half the samples, seen in \autoref{32}. The other good thing about doing this is it also reduces the problem of stationarity slightly as can be seen from \autoref{fig:var_space}.
@@ -51,26 +51,48 @@ The drawback from removal of half of the samples, is that the confidence level/i
 
 \section{Results}
 
-The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times. The CDF is found simply by sorting \textit{data3} with the probability being the index divided with the number of samples as:
+The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method described in \autoref{sec_bootstrap}, which have run 100,000 times. The CDF is found simply by sorting \textit{data3} with the probability being the index divided with the number of samples as:
 
 \begin{align}
-x = sort(data3)\\
-p(x_i) = \frac{i}{N\cdot M\cdot K} 
+\overrightarrow{x} = sort(data3)\\
+p(x_{(i)}) = \frac{i}{N\cdot M\cdot K} 
 \end{align} 
 \begin{where}
-\va{x}{is the 1-dimensional sorted array of \textit{data3}}{•}
+\va{$\overrightarrow{x}$}{is the 1-dimensional sorted array of \textit{data3}}{1}
+\va{$p(\overrightarrow{x_{(i)}})$}{is the CDF of measured data}{1}
 \end{where}
 
 \begin{figure}[H]
+\centering
 \input{figures/Matlab_figures/BS90Meas5_23.tex}
 \caption{CDF of the measurements of the fading channel. The min and max is the 90\% confidence level made with the bootstrap method, run 100,000 times.}
 \label{CDFFinalBS}
 \end{figure}
+\todo{run BS script on new data check numbers afterwards}
 
-From the bootstrap, the confidence interval can be found for the $10^{-5}$ point, which is [-53.59; -51.13]. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in previous section, this is expected and it inside the calculated $\pm 1.33dB$ interval calculated with the half amount of independent samples.
+From the bootstrap, the confidence interval can be found at the $10^{-5}$ probability, which is [-53.59 dB; -51.13 dB] or $(52.36\pm 1.23)$ dB. The interval is bigger than the interval, which was calculated in \autoref{sec:Brute}. But with a lower number of independent samples, shown in \autoref{approxN}, this is expected. The interval lies inside the estimated interval calculated with the half amount of independent samples which was $\pm 1.33$ dB.
 
 
-The results from the measurements of the fading gives a CDF, that compared to Rayleigh fading, seen in \todo{Make figure}, gives a MSE on \todo{find number}. The measurements do not fulfil the desired confidence interval at the desired confidence level, as the correlation in space is to high. An approximation sets the total number of independent samples to be around half the size of the total sample population.
+To validate if the extensions of the Rayleigh model can be used to approximate the fading at very low probability levels the relative error of the measurements compared to the model is plotted in \autoref{fig:rel_error}, the relative error is found as:
+
+\begin{equation}
+err(\overrightarrow{x_{(i)}}) = \frac{p(\overrightarrow{x_{(i)}})-\left(1-\exp(-\overrightarrow{x_{(i)}})\right)}{(1-\exp(-\overrightarrow{x_{(i)}}))}
+\end{equation}
+\begin{where}
+\va{$err$}{is the relative error between measured CDF and Rayleigh CDF}{1}
+\end{where}
+
+\begin{figure}[H]
+\centering
+\input{figures/relative_error.tex}
+\caption{Relative error of measurements compared to Rayleigh fading model.}
+\label{fig:rel_error}
+\end{figure}
+
+By comparing \autoref{fig:rel_error} to \autoref{CDFFinalBS} it can be seen that when the confidence of the measurement decreases the relative error increases. However down to the target probability of $10^{-5}$ the error is only $1.26$ dB. 
+
+
+%The measurements do not fulfil the desired confidence interval at the desired confidence level, as the correlation in space is to high. An approximation sets the total number of independent samples to be around half the size of the total sample population.
 
 
 
