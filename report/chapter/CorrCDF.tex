@@ -51,7 +51,15 @@ The drawback from removal of half of the samples, is that the confidence level/i
 
 \section{Results}
 
-The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times.
+The CDF made from the measurements of the fading is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level interval is shown, made with the bootstrap method, which have run 100,000 times. The CDF is found simply by sorting \textit{data3} with the probability being the index divided with the number of samples as:
+
+\begin{align}
+x = sort(data3)\\
+p(x_i) = \frac{i}{N\cdot M\cdot K} 
+\end{align} 
+\begin{where}
+\va{x}{is the 1-dimensional sorted array of \textit{data3}}{•}
+\end{where}
 
 \begin{figure}[H]
 \input{figures/Matlab_figures/BS90Meas5_23.tex}

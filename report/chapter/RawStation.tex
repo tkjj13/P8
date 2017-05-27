@@ -22,8 +22,15 @@ To see if the channel is stationary is to check if the measurements conform to t
 The data is structured in 3 domains freq x antenna x walk/space, with N, M and K being the number of points in each dimension. To analyse stationarity in frequency an average is taken across the other two domains as:
 
 \begin{equation}\label{eq:freqMean}
-freqData_{(n)} = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} data_{(n,m,k)}
+\overrightarrow{freqData}_{(n)} = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} \textbf{data}_{(n,m,k)}
 \end{equation}
+\begin{where}
+\va{$\overrightarrow{freqData}$}{is the mean value for the different frequencies}{1}
+\va{$K$}{is the number of elements in the antenna dimension, 3}{1}
+\va{$M$}{is the number of spatial points measured, 34020}{1}
+\va{$\textbf{data}$}{is the measured data as ratio of input to output}{1}
+\end{where}
+
 
 \begin{figure}[H]
 \centering
@@ -36,16 +43,25 @@ freqData_{(n)} = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} data_{(n,m,k
 It can be seen that there is a drop of around 4 dB across the frequency, this drop can be explained by 2 factors first the antenna gain varies with around 2 dB across the frequency span \appref{ant_adix}, the other part is the \gls{PL} is dependent on frequency, by comparing PL of a free space path loss model, it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. Those two factors together can explain the drop in mean power across the span. As this can be explained the data is adjusted as:
 
 \begin{equation}
-data2_{(:,:,k)} =  data_{(:,:,k)} \oslash \left(freqData\cdot ones(1,M)\right), \quad k = (1,2,...,K)
+\textbf{data2}_{(:,:,k)} =  \textbf{data}_{(:,:,k)} \oslash \left(\overrightarrow{freqData}\cdot \overrightarrow{ones(1,M)}\right), \quad k = (1,2,...,K)
 \end{equation}
+\begin{where}
+\va{$\textbf{data2}$}{is the data normalized with regards to frequency imbalance}{1}
+\va{$\overrightarrow{ones(1,M)}$}{is a vector of ones with dimension 1xM}{1}
+\end{where}
 
 \textbf{Spatial domain mean}
 
 Likewise as the frequency domain the average is taken across the other domains, here it is assumed that the antennas even though spaced is a separate and stationary domain due to their closeness. The average is found based on the frequency corrected data as:
 
 \begin{equation}\label{eq:spaceMean}
-spaceData_{(k)} = \frac{1}{N\cdot M}\sum_{n = 1}^{N}\sum_{m = 1}^{M} data2_{(n,m,k)}
+\overrightarrow{spaceData}_{(k)} = \frac{1}{N\cdot M}\sum_{n = 1}^{N}\sum_{m = 1}^{M} \textbf{data2}_{(n,m,k)}
 \end{equation}
+\begin{where}
+\va{$\overrightarrow{spaceData}$}{is the mean value for the different spatial samples}{1}
+\va{$N$}{is the number of frequency points measured, 41}{1}
+\end{where}
+
 
 To visualize the data is restructured such that it matches the area it has been taken in see \autoref{Environment}. The data was collected by walking forth and back in the room with approx. 42 sweeps per meter or 210 sweeps per stretch. As every second stretch was walking back it has to be reversed to visualize the samples side by side. 
 
@@ -80,9 +96,14 @@ To visualize the data is restructured such that it matches the area it has been 
 It can be seen from \autoref{fig:Not_norm_space} that the power level in the middle of the room is stronger than on the borders. The reason for this is believed to be the directionality of the transmit antenna. The transmit antenna was located outside and shooting in to the room as can be seen on \autoref{antennadoor}, so the main lobe might have been reflected from the wall directly to the middle of the measurement area. Because of this the area can not be said to be stationary so to combat this a moving average is used to normalize the mean power level across the area. The drawback of using a moving average is that it might affect the fading in the measurement, therefore as many point as possible should be in the average to make the influence as little as possible, however if too many points is in the average the stationarity issue would not be solved. It is chosen to average across 41 space samples.
 
 \begin{align}
-&MA = \frac{1}{41}\cdot \Big(spaceData*ones(41,1)\Big) \\
-data3_{(:,:,k)} = data2_{(:,:,k)} &\oslash \left(MA_{\left(\frac{41-1}{2}:N+\frac{41-1}{2}\right)}\cdot ones(1,M)\right), \quad k = (1,2,...,K)
+&\overrightarrow{MA} = \frac{1}{41}\cdot \Big(\overrightarrow{spaceData}*\overrightarrow{ones(1,41)}\Big) \\
+\textbf{data3}_{(:,:,k)} = \textbf{data2}_{(:,:,k)} &\oslash \left(\overrightarrow{MA}_{\left(\frac{41-1}{2}:N+\frac{41-1}{2}\right)}\cdot \overrightarrow{ones(1,M)}\right), \quad k = (1,2,...,K)
 \end{align}
+\begin{where}
+\va{$\overrightarrow{MA}$}{is the moving average of the spatial samples}{1}
+\va{$\textbf{data3}$}{is the normalize data in frequency and space}{1}
+\end{where}
+
 
 The result of the normalization can be seen on \autoref{fig:Norm_space}.
 
@@ -118,35 +139,35 @@ It can be concluded based on this that the mean was not constant during the meas
 
 It needs to be checked if:
 \begin{equation}\label{eq:autocovariance_check}
-R(n,n+\Delta n) = R(\Delta n) 
+R_f(n,n+\Delta n) = R_f(\Delta n) 
 \end{equation}
 
 First the the sample mean and sample variance is found for each point in space as:
 
 \begin{align}
-\mu_{(m,k)} &= \frac{1}{N}\sum_{n = 1}^{N} data3_{(n,m,k)} \\
-s_{f,(m,k)}^2 &= \frac{1}{N-1}\sum_{n = 1}^{N} \left( data3_{(n,m,k)} - \mu_{(m,k)} \right)^2 
+\mathbf{\mu}_{f,(m,k)} &= \frac{1}{N}\sum_{n = 1}^{N} \textbf{data3}_{(n,m,k)} \\
+\textbf{s}_{f,(m,k)}^2 &= \frac{1}{N-1}\sum_{n = 1}^{N} \left( \textbf{data3}_{(n,m,k)} - \mathbf{\mu}_{f,(m,k)} \right)^2 
 \end{align}
 
 Each element in space the cross covariance matrix is found as the sample covariance divided with the sample variance:
 \begin{equation}
-C(n,n+\Delta n,m,k) = \frac{\left(data3_{(n,m,k)}-\mu_{(m,k)}\right)\cdot \left(data3_{(n+\Delta n,m,k)}-\mu_{(m,k)}\right)}{s_{f,(m,k)}^2}
+C_f(n,n+\Delta n,m,k) = \frac{\left(\textbf{data3}_{(n,m,k)}-\mu_{f,(m,k)}\right)\cdot \left(\textbf{data3}_{(n+\Delta n,m,k)}-\mu_{f,(m,k)}\right)}{\textbf{s}_{f,(m,k)}^2}
 \end{equation}
 
 The average across all space samples are then found as:
 \begin{equation}
-R(n,n+\Delta n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} C(n,n+\Delta n,m,k)
+R_f(n,n+\Delta n) = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} C_f(n,n+\Delta n,m,k)
 \end{equation}
 
 
 The final step is to show that \autoref{eq:autocovariance_check} is true. If this is true all diagonal lines in R would have a constant value, that implies that the variance across the diagonal line elements is 0. 
 
 \begin{align}
-&\mu_{R(\Delta n)} = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R(n,n+\Delta n) \label{EQcor}\\
-s_{\Delta n}^2 = &\frac{1}{N-|\Delta n|-1}\sum_{n = 1}^{N-|\Delta n|} \left( R(n,n+\Delta n) - \mu_{R(\Delta n)} \right)^2 \label{eq:variance_of_covariance}
+&\mu_{R_f}(\Delta n) = \frac{1}{N-|\Delta n|}\sum_{n = 1}^{N-|\Delta n|} R_f(n,n+\Delta n) \label{EQcor}\\
+s_{R_f}^2(\Delta n) = &\frac{1}{N-|\Delta n|-1}\sum_{n = 1}^{N-|\Delta n|} \left( R_f(n,n+\Delta n) - \mu_{R_f}(\Delta n) \right)^2 \label{eq:variance_of_covariance}
 \end{align}
 
-The result of \autoref{eq:variance_of_covariance} can be seen in \autoref{fig:var_freq}, as $R(n,n+\Delta n)$ is an even function only the positive values of $\Delta n$ is shown.
+The result of \autoref{eq:variance_of_covariance} can be seen in \autoref{fig:var_freq}, as $R_f(n,n+\Delta n)$ is an even function only the positive values of $\Delta n$ is shown.
 
 \begin{figure}[H]
 \centering
