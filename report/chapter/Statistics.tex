@@ -3,10 +3,10 @@
 \section{Brute Force Estimation}
 \label{sec:Brute}
 
-First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
+An estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
 
 \begin{equation}\label{eq:numSamples}
-\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N_{tot}}}}{\hat{\gamma}} < marg
+\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N_{tot}}}}{\hat{\gamma}} < \text{marg}
 \end{equation} 
 \begin{where}
 \va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
@@ -15,7 +15,7 @@ First an estimate for the number of samples needed to achieve different confiden
 \va{marg}{is the margin around $\hat{\gamma}$}{1}
 \end{where}
 
-From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to 1E-5. With that estimations of the number of samples needed to uphold different confidence level and intervals can be found as seen in \autoref{tab:numSample}. 
+From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to 1E-5. With that estimations of the number of samples needed to uphold different confidence levels and intervals can be found as seen in \autoref{tab:numSample}. 
 
 \begin{table}[H]
 \centering
@@ -34,7 +34,7 @@ From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to 1E-5.
 
 \newpage
 \subsection{Statistics method for rare events}\label{sampleEQ}
-As seen in \autoref{tab:numSample}, there is a need of a high number of samples, to get a high confidence interval. The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
+As seen in \autoref{tab:numSample}, a low confidence interval requires a substantial amount of independent samples, . The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
 
 For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, an example is given in \autoref{IMD}. There is also introduced a weighting factor, which is defined from the change in the distribution, see \autoref{IMW}. 
 
