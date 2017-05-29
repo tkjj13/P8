@@ -6,16 +6,16 @@
 First an estimate for the number of samples needed to achieve different confidence level and intervals is investigated. The number of samples needed is found using the normal approximation of the Binomial proportion \citep{SampleNumURC}. 
 
 \begin{equation}\label{eq:numSamples}
-\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N_{tot}}}}{\hat{\gamma}} < m
+\frac{z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\gamma}\left(1-\hat{\gamma}\right)}{N_{tot}}}}{\hat{\gamma}} < marg
 \end{equation} 
 \begin{where}
 \va{$z_{\frac{\alpha}{2}}$}{is the $100(1-\frac{\alpha}{2})$-th percentile of the standard normal distribution}{1}
 \va{$\hat{\gamma}$}{is the estimated probability}{1}
 \va{$N_{tot}$}{is the total number of samples needed}{1}
-\va{m}{is the margin around $\hat{\gamma}$}{1}
+\va{marg}{is the margin around $\hat{\gamma}$}{1}
 \end{where}
 
-From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to $10^{-5}$. With that estimations of the number of samples needed to uphold different confidence level and intervals can be found as seen in \autoref{tab:numSample}. 
+From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to 1E-5. With that estimations of the number of samples needed to uphold different confidence level and intervals can be found as seen in \autoref{tab:numSample}. 
 
 \begin{table}[H]
 \centering

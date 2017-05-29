@@ -2,9 +2,9 @@
 
  \nomgroup{A}
 
-  \item [{$\bar {\tau }$}]\begingroup \DimensUnits {is the mean excess delay of the \gls {PDP}}{s}\nomeqref {0}
+  \item [{$\bar {\tau }$}]\begingroup \DimensUnits {is the mean excess delay of the power delay profile}{s}\nomeqref {0}
 		\nompageref{i}
-  \item [{$\bar {\tau }^{2}$}]\begingroup \DimensUnits {is the second central moment of the \gls {PDP}}{s}\nomeqref {0}
+  \item [{$\bar {\tau }^{2}$}]\begingroup \DimensUnits {is the second central moment of the power delay profile}{s}\nomeqref {0}
 		\nompageref{i}
   \item [{$\Delta d$}]\begingroup \DimensUnits {is a change in position}{m}\nomeqref {0}
 		\nompageref{i}
@@ -40,11 +40,9 @@
 		\nompageref{i}
   \item [{$\sigma ^2$}]\begingroup \DimensUnits {is the local-mean scattered power}{W}\nomeqref {0}
 		\nompageref{i}
-  \item [{$\sigma _{\tau }$}]\begingroup \DimensUnits {is the RMS excess delay of the \gls {PDP}}{s}\nomeqref {0}
+  \item [{$\sigma _{\tau }$}]\begingroup \DimensUnits {is the RMS excess delay of the power delay profile}{s}\nomeqref {0}
 		\nompageref{i}
   \item [{$\tau $}]\begingroup \DimensUnits {is a time delay}{s}\nomeqref {0}
-		\nompageref{i}
-  \item [{$\tau $}]\begingroup \DimensUnits {is delay from t}{s}\nomeqref {0}
 		\nompageref{i}
   \item [{$\textbf {data2}$}]\begingroup \DimensUnits {is the data normalized with regards to frequency imbalance}{1}\nomeqref {0}
 		\nompageref{i}
@@ -56,7 +54,7 @@
 		\nompageref{i}
   \item [{$A$}]\begingroup \DimensUnits {is the area }{$m^2$}\nomeqref {0}
 		\nompageref{i}
-  \item [{$a$}]\begingroup \DimensUnits {is the slope of the PDP, a < 0}{1/s}\nomeqref {0}
+  \item [{$a$}]\begingroup \DimensUnits {is the slope of the power delay profile, $a < 0$}{1/s}\nomeqref {0}
 		\nompageref{i}
   \item [{$a^2$}]\begingroup \DimensUnits {is the power in dominant component}{W}\nomeqref {0}
 		\nompageref{i}
@@ -66,11 +64,9 @@
 		\nompageref{i}
   \item [{$AVG_f$}]\begingroup \DimensUnits {is the averaging factor}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$B_c$}]\begingroup \DimensUnits {is the coherence BW }{Hz}\nomeqref {0}
+  \item [{$B_c$}]\begingroup \DimensUnits {is the coherence bandwidth }{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$BW$}]\begingroup \DimensUnits {is the bandwidth of the system}{Hz}\nomeqref {0}
-		\nompageref{i}
-  \item [{$BW_{sweep}$}]\begingroup \DimensUnits {is the total bandwidth you want to measure}{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$C(t)$}]\begingroup \DimensUnits {is the impulse response of a Rayleigh fading channel}{1}\nomeqref {0}
 		\nompageref{i}
@@ -80,19 +76,17 @@
 		\nompageref{i}
   \item [{$d$}]\begingroup \DimensUnits {is distance}{m}\nomeqref {0}
 		\nompageref{i}
-  \item [{$d$}]\begingroup \DimensUnits {is the distortion power}{W}\nomeqref {0}
-		\nompageref{i}
   \item [{$D_t$}]\begingroup \DimensUnits {is the directivity of the transmitter antenna}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$DR$}]\begingroup \DimensUnits {is the dynamic range of the system}{dB}\nomeqref {0}
 		\nompageref{i}
-  \item [{$err$}]\begingroup \DimensUnits {is the relative error between measured CDF and Rayleigh CDF}{1}\nomeqref {0}
+  \item [{$err$}]\begingroup \DimensUnits {is the relative error between measured cumulative distribution function and Rayleigh cumulative distribution function}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$f$}]\begingroup \DimensUnits {is frequency in Mega Hertz}{MHz}\nomeqref {0}
+  \item [{$f_c$}]\begingroup \DimensUnits {is the center frequency}{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$f_d$}]\begingroup \DimensUnits {is the maximum Doppler bandwidth}{Hz}\nomeqref {0}
 		\nompageref{i}
-  \item [{$f_{LO}$}]\begingroup \DimensUnits {is the frequency of the LO}{Hz}\nomeqref {0}
+  \item [{$f_{LO}$}]\begingroup \DimensUnits {is the frequency of the local oscillator}{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$f_{span}$}]\begingroup \DimensUnits { is the frequency span}{Hz}\nomeqref {0}
 		\nompageref{i}
@@ -106,7 +100,9 @@
 		\nompageref{i}
   \item [{$g_t(t)$}]\begingroup \DimensUnits {is the time representation of the channels temporal domain}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$G_{LNA}\left (x_P(t)\right )$}]\begingroup \DimensUnits {is the gain of the LNA dependent on the input power}{1}\nomeqref {0}
+  \item [{$G_{LNA}\left (x_P(t)\right )$}]\begingroup \DimensUnits {is the gain of the low noise amplifier dependent on the input power}{1}\nomeqref {0}
+		\nompageref{i}
+  \item [{$G_{TX}$}]\begingroup \DimensUnits {is the gain of the TX antenna}{dBi}\nomeqref {0}
 		\nompageref{i}
   \item [{$h(d,t)$}]\begingroup \DimensUnits {is the space variant impulse response function}{1}\nomeqref {0}
 		\nompageref{i}
@@ -114,17 +110,19 @@
 		\nompageref{i}
   \item [{$H_{BP}(t)$}]\begingroup \DimensUnits {is the impulse response of the BP filter}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$H_{LP}(t)$}]\begingroup \DimensUnits {is the impulse response of the LP filter}{1}\nomeqref {0}
+  \item [{$H_{LP}(t)$}]\begingroup \DimensUnits {is the impulse response of the low pass filter}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$IF_{BW}$}]\begingroup \DimensUnits {intermediate frequency bandwidth}{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$K$}]\begingroup \DimensUnits {is the number of elements in the antenna dimension, 3}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$k$}]\begingroup \DimensUnits {is the Boltzmann's constant}{$\frac {J}{K}$}\nomeqref {0}
+  \item [{$k_b$}]\begingroup \DimensUnits {is the Boltzmann's constant}{$\frac {J}{K}$}\nomeqref {0}
+		\nompageref{i}
+  \item [{$K_r$}]\begingroup \DimensUnits {is the K factor}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$L$}]\begingroup \DimensUnits {is path loss}{dB}\nomeqref {0}
 		\nompageref{i}
-  \item [{$L$}]\begingroup \DimensUnits {is the expected path loss}{dB}\nomeqref {0}
+  \item [{$L_C$}]\begingroup \DimensUnits {is the cable loss}{dB}\nomeqref {0}
 		\nompageref{i}
   \item [{$M$}]\begingroup \DimensUnits {is the number of spatial points measured, 34020}{1}\nomeqref {0}
 		\nompageref{i}
@@ -132,21 +130,23 @@
 		\nompageref{i}
   \item [{$N$}]\begingroup \DimensUnits {is the number of frequency points measured, 41}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$N$}]\begingroup \DimensUnits {is the number of reflective paths}{1}\nomeqref {0}
-		\nompageref{i}
   \item [{$N_a$}]\begingroup \DimensUnits {is the number of parallel antenna samples}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$N_d$}]\begingroup \DimensUnits {is the number of samples in space}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$N_f$}]\begingroup \DimensUnits {is the number of samples in frequency}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$N_{tot}$}]\begingroup \DimensUnits {is the total number of samples needed}{1}\nomeqref {0}
+  \item [{$N_{ref}$}]\begingroup \DimensUnits {is the number of reflective paths}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$N_{tot}$}]\begingroup \DimensUnits {is the total samples}{1}\nomeqref {0}
+  \item [{$N_{tot}$}]\begingroup \DimensUnits {is the total number of samples}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$NF$}]\begingroup \DimensUnits {is the noise figure of the receiver}{dB}\nomeqref {0}
 		\nompageref{i}
-  \item [{$p(\overrightarrow {x_{(i)}})$}]\begingroup \DimensUnits {is the CDF of measured data}{1}\nomeqref {0}
+  \item [{$p$}]\begingroup \DimensUnits {is the power of the Rician variable}{W}\nomeqref {0}
+		\nompageref{i}
+  \item [{$p(\overrightarrow {x_{(i)}})$}]\begingroup \DimensUnits {is the cumulative distribution function of measured data}{1}\nomeqref {0}
+		\nompageref{i}
+  \item [{$p_d$}]\begingroup \DimensUnits {is the distortion power}{W}\nomeqref {0}
 		\nompageref{i}
   \item [{$P_f(n)$}]\begingroup \DimensUnits {is the floor penetration factor with nth floors}{dB}\nomeqref {0}
 		\nompageref{i}
@@ -154,7 +154,7 @@
 		\nompageref{i}
   \item [{$P_t(t)$}]\begingroup \DimensUnits {is the transmitted signal at the transmit antenna}{W}\nomeqref {0}
 		\nompageref{i}
-  \item [{$P_{RX}$}]\begingroup \DimensUnits {is the Received power}{dBm}\nomeqref {0}
+  \item [{$P_{RX}$}]\begingroup \DimensUnits {is the received power}{dBm}\nomeqref {0}
 		\nompageref{i}
   \item [{$Q$}]\begingroup \DimensUnits {is the distance power loss coefficient\citep {ITU_indoor}}{1}\nomeqref {0}
 		\nompageref{i}
@@ -162,15 +162,15 @@
 		\nompageref{i}
   \item [{$R_f$}]\begingroup \DimensUnits {is the autocorrelation of the frequency samples}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$R_h(\Delta d,\tau )$}]\begingroup \DimensUnits {is the ACF of the space variant impulse response function}{1}\nomeqref {0}
+  \item [{$R_h(\Delta d,\tau )$}]\begingroup \DimensUnits {is the autocorrelation function of the space variant impulse response function}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$R_H(f_{d},\Delta f)$}]\begingroup \DimensUnits {is the ACF of the space variant transfer function}{1}\nomeqref {0}
+  \item [{$R_H(f_{d},\Delta f)$}]\begingroup \DimensUnits {is the autocorrelation function of the space variant transfer function}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$R_S(f_{d},\tau )$}]\begingroup \DimensUnits {is the ACF of the output Doppler scattering function}{1}\nomeqref {0}
+  \item [{$R_S(f_{d},\tau )$}]\begingroup \DimensUnits {is the autocorrelation function of the output Doppler scattering function}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$R_T(\Delta d,\Delta f)$}]\begingroup \DimensUnits {is the ACF of the Doppler-delay scattering function}{1}\nomeqref {0}
+  \item [{$R_T(\Delta d,\Delta f)$}]\begingroup \DimensUnits {is the autocorrelation function of the Doppler-delay scattering function}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$R_{h}$}]\begingroup \DimensUnits {is the \gls {ACF} of $h(d,t)$}{1}\nomeqref {0}
+  \item [{$R_{h}$}]\begingroup \DimensUnits {is the autocorrelation function of $h(d,t)$}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$s$}]\begingroup \DimensUnits {is the signal power}{W}\nomeqref {0}
 		\nompageref{i}
@@ -180,9 +180,9 @@
 		\nompageref{i}
   \item [{$Sens$}]\begingroup \DimensUnits {is the sensitivity of the receiver}{dBm}\nomeqref {0}
 		\nompageref{i}
-  \item [{$SNR_m$}]\begingroup \DimensUnits {is the SNR margin }{dB}\nomeqref {0}
+  \item [{$SNR_m$}]\begingroup \DimensUnits {is the signal to noise ratio margin }{dB}\nomeqref {0}
 		\nompageref{i}
-  \item [{$SNR_{Req}$}]\begingroup \DimensUnits {Required SNR}{dB}\nomeqref {0}
+  \item [{$SNR_{Req}$}]\begingroup \DimensUnits {is the required signal to noise}{dB}\nomeqref {0}
 		\nompageref{i}
   \item [{$T$}]\begingroup \DimensUnits {is the time a measurement sweep takes}{s}\nomeqref {0}
 		\nompageref{i}
@@ -190,11 +190,13 @@
 		\nompageref{i}
   \item [{$T(d,f)$}]\begingroup \DimensUnits {is the Doppler-delay scattering function}{1}\nomeqref {0}
 		\nompageref{i}
+  \item [{$T_{sweep}$}]\begingroup \DimensUnits {is the time it take to measure all points within the span}{s}\nomeqref {0}
+		\nompageref{i}
   \item [{$Te$}]\begingroup \DimensUnits {is the equivalent noise temperature of the antenna}{K}\nomeqref {0}
 		\nompageref{i}
   \item [{$v$}]\begingroup \DimensUnits {is the relative velocity of the receiver compared to the transmitter}{$\frac {m}{s}$}\nomeqref {0}
 		\nompageref{i}
-  \item [{$W$}]\begingroup \DimensUnits {is the Noise-floor}{dBm}\nomeqref {0}
+  \item [{$W$}]\begingroup \DimensUnits {is the noise floor}{dBm}\nomeqref {0}
 		\nompageref{i}
   \item [{$w$}]\begingroup \DimensUnits {is the noise power}{W}\nomeqref {0}
 		\nompageref{i}
@@ -204,19 +206,15 @@
 		\nompageref{i}
   \item [{$x_{BP}(t)$}]\begingroup \DimensUnits {is the signal outputted from the BP filter}{W}\nomeqref {0}
 		\nompageref{i}
-  \item [{$x_{LNA}(t)$}]\begingroup \DimensUnits {is the outputed signal from the LNA}{W}\nomeqref {0}
+  \item [{$x_{LNA}(t)$}]\begingroup \DimensUnits {is the output signal from the low noise amplifier}{W}\nomeqref {0}
 		\nompageref{i}
-  \item [{$x_{LP}(t)$}]\begingroup \DimensUnits {is the outputted from the LP filter}{W}\nomeqref {0}
+  \item [{$x_{LP}(t)$}]\begingroup \DimensUnits {is the outputted from the low pass filter}{W}\nomeqref {0}
 		\nompageref{i}
   \item [{$x_{Mixer}(t)$}]\begingroup \DimensUnits {is the output from the mixer}{W}\nomeqref {0}
 		\nompageref{i}
   \item [{$z_{\frac {\alpha }{2}}$}]\begingroup \DimensUnits {is the $100(1-\frac {\alpha }{2})$-th percentile of the standard normal distribution}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{K}]\begingroup \DimensUnits {The K factor}{1}\nomeqref {0}
-		\nompageref{i}
-  \item [{m}]\begingroup \DimensUnits {is the margin around $\hat {\gamma }$}{1}\nomeqref {0}
-		\nompageref{i}
-  \item [{Sens}]\begingroup \DimensUnits {is the sensitivity of the receiver}{dBm}\nomeqref {0}
+  \item [{marg}]\begingroup \DimensUnits {is the margin around $\hat {\gamma }$}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{SINAD}]\begingroup \DimensUnits {is the signal to noise and distortion ratio}{1}\nomeqref {0}
 		\nompageref{i}

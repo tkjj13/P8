@@ -207,14 +207,14 @@ To get the maximum gain from diversity uncorrelated signals are required. While 
 
 \section{ITU model for indoor attenuation}
 \label{ITU_model}
-For the large scale fading the path loss seen in the wireless channels has to be taken into account. The ITU model gives us the the large scale path loss seen in indoor environments. The formula is as follows:
+For the large scale fading the path loss seen in the wireless channels has to be taken into account. The \gls{ITU} model gives us the the large scale path loss seen in indoor environments. The formula is as follows:
 \begin{equation}
-L = 20log (f) + Q log (d) + P_f(n) - 28
+L = 20log (\frac{f_c}{10^6}) + Q log (d) + P_f(n) - 28
 \end{equation}
 
 \begin{where}
 \va{$L$}{is path loss}{dB}
-\va{$f$}{is frequency in Mega Hertz}{MHz}
+\va{$f_C$}{is center frequency}{Hz}
 \va{$d$}{is distance}{m}
 \va{$Q$}{is the distance power loss coefficient\citep{ITU_indoor}}{1}
 \va{$P_f(n)$}{is the floor penetration factor with nth floors}{dB}
@@ -233,14 +233,14 @@ The values for Q is given in \citep{ITU_indoor} at 5 GHz the value is 28 for a o
 
 Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. In \autoref{eq:reyl_impulse_response} the impulse response of a Rayleigh fading channel can be seen \citep{MeasurementComplexRay}.
 \begin{equation}\label{eq:reyl_impulse_response}
-c(t;\tau) = \sum_{n =0}^{N} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
+c(t;\tau) = \sum_{n =0}^{N_{ref}} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
 \end{equation}
 
 \begin{where}
 \va{$c(t;\tau)$}{is the impulse response of a fading channel}{1}
 \va{$t$}{is absolute time}{s}
 \va{$\tau$}{is delay from t}{s}
-\va{$N$}{is the number of reflective paths}{1}
+\va{$N_{ref}$}{is the number of reflective paths}{1}
 \va{$a_n$}{is the attenuation of the path}{1}
 \va{$\Phi_n$}{is the phase change of the path}{rad}
 \end{where}
@@ -552,7 +552,7 @@ Assuming an exponentially decaying PDP the ACF of the fading gain can be express
 R_T(\Delta f) = \left|-\frac{1}{i\Delta f+a}\right|^2
 \end{equation}
 \begin{where}
-\va{$a$}{is the slope of the PDP, a < 0}{1/s}
+\va{$a$}{is the slope of the PDP, $a < 0$}{1/s}
 \end{where}
 
 A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen the larger the delay spread the smaller the coherence bandwidth needs to be. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated \citep[Chapter 18.5]{ComHandbook}.
