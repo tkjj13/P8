@@ -1,26 +1,27 @@
-\chapter{Measurement of PDP}
-To find the delay spread and ultimately the coherence bandwidth a \gls{PDP} measurement is necessary. 
+\chapter{Measurement of Coherence bandwidth}
+To find the coherence bandwidth a delay spread is obtained from a measurement of the \gls{PDP}.
+ 
 \section{Setup}
-The PNA is preforming a frequency sweep and using an inverse transformation to convert from the frequency to the time domain.
-The PDP profile is measured at 20 different positions in the measuring area in \autoref{meas_area} and averaged over. 
+The NA is preforming a frequency sweep and using an transformation to convert from the frequency to the time domain.
+The PDP is measured at 20 different positions in the measuring area seen in \autoref{meas_area} and averaged over. 
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Name}					& \textbf{Symbol} & \textbf{Value} 	& \textbf{Reference} 		\\ \hline
-Center Frequency                & $f_c$       	& 5Ghz              & \autoref{equipment}		\\ \hline
-Span 							& $f_{Span}$ 	& 1GHz 				& \autoref{sec:setup_parameter} \\ \hline
-Average SNR	                   	& SNR          	& 67dB            	& appendix  \ref{app:SNR} 	\\ \hline
+Center Frequency                & $f_c$       	& 5 Ghz              & \autoref{equipment}		\\ \hline
+Span 							& $f_{Span}$ 	& 1 GHz 				& \autoref{sec:setup_parameter} \\ \hline
+Average SNR	                   	& SNR          	& 67 dB            	& \appref{app:SNR} 			\\ \hline
 Antenna diversity               & $N_a$   		& 1x3    			& \autoref{equipment} 		\\ \hline
-Intermediate frequency bandwidth & $IF_{BW}$    & 500Hz   			& \autoref{sec:setup_parameter} \\ \hline
-Cable loss 						& $L_{C}$     	& 7dB         		& \autoref{equipment} 		\\ \hline
-Number of points per sweep 		& $N_{sweep}$ 	& 801				& \autoref{sec:coherence_bandwidth} \\ \hline
-Transmit power 					& $P_{TX}$ 		& 17dBm				& \autoref{equipment} 		\\ \hline
-Antenna Gain 					& $G_{TX}$ 		& 12dBi 			& \autoref{equipment} \\ \hline
-Sweep time 						& $T_{sweep}$ 	& 1448msec			& \autoref{sec:setup_parameter} \\ \hline
+Intermediate frequency bandwidth & $IF_{BW}$    & 500 Hz   			& \autoref{sec:setup_parameter} \\ \hline
+Cable loss 						& $L_{C}$     	& 7 dB         		& \autoref{equipment} 		\\ \hline
+Number of points per sweep 		& $N$ 			& 801				& \appref{app:SNR} 			\\ \hline
+Transmit power 					& $P_{TX}$ 		& 17 dBm				& \autoref{equipment} 		\\ \hline
+Antenna Gain 					& $G_{TX}$ 		& 12 dBi 			& \autoref{equipment} \\ \hline
+Sweep time 						& $T_{sweep}$ 	& 1448 ms			& \autoref{sec:setup_parameter} \\ \hline
 \end{tabular}
-\caption{VNA settings during PDP measurements}
+\caption{NA settings during PDP measurements}
 \label{pdp_specs}
 \end{table}
 
@@ -50,19 +51,18 @@ The PDP shows a exponential decay, meaning the coherence bandwidth can be estima
 
 $B_C$ can be found from $\sigma_{\tau}$, by using the approximation method:
 \begin{equation}
-B_C = \frac{1}{14ns} = 71.43 MHz 
+B_C \geq \frac{1}{14ns} = 71.43 MHz 
 \end{equation}
-This $B_C$ would give a number of sweep points $N_{sweep} = 14$ and would decrease our  frequency samples drastically compared to the estimations in \autoref{TIME_EST}.
+This $B_C$ would give a number of sweep points to 14 and would decrease the frequency samples drastically compared to the estimations in \autoref{TIME_EST}.
 
-Because the $B_C$ is higher than expected a 
-an extra test was done. This measurement was done with $B_C = 5MHz$ and making an \gls{ACF} of the values:
+Because the $B_C$ is higher than expected an extra test was performed. This measurement was done with a frequency separation of 5 MHz, using the \gls{ACF} to determine the frequency correlation:
 
 \begin{figure}[H]
 \centering
 \input{figures/coherence_test.tex}
-\caption{$B_C = 5MHz$ \gls{ACF}} 
+\caption{\Gls{ACF} for measurement with a frequency separation of 5 MHz.} 
 \label{fig:coh_test}
 \end{figure}
 
-Here the \gls{ACF} show a correlation of <0.3 with a $B_C = 25MHz$ or the fifth stem. This value is closer to the estimated $B_C$ and increasing it has little effect on the correlation coefficient because it flattens out. A $B_C = 25MHz$ gives a $N_{sweep} = 40$ and is more desirable than what the approximation method gave.
+Here the \gls{ACF} show a correlation of <0.3 with a $B_C$ = 25 MHz or the fifth stem. This value is closer to the estimated $B_C$ and increasing it has little effect on the correlation coefficient because it flattens out. A $B_C$ = 25MHz gives a $N = 40$ and is more desirable than what the approximation method gave.
 

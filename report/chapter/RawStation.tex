@@ -1,25 +1,25 @@
 \section{Data Processing}
 
-Before concluding anything from the data, it is first analysed to check if the made assumptions are valid. The assumptions include a stationary channel, uncorrelated samples and finally that the data is Rayleigh distributed.
+Before concluding anything from the data, they are first analysed to check if the assumptions made are valid. The assumptions include a stationary channel, uncorrelated samples and finally that the data is Rayleigh distributed.
 
 \subsection{Raw data}
 
-In total 4,184,460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}. Here all the space samples has been concatenated to visualize the data.
+In total 4,184,460 samples have been collected, the values are represented in \autoref{fig:rawFadingMeas}. All the space samples has been concatenated to visualize the data.
 
 \begin{figure}[H]
 \centering
 \includegraphics[height = \textwidth, angle = -90]{figures/rawFadingMeas.pdf}
-\caption{The measured samples spaced in frequency and space.}
+\caption{The measured samples separated in frequency and space.}
 \label{fig:rawFadingMeas}
 \end{figure}
 
 
 \subsection{Stationarity}\label{sec:meas_stationarity}
-To see if the channel is stationary is to check if the measurements conform to the criteria of \gls{WSSUS}. This is done by checking \gls{WSS} in the frequency domain} and \gls{US} in the spatial domain. The criteria for this is a constant mean and a autocorrelation that is only dependent on delay between samples \citep[ch. 5]{The_Mobile_Radio_Propagation_Channelbook}. 
+The stationarity of channel is verified by checking if the measurements conform to the criteria of \gls{WSSUS}. This is done by checking \gls{WSS} in the temporal domain and \gls{US} in the spatial domain. The criteria for this is a constant mean and a autocorrelation that is only dependent on delay between samples \citep[ch. 5]{The_Mobile_Radio_Propagation_Channelbook}. 
 
-\textbf{Frequency domain mean}
+\textbf{Temporal domain mean}
 
-The data is structured in 3 domains freq x antenna x walk/space, with N, M and K being the number of points in each dimension. To analyse stationarity in frequency an average is taken across the other two domains as:
+The data is structured in 3 domains (frequency, antenna, walk/space), with N, M and K being the number of points in each dimension. To analyse stationarity in frequency an average is taken across the other two domains:
 
 \begin{equation}\label{eq:freqMean}
 \overrightarrow{freqData}_{(n)} = \frac{1}{K\cdot M}\sum_{k = 1}^{K}\sum_{m = 1}^{M} \textbf{data}_{(n,m,k)}
@@ -36,11 +36,11 @@ The data is structured in 3 domains freq x antenna x walk/space, with N, M and K
 \centering
 %\includegraphics[height = \textwidth, angle = -90]{figures/meanFading.pdf}
 \input{figures/meanFadingFreq.tex}
-\caption{Average values across the frequency as per \autoref{eq:freqMean}, with values converted from linear scale to dB.}
+\caption{Average values across the frequency as per \autoref{eq:freqMean}, with values converted from linear to dB.}
 \label{fig:meanFading}
 \end{figure}
 
-It can be seen that there is a drop of around 4 dB across the frequency, this drop can be explained by 2 factors first the antenna gain varies with around 2 dB across the frequency span \appref{ant_adix}, the other part is the \gls{PL} is dependent on frequency, by comparing PL of a free space path loss model, it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. Those two factors together can explain the drop in mean power across the span. As this can be explained the data is adjusted as:
+A drop of around 5 dB across the frequency can be seen from \autoref{fig:meanFading}, this drop can be linked to two factors: first the antenna gain varies with around 2 dB across the frequency span known from \appref{ant_adix}, secondly from the free space path loss model it can be seen that there is a drop of 1.75 dB going from 4.5 GHz to 5.5 GHz. The data will be adjusted by these factors:
 
 \begin{equation}
 \textbf{data2}_{(:,:,k)} =  \textbf{data}_{(:,:,k)} \oslash \left(\overrightarrow{freqData}\cdot \overrightarrow{ones(1,M)}\right), \quad k = (1,2,...,K)
@@ -52,18 +52,18 @@ It can be seen that there is a drop of around 4 dB across the frequency, this dr
 
 \textbf{Spatial domain mean}
 
-Likewise as the frequency domain the average is taken across the other domains, here it is assumed that the antennas even though spaced is a separate and stationary domain due to their closeness. The average is found based on the frequency corrected data as:
+Similar to temporal domain the average is taken across the other domains, it is assumed that the antenna domain is stationary due to small area occupied by the antennas. The average is found based on the frequency corrected data as:
 
 \begin{equation}\label{eq:spaceMean}
 \overrightarrow{spaceData}_{(k)} = \frac{1}{N\cdot M}\sum_{n = 1}^{N}\sum_{m = 1}^{M} \textbf{data2}_{(n,m,k)}
 \end{equation}
 \begin{where}
 \va{$\overrightarrow{spaceData}$}{is the mean value for the different spatial samples}{1}
-\va{$N$}{is the number of frequency points measured, 41}{1}
+\va{$N$}{is the number of frequency points measured}{1}
 \end{where}
 
 
-To visualize the data is restructured such that it matches the area it has been taken in see \autoref{Environment}. The data was collected by walking forth and back in the room with approx. 42 sweeps per meter or 210 sweeps per stretch. As every second stretch was walking back it has to be reversed to visualize the samples side by side. 
+To visualize the data it is restructured such that it matches the area from \autoref{meas_area}. The data was collected by walking back and forth in the room with approximately 42 sweeps per meter or 210 sweeps per stretch. As every second stretch was walking back it has to be reversed to visualize the samples side by side. 
 
 
 
@@ -89,11 +89,11 @@ To visualize the data is restructured such that it matches the area it has been 
 \includegraphics[width=\textwidth]{figures/Not_Norm_space_colorbar.png}
 \end{subfigure}
 \captionsetup{belowskip=-1.5em}
-\caption{The measurements is restructured to be approximately where they was measured compared to each other.}
+\caption{The measurements are restructured to be approximately where they were measured compared to each other.}
 \label{fig:Not_norm_space}
 \end{figure}
 
-It can be seen from \autoref{fig:Not_norm_space} that the power level in the middle of the room is stronger than on the borders. The reason for this is believed to be the directionality of the transmit antenna. The transmit antenna was located outside and shooting in to the room as can be seen on \autoref{antennadoor}, so the main lobe might have been reflected from the wall directly to the middle of the measurement area. Because of this the area can not be said to be stationary so to combat this a moving average is used to normalize the mean power level across the area. The drawback of using a moving average is that it might affect the fading in the measurement, therefore as many point as possible should be in the average to make the influence as little as possible, however if too many points is in the average the stationarity issue would not be solved. It is chosen to average across 41 space samples.
+It can be seen from \autoref{fig:Not_norm_space} that the power level in the middle of the room is stronger than on the borders. The reason for this is believed to be the directionality of the TX antenna. The TX antenna was located outside and pointing into the room as can be seen on \autoref{antennadoor}, so the main lobe might have been reflected from the wall directly to the middle of the measurement area. Because of this the area can not be said to be stationary, to combat this a moving average is used to normalize the mean power level across the area. The drawback of using a moving average is that it might affect the fading in the measurement. As many point as possible should therefore be averaged over the minimize the influence on fading, however if the average is taken over too many points the stationarity issue would not be solved. It is chosen to average across 41 spatial samples.
 
 \begin{align}
 &\overrightarrow{MA} = \frac{1}{41}\cdot \Big(\overrightarrow{spaceData}*\overrightarrow{ones(1,41)}\Big) \\
@@ -101,9 +101,8 @@ It can be seen from \autoref{fig:Not_norm_space} that the power level in the mid
 \end{align}
 \begin{where}
 \va{$\overrightarrow{MA}$}{is the moving average of the spatial samples}{1}
-\va{$\textbf{data3}$}{is the normalize data in frequency and space}{1}
+\va{$\textbf{data3}$}{is the normalized data in frequency and space}{1}
 \end{where}
-
 
 The result of the normalization can be seen on \autoref{fig:Norm_space}.
 
@@ -133,9 +132,9 @@ The result of the normalization can be seen on \autoref{fig:Norm_space}.
 \label{fig:Norm_space}
 \end{figure}
 
-It can be concluded based on this that the mean was not constant during the measurement, however due to the normalization the mean of \textit{spaceData2} can be considered to be constant across all measurements. The last check to see if the channel is \gls{WSS} is to check if the autocovariance function is only dependent on sample shift, this is also done in both the frequency domain and spatial domain.
+It can be concluded the mean was not constant during the measurement, however due to the normalization the spatial mean of \textit{data3} can be considered to be constant across all measurements. The last check to see if the channel is \gls{WSSUS} is to verify that the autocovariance function is only dependent on sample shift. This is also done in both the temporal and spatial domain.
 
-\textbf{Frequency domain correlation}
+\textbf{Temporal domain correlation}
 
 It needs to be checked if:
 \begin{equation}\label{eq:autocovariance_check}
@@ -143,10 +142,10 @@ R_f(n,n+\Delta n) = R_f(\Delta n)
 \end{equation}
 \begin{where}
 \va{$R_f$}{is the autocorrelation of the frequency samples}{1}
-\va{$\Delta n$}{is the correlation distance in frequency}{1}
+\va{$\Delta n$}{is the sample shift in frequency}{1}
 \end{where}
 
-First the the sample mean and sample variance is found for each point in space as:
+First the sample mean and sample variance is found for each point in space as:
 
 \begin{align}
 \mathbf{\mu}_{f,(m,k)} &= \frac{1}{N}\sum_{n = 1}^{N} \textbf{data3}_{(n,m,k)} \\
@@ -157,7 +156,7 @@ First the the sample mean and sample variance is found for each point in space a
 \va{$\textbf{s}^2_f$}{is the sample variance of the frequency samples}{1}
 \end{where}
 
-Each element in space the cross covariance matrix is found as the sample covariance divided with the sample variance:
+For each element in space the cross covariance matrix is found as the sample covariance divided with the sample variance:
 \begin{equation}
 C_f(n,n+\Delta n,m,k) = \frac{\left(\textbf{data3}_{(n,m,k)}-\mu_{f,(m,k)}\right)\cdot \left(\textbf{data3}_{(n+\Delta n,m,k)}-\mu_{f,(m,k)}\right)}{\textbf{s}_{f,(m,k)}^2}
 \end{equation}
@@ -191,11 +190,11 @@ The result of \autoref{eq:variance_of_covariance} can be seen in \autoref{fig:va
 \label{fig:var_freq}
 \end{figure}
 
-It can be seen from \autoref{fig:var_freq} that all the variences are quite low,this is a very good indicator that the autocorrelation is only dependet on $\Delta n$ and therfore the data is WSS.
+\autoref{fig:var_freq} shows that all the variences are quite low, this is a very good indicator that the autocorrelation is only dependent on $\Delta n$ and therefore the data is WSS.
 
 \textbf{Spatial domain correlation}
 
-Analogously to the frequency domain the process is repeated but for the spatial domain. The result of which can be seen on \autoref{fig:var_space}.
+Analogously to the temporal domain the process is repeated for the spatial domain. The result of which can be seen on \autoref{fig:var_space}.
 
 \begin{figure}[H]
 \centering
@@ -204,4 +203,4 @@ Analogously to the frequency domain the process is repeated but for the spatial 
 \label{fig:var_space}
 \end{figure}
 
-It can be seen from \autoref{fig:var_space} that the variance is not nearly as small as for the frequency domain, this could be connected to the problem discovered from \autoref{fig:Not_norm_space} these two problems indicates that a dominant component has been received from the direction of the antenna. It is however assumed that the effect of this component is only big enough to be seen in the stationarity analysis and not in the result of the fading characteristic.
+\autoref{fig:var_space} gives a clear indication that the variance is not nearly as small as for the frequency domain, this could be connected to the problem discovered from \autoref{fig:Not_norm_space}. These two problems indicates that a dominant component has been received from the direction of the TX antenna. It is however assumed that the effect of this component is only big enough to be seen in the stationarity analysis and not in the result of the fading characteristic.

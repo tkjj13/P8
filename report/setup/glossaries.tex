@@ -42,9 +42,11 @@
 \newacronym{ITU}{ITU}{international telecommunication union}
 
 \newacronym{VNA}{VNA}{vector network analyser}
+\newacronym{PNA}{PNA}{performance network analyser}
+\newacronym{NA}{NA}{network analyser}
 \newacronym{ADC}{ADC}{analog to digital converter}
 \newacronym{IF}{IF}{intermediate frequency}
-
+\newacronym{NLOS}{NLOS}{none line sight}
 \newacronym{SNR}{SNR}{signal-to-noise ratio}
 
 
@@ -133,7 +135,7 @@
 {\DimensUnits{#2}{#3}}}
 \newcommand{\insertnomheaders}{\item[\bfseries Symbol]%
 \DimensUnits{\textbf{Description}}{\textbf{Units}}}
-c
+
 \renewcommand{\nomgroup}[1]{%
 %  \item[\large\bfseries
 %  \ifstrequal{#1}{A}{Acronyms}{%
@@ -255,7 +257,8 @@ c
 \nomwithdim{$A$}{is the area }{$m^2$}
 \nomwithdim{$B_c$}{is the coherence bandwidth }{Hz}
 \nomwithdim{$f_{span}$}{ is the frequency span}{Hz}
-
+\nomwithdim{diff}{is the difference in noise floor levels}{dBm}
+\nomwithdim{$W_{IF}$}{is the typical noise floor of the NA with $IF_{BW} = 10$ Hz}{dBm}
 \nomwithdim{$P_{RX}$}{is the received power}{dBm}
 
 \nomwithdim{$W_{max}$}{is the maximum noise floor allowed}{dBm}
@@ -272,10 +275,10 @@ c
 \nomwithdim{$N$}{is the number of frequency points measured, 41}{1}
 
 \nomwithdim{$\overrightarrow{MA}$}{is the moving average of the spatial samples}{1}
-\nomwithdim{$\textbf{data3}$}{is the normalize data in frequency and space}{1}
+\nomwithdim{$\textbf{data3}$}{is the normalized data in frequency and space}{1}
 
 \nomwithdim{$R_f$}{is the autocorrelation of the frequency samples}{1}
-\nomwithdim{$\Delta n$}{is the correlation distance in frequency}{1}
+\nomwithdim{$\Delta n$}{is the sample shift in frequency}{1}
 
 \nomwithdim{$\mu_{f}$}{is the sample mean of the frequency samples}{1}
 \nomwithdim{$\textbf{s}^2_f$}{is the sample variance of the frequency samples}{1}

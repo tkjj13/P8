@@ -1,20 +1,20 @@
 \chapter{Available Resources}
 
 \section{Environment} \label{Environment}
-The High frequency lab at \gls{AAU} (NOVI 9) was used for the measurements, it has clutter and surfaces to give a good representation of an indoor multipath environment. The TX antenna is placed outside of the room pointing towards the door. This provides a NLOS condition. The RX antenna array is moved across the opposite side of the room.
+The High frequency lab at \gls{AAU} (NOVI 9) was used for the measurements, it has clutter and surfaces to give a good representation of an indoor multipath environment. The TX antenna is placed outside of the room pointing towards the door. This provides a \gls{NLOS} condition. The RX antenna array is moved across the opposite side of the room.
 
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[H]{0.4\textwidth}
+  \begin{minipage}[H]{0.48\textwidth}
     \includegraphics[width=\textwidth]{pictures/Measurement/walking_meas.jpg}
-    \caption{Area of the fading gain measurements}
+    \caption{Area of the measurements}
     \label{walk_area}
   \end{minipage}
   \hfill
-  \begin{minipage}[H]{0.5\textwidth}
+  \begin{minipage}[H]{0.48\textwidth}
     \includegraphics[width=\textwidth]{figures/HFLABmarked.png}
-    \caption{Room overview. TX antenna marked in \textcolor{red}{red} and RX antenna area marked in \textcolor{blue}{blue}\citep{TX_antenna}.}
+    \caption{Room overview. TX antenna marked in \textcolor{red}{red} and area of the measurements is marked in \textcolor{blue}{blue} \citep{TX_antenna}.}
     \label{meas_area}
   \end{minipage}
 \end{figure}
@@ -37,12 +37,18 @@ The High frequency lab at \gls{AAU} (NOVI 9) was used for the measurements, it h
 
 \input{chapter/Equipment.tex}
 
+\chapter{Setup Parameter estimation}\label{sec:setup_parameter}
+Before staring measuring the settings on the NA needs to be estimated. This means that the values has to be balanced to get the needed data and to meet the physical limitations. The theory and the limiting factors have been discussed in \textit{Part I}.
+
+
+\section{TX power}
+The transmit power, $P_{TX}$, is the maximum power the NA can transmit without getting overloaded. This should be as high as possible which for the NA  around 19 dBm \citep{Key_PNA}.
 
 \section{IF-bandwidth(noise floor)}
-To find the correct value for $IF_{BW}$ it is done by finding the expected received power and estimating the $IF_{BW}$ from that to obtain the needed SNR. 
+To estimate the maximum usable $IF_{BW}$, that still meets to the needed SNR, is done by finding the expected received power and estimating the maximum allowed noise floor.  
 
 \subsection{Expected Received Power}
-The planned walking route in the room is around 6 meters from the antenna. Using \autoref{ITU_model} this gives a pathloss value of:
+The planned walking route in the room is around 6 meters from the antenna. Using \autoref{eq:ITU_model} this gives a \gls{PL} value of:
 
 \begin{equation}
 L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
@@ -52,12 +58,11 @@ L = 20log (5000) + 28 \cdot log(6)-28 = 67.76dB \approx 68dB
 The $P_{RX}$ then becomes:
 \begin{align}
 P_{RX} &= P_{TX} + G_{TX} - L \\
-P_{RX} &= 15dBm + 12dBi - 68dB = -41dBm
+P_{RX} &= 19dBm + 12dBi - 68dB = -37dBm
 \label{NFvna}
 \end{align}
 \begin{where}
-\va{$L$}{is the expected path loss}{dB}
-\va{$P_{RX}$}{is the Received power}{dBm}
+\va{$P_{RX}$}{is the received power}{dBm}
 \end{where}
 
 
@@ -67,22 +72,26 @@ The $SNR_m$ is known from \autoref{needed_SNR} to be 64 dB. Giving a maximum noi
 
 \begin{align}
 W_{max} &= P_{RX}-SNR_m\\
-W_{max} &= -41 dBm -64 dBm = -105 dBm
+W_{max} &= -37 dBm -64 dBm = -101 dBm
 \end{align}
 \begin{where}
 \va{$W_{max}$}{is the maximum noise floor allowed}{dBm}
 \end{where}
 
-Between 1-10GHz without averaging the N5527A has a noise floor $W_{IF}$, of $-119dBm$ with a 10Hz $IF_{BW}$ \citep{Key_PNA}. Now by finding the difference between the $W_{max}$ and the noise floor of the N5227A we get the amount of $dB$'s that noise floor can be increased without affecting the ability to measure deep fades:
+Between (1 to 10) GHz and without averaging, the NA has a typical noise floor of $-119$ dBm with a 10Hz $IF_{BW}$ \citep{Key_PNA}. Now by finding the difference between the $W_{max}$ and the noise floor of the NA we get the amount of $dB$'s that noise floor can be increased without affecting the ability to measure the desired fades:
 \begin{align}
 diff &= W_{max}-W_{IF}\\
-diff &= -105dBm+119dBm = 14dBm 
+diff &= -101dBm+119dBm = 18dBm 
 \end{align}
+\begin{where}
+\va{diff}{is the difference in noise floor levels}{dBm}
+\va{$W_{IF}$}{is the typical noise floor of the NA with $IF_{BW} = 10$ Hz}{dBm}
+\end{where}
 
-The noise-floor of the \gls{VNA} scales linearly with an increased $IF_{BW}$ \citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{VNA} can be increased to:
+The noise floor of the \gls{NA} scales linearly with an increased $IF_{BW}$ \citep{PNA_scale}. This means that $IF_{BW}$ on the \gls{NA} can be increased to:
 
 \begin{equation}
-IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
+IF_{BW} = 10Hz \rightarrow 18dB \rightarrow 630 Hz
 \end{equation}
 %\begin{equation}
 %\begin{split}
@@ -90,16 +99,14 @@ IF_{BW} = 10Hz \rightarrow 14dB \rightarrow 250Hz
 %          \quad &= 10Hz \rightarrow 14dB \rightarrow 250Hz
 %\end{split}
 %\end{equation}
-A higher $IF_{BW}$ of 250Hz  gives a faster sweep time and still meets the requirements set by the $SNR_M$.
+A higher $IF_{BW}$ of 630 Hz  gives a faster sweep time and still meets the requirements set by the $SNR_m$.
 
 \section{Center frequency and Span}
-The $f_{c}$ chosen in the setup is 5 GHz  because of available antenna array seen in \autoref{OmniDirAnt} has a spacing that matches this frequency.
-
-The span is chosen based on two conditions first it needs to not influence the spacing of the antenna array to much secondly the TX antenna needs to have a reasonable equal gain. From \appref{ant_adix} it can be seen that a span of 1 GHz fits roughly with $\pm 1$ dBi gain from the TX antenna.
+The $f_{c}$ chosen in the setup is 5 GHz because of available antenna array seen in \autoref{OmniDirAnt}. The span is chosen based on two conditions: first it should not influence the spacing of the antenna array too much, secondly the TX antenna needs to have a reasonable equal gain. From \appref{ant_adix} it can be seen that a span of 1 GHz fits roughly with $\pm 1$ dBi gain from the TX antenna.
 
 
 \section{Number of sweep points}
-The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything from 20ns delay to 200ns delay for small office environment \citep{indoor_delay}. Since the environment measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50ns is assumed. With the RMS delay spread we can find the approximated $B_C$ which is inversely proportional. 
+The delay spread of a signal is very dependant on the environment. For this reason a PDP measurement will measure the delay in the room. Similar indoor values has been measured and shows anything between (20 to 200) ns delay for small office environment \citep{indoor_delay}. Since the environment measured fulfills NLOS conditions a $\sigma_{\tau}$ of 50 ns is assumed. With the RMS delay spread the $B_C$ can be approximated: 
 \begin{equation}
 B_C \geq \frac{1}{50ns} \approx 20MHz
 \label{CohBW1}
@@ -109,12 +116,11 @@ The number of points used in the final setup is dependant $B_C$ and the $F_{span
 
 \section{Time estimation}
 \label{TIME_EST}
-Since the \gls{VNA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_{BW}$.
-The Keysight PNA N5527A gives the following sweep times for a 201 point with different $IF_{BW}$ \citep{Key_PNA}. \\
+Since the \gls{NA} can do segmented sweeps the sweep time is mostly dependant on the number of points and $IF_{BW}$.
+For a 201 point sweep with different $IF_{BW}$ the sweep time can be seen in \autoref{my-label}. There will also be some overhead for saving the data, however this is not known.\\
 
 \begin{table}[H]
 \centering
-\label{my-label}
 \begin{tabular}{|l|l|}
 \hline
 $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
@@ -126,24 +132,23 @@ $IF_{BW}${[}Hz{]} & Sweep time {[}ms{]} \\
 3000            & 72            \\
 \hline 
 \end{tabular}
-\caption{$IF_{BW} \ vs \ Sweep time$}
+\caption{$IF_{BW}$ vs Sweep time \citep{Key_PNA}.}
+\label{my-label}
 \end{table}
 
-There is also some overhead for saving the data and frequency span.
 
 
-Let's use an example with a $IF_{BW} = 300Hz$ and assume a 50 point measurements takes a quarter of the time:
+
+For an example an $IF_{BW} = 300Hz$ is used to account for the overhead. The example also assumes that a 50 point sweep takes a quarter of the time compared to a 201 point sweep:
 \begin{equation}
-T_{sweep} = \frac{631}{4} = 160ms
+T_{sweep} = \frac{641 ms}{4} = 160ms
 \end{equation}
-This means that every 160ms we have to move $0.4 \lambda$ this gives a relative velocity of:
+This means that every 160 ms the RX antennas have to move $0.4 \lambda$ and this gives a relative velocity of:
 \begin{equation}
-\frac{0.0375m}{0.160s} = 0.23 m/s
+\frac{0.024m}{0.160s} = 0.15 m/s
 \end{equation}
-This is under the $1m/s$ value used in \autoref{min_vel}
-and total time for moving 5 meters becomes $\approx 22s$.
-With the speculated 31200 samples per 5 meter walk(50 samples in frequency and 3 RX antennas) the total number becomes:
+The total time for moving 5 meters becomes $\approx 34$ s. With the speculated 31200 samples per 5 meter walk (50 samples in frequency and 3 RX antennas) the total number becomes:
 \begin{equation}
 \frac{4.04 \cdot 10^6}{31200} = 130 \ walks
 \end{equation}
-or around 48 minuets of continues measurement given 130 walks and 22s per walk. We suspect these values to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noisefloor.
+or around 74 minuets of continues measurement given 130 walks and 34 s per walk. These values are subject to change depending on the speed at which the data can be saved and the $IF_{BW}$ needed for the desired noise floor.
