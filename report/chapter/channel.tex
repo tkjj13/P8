@@ -130,7 +130,7 @@
 % \chapter{Channel Dynamics} possible other headline
 
 
-This chapter deals with characterization of the channel and uses the Rayleigh fading model as a theoretical baseline. The model is used to investigate the  temporal and spatial domain of a channel and how to utilize both in the measurement campaign.
+This chapter deals with characterization of the channel and uses the Rayleigh fading model as a theoretical baseline. The model is used to investigate the  temporal and spatial domains of a channel and how to utilize both in the measurement campaign.
 
 
 \section{The Idea of Multipath}
@@ -139,7 +139,7 @@ This chapter deals with characterization of the channel and uses the Rayleigh fa
 %In wireless communication the path travelled is what is interesting, this is especially true when more than one path is possible.
 %Communication happens when a message is transmitted from a to b
 
-In a wireless communication system the signal can reach the receiver from many different paths, this is a phenomenon called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival \citep{Fading}. A more specific term to describe this is \textit{multipath fading}. Depending on the fading the receiver may experience constructive or destructive fading i.e. the signal might get amplified or attenuated due to the fading. Strong destructive fading is usually called deep fades and can lead to outages of the communication system for short periods of time. 
+In a wireless communication system the signal can reach the receiver from many different paths, this phenomenon is called multipath propagation. It has many effects on the signal, usually on its amplitude, phase and angle of arrival \citep{Fading}. A more specific term to describe this is \textit{multipath fading}. Depending on the fading the receiver may experience constructive or destructive fading i.e. the signal might get amplified or attenuated due to the fading. Strong destructive fading is usually called deep fades and can lead to outages of the communication system for short periods of time. 
 
 Fading can be separated in  small scale and large scale fading \citep{FlatSelective}: 
 
@@ -194,20 +194,19 @@ Fading can be separated in  small scale and large scale fading \citep{FlatSelect
 \label{div_chap}
 Diversity is used to combat fading in a wireless system. By using clever techniques you can effectively deliver several copies of a signal to the receiver. The probability that all copies experience deep fades is smaller than having only one copy experience deep fade \citep[p. 4-6]{diversityFuture}.
 
-The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources.There are several ways to achieve diversity in a wireless system:
+The overall goal is to provide a gain in signal quality by having several signals that independently fade from each other with as little cost as possible in power consumption, bit rate, system complexity or other resources. There are several ways to achieve diversity in a wireless system:
  
 \begin{tabular}{lp{13.1cm}}
-\textbf{Temporal diversity} & By retransmitting the same information you get some diversity gain on the cost of decreased bit/rate and latency. Usually a forward error correction code is added instead of just re transmitting the signals several times. \\
-\textbf{Spatial diversity} & By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system or increased power consumption.\\
-\textbf{Frequency diversity} & By transmitting the same data on two frequencies that have independently fading signals. This comes at a cost of reducing the systems spectral efficiency.
+\textbf{Temporal diversity} & By retransmitting the same information the receiver gets some diversity gain on the cost of decreased bit rate and latency. Usually a forward error correction code is added instead of just retransmitting the signals several times. \\
+\textbf{Spatial diversity} & By having several antennas at either or both the receiver and transmitter, antenna diversity is achieved. Separating the antennas around half a wavelength the signals get uncorrelated and become independently fading signals, that can be combined together into one achieving a processing gain \citep{diversityAntenna}. Antenna diversity comes at the cost of a more complex system and increased power consumption.\\
+\textbf{Frequency diversity} & By transmitting the same data on frequencies that are experiencing independent fading a diversity gain can be achieved. This comes at a cost of reducing the systems spectral efficiency.
 \end{tabular}
 
-If an average increase of a few dB in \gls{SNR} was all diversity provided, increasing the transmit power would be better. But spatial diversity has the effect of changing the distribution of \gls{SNR} for the modulated signal, this effect is what combats the deep fades. It should be noted that spatial diversity sees a diminishing effect when increasing the number of antennas.
-To get the maximum gain from diversity uncorrelated signals are required. While a correlation coefficient of 0 is highly unlikely to obtain in reality. The improvements start to deteriorate if the correlation coefficient exceeds 0.3. Still improvements are seen up to 0.8 correlation \citep[317]{The_Mobile_Radio_Propagation_Channelbook}.
+If an average increase of a few dB in \gls{SNR} was all diversity provided, increasing the transmit power would be better. Diversity gain has the effect of changing the distribution of \gls{SNR} for the modulated signal. This effect is what combats the deep fades, it should be noted that spatial diversity sees a diminishing effect when increasing the number of antennas. To get the maximum gain from diversity uncorrelated signals are required. In reality a correlation coefficient of 0 is highly unlikely to obtain. The improvements start to deteriorate if the correlation coefficient exceeds 0.3, but improvements are still seen up to 0.8 correlation \citep[317]{The_Mobile_Radio_Propagation_Channelbook}.
 
 \section{ITU model for indoor attenuation}
 \label{ITU_model}
-For the large scale fading the path loss seen in the wireless channels has to be taken into account. The \gls{ITU} model gives us the the large scale path loss seen in indoor environments. The formula is as follows:
+For the large scale fading the path loss seen in the wireless channels has to be taken into account. The \gls{ITU} model gives the large scale path loss seen in indoor environments. The formula is as follows:
 \begin{equation}\label{eq:ITU_model}
 L = 20log \left(\frac{f_c}{10^6}\right) + Q log (d) + P_f(n) - 28
 \end{equation}
@@ -231,7 +230,7 @@ The values for Q is given in \citep{ITU_indoor} at 5 GHz the value is 28 for a o
 %\subsection{Distributions?}
 
 
-Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits on an urban environment scenario with many buildings and obstacles. In \autoref{eq:reyl_impulse_response} the impulse response of a Rayleigh fading channel can be seen \citep{MeasurementComplexRay}.
+Rayleigh fading is a propagation model that is used to describe situations where there are no line of sight connections and the signal may vary randomly due to scatterings. Usually this situation fits in an urban environment scenario with many buildings and obstacles. In \autoref{eq:reyl_impulse_response} the impulse response of a fading channel can be seen \citep{MeasurementComplexRay}.
 \begin{equation}\label{eq:reyl_impulse_response}
 c(t;\tau) = \sum_{n =0}^{N_{ref}} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
 \end{equation}
@@ -248,7 +247,7 @@ c(t;\tau) = \sum_{n =0}^{N_{ref}} a_n(t)e^{j\Phi_n(t)} \delta (t-\tau_n(t))
 %In narrowband transmissions  the multipath propagation experiences rapid fading in the signal envelope and in the received spectrum the Doppler spread is clearly visible.  
 
 %To do a measurement of a wireless channel need to have sufficient number of samples to have a certain error margin and confidence interval. To simplify one can only look at  the noise free case to see what different properties we can change to reduce the amount of samples we need. 
-It should be mentioned that $t=0$ is assumed to be the time the first signal is received. If $N \rightarrow \infty$ the fading channels for a narrow band system can be expressed as \autoref{eq:inf_reyl_impulse_response} \citep{MeasurementComplexRay}. 
+It should be mentioned that $t=0$ is assumed to be the time the first signal is received. If $N \rightarrow \infty$ the fading channel becomes a Rayleigh fading channel for a narrow band system this can be expressed as \autoref{eq:inf_reyl_impulse_response} \citep{MeasurementComplexRay}. 
 
 \begin{equation}\label{eq:inf_reyl_impulse_response}
 C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + j\left [\sum_{n =1}^{N} a_n(t)\cdot sin(\psi_n (t))  \right ]
@@ -260,35 +259,35 @@ C(t) = \left [ \sum_{n =1}^{N} a_n(t)\cdot cos(\psi_n (t))\right ] + j\left [\su
 
 If we assume that the random variables is not dependent on time, the impulse response process $C(t)$ will be \gls{WSS}. Given the central limit theorem that states:
 "\textit{...the distribution of the sum (or average) of a large number of independent, identically distributed variables will be approximately normal, regardless of the underlying distribution}" \citep{CentralLimit}.  
-Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumption of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals which are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
+Assuming that the phase is uniformly distributed between [$-\pi,\pi$], both the real and imaginary parts can be treated as Gaussian processes with a mean of zero and equal variances. This is the fundamental underlying assumptions of a Rayleigh fading channel and $ \left | C(t) \right | $ becomes a Rayleigh random variable \citep[p. 589]{Wireless_CommunicationsBook}. The squared-envelope $ \left | C(t) \right |^2 $ is the instantaneously fading gain at time t. A measurement is typically made of $ \left | C(t) \right |^2 $ from which $ \mathop{\mathbb{E}}\left | C(t) \right |^2 $ is estimated to find the average power of the fading gain. To obtain some measurement samples of $ \left | C(t) \right |^2 $ one can transmit testing signals which are identically disturbed and estimate the mean \citep{MeasurementComplexRay}.
 
 
 
 %When measuring narrowband channels in a indoor environment the usual deep fades seen are not lower then -20dB off the mean value of the signal, due to the fact that only a small amount of samples are used (<100) the deep fades that the Rayleigh model predicts ($10^{-5}$) has such a low chance of happening that number of samples needs to be unreasonable high in a normal measuring case.
 
-\section{Doppler bandwidth}
-Doppler bandwidth is when the relative velocity of of the receiver compared to the transmitter causes a frequency shift for the signal of each path. The \gls{BW} of a system must be larger then the maximum Doppler bandwidth to work. The maximum Doppler bandwidth is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
+\section{Doppler Bandwidth}
+Doppler bandwidth is when the relative velocity of the receiver compared to the transmitter causes a frequency shift for the signal on each path. The \gls{BW} of a system must be larger then the maximum Doppler bandwidth to work. The maximum Doppler bandwidth is related to the velocity by \citep[p. 229]{Wireless_CommunicationsBook}:
 \begin{equation}\label{eq:Doppler}
-f_d = \frac{2}{\lambda} \cdot v
+f_{d,max} = \frac{2}{\lambda} \cdot v
 \end{equation}
 \begin{where}
-\va{$f_d$}{is the maximum Doppler bandwidth}{Hz}
+\va{$f_{d,max}$}{is the maximum Doppler bandwidth}{Hz}
 \va{$\lambda$}{is the wavelength}{m}
 \va{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
 \end{where}
 
-So our measurement bandwidth must be wider then the Doppler bandwidth. The equation can be changed to solve for relative velocity:
+So the measurement bandwidth must be wider then the Doppler bandwidth. The equation can be changed to solve for relative velocity:
 \begin{equation}
-v = \frac{f_d}{\frac{2}{\lambda}} 
+v = \frac{f_d\cdot\lambda}{2} 
 \end{equation}
 
-Usually the minimum sweep bandwidth of measurement equipment is 10Hz. Given this we can find the maximum relative velocity the system can have with a $f_c$ of 4 GHz and a minimum sweep bandwidth:
+Usually the minimum sweep bandwidth of measurement equipment is 10 Hz. Given this we can find the maximum relative velocity the system can have with a $f_c$ of 5 GHz and a minimum sweep bandwidth:
 \begin{equation}
-\frac{10Hz}{\frac{2}{0.075m}} = 0.375 m/s
+\frac{10Hz\cdot0.06m}{2} = 0.3 m/s
 \label{min_vel}
 \end{equation}
 
-In a indoor sense 0.375 m/s is very fast and the measurement will most likely have a much slower speed.
+In a indoor sense 0.3 m/s is very reasonable speed but the measurement will most likely have a slower speed. The Doppler bandwidth will therefore not be a limiting factor for the measurement.
 %If we assume the system is moving slowly at $5m/s$ and we use an open $2.4Ghz$ \todo{is these the values we expect} frequency we can see that the Doppler spread is 80Hz. This means our bandwidth can't be lower than 80 Hz. We know that the dynamic range of system is dependant on the IF bandwidth, and that we should use as low BW as possible \todo{source}. A 80 Hz bandwidth is very narrow and will give us little frequency dependant fading and we can assume frequency flat fading \todo{source}. Given this definition of Doppler spread we can assume that this should not be a problem since our measurements BW must be higher to get enough samples \todo{source}.
 
 \section{Wireless channel characteristics}
@@ -312,6 +311,7 @@ G_t(f) = \mathcal{F}(g_t(t))
 \end{equation}
 \begin{where}
 \va{$G_t(f)$}{is the frequency representation of the channels temporal domain}{1}
+\va{f}{is frequency}{Hz}
 \va{$g_t(t)$}{is the time representation of the channels temporal domain}{1}
 \end{where}
 
@@ -327,12 +327,13 @@ G_s(f_d) = \mathcal{F}(g_s(d))
 \end{equation}
 \begin{where}
 \va{$G_s(f_d)$}{is the spatial frequency representation of the channels spatial domain}{1}
+\va{$f_d$}{is the Doppler shift}{Hz}
 \va{$g_s(d)$}{is the space representation of the channels spatial domain}{1}
 \end{where}
 
 
 %If the units of $\Delta d$ is meters,then $f_d$ is in cycles per meter. The $\Leftrightarrow$ represents the Fourier transform. 
-The spatial domain is 3 dimensional given as $d = (x,y,z)$, in the analysis this can however be limited to 1 or 2 dimensions for simplicity \citep{FTandCORR}.
+The spatial domain is three dimensional given as $d = (x,y,z)$, in the analysis this can however be limited to one or two dimensions for simplicity \citep{FTandCORR}.
 
 %Here is the time delay space relationship Fourier transform pair. This gives us the deterministic or instant transfer functions:
 These domains and their representations can be combined in four different ways which is related by the Fourier transform as seen in \autoref{eq:channel_rep1} \citep[ch. 6.3]{The_Mobile_Radio_Propagation_Channelbook}.
@@ -363,7 +364,7 @@ H(f_d,f)
 
 Since the channel behaviour is hard to predict, the normal method is to use statistical models to describe a channel in terms of probabilities. So the channel impulse response is considered a random process. The \gls{ACF} of the channel is used to characterize changes in time and space.
 
-In a \gls{WSSUS} channel model the correlation function is time invariant and that the different scatters and their delays are uncorrelated. This means that the ACF of the channel only need one parameter per domain, because only the change in position and time affects the channel. WSSUS model gives a realistic way to describe short term fading of the channel \citep[ch. 6.5-6.6]{The_Mobile_Radio_Propagation_Channelbook}.
+In a \gls{WSSUS} channel model the correlation function is time invariant and the different scatters and their delays are uncorrelated. This means that the \gls{ACF} of the channel only need one parameter per domain, because only the change in position and time affects the channel. WSSUS model gives a realistic way to describe short term fading of the channel \citep[ch. 6.5-6.6]{The_Mobile_Radio_Propagation_Channelbook}.
 
 This means that the general ACF can be simplified as seen in \autoref{eq:acf1}.
 \begin{equation}\label{eq:acf1}
@@ -417,7 +418,7 @@ R_H(f_{d},\Delta f)
 
  %The \gls{PSD} $S_H(f_d, \Delta f)$ measure the instant spectral power in a random channel. The PSD is non negative and symmetrical. 
 %The autocorrelation is related to the \gls{PSD} by another Fourier transform. One can transform from PSD to autocorrelation by a inverse Fourier transform for the temporal and spatial domain. 
-In the measurement campaign knowledge about the correlation related to the change in position and shift in frequency is relevant as these parameters are typically the ones to manipulate. With out the actual measurements it is however often easier to get information of the correlation to the time delay and the Doppler spectrum, and a conversion between the parameters has to be performed using the relation described in \autoref{AutocorrDouble}.
+In the measurement campaign knowledge about the correlation related to the change in position and shift in frequency is relevant as these parameters are typically the ones to manipulate. Without the actual measurements it is often easier to get information of the correlation from the time delay and the Doppler spectrum. A conversion between the parameters has to be performed using the relation described in \autoref{AutocorrDouble}.
 To help in the analysis it is assumed the two domains are independent and therefore analysis of the \gls{SCF} and \gls{FCF} can be done separately.
 
 
@@ -470,7 +471,7 @@ To help in the analysis it is assumed the two domains are independent and theref
 
 
 %\section{Coherence functions}
-\subsection{\Gls{SCF}}
+\subsection{Space Correlation Function}
 \label{SCFchap}
 As seen from \autoref{AutocorrDouble}, the SCF can be found by taking the Fourier transform of the Doppler spectrum. 
 
@@ -493,7 +494,7 @@ A visual interpretation of this can be seen on \autoref{bessel_wave}.
 \label{bessel_wave}
 \end{figure}
 
-It is generally desired to have uncorrelated samples since this gives the most new information and if used in diversity schemes the most gain. The same is true here since correlation between the samples means that more samples is needed than calculated in \autoref{tab:numSample} \citep[p.335]{Jakes_microwave}. Therefore \autoref{eq:SCF} is solved for the first zero point.
+It is generally desired to have uncorrelated samples since this gives the most new information. The same is true here since correlation between the samples means that more samples is needed than calculated in \autoref{tab:numSample} \citep[p.335]{Jakes_microwave}. Therefore \autoref{eq:SCF} is solved for the first zero point.
 
 
 \begin{equation}
@@ -502,7 +503,7 @@ It is generally desired to have uncorrelated samples since this gives the most n
 \end{equation}
 
 
-If the frequency is low then it might be difficult to have a sufficient amount of independent fading measuring points. \citep[p.11]{UWMeasurement} To get uncorrelated parallel measurements an antenna array with $0.4 \lambda$ separated antennas can be used for multi probe measurements. An antenna array will multiply the number of samples measured at each time interval of the reviver and transmitter. 
+If the frequency is low then it might be difficult to have a sufficient amount of uncorrelated measuring points \citep[p.11]{UWMeasurement}. To get uncorrelated parallel measurements an antenna array with $0.4 \lambda$ separated antennas can be used for multi probe measurements. An antenna array will multiply the number of samples measured at each time interval of the receiver and transmitter. 
 
 
 %The other part of the Fourier transfer pairs is the time frequency relationship joint PSD and Autocorrelation:
@@ -513,7 +514,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 %Where $t$ is time and $f$ is frequency. The autocorrelation function $S{f_d,\tau}$ is defined by the Doppler $f_d$ and the delay $\tau$
 
 
-\subsection{\Gls{FCF}}
+\subsection{Frequency Correlation Function}
 \label{bc_aprox}
 %The sample size can be further increase by using uncorrelated samples in the frequency domain. 
 %For samples to be uncorrelated a frequency separation $\Delta f$  is needed. This has to be as big as the coherence BW. $B_{c}$. $B_{c}$ is statistical and measurement dependant on the relationship between different frequencies over the channel that has a strong correlation.The Fourier transform of the PDP gives the Frequency correlation function that is used for determining the coherence bandwidth of the channel. This is dependant on the actual environment in which measurements are conducted. A exact value has to be determined from  an actual measurement of the channel, but there are approximations\citep{RayFadeHandbook}. The RMS delay spread $\sigma_{\tau}$ is given by:
@@ -540,7 +541,7 @@ If the frequency is low then it might be difficult to have a sufficient amount o
 %\label{bessel_wave}
 %\end{figure}
 
-Just as with the SCF the FCF can also be found from \autoref{AutocorrDouble} by taking the Fourier transform of the \gls{PDP}. 
+Just as with the \gls{SCF} the \gls{FCF} can also be found from \autoref{AutocorrDouble} by taking the Fourier transform of the \gls{PDP}. 
 
 \begin{equation}
 R_{T}(\Delta f) = \mathcal{F}(R_{h}(\tau))
@@ -549,13 +550,13 @@ R_{T}(\Delta f) = \mathcal{F}(R_{h}(\tau))
 Assuming an exponentially decaying PDP the ACF of the fading gain can be expressed as:
 
 \begin{equation}\label{eq:FCF}
-R_T(\Delta f) = \left|-\frac{1}{i\Delta f+a}\right|^2
+R_T(\Delta f) = \left|-\frac{1}{j\Delta f+a}\right|^2
 \end{equation}
 \begin{where}
 \va{$a$}{is the slope of the PDP, $a < 0$}{1/s}
 \end{where}
 
-A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen the larger the delay spread the smaller the coherence bandwidth needs to be. So in a small environment with small delay profile a larger $\Delta f$ is needed to have samples uncorrelated \citep[Chapter 18.5]{ComHandbook}.
+A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen the larger the delay spread the smaller the coherence bandwidth needs to be. So in a small environment with small delay profile a larger $\Delta f$ is needed to have uncorrelated samples \citep[Chapter 18.5]{ComHandbook}.
 
 
 \begin{figure}[H]
@@ -565,24 +566,20 @@ A visual interpretation of this can be seen on \autoref{fig:FCF}. As can be seen
 \label{fig:FCF}
 \end{figure}
 
-As the coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment.
-There are approximations for the $B_C$ for exponential decaying \gls{PDP}s
-\citep{RayFadeHandbook}. They are based on  the RMS delay spread $\sigma_{\tau}$ that is given by:
-\begin{equation}
-\sigma_{\tau} = \sqrt{\bar{\tau} - {\bar{\tau}^{2}}}
-\end{equation}
-
+The coherence bandwidth is highly dependant on the actual environment in which measurements are conducted. The spacing in frequency should be determined based on measurement of the environment. There are approximations for the $B_C$ for exponential decaying \gls{PDP}s \citep{RayFadeHandbook}. They are typically based on the RMS delay spread $\sigma_{\tau}$ \citep{gold_wireless}:
+\begin{align}
+\sigma_{\tau} = \sqrt{\bar{\tau} - {\bar{\tau}^{2}}} \\
+B_C \geq \frac{1}{\sigma_{\tau}} \label{CohBW}
+\end{align}
 \begin{where}
 \va{$\sigma_{\tau}$}{is the RMS excess delay of the \gls{PDP}}{s}
 \va{$\bar{\tau}$}{is the mean excess delay of the \gls{PDP}}{s}
 \va{$\bar{\tau}^{2}$}{is the second central moment of the \gls{PDP}}{s}
+\va{$B_C$}{is the coherence bandwidth}{Hz}
 \end{where}
 
-With the $\sigma_{\tau}$ we can find $B_C$ by approximation\citep{gold_wireless}:
-\begin{equation}
-B_C \geq \frac{1}{\sigma_{\tau}}
-\label{CohBW}
-\end{equation}
+
+
 
 
 

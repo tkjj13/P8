@@ -28,21 +28,21 @@ From the \autoref{chap:introduction} the value of $\hat{\gamma}$ is set to 1E-5.
  & \textbf{$\pm$2 dB} 	& 480E+3 	& 606E+3 	& 791E+3 	& 1.12E+6 	& 1.94E+6 \\ \cline{2-7} 
  & \textbf{$\pm$2.5 dB} & 271E+3 	& 342E+3 	& 447E+3 	& 634E+3 	& 1.10E+6 \\ \cline{2-7} 
 \end{tabular}
-\caption{Estimated number of samples for different confidence levels and intervals.}
+\caption{Estimated number of samples for different confidence levels and intervals at $\hat{\gamma}$ = 1E-5.}
 \label{tab:numSample}
 \end{table}
 
 \newpage
 \subsection{Statistics method for rare events}\label{sampleEQ}
-As seen in \autoref{tab:numSample}, a low confidence interval requires a substantial amount of independent samples, . The reason for this, is the need for a high number of rare events to occur to get a high confidence interval for these events. 
+As seen in \autoref{tab:numSample}, a low confidence interval requires a substantial amount of independent samples. The reason being the need for a high number of rare events to occur to get a high confidence level of these events. 
 
-For simulation purposes there have been developed some methods to handle this problem. One of them is importance sampling. Importance sampling changes the distribution where the samples is taken from. By changing the distribution, so the rare events is not rare anymore and a high number of them can be samples with a smaller sample population. When introducing this new distribution, an example is given in \autoref{IMD}. There is also introduced a weighting factor, which is defined from the change in the distribution, see \autoref{IMW}. 
+For simulation purposes some method have been developed that handles this problem. One of them is importance sampling, which changes the probability of rare events occurring by changing the distribution, so the rare events is not rare anymore. An example of a change in distribution can be seen on \autoref{IMD}, where the weighting factor is describing the change of the distribution see \autoref{IMW}. 
 
 \begin{minipage}[t]{0.48\textwidth}
 \centering
 \begin{figure}[H]
 \input{figures/Matlab_figures/IMD.tex}
-\caption{An example on an old distribution (Rayleigh) and the wanted distribution (Gaussian)}
+\caption{An example on an real distribution (Rayleigh) and the wanted distribution (Gaussian)}
 \label{IMD}
 \end{figure}
 \end{minipage}%
@@ -57,37 +57,37 @@ For simulation purposes there have been developed some methods to handle this pr
 \end{minipage}
 \vspace{1em}
 
-This weighting factor is used to go from the actual distribution to the desired distribution. However this can not be used as the measurements are taken physically with no a priori knowledge of the behaviour of the environment. Another way to look at this is to see the change in distribution as force fully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
+Importance sampling can not be used as the measurements are taken physically with no a priori knowledge of the fading characteristic in the environment. Another way to look at this is to see the change in distribution as forcefully introducing more spots with deep fades, that might be possible but without full knowledge of the changes it will only skew the results.
 
-Most of the other rare event simulations tools (like Stochastic process rare event sampling and Transition path sampling) handle this problem with rare events, by using information about the distribution, to limit the number of samples and by not knowing the distribution, these methods can therefore not be used. 
+Most of the other rare event simulations tools i.e. Stochastic process rare event sampling and Transition path sampling, handles this problem with rare events by using information about the distribution or other a priori information of the environment. As all these method assumes prior knowledge of the distribution neither is suitable for this project.
 
 
-As no useful statistical method has been found the required number of samples can not be reduced from \autoref{tab:numSample}. Therefore a compromise between the necessary number of samples, the more samples needed the longer it will take, and the confidence level and interval needs to be found. It is chosen to go for a 90\% confidence level and a 1 dB margin, as this is found to be a reasonable compromise. This means that $4.04E+6$ samples should be obtained during the measurement campaign. 
+As no useful statistical method has been found the required number of samples can not be reduced from \autoref{tab:numSample}. Therefore a compromise between the necessary number of samples, and the confidence level/interval needs to be found. A 90\% confidence level and a $\pm$1 dB interval is chosen, as this is found to be a reasonable compromise. This means that the measurement campaign should aim to obtain >$4.04E+6$ independent samples.
 
 %Reduction of number of samples
 %- Important sampling
 %- Not useful
 
 \section{Bootstrap Percentile Method}\label{sec_bootstrap}
-Another statistically aspect, for which there are different method and techniques, is how to determine the confidence interval at a certain confidence level from the measurements. From the previous section the number of samples needed to attain a confidence level of 90\% and a margin of 1 dB is found. However this is estimated based on theory and has no particular onset in the actual measurements, it is therefore necessary to find a method to evaluate the confidence based on the measurements. The method chosen is the \textit{Bootstrap Percentile Method} \citep{Bootstrap}.
+The estimated values found is based on theory and has no particular onset in the actual measurements, it is therefore necessary to find a method to evaluate the confidence level/interval based on actual measurements. The method chosen is the \textit{Bootstrap Percentile Method} \citep{Bootstrap}.
 
-The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\mathbf{X}$ consisting of $(X_1, X_2,..X_n)$ and the value that wish to find the confidence around $\hat{\gamma}$. A new subset is now found from the surrogate population, this is done by copying randomly a value from $\mathbf{X}$ and putting it into the new subset $\mathbf{B}$ until $\mathbf{B}$ has the same size as $\mathbf{X}$. The value of $\hat{\gamma_B}$ is then found and the process is repeated a couple thousand times. All the new values of $\hat{\gamma_B}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values is left out. This will produce a the confidence interval given a confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
+The Bootstrap method works on a surrogate population, a subset from the total sample space, which is considered an estimate of the true sample population \citep{Bootstrap}. This surrogate population will consists of the samples from the measurements campaign. For the sake of further explanations lets call the surrogate population $\overrightarrow{X}$ consisting of $(x_1, x_2,..x_n)$ and the probability of interest $\hat{\gamma}$. A new subset is now found based on $\overrightarrow{X}$, this is done by copying a random value from $\overrightarrow{X}$ and putting it into a new subset $\overrightarrow{B}$ until it has the same size as $\overrightarrow{X}$. $\overrightarrow{B}$ is then sorted to obtain the \gls{CDF} and the argument, $b_{\hat{\gamma}}$, giving $\hat{\gamma}$ is found. The process is repeated a couple thousand times to stabilize the result. All the new values of $b_{\hat{\gamma}}$ can then be sorted and the the desired percentile can be picked so that the lowest and highest values are left out. This will produce a confidence interval given the confidence level \citep{Bootstrap}. For the measurements the 90 \% confidence level is picked leaving out the top and bottom 5 \% of the sorted values.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{figures/Bootstrap.pdf}
-\caption{Showcase of the bootstrap method, where the surrogate population $X$ is made of samples from the normal sample population $B$. From $X$ there are drawn new subsets $B$, at the same size as $X$.}
+\caption{Showcase of the bootstrap method, where the surrogate population $\vec{X}$ is made of samples from the real sample population S. From $\vec{X}$ there are randomly copied new subsets $\vec{B}$, with the same size as $\vec{X}$.}
 \label{BSEX}
 \end{figure}
 
-This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
+This method is only valid if the assumption of a symmetric distribution around $\hat{\gamma}$ holds true \citep{Bootstrap}, which means that a high number of samples is still needed to obtain a sufficient resolution of the CDF. 
 
-An example have been simulated in matlab, where there have been taken $4.04 \cdot 10^6$ sample from $raylrnd$. These values are converted to dB, which give a CDF, which is the yellow line in \autoref{BS90}. By using the booth strap method 10.000 times and make a CDF for each trial. By taking the 500th highest and lowest value in each point in the CDF (which gives a 90\% confidence level), a interval is created, which is shown in \autoref{BS90}. It is seen that at low procentence level, that the interval becomes wider, as there is a less sample population for that part. At the $10^{-5}$ point, there is a interval on 1.63 dB, which lower than the wanted confidence interval for this number of samples. 
+An example is simulated in matlab, where 4.04E+6 samples is produced using $raylrnd$. These values are sorted, to obtain the CDF, which is the yellow line in \autoref{BS90}. The confidence interval is found by using the bootstrap method 10.000 times and making a CDF for each trial. Then taking the 500th highest and lowest value in each point in the CDF corresponding to the 90\% confidence level, an interval is created, which is shown in \autoref{BS90}. It is seen that at low percentages that the interval becomes wider, as there is a less samples in this region. At the 1E-5 point, there is an interval of $\pm$ 0.82 dB, which is lower than the expected confidence interval for this number of samples. From this example it seems less samples are needed to achieve the desired confidence interval, however this is only the case for this specific simulation as the interval can vary slightly from simulation to simulation.
 
 \begin{figure}[H]
 \center
 \input{figures/Matlab_figures/BS90.tex}
-\caption{The estimated CDF from $4.3 \cdot 10^6$ samples. The confidence level is at 90\% and at $10^{-5}$ the confidence interval is on $\pm 1dB$.}
+\caption{The estimated CDF from 4.04E+6 samples. The confidence level is at 90\% and at 1E-5 the confidence interval is on $\pm 0.82$ dB.}
 \label{BS90}
 \end{figure}
 

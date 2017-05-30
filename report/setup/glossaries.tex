@@ -90,7 +90,7 @@
 \newacronym{PHY}{PHY}{physical layer}
 \newacronym{DPHY}{D-PHY}{physical layer type D}
 \newacronym{CSI2}{CSI-2}{camera serial interface 2}
-\newacronym{LP}{LP}{low power}
+\newacronym{LP}{LP}{low-pass filter}
 \newacronym{HS}{HS}{high state}
 \newacronym{DDR}{DDR}{double data rate}
 \newacronym{UART}{UART}{universal asynchronous receive/transmitter}
@@ -167,7 +167,9 @@
 \nomwithdim{$C(t)$}{is the impulse response of a Rayleigh fading channel}{1}
 \nomwithdim{$\psi_n(t)$}{is due to $\Phi_n(t)$ and $\tau_n(t)$ and is induced by the Doppler shift}{rad}
 
-\nomwithdim{$f_d$}{is the maximum Doppler bandwidth}{Hz}
+\nomwithdim{f}{is frequency}{Hz}
+\nomwithdim{$f_{d,max}$}{is the maximum Doppler bandwidth}{Hz}
+\nomwithdim{$f_d$}{is the Doppler shift}{Hz}
 \nomwithdim{$\lambda$}{is the wavelength}{m}
 \nomwithdim{$v$}{is the relative velocity of the receiver compared to the transmitter}{$\frac{m}{s}$}
 
@@ -221,7 +223,7 @@
 \nomwithdim{$H_{LP}(t)$}{is the impulse response of the low pass filter}{1}
 
 \nomwithdim{$DR$}{is the dynamic range of the system}{dB}
-\nomwithdim{$MAX_{str}$}{is the maximum strength of a receiving system}{dBm}
+\nomwithdim{$MAX_{str}$}{is the maximum input power}{dBm}
 \nomwithdim{$Sens$}{is the sensitivity of the receiver}{dBm}
 
 
@@ -229,19 +231,13 @@
 \nomwithdim{$Te$}{is the equivalent noise temperature of the antenna}{K}
 \nomwithdim{$NF$}{is the noise figure of the receiver}{dB}
 \nomwithdim{$k_b$}{is the Boltzmann's constant}{$\frac{J}{K}$}
-\nomwithdim{$SNR_{Req}$}{is the required signal to noise}{dB}
 
-\nomwithdim{SINAD}{is the signal to noise and distortion ratio}{1}
-\nomwithdim{SNR}{is the signal to noise ratio}{1}
-\nomwithdim{$s$}{is the signal power}{W}
-\nomwithdim{$w$}{is the noise power}{W}
-\nomwithdim{$p_d$}{is the distortion power}{W}
 
 \nomwithdim{$W$}{is the noise floor}{dBm}
 \nomwithdim{$IF_{BW}$}{intermediate frequency bandwidth}{Hz}
 \nomwithdim{$AVG_f$}{is the averaging factor}{1}
 
-\nomwithdim{$T$}{is the time a measurement sweep takes}{s}
+%\nomwithdim{$T$}{is the time a measurement sweep takes}{s}
 
 \nomwithdim{$a^2$}{is the power in dominant component}{W}
 \nomwithdim{$\sigma^2$}{is the local-mean scattered power}{W}
