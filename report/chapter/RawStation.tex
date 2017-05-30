@@ -17,6 +17,7 @@ In total 4,184,460 samples have been collected, the values are represented in \a
 \subsection{Stationarity}\label{sec:meas_stationarity}
 The stationarity of channel is verified by checking if the measurements conform to the criteria of \gls{WSSUS}. This is done by checking \gls{WSS} in the temporal domain and \gls{US} in the spatial domain. The criteria for this is a constant mean and a autocorrelation that is only dependent on delay between samples \citep[ch. 5]{The_Mobile_Radio_Propagation_Channelbook}. 
 
+\newpage
 \textbf{Temporal domain mean}
 
 The data is structured in 3 domains (frequency, antenna, walk/space), with N, M and K being the number of points in each dimension. To analyse stationarity in frequency an average is taken across the other two domains:
@@ -134,6 +135,7 @@ The result of the normalization can be seen on \autoref{fig:Norm_space}.
 
 It can be concluded the mean was not constant during the measurement, however due to the normalization the spatial mean of \textit{data3} can be considered to be constant across all measurements. The last check to see if the channel is \gls{WSSUS} is to verify that the autocovariance function is only dependent on sample shift. This is also done in both the temporal and spatial domain.
 
+\newpage
 \textbf{Temporal domain correlation}
 
 It needs to be checked if:
@@ -192,6 +194,7 @@ The result of \autoref{eq:variance_of_covariance} can be seen in \autoref{fig:va
 
 \autoref{fig:var_freq} shows that all the variences are quite low, this is a very good indicator that the autocorrelation is only dependent on $\Delta n$ and therefore the data is WSS.
 
+\newpage
 \textbf{Spatial domain correlation}
 
 Analogously to the temporal domain the process is repeated for the spatial domain. The result of which can be seen on \autoref{fig:var_space}.

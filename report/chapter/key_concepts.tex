@@ -277,54 +277,54 @@ From \autoref{NFwithAVG} it can be seen that increasing the $AVG_f$ has the same
 
 \subsection{SNR Margin Estimation}
 \label{SNR_margin}
-Because the noise might influence the deep fades of our signal, a minimum SNR margin needs to be estimated.
-This gives us the SNR margin needed to distinguish a deep fade from the noise floor. % given a set confidence interval and margin.
+%Because the noise might influence the deep fades of the signal, a minimum SNR margin needs to be estimated.
+A minimum SNR margin needs to be estimated to distinguish the deep fades from the noise floor. % given a set confidence interval and margin.
 %By doing this gives we will be able to accept the measurements that are above this margin and reject the ones that are affected by the noise.
-The estimation assume the signal as a constant and the noise as a complex vector that changes. Therefore a Rician distribution can be used, because it consists of constant part and random part.
+The estimation assume the signal as a constant and the noise as a being Gaussian. Therefore a Rician distribution can be used, because it consists of a constant and random part.
 \begin{align}
 p = a^2 + 2\sigma^2 \\
-K = \frac{a^2}{2\sigma^2}
+K_r = \frac{a^2}{2\sigma^2}
 \end{align}
 
 \begin{where}
 \va{$p$}{is the power of the Rician variable}{W}
 \va{$a^2$}{is the power in dominant component}{W}
 \va{$\sigma^2$}{is the local-mean scattered power}{W}
-\va{$K_r$}{is the K factor}{1}
+\va{$K_r$}{is the K-factor}{1}
 \end{where}
 
-Rician distribution fits in this situation because the K-factor that it depend upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that we need to estimate\cite[p.308]{Fading_Shadowing}.
+Rician distribution fits in this situation because the K-factor that it depends upon is a ratio of power for the constant signal to the random noise, meaning that the K-factor matches the \gls{SNR} margin that needs to estimated \cite[p.308]{Fading_Shadowing}.
 
+It is chosen to use the same confidence level/interval for this margin as used in determining $N_{tot}$. Meaning that the interval is $\pm 1$ dB around the constant signal in the Rician \gls{CDF} and the confidence level can be determined by the K-factor. This can be seen on \autoref{Rician_90}.
 
-Given that we set our confidence interval of $\pm 1$dB around the value of our constant signal in the Rician cdf matched with the 90\% confidence level on the probability axis, we are able to estimate numerically the part of the K-factor that we are interested in.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.70\textwidth]{figures/SNR_margin.png}
-\caption{Solving for the K-factor numerical gives a estimate of SNR Margin. At 0.90 confidence with $\pm 1$dB margin  the K-factor is 14dB.}
+\caption{Solving for the K-factor numerically gives an estimate of the SNR margin. At 90\% confidence level with $\pm 1$ dB interval the K-factor is 14 dB.}
 \label{Rician_90}
 \end{figure}
 
-The results show that a margin of 14dB is needed to have accurate reading of the deep fades.
-The $SNR_M$ requirement becomes:
-\begin{equation}\label{needed_SNR}
-SNR_m = 14dB - G_f , 14dB + 50dB = 64dB 
-\end{equation}
+\autoref{Rician_90} show that a margin of 14 dB is needed to have accurate reading of the deep fades. The $SNR_m$ requirement becomes:
+\begin{align}\label{needed_SNR}
+SNR_m = K_r - G_f \\
+SNR_m = 14dB + 50dB = 64dB 
+\end{align}
 \begin{where}
 \va{$SNR_m$}{is the SNR margin }{dB}
-\va{$G_f$}{is the fading gain we want to measure (-50dB)}{dB}
+\va{$G_f$}{is the fading gain, -50 dB}{dB}
 \end{where}
 
-
+\newpage
 \subsection{How to measure uncorrelated samples}
 \label{howtomeasureUS}
-To measure the required samples from \autoref{sampleEQ} ($\approx 4.04\cdot10^6$) uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The total number of samples that can be obtained can be expressed as: 
+To measure the required samples from \autoref{tab:numSample} 4.04E+6 uncorrelated samples requires a elaborate test setup. The limitation is in how much space and time the measurement is going to require. The total number of samples that can be obtained can be expressed as: 
 
 %The example scenario  will have a $f_c$ of 3Ghz, BW of 100MHz, a $5x5$ antenna array, a office building with a delay spread of 100ns and a room size that is $10m \cdot 10m$.
 %If we assume we have a multipath delay spread of 100ns. Given \autoref{CohBW} the $B_C$ is 1.6MHz. Since the $B_C$ is only a approximation with some coherence, the $B_C$ should be increased to approximate 3 Mhz to get less correlated samples. This will give round 30 uncorrelated samples in frequency with a BW of 100MHz.
 %The $f_c$ of 3Ghz gives a $\lambda$ of 0.1m or 10cm. The array antennas has each antenna spaced half a $\lambda$ which would give a total antenna length of 0.25m. If the antenna array is moved in one dimension,every step needs to be spaced $0.25+\frac{\lambda}{2}$ apart. Given the 10m size of the room 30 samples is possible in 1 dimension. If the measurements is done in 2 dimensions ($10m\cdot 10m$) a total area of:
 
 \begin{equation}
-N_{tot} = N_a \cdot \underbrace{\frac{f_{span}}{B_c }}_{N_f} \cdot \underbrace{\frac{A}{(\frac{\lambda}{2})^2}}_{N_d}
+N_{tot} = N_a \cdot \underbrace{\frac{f_{span}}{B_C }}_{N_f} \cdot \underbrace{\frac{A}{(0.4\lambda)^2}}_{N_d}
 \label{howtosample}
 \end{equation} 
  
@@ -334,20 +334,20 @@ N_{tot} = N_a \cdot \underbrace{\frac{f_{span}}{B_c }}_{N_f} \cdot \underbrace{\
 \va{$N_f$}{is the number of samples in frequency}{1}
 \va{$N_d$}{is the number of samples in space}{1}
 \va{$A$}{is the area }{$m^2$}
-\va{$B_c$}{is the coherence BW }{Hz}
+\va{$B_C$}{is the coherence BW }{Hz}
 \va{$f_{span}$}{ is the frequency span}{Hz}
 \end{where} 
  
 %Where $N$ is number of samples(in antenna diversity,frequency and space), $A_{div}$ is the antenna diversity, $\Delta$ is the area, $B_c$ is the coherence BW and $\lambda$ is the wavelength.
 
-\autoref{howtosample} can be used to found the area required given number of samples $N$ needed.
+\autoref{howtosample} can be used to find the area required given number of samples $N_{tot}$ needed:
 
 \begin{equation}
-A  = \frac{N_{tot}\cdot (\frac{\lambda}{2})^2}{N_a\cdot \frac{f_{span}}{B_c}}
+A  = \frac{N_{tot}\cdot (0.4\lambda)^2}{N_a\cdot \frac{f_{span}}{B_C}}
 \label{howtosqaure}
 \end{equation}
 
-If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. It's clear that taking $4.04\cdot10^6$  uncorrelated samples requires taking advantage of  frequency(bandwidth),space or time to get the necessary samples. The best way is to balance and connect these values to the limitation in the equipment and measurement setup. This will be examined in later sections. 
+If the area of the measurement is not big enough to take all the measurements different rooms could be used. To do this you need to normalize for the mean gain the system sees. It is clear that taking 4.04E+6 uncorrelated samples requires taking advantage of frequency, antennas and space to get the necessary samples. The best way is to balance and connect these values to the limitation in the equipment and measurement setup. This will be examined in Part II. 
 %If we assume a $10m \cdot 10m$ this gives us: 
 %\begin{equation}
 %\frac{10m}{\frac{\lambda}{2}} \cdot \frac{10m}{\frac{\lambda}{2}}  = 40000 samples

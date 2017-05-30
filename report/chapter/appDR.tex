@@ -4,7 +4,7 @@
 To find the average SNR during the measurements, a separate set of measurements are performed. This is done because the PNA N5227A can not directly show the noise floor. 
 
 \subsection{Setup}
-The setup is almost identical to the one use during the measurement and can be seen in \autoref{final_specs} with the only change being the number of points in frequency that is swept is increase from 41 to 801. Each sweep is then transformed from frequency domain to time domain using a Keiser window with parameters TBD. 20 random points is chosen from the test area described in \autoref{Environment} where the measurements are performed. 
+The setup is almost identical to the one use during the measurement and can be seen in \autoref{final_specs} with the only change being the number of points in frequency that is swept is increase from 41 to 801. Each sweep is then transformed from frequency domain to time domain using a Keiser window with parameters 6 and 1.95 ns. 20 random points is chosen from the test area described in \autoref{Environment} where the measurements are performed. 
 
 \subsection{Procedure}
 \begin{enumerate}
@@ -19,12 +19,12 @@ The setup is almost identical to the one use during the measurement and can be s
 		\item Manually save
 		\item csv file format
 		\item dB magnitude and phase
-		\item brose to noise folder
+		\item browse to noise folder
 		\item save as noise
 	\end{itemize}
 	\item Move RX to point 1
 	\item Press save
-	\item Repeat 5 and 6 for the rest of the points	
+	\item Repeat 7 and 8 for the rest of the points	
 \end{enumerate}
 
 
@@ -50,9 +50,10 @@ SNR = P_{RX} - W = -78dB + 145dB = 67 dB
 	\va{W}{is noise floor compared to the transmit power}{dB}
 \end{where}
 
+\newpage
 \section{TX antenna gain}
 \label{ant_adix}
-The following figure gives the gain of the TX antenna used and shown in \autoref{DirAnt} at different frequencies. This is accounted for in the scripts. 
+The following figure gives the gain of the TX antenna used and shown in \autoref{DirAnt} at different frequencies.  
 
 \begin{figure}[H]
 \centering

@@ -10,7 +10,7 @@
 		\nompageref{i}
   \item [{$\Delta f$}]\begingroup \DimensUnits {is the frequency separation}{Hz}\nomeqref {0}
 		\nompageref{i}
-  \item [{$\Delta n$}]\begingroup \DimensUnits {is the correlation distance in frequency}{1}\nomeqref {0}
+  \item [{$\Delta n$}]\begingroup \DimensUnits {is the sample shift in frequency}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$\epsilon _{drift}(t)$}]\begingroup \DimensUnits {is the drift in frequency of the LO}{Hz}\nomeqref {0}
 		\nompageref{i}
@@ -46,7 +46,7 @@
 		\nompageref{i}
   \item [{$\textbf {data2}$}]\begingroup \DimensUnits {is the data normalized with regards to frequency imbalance}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$\textbf {data3}$}]\begingroup \DimensUnits {is the normalize data in frequency and space}{1}\nomeqref {0}
+  \item [{$\textbf {data3}$}]\begingroup \DimensUnits {is the normalized data in frequency and space}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$\textbf {data}$}]\begingroup \DimensUnits {is the measured data as ratio of input to output}{1}\nomeqref {0}
 		\nompageref{i}
@@ -84,7 +84,9 @@
 		\nompageref{i}
   \item [{$f_c$}]\begingroup \DimensUnits {is the center frequency}{Hz}\nomeqref {0}
 		\nompageref{i}
-  \item [{$f_d$}]\begingroup \DimensUnits {is the maximum Doppler bandwidth}{Hz}\nomeqref {0}
+  \item [{$f_d$}]\begingroup \DimensUnits {is the Doppler shift}{Hz}\nomeqref {0}
+		\nompageref{i}
+  \item [{$f_{d,max}$}]\begingroup \DimensUnits {is the maximum Doppler bandwidth}{Hz}\nomeqref {0}
 		\nompageref{i}
   \item [{$f_{LO}$}]\begingroup \DimensUnits {is the frequency of the local oscillator}{Hz}\nomeqref {0}
 		\nompageref{i}
@@ -118,7 +120,7 @@
 		\nompageref{i}
   \item [{$k_b$}]\begingroup \DimensUnits {is the Boltzmann's constant}{$\frac {J}{K}$}\nomeqref {0}
 		\nompageref{i}
-  \item [{$K_r$}]\begingroup \DimensUnits {is the K factor}{1}\nomeqref {0}
+  \item [{$K_r$}]\begingroup \DimensUnits {is the K-factor}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$L$}]\begingroup \DimensUnits {is path loss}{dB}\nomeqref {0}
 		\nompageref{i}
@@ -126,7 +128,7 @@
 		\nompageref{i}
   \item [{$M$}]\begingroup \DimensUnits {is the number of spatial points measured, 34020}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$MAX_{str}$}]\begingroup \DimensUnits {is the maximum strength of a receiving system}{dBm}\nomeqref {0}
+  \item [{$MAX_{str}$}]\begingroup \DimensUnits {is the maximum input power}{dBm}\nomeqref {0}
 		\nompageref{i}
   \item [{$N$}]\begingroup \DimensUnits {is the number of frequency points measured, 41}{1}\nomeqref {0}
 		\nompageref{i}
@@ -145,8 +147,6 @@
   \item [{$p$}]\begingroup \DimensUnits {is the power of the Rician variable}{W}\nomeqref {0}
 		\nompageref{i}
   \item [{$p(\overrightarrow {x_{(i)}})$}]\begingroup \DimensUnits {is the cumulative distribution function of measured data}{1}\nomeqref {0}
-		\nompageref{i}
-  \item [{$p_d$}]\begingroup \DimensUnits {is the distortion power}{W}\nomeqref {0}
 		\nompageref{i}
   \item [{$P_f(n)$}]\begingroup \DimensUnits {is the floor penetration factor with nth floors}{dB}\nomeqref {0}
 		\nompageref{i}
@@ -172,8 +172,6 @@
 		\nompageref{i}
   \item [{$R_{h}$}]\begingroup \DimensUnits {is the autocorrelation function of $h(d,t)$}{1}\nomeqref {0}
 		\nompageref{i}
-  \item [{$s$}]\begingroup \DimensUnits {is the signal power}{W}\nomeqref {0}
-		\nompageref{i}
   \item [{$S(f_d,t)$}]\begingroup \DimensUnits {is the output Doppler scattering function}{1}\nomeqref {0}
 		\nompageref{i}
   \item [{$s_{R_f}^2$}]\begingroup \DimensUnits {is the variance of the autocorrelation samples}{1}\nomeqref {0}
@@ -181,10 +179,6 @@
   \item [{$Sens$}]\begingroup \DimensUnits {is the sensitivity of the receiver}{dBm}\nomeqref {0}
 		\nompageref{i}
   \item [{$SNR_m$}]\begingroup \DimensUnits {is the signal to noise ratio margin }{dB}\nomeqref {0}
-		\nompageref{i}
-  \item [{$SNR_{Req}$}]\begingroup \DimensUnits {is the required signal to noise}{dB}\nomeqref {0}
-		\nompageref{i}
-  \item [{$T$}]\begingroup \DimensUnits {is the time a measurement sweep takes}{s}\nomeqref {0}
 		\nompageref{i}
   \item [{$t$}]\begingroup \DimensUnits {is absolute time}{s}\nomeqref {0}
 		\nompageref{i}
@@ -198,7 +192,7 @@
 		\nompageref{i}
   \item [{$W$}]\begingroup \DimensUnits {is the noise floor}{dBm}\nomeqref {0}
 		\nompageref{i}
-  \item [{$w$}]\begingroup \DimensUnits {is the noise power}{W}\nomeqref {0}
+  \item [{$W_{IF}$}]\begingroup \DimensUnits {is the typical noise floor of the NA with $IF_{BW} = 10$ Hz}{dBm}\nomeqref {0}
 		\nompageref{i}
   \item [{$W_{max}$}]\begingroup \DimensUnits {is the maximum noise floor allowed}{dBm}\nomeqref {0}
 		\nompageref{i}
@@ -214,11 +208,11 @@
 		\nompageref{i}
   \item [{$z_{\frac {\alpha }{2}}$}]\begingroup \DimensUnits {is the $100(1-\frac {\alpha }{2})$-th percentile of the standard normal distribution}{1}\nomeqref {0}
 		\nompageref{i}
+  \item [{diff}]\begingroup \DimensUnits {is the difference in noise floor levels}{dBm}\nomeqref {0}
+		\nompageref{i}
+  \item [{f}]\begingroup \DimensUnits {is frequency}{Hz}\nomeqref {0}
+		\nompageref{i}
   \item [{marg}]\begingroup \DimensUnits {is the margin around $\hat {\gamma }$}{1}\nomeqref {0}
-		\nompageref{i}
-  \item [{SINAD}]\begingroup \DimensUnits {is the signal to noise and distortion ratio}{1}\nomeqref {0}
-		\nompageref{i}
-  \item [{SNR}]\begingroup \DimensUnits {is the signal to noise ratio}{1}\nomeqref {0}
 		\nompageref{i}
 
 \end{thenomenclature}

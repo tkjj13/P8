@@ -48,7 +48,7 @@ Given the fact that not all samples are uncorrelated, the sample pool is not big
 The drawback of removing half the samples, is that the confidence level/interval wanted in \autoref{sec:statistics} can not be obtained. With the lower number of uncorrelated samples, either or both the confidence interval and confidence level needs to be increased or reduced. By cutting the sample pool down to half (2,092,230 samples), the confidence level at $\pm 1dB$ would be reduced to 76\% or for a 90 \% confidence level the interval will be increased to $\pm 1.33dB$. With the usage of the bootstrap method, the confidence level can be set to the wanted level and the confidence interval can then be found.
 
 
-
+\newpage
 \section{Results}
 
 The \gls{CDF} of the measured fading gain is found by sorting \textit{data3} with the probability being the index divided with the number of samples, which is shown in \autoref{CDFFinalBS}. Beside the CDF of the measurements, the 90\% confidence level is shown, which is made with the bootstrap method described in \autoref{sec_bootstrap} and have made 10,000 bootstraps. 
@@ -68,7 +68,7 @@ p(x_{(i)}) = \frac{i}{N\cdot M\cdot K}
 \caption{CDF of the measured fading gain. The min and max is the 90\% confidence level made with the bootstrap method, having made 10,000 bootstraps.}
 \label{CDFFinalBS}
 \end{figure}
-\todo{run BS script on new data check numbers afterwards}
+
 
 From the bootstrap, the confidence interval can be found at the 1E-5 probability, which is (-53.63 to -50.88) dB or $(51.59\pm 1.37)$ dB. The interval is around the estimation based on the correlation between samples which was found in \autoref{approxN} to be $\pm 1.33$ dB.
 
