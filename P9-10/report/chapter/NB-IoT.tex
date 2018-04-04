@@ -1,0 +1,102 @@
+%\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp{|}\hsp}{0pt}{\Huge\bfseries}
+\chapter{NB-IoT Protocol}\label{ch:NB-IoT}
+
+The structure of \gls{NB-IoT} is still in the process of being defined, however some structure has been integrated in the \gls{LTE} Rel-13 \citep{REL-13}. The primary difference between \gls{LTE} and \gls{NB-IoT} is the requirements set by the \gls{UE}. For \gls{LTE} it is the download capacity that is needed i.e. video streaming, internet surfing etc. however for the \gls{NB-IoT} it is the uplink capacity that is needed, users are primarily smart meters and other measurement equipment \citep{primer}. These sort of devices has a low throughput and are fairly insensitive towards delay, however in terms of battery life time and coverage area the requirements are more severe as the equipment might be placed in hard to get to places e.g. cellars, sewers etc. A overview of the requirements set for \gls{NB-IoT} is \citep{NB-IoT_Book}:
+
+\begin{itemize}
+\item Ultra-low complexity \gls{UE}s
+	\begin{itemize}
+	\item The \gls{UE} has a sample rate of 240 KHz
+	\item Only supports \gls{TBCC}
+	\item Half-duplex
+	\item Uses \gls{SISO} connection
+	\end{itemize}
+\item Improved coverage with a \gls{MCL} up to 164 dB
+	\begin{itemize}
+	\item \gls{MCL} surpassing \gls{GPRS} system with 20 dB
+	\item Improve coverage by introducing \gls{CE} levels 
+	\end{itemize}
+\item Support massive number of \gls{UE}s as high as 52547 devices per cell-site sector
+\item Improved power efficiency with a battery life time of 10 years with a battery capacity of 5 Wh
+	\begin{itemize}
+	\item Using \gls{CE} to minimize Power amplifier backoff increasing efficiency.
+	\item Using \gls{cDRX}, \gls{eDRX} and \gls{PSM} 
+	\end{itemize}
+\item Deployment flexibility
+	\begin{itemize}
+	\item The system should be able to be deployed both inside existing systems.
+	\item The system should be able to be deployed as a stand alone solution.
+	\end{itemize}
+\end{itemize}
+
+From this it can also be seen that there are no requirements to the latency of the communication between \gls{UE} and the network. To describe how to fulfill the set requirements a top down method will be used. Starting with the network structure of \gls{NB-IoT}.
+
+
+
+%\section{Design Overview}
+
+\input{chapter/NB_Network-Structure.tex}
+
+\input{chapter/NB_Protocol-layers.tex}
+
+
+\section{Network Access}
+
+\subsection{Cell Search and Synchronization Procedure}
+
+
+\textbf{Synchronization} \\
+The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}. 
+
+\begin{figure}[H]
+\centering
+\input{figures/sync-NB.tex}
+\caption{sync-NB}
+\label{fig:sync-NB}
+\end{figure}
+
+First the \gls{NPSS} is located this provides the initial \gls{CFO} as well as timing alignment. Then the \gls{NSSS} is decoded this provides the \gls{NB-PCID} and timing within a 80 ms block \citep{primer}. For low complexity \gls{UE}s a single 10 ms segment might not suffice at a low \gls{SNR}, the structure of the \gls{NPSS} is therefore made so the signals can accumulate coherently over multiple 10 ms segments \citep{primer}. The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{CRC} bits, they are transmitted in eight self-decodeable blocks which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
+ 
+\begin{figure}[H]
+\centering
+\input{figures/MIB-NB.tex}
+\caption{MIB-NB}
+\label{fig:MIB-NB}
+\end{figure}
+
+The information carried in the \gls{MIB-NB} are:
+
+\begin{itemize}
+\item[2 bit] hyper frame number
+\item[4 bit] \gls{SFN}
+\item[4 bit] \gls{NB-SIB}1 scheduling
+\item[5 bit] value tag
+\item[1 bit] access barrer
+\item[7 bit] operation mode and values
+\item[11 bit] reserved for future use
+\end{itemize}
+
+From the \gls{MIB-NB} the schedule for \gls{NB-SIB}1 is found, this is always transmitted in subframe 4 however only the frames indicated by \gls{MIB-NB} carry \gls{NB-SIB}1. The next step is to decode all the \gls{NB-SIB}s.
+
+When the \gls{UE} have read all \gls{NB-SIB}s it has fully synchronized with the \gls{eNB}. The complete synchronization process can be seen in \autoref{fig:sync-NB}. It is mandatory for the \gls{UE} to have a valid version of \gls{MIB-NB} as well as \gls{NB-SIB}1-5, \gls{NB-SIB}14 and 16 is only read when required. Furthermore once connected to the system the \gls{UE} is not expected to update its version of the \gls{NB-SIB}s unless instructed to \citep{whitepaper}. Now the \gls{UE} is ready to start the \gls{NRAP} which is described later. 
+
+
+
+
+\subsection{Random Access Procedure} \label{sec:RAP}
+
+\subsection{Connection Control}
+
+RRC connection resume
+PSM
+eDRX
+NAS data transfer
+
+\section{Data Transfer}
+
+\subsection{Control Plane Optimization}
+
+\subsection{Multi Carrier Configuration}
+
+\subsection{Repetition Schemes}
+

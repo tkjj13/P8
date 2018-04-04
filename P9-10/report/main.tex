@@ -1,0 +1,150 @@
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\input{setup/macros.tex}% my new macros
+\input{setup/glossaries.tex} % glossaries stuff
+\usepackage{lastpage}
+\usepackage{epstopdf}
+\usepackage{graphicx} %Matlab figures
+%\usepackage[table]{xcolor}
+\setlength{\headheight}{21pt}
+\hfuzz=\maxdimen
+\tolerance=10000
+\hbadness=10000
+%
+\usepackage{siunitx}
+
+
+
+\defcitealias{3GPP_MME_spec}{3GPP, 2016}
+\defcitealias{3GPP_SCEF_primer}{Definition Networks, 2017}
+\defcitealias{CAT_comp}{Digi Internationals Inc, 2017}
+
+
+\graphicspath{{./figures/}}
+
+
+\hypersetup{pdfinfo={
+Title={Massive Communication NB-Iot}
+}}
+
+\begin{document}
+%% prærapport %%
+\setlength\cftaftertoctitleskip{2pt}
+\setlength\cftafterloftitleskip{6pt}
+\setlength\cftafterlottitleskip{6pt}
+\captionsetup{belowskip=-1.5em}
+
+
+%\newpage
+%\include{chapter/structure}
+%\newpage
+
+%\selectlanguage{english}
+%\title{Embedded Massive User Equipment Simulator using Software Defined Radios}
+
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter I II...
+\fancyfoot[RE,LO]{17gr950} %page number on all pages
+\fancyfoot[LE,RO]{\thepage}
+\fancyhead[LE,LO,RE,RO]{}
+%\fancyhead[RO,LE]{\includegraphics[height=16pt]{logo_only.pdf}}
+%% indledende formalia %%
+
+\listoftodos
+\newgeometry{left = 0 cm, right = 0 cm, bottom=1cm}
+\include{formalia/frontpage}
+%\includepdf{chapter/frontpage3.pdf}
+\restoregeometry
+
+\pagestyle{fancy}
+\include{formalia/colophon}
+
+\newgeometry{left = 2.5 cm, right = 2.5 cm, bottom=1cm}
+%\newgeometry{bottom=2.5cm}
+\include{formalia/titlepage}
+\restoregeometry
+
+%\restoregeometry
+
+\pdfbookmark[0]{Table of Content}{label:Indhold}
+\tableofcontents
+
+\addcontentsline{toc}{section}{List of Terms}
+\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype , nonumberlist]
+
+
+
+
+\cleardoublepage
+
+\addcontentsline{toc}{section}{Preface}
+\include{formalia/preface}
+\cleardoublepage
+
+
+%% problemanalysen %%
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\fancyfoot[RO,LE]{\thepage \text{ of} \pageref{LastPage}}
+\fancyfoot[LO,RE]{17gr950}
+\fancyhead[RE,LO]{}
+\fancyhead[RO,LE]{\small\nouppercase\leftmark} %even page - chapter title
+
+
+
+%\fancyhead[RO,LE]{\includegraphics[height=16pt]{logo_only.pdf}}
+
+
+\pagestyle{fancy}
+%\makeatletter
+
+% %% PART 1 %%
+
+\include{chapter/introduction}
+%\part{Technical Analysis}
+\include{chapter/NB-IoT}
+
+
+ %% PART 2 %%
+%\part{Implementation}
+\include{chapter/System_overview}
+\include{chapter/Performance_Evaluation}
+
+
+
+
+
+\chapter{Conclusion}
+\chapter{Discussion}
+
+%\part{Test}
+%\include{chapter/acceptance_test}
+\include{chapter/Conclusion}
+\include{chapter/discussion}
+
+
+%% literaturliste og bilag %%
+\bookmarksetup{startatroot}% this is it
+\addtocontents{toc}{\bigskip}% perhaps as well
+\bibliography{setup/mybib}
+\label{bib:mybiblio}
+ 
+ \newpage
+ \fancyhead[RO]{\small Appendix \nouppercase\rightmark} %even page - chapter title
+ \fancyhead[LE]{\small Appendix \nouppercase\rightmark} %uneven page - section title
+\fancyhead[RE,LO]{}
+ \titleformat{\section}[hang]{\Large\bfseries}{\thesection\hsp\textcolor{black}{|}\hsp}{0pt}{\Large\bfseries}
+
+ \renewcommand{\thesection}{\Alph{section}}
+ \setcounter{section}{0}
+
+
+
+
+\chapter*{Appendix}
+ \addcontentsline{toc}{chapter}{Appendix}
+ \addtocounter{chapter}{1}
+ \input{chapter/BatteryConsumptionModel.tex}
+%\include{chapter/Appendix/HelixAntennaDesign}
+
+
+
+\end{document}

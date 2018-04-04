@@ -1,0 +1,27 @@
+\subsection{Random Access Procedure}
+The \gls{NRAP} in \gls{NB-IoT} is structured in the same way as the \gls{RAP} in \gls{LTE}, with 5 messages sent back and forth. The last 3 messages can be different dependably on the mode, that the \gls{UE} are in, as seen in \todo{Insert beautiful picture over messages for the different modes or ref up to earlier table}
+
+The difference between the different modes is introduced in \todo{Ref up to the mode part}
+
+
+\textbf{Preamble}
+The big difference between \gls{RAP} and \gls{NRAP} comes in the 1st message, the preamble. As the preamble in \gls{RAP} is multitone over 1.05 MHz, which exceeds the bandwidth of \gls{NB-IoT}, which is 180 kHz. The preamble in \gls{RAP} is based on a \gls{ZC} sequences, which are constant-envelope, so the signal will after upsampling and filtering have a \gls{PAPR} \todo{Peak to average power ration} of 2 to 7 dBs \todo{Source is source 8 in 2016 RAP design article}. When the \gls{PARP} is non-zero, it will indu
+
+msg1
+-Frequncy hooping
+-Reps
+msg2
+msg3
+-collision detection
+ms4
+
+Backoff
+
+Maybies
+-Hyppighed af Nprach
+-Cal af max numbers of ue's
+
+
+%%NPRACH_hopping.tex
+
+

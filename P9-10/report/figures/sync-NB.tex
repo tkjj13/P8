@@ -1,0 +1,30 @@
+\definecolor{top}{HTML}{00FFFF}
+\definecolor{center}{HTML}{0080FF}
+\definecolor{bund}{HTML}{0000FF}
+\usetikzlibrary{arrows}
+
+%\resizebox{0.5\textwidth}{!}{
+\begin{tikzpicture}[scale = 0.4]
+
+\draw (-7.5,8) rectangle (-2.5,6);
+\node at (-5,7) {\acrshort{UE}};
+\draw [dashed] (-5,6) -- (-5,-4);
+
+\draw (2.5,8) rectangle (7.5,6);
+\node at (5,7) {\acrshort{eNB}};
+\draw [dashed] (5,6) -- (5,-4);
+
+\draw[arrows={triangle 45-}] (-5,4) -- (5,4);
+\node at (0,4.5) {\acrshort{NPSS}};
+
+\draw[arrows={triangle 45-}] (-5,2) -- (5,2);
+\node at (0,2.5) {\acrshort{NSSS}};
+
+\draw[arrows={triangle 45-}] (-5,0) -- (5,0);
+\node at (0,0.5) {\acrshort{MIB-NB}};
+
+\draw[arrows={triangle 45-}] (-5,-2) -- (5,-2);
+\node at (0,-1.5) {\acrshort{NB-SIB}s};
+
+\end{tikzpicture}
+%}

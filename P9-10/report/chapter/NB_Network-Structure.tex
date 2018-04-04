@@ -1,0 +1,41 @@
+ \section{Network Structure}
+
+The network structure \gls{NB-IoT} is very similar to that of legacy \gls{LTE} as can be seen in \autoref{fig:network_structure}. The system is divided into a control plane \gls{CIoT} \gls{EPS} optimization and a user plane \gls{CIoT} \gls{EPS} optimization.
+
+\begin{figure}[H]
+\centering
+%\includegraphics[width=\textwidth]{figures/NB-Network.png}
+\input{figures/NB-IoT_Network_Architechture.tex}
+\caption{Overview over the network blocks and interfaces between blocks in \gls{NB-IoT}. Blue lines are user plane \gls{CIoT} \gls{EPS} optimization, the red lines are control plane \gls{CIoT} \gls{EPS} optimization plane and the purple lines are both \citep{NB_slide}}
+\label{fig:network_structure}
+\end{figure}
+
+
+\textbf{\gls{UE}}\\
+The \gls{UE} is the smart meters or other products as mentioned, they do not need to transmit a lot of data and it is not critical that it arrives within a certain time frame. They do however require a long battery life time. The problem comes in terms of placement, because many of these devices might be placed in basement like environment which means an increased path loss. The system needs to be able to operate with a \gls{MCL} of 164 dB \citep{REL-13}. As in previous systems the \gls{USIM} is located on the \gls{UE} for authentication purpose \citep[ch. 3]{book_LTE_for_UMTS}.
+
+\textbf{\gls{CIoT} \gls{RAN}}\\
+The \gls{CIoT} \gls{RAN} is the base stations, the most typically used is the \gls{eNB} base station. All radio communication terminates at this node. Any \gls{UE} that wish to use an external service, interfaces with the \gls{eNB} \citep{book_LTE_for_UMTS}. The \gls{eNB} interfaces with both the \gls{MME} and the \gls{SGW}. On the control plane (connection to the \gls{MME}) the \gls{eNB} is in charge of \gls{RRM}, i.e. allocating radio resources in the user plane to the individual \gls{UE} based on \gls{QoS} measures. 
+
+\textbf{\gls{MME}}\\
+The \gls{MME} takes care of mobility issues, it also keep track of where in the network different \gls{UE}s are connected \citepalias{3GPP_MME_spec}. Another very important function of the \gls{MME} is to handle authentication of \gls{UE}s and setting up security for the data bearers. The \gls{MME} might be connected to multiple \gls{UE}s, however a \gls{UE} may only be connected to a single \gls{MME} \citep[ch. 3]{book_LTE_for_UMTS}. In \gls{NB-IoT} handovers are omitted and the only way to change cell is by releasing the existing connection \citep{REL-13}. The \gls{MME} also handles paging procedures \citep{NB-IoT_Book}.
+
+\textbf{\gls{HSS}}\\
+The \gls{HSS} stores the identity of the users, which the \gls{MME} uses for authentication purposes. It records the location of the \gls{UE} in level of visited network control nodes  such as \gls{MME}, it also keep track of which networks the user is allowed to roam to \citep[ch. 3]{book_LTE_for_UMTS}.
+
+\textbf{\gls{SCEF}}\\
+The \gls{SCEF} is a multi functional unit, task it handles include: device trigger delivery, sponsored data, \gls{UE} reachability, \gls{3GPP} network issues, \gls{QoS} for a \gls{UE} session etc. Many of these functionalities are meant for normal \gls{LTE} use. Uses meant for \gls{NB-IoT} include \gls{UE} reachability which enables the application layer to be informed when a \gls{UE} reconnects to the network i.e. after an \gls{eDRX} or after \gls{PSM}. Another functionality it handles is \gls{NIDD}, which enables \gls{UE}s with small data volumes to send it data with less overhead and thereby have a longer battery life time \citepalias{3GPP_SCEF_primer}.
+
+\textbf{\gls{SGW}}\\
+The \gls{SGW} is primarily a routing unit. It interfaces with the \gls{eNB}, the \gls{MME} and the \gls{PGW}. When the \gls{UE} transmit data it is send to the \gls{eNB} and then routed via the \gls{SGW} to the \gls{PGW} before reaching the providers. The \gls{SGW} typically serve a particular geographic area with several \gls{eNB}s, likewise could the \gls{MME} also serve a particular geographic area. In \gls{LTE} this was the last node in the network that could change during a connected state meaning that all \gls{SGW}s needs to be connected to all \gls{PGW}s \citep[ch. 3]{book_LTE_for_UMTS}. This is however not equally important in \gls{NB-IoT} as no handovers are expected \citep{REL-13}. During connected state the \gls{SGW} works as a relay, however in idle mode the resources are released in the \gls{eNB} and the data path terminates at the \gls{SGW} it then stores the data from the \gls{PGW} and request the \gls{MME} to initiate paging of the \gls{UE} \citep[ch. 3]{book_LTE_for_UMTS}.
+
+\textbf{\gls{PGW}}\\
+The \gls{PGW} is the edge of the \gls{EPS}. It function as the point of attachment for the \gls{UE}s \gls{IP} traffic. The \gls{IP}-address of the \gls{UE} is allocated during the connection procedure when the \gls{UE} request a \gls{PDN} connection and during any subsequent \gls{PDN} connection request. It is the \gls{PGW} that performs the \gls{DHCP} functionality \citep[ch. 3]{book_LTE_for_UMTS}. The \gls{PGW} handle interfaces to external CIoT services on a higher level.
+
+\textbf{\gls{PCRF}}\\
+The \gls{PCRF} is a server that makes decision on how to handle services provided for the \gls{UE} in terms of \gls{QoS}. It informs the \gls{PGW} and if applicable the \gls{SGW} about appropriate bearer policy can be set up. A default bearer is set up during connection request and either the \gls{UE} or the service domain can request additional bearers which is handled by the \gls{PCRF} \citep[ch. 3]{book_LTE_for_UMTS}.
+
+\textbf{\gls{CIoT} services}\\
+The \gls{CIoT} services are typically storage functionalities, but could be control algorithms or other services needed for specific products. 
+
+%connections across the network

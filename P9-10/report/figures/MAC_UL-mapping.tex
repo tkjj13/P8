@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale=.5]
+
+\node at (-10,5) {Logical chnnels};
+\node at (-10,1) {Transport channels};
+\node at (-10,-3) {Physical channels};
+
+\node (v1) at (-4,1) {RACH};
+\node (v2) at (-4,-3) {PRACH};
+
+\node (v3) at (0,5) {CCCH};
+
+\node (v4) at (4,5) {DCCH};
+
+\node (v5) at (8,5) {DTCH};
+\node (v6) at (4,1) {UL-SCH};
+\node (v7) at (4,-3) {PUSCH};
+
+
+\draw [arrows={-triangle 45}] (v1) edge (v2);
+\draw [arrows={-triangle 45}] (v3) edge (v6);
+ \draw [arrows={-triangle 45}] (v4) edge (v6);
+ \draw [arrows={-triangle 45}] (v5) edge (v6);
+ \draw [arrows={-triangle 45}] (v6) edge (v7);
+\end{tikzpicture}

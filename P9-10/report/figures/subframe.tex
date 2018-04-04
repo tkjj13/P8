@@ -1,0 +1,255 @@
+\definecolor{LTERS}{HTML}{496d22}
+\definecolor{LTECCH}{HTML}{92D050}
+\definecolor{NPSS}{HTML}{00D0FF}
+\definecolor{NSSS}{HTML}{F97BFF}
+
+
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[scale=0.5]
+
+\draw[pattern=north west lines, pattern color=LTECCH]  (-21,9) rectangle (-12,-9);
+\draw [thick,decoration={brace,mirror},decorate] (-25.5,9) -- (-25.5,-9) node [pos=0.5,anchor=east, xshift=-0.1cm] {180 kHz};
+\draw [thick,decoration={brace,mirror,raise=0.1cm},decorate] (-22.2,-7.5) -- (-22.2,-9) node [pos=0.5,anchor=east,xshift=-0.1cm] {15 kHz};
+\draw [thick,decoration={brace,mirror,raise=0.1cm},decorate] (-21,-9.5) -- (-18,-9.5) node [pos=0.5,anchor=north,yshift=-0.2cm] {66.7 $\mu$ s};
+\draw [thick,decoration={brace,mirror,raise=0.1cm},decorate] (-21,-11) -- (21,-11) node [pos=0.5,anchor=north,yshift=-0.2cm] {1 ms};
+
+
+\node[text =red] at (-10.5,11) {Slot 0};
+\node[text =red] at (10,11) {Slot 1};
+
+%række 11
+\draw  (-21,9) rectangle (-18,7.5);
+\draw  (-18,9) rectangle (-15,7.5);
+\draw  (-15,9) rectangle (-12,7.5);
+\draw  (-12,9) rectangle (-9,7.5);
+\draw  (-9,9) rectangle (-6,7.5);
+\draw  (-6,9) rectangle (-3,7.5);
+\draw  (-3,9) rectangle (0,7.5);
+\draw  (-0,9) node (v1) {} rectangle (3,7.5);
+\draw  (3,9) rectangle (6,7.5);
+\draw  (6,9) rectangle (9,7.5);
+\draw  (9,9) rectangle (12,7.5);
+\draw  (12,9) rectangle (15,7.5);
+\draw  (15,9) rectangle (18,7.5);
+\draw  (18,9) rectangle (21,7.5);
+
+%række 10
+\draw  (-21,7.5) rectangle (-18,6);
+\draw  (-18,7.5) rectangle (-15,6);
+\draw  (-15,7.5) rectangle (-12,6);
+\draw  (-12,7.5) rectangle (-9,6);
+\draw  (-9,7.5) rectangle (-6,6);
+\draw  (-6,7.5) rectangle (-3,6);
+\draw  (-3,7.5) rectangle (0,6);
+\draw  (-0,7.5) rectangle (3,6);
+\draw  (3,7.5) rectangle (6,6);
+\draw  (6,7.5) rectangle (9,6);
+\draw  (9,7.5) rectangle (12,6);
+\draw  (12,7.5) rectangle (15,6);
+\draw  (15,7.5) rectangle (18,6);
+\draw  (18,7.5) rectangle (21,6);
+
+%række 9
+\draw[pattern=north west lines, pattern color=LTERS] (-21,6) rectangle (-18,4.5);
+\draw[pattern=north west lines, pattern color=LTERS] (-18,6) rectangle (-15,4.5);
+\draw  (-15,6) rectangle (-12,4.5);
+\draw  (-12,6) rectangle (-9,4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (-9,6) rectangle (-6,4.5);
+\draw[pattern=north west lines, pattern color=NSSS]  (-6,6) rectangle (-3,4.5);
+\draw[pattern=north west lines, pattern color=NPSS]  (-3,6) rectangle (0,4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (-0,6) rectangle (3,4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (3,6) rectangle (6,4.5);
+\draw  (6,6) rectangle (9,4.5);
+\draw  (9,6) rectangle (12,4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (12,6) rectangle (15,4.5);
+\draw[pattern=north west lines, pattern color=NSSS] (15,6) rectangle (18,4.5);
+\draw[pattern=north west lines, pattern color=NPSS]  (18,6) rectangle (21,4.5);
+
+%række 8
+\draw  (-21,4.5) rectangle (-18,3);
+\draw  (-18,4.5) rectangle (-15,3);
+\draw  (-15,4.5) rectangle (-12,3);
+\draw  (-12,4.5) rectangle (-9,3);
+\draw  (-9,4.5) rectangle (-6,3);
+\draw  (-6,4.5) rectangle (-3,3);
+\draw  (-3,4.5) rectangle (0,3);
+\draw  (-0,4.5) rectangle (3,3);
+\draw  (3,4.5) rectangle (6,3);
+\draw  (6,4.5) rectangle (9,3);
+\draw  (9,4.5) rectangle (12,3);
+\draw  (12,4.5) rectangle (15,3);
+\draw  (15,4.5) rectangle (18,3);
+\draw  (18,4.5) rectangle (21,3);
+
+%række 7
+\draw  (-21,3) rectangle (-18,1.5);
+\draw  (-18,3) rectangle (-15,1.5);
+\draw  (-15,3) rectangle (-12,1.5);
+\draw  (-12,3) rectangle (-9,1.5);
+\draw  (-9,3) rectangle (-6,1.5);
+\draw  (-6,3) rectangle (-3,1.5);
+\draw  (-3,3) rectangle (0,1.5);
+\draw  (-0,3) rectangle (3,1.5);
+\draw  (3,3) rectangle (6,1.5);
+\draw  (6,3) rectangle (9,1.5);
+\draw  (9,3) rectangle (12,1.5);
+\draw  (12,3) rectangle (15,1.5);
+\draw  (15,3) rectangle (18,1.5);
+\draw  (18,3) rectangle (21,1.5);
+
+%række 6
+\draw[pattern=north west lines, pattern color=LTERS] (-21,1.5) rectangle (-18,0);
+\draw[pattern=north west lines, pattern color=LTERS] (-18,1.5) rectangle (-15,0);
+\draw  (-15,1.5) rectangle (-12,0);
+\draw  (-12,1.5) rectangle (-9,0);
+\draw[pattern=north west lines, pattern color=LTERS]  (-9,1.5) rectangle (-6,0);
+\draw[pattern=north west lines, pattern color=NPSS]  (-6,1.5) rectangle (-3,0);
+\draw[pattern=north west lines, pattern color=NSSS]  (-3,1.5) rectangle (0,0);
+\draw[pattern=north west lines, pattern color=LTERS]  (-0,1.5) rectangle (3,0);
+\draw[pattern=north west lines, pattern color=LTERS]  (3,1.5) rectangle (6,0);
+\draw  (6,1.5) rectangle (9,0);
+\draw  (9,1.5) rectangle (12,0);
+\draw[pattern=north west lines, pattern color=LTERS]  (12,1.5) rectangle (15,0);
+\draw[pattern=north west lines, pattern color=NPSS]  (15,1.5) rectangle (18,0);
+\draw[pattern=north west lines, pattern color=NSSS] (18,1.5) rectangle (21,0);
+
+%række 5
+\draw  (-21,-0) rectangle (-18,-1.5);
+\draw  (-18,-0) rectangle (-15,-1.5);
+\draw  (-15,-0) rectangle (-12,-1.5);
+\draw  (-12,-0) rectangle (-9,-1.5);
+\draw  (-9,-0) rectangle (-6,-1.5);
+\draw  (-6,-0) rectangle (-3,-1.5);
+\draw  (-3,-0) rectangle (0,-1.5);
+\draw  (-0,-0) rectangle (3,-1.5);
+\draw  (3,-0) rectangle (6,-1.5);
+\draw  (6,-0) rectangle (9,-1.5);
+\draw  (9,-0) rectangle (12,-1.5);
+\draw  (12,-0) rectangle (15,-1.5);
+\draw  (15,-0) rectangle (18,-1.5);
+\draw  (18,-0) rectangle (21,-1.5);
+
+%række 4
+\draw  (-21,-1.5) rectangle (-18,-3);
+\draw  (-18,-1.5) rectangle (-15,-3);
+\draw  (-15,-1.5) rectangle (-12,-3);
+\draw  (-12,-1.5) rectangle (-9,-3);
+\draw  (-9,-1.5) rectangle (-6,-3);
+\draw  (-6,-1.5) rectangle (-3,-3);
+\draw  (-3,-1.5) rectangle (0,-3);
+\draw  (-0,-1.5) rectangle (3,-3);
+\draw  (3,-1.5) rectangle (6,-3);
+\draw  (6,-1.5) rectangle (9,-3);
+\draw  (9,-1.5) rectangle (12,-3);
+\draw  (12,-1.5) rectangle (15,-3);
+\draw  (15,-1.5) rectangle (18,-3);
+\draw  (18,-1.5) rectangle (21,-3);
+
+%række 3
+\draw[pattern=north west lines, pattern color=LTERS] (-21,-3) rectangle (-18,-4.5);
+\draw[pattern=north west lines, pattern color=LTERS] (-18,-3) rectangle (-15,-4.5);
+\draw  (-15,-3) rectangle (-12,-4.5);
+\draw  (-12,-3) rectangle (-9,-4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (-9,-3) rectangle (-6,-4.5);
+\draw[pattern=north west lines, pattern color=NSSS]  (-6,-3) rectangle (-3,-4.5);
+\draw[pattern=north west lines, pattern color=NPSS]  (-3,-3) rectangle (0,-4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (-0,-3) rectangle (3,-4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (3,-3) rectangle (6,-4.5);
+\draw  (6,-3) rectangle (9,-4.5);
+\draw  (9,-3) rectangle (12,-4.5);
+\draw[pattern=north west lines, pattern color=LTERS]  (12,-3) rectangle (15,-4.5);
+\draw[pattern=north west lines, pattern color=NSSS]  (15,-3) rectangle (18,-4.5);
+\draw[pattern=north west lines, pattern color=NPSS]  (18,-3) rectangle (21,-4.5);
+
+%række 2
+\draw  (-21,-4.5) rectangle (-18,-6);
+\draw  (-18,-4.5) rectangle (-15,-6);
+\draw  (-15,-4.5) rectangle (-12,-6);
+\draw  (-12,-4.5) rectangle (-9,-6);
+\draw  (-9,-4.5) rectangle (-6,-6);
+\draw  (-6,-4.5) rectangle (-3,-6);
+\draw  (-3,-4.5) rectangle (0,-6);
+\draw  (-0,-4.5) rectangle (3,-6);
+\draw  (3,-4.5) rectangle (6,-6);
+\draw  (6,-4.5) rectangle (9,-6);
+\draw  (9,-4.5) rectangle (12,-6);
+\draw  (12,-4.5) rectangle (15,-6);
+\draw  (15,-4.5) rectangle (18,-6);
+\draw  (18,-4.5) rectangle (21,-6);
+
+%række 1
+\draw  (-21,-6) rectangle (-18,-7.5);
+\draw  (-18,-6) rectangle (-15,-7.5);
+\draw  (-15,-6) rectangle (-12,-7.5);
+\draw  (-12,-6) rectangle (-9,-7.5);
+\draw  (-9,-6) rectangle (-6,-7.5);
+\draw  (-6,-6) rectangle (-3,-7.5);
+\draw  (-3,-6) rectangle (0,-7.5);
+\draw  (-0,-6) rectangle (3,-7.5);
+\draw  (3,-6) rectangle (6,-7.5);
+\draw  (6,-6) rectangle (9,-7.5);
+\draw  (9,-6) rectangle (12,-7.5);
+\draw  (12,-6) rectangle (15,-7.5);
+\draw  (15,-6) rectangle (18,-7.5);
+\draw  (18,-6) rectangle (21,-7.5);
+
+%række 0
+\draw[pattern=north west lines, pattern color=LTERS] (-21,-7.5) rectangle (-18,-9);
+\draw[pattern=north west lines, pattern color=LTERS] (-18,-7.5) rectangle (-15,-9);
+\draw  (-15,-7.5) rectangle (-12,-9); 
+\draw  (-12,-7.5) rectangle (-9,-9);
+\draw[pattern=north west lines, pattern color=LTERS]  (-9,-7.5) rectangle (-6,-9);
+\draw[pattern=north west lines, pattern color=NPSS]  (-6,-7.5) rectangle (-3,-9);
+\draw[pattern=north west lines, pattern color=NSSS]  (-3,-7.5) rectangle (0,-9) node (v2) {};
+\draw[pattern=north west lines, pattern color=LTERS]  (-0,-7.5) rectangle (3,-9);
+\draw[pattern=north west lines, pattern color=LTERS]  (3,-7.5) rectangle (6,-9);
+\draw  (6,-7.5) rectangle (9,-9);
+\draw  (9,-7.5) rectangle (12,-9);
+\draw[pattern=north west lines, pattern color=LTERS]  (12,-7.5) rectangle (15,-9);
+\draw[pattern=north west lines, pattern color=NPSS]  (15,-7.5) rectangle (18,-9);
+\draw[pattern=north west lines, pattern color=NSSS]  (18,-7.5) rectangle (21,-9);
+
+
+\node at (-22,-8.25) {0};
+\node at (-22,-6.75) {1};
+\node at (-22,-5.25) {2};
+\node at (-22,-3.75) {3};
+\node at (-22,-2.25) {4};
+\node at (-22,-0.75) {5};
+\node at (-22,0.75) {6};
+\node at (-22,2.25) {7};
+\node at (-22,3.75) {8};
+\node at (-22,5.25) {9};
+\node at (-22,6.75) {10};
+\node at (-22,8.25) {11};
+
+\node at (-19.5,10) {0};
+\node at (-16.5,10) {1};
+\node at (-13.5,10) {2};
+\node at (-10.5,10) {3};
+\node at (-7.5,10) {4};
+\node at (-4.5,10) {5};
+\node at (-1.5,10) {6};
+\node at (1.5,10) {7};
+\node at (4.5,10) {8};
+\node at (7.5,10) {9};
+\node at (10.5,10) {10};
+\node at (13.5,10) {11};
+\node at (16.5,10) {12};
+\node at (19.5,10) {13};
+
+\draw[draw=red,line width=2pt] (0,9) -- (0,-9);
+\draw[pattern=north west lines, pattern color=LTERS]  (-21,-13) rectangle (-18,-14.5);
+\draw[pattern=north west lines, pattern color=LTECCH]  (-13,-13) rectangle (-10,-14.5);
+\draw[pattern=north west lines, pattern color=NPSS]  (-3.5,-13) rectangle (-0.5,-14.5) ;
+\draw[pattern=north west lines, pattern color=NSSS]  (4,-13) rectangle (7,-14.5) ;
+\draw (11.5,-13) rectangle (14.5,-14.5);
+
+\node[anchor=west] at (-17.5,-13.75) {\acrshort{LTE} \acrshort{RS}};
+\node[anchor=west] at (-9.5,-13.75) {\acrshort{LTE} \acrshort{PDCCH}};
+\node[anchor=west] at (-0,-13.75) {\acrshort{NRS}1};
+\node[anchor=west] at (7.5,-13.75) {\acrshort{NRS}2};
+\node[anchor=west] at (15,-13.75) {Free symbol};
+
+\end{tikzpicture}
+}

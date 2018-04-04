@@ -1,0 +1,41 @@
+\begin{tikzpicture}[scale=.5]
+
+\node at (-10,5) {RLC};
+\node at (-10,1) {MAC};
+\node at (-10,-3) {L1};
+
+\node (v1) at (-6,5) {BCCH};
+\node (v2) at (-6,1) {BCH};
+\node (v3) at (-6,-3) {PBCH};
+
+\node (v5) at (-2,5) {PCCH};
+\node (v6) at (-2,1) {PCH};
+
+\node (v8) at (2,5) {CCCH};
+
+\node (v9) at (6,5) {DCCH};
+
+\node (v10) at (10,5) {DTCH};
+\node (v4) at (4,1) {DL-SCH};
+\node (v7) at (4,-3) {PDSCH};
+
+%\node (v11) at (14,5) {MCCH};
+%
+%\node (v12) at (18,5) {MTCH};
+%\node (v13) at (18,1) {MCH};
+%\node (v14) at (18,-3) {PMCH};
+
+\draw [arrows={-triangle 45}] (v1) edge (v2);
+\draw [arrows={-triangle 45}] (v2) edge (v3);
+\draw [arrows={-triangle 45}] (v1) edge (v4);
+\draw [arrows={-triangle 45}] (v5) edge (v6);
+\draw [arrows={-triangle 45}] (v6) edge (v7);
+\draw [arrows={-triangle 45}] (v8) edge (v4);
+\draw [arrows={-triangle 45}] (v9) edge (v4);
+\draw [arrows={-triangle 45}] (v10) edge (v4);
+\draw [arrows={-triangle 45}] (v4) edge (v7);
+%\draw [arrows={-triangle 45}] (v11) edge (v4);
+%\draw [arrows={-triangle 45}] (v12) edge (v4);
+%\draw [arrows={-triangle 45}] (v12) edge (v13);
+%\draw [arrows={-triangle 45}] (v13) edge (v14);
+\end{tikzpicture}

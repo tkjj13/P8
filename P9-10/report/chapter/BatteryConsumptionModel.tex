@@ -1,0 +1,93 @@
+\section{Battery Consumption Model}
+(Should be limited to only 1 device in the network)
+
+\begin{equation}
+L(t_i) = \frac{C_{bat}\cdot SF_{bat}}{P_m(t_i) + P_{device}}
+\end{equation}
+\begin{where}
+\va{$L(t_i)$}{is the expected lifetime of the battery}{h}
+\va{$t_i$}{is the transmission time interval}{h}
+\va{$C_{bat}$}{is the capacity of the battery}{Wh}
+\va{$SF_{bat}$}{is the safety factor of the battery}{1}
+\va{$P_m(t_i)$}{is the power consumption of the modem}{W}
+\va{$P_{device}$}{is the power consumption of the IoT device}{W}
+\end{where}
+
+\textbf{Battery capacity}\\
+This is set from the requirements to 5 Wh
+
+\textbf{Battery safety factor}\\
+set to 0.5 in paper we probably can not use
+
+\textbf{Device power consumption}\\
+Modem off on the used devices. It is a little irrelevant as none of the devices are final and low power. Should still be measured to draw some conclusion anyway, might be negligible.
+
+\textbf{Modem power consumption}\\
+
+\begin{equation}
+P_m(t_i) = \frac{E_{conn} + E_{tx} + E_{disconn} + E_{idle}}{t_i}
+\end{equation}
+\begin{where}
+\va{$E_{conn}$}{is the energy used to connect to the network}{J}
+\va{$E_{tx}$}{is the energy used during transmission}{J}
+%\va{$t_{tx}$}{is the time it takes to transmit}{s}
+\va{$E_{disconn}$}{is the energy used to disconnect from the network}{J}
+\va{$E_{idle}$}{is the energy used during the idle period}{J}
+%\va{$t_{conn}$}{is the time it takes to connect to the network}{s}
+%\va{$t_{disconn}$}{is the time it takes to disconnect from the network}{s}
+\end{where}
+
+\textbf{Energy used to Connect to the Network}
+
+\begin{equation}
+E_{conn} = E_{modem,on} + E_{sync} + E_{attach}
+\end{equation}
+
+$E_{modem,on}$\\
+parameters: modem\\
+The energy to turn the modem on.
+
+$E_{sync}$\\
+parameters: modem, frequency, operation mode, coverage level\\
+The energy to synchronize to the network.
+
+$E_{attach}$\\
+parameters: modem, frequency, path loss, operation mode, coverage level\\
+The energy to attach to the network. Should be split so that attachment from different idle states is supported (with and without AS).
+
+\textbf{Transmission Power}
+\begin{equation}
+E_{tx} = P_{tx}\cdot t_{tx}
+\end{equation}
+
+$P_{tx}$\\
+parameters: modem, frequency, path loss\\
+Transmission power
+
+$t_{tx}$\\
+parameters: operation mode, coverage level, amount of data\\
+Transmission time
+
+\textbf{Disconnection Energy}
+Overhead of detach procedure
+
+\textbf{Idle Mode Power}
+\begin{equation}
+E_{idle} = P_{eDRX}\cdot t_{eDRX}+P_{PSM}\cdot t_{PSM}
+\end{equation}
+
+$P_{eDRX,PSM}$\\
+parameters: modem, paging interval\\
+Power consumed in idle modes
+
+$t_{eDRX,PSM}$\\
+parameters: timer settings\\
+Time spent in eDRX and PSM mode respectively.
+
+
+
+
+
+
+
+

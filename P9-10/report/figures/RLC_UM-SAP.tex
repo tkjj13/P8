@@ -1,0 +1,72 @@
+\begin{tikzpicture}[scale=.5]
+
+\draw  (-1,8.5) rectangle (-14,-8);
+\draw  (0,8.5) rectangle (13,-8);
+
+\node (v1) at (-6,6) {Transmission Buffer};
+\draw  (v1) ellipse (4 and 1);
+\draw (-10,5.5) arc (180:360:4 and 1);
+\draw (-10,5) arc (180:360:4 and 1);
+\draw (-10,2) arc (180:360:4 and 1);
+\node (v2) at (-10,6) {};
+\node (v4) at (-2,6) {};
+\node (v3) at (-10,1.7) {};
+\node (v5) at (-2,1.7) {};
+\draw  (v2) ++(0,0) edge (v3);
+\draw  (v4)  ++(0,0) edge (v5);
+
+\draw  (-9,-1) rectangle (-3,-3);
+\node at (-6,-2) {\begin{tabular}{c} Segmentation/ \\[-0.9em] Concatenation\end{tabular}};
+\draw  (-13,-5) rectangle (-8,-7) node (v6) {};
+\draw  (v6) rectangle (-3,-5);
+\node at (-10.5,-6) {UM Header};
+\node at (-5.5,-6) {Data Field};
+
+
+
+\node (v10) at (7,2) {Receiving Buffer};
+\draw  (v10) ellipse (4 and 1);
+\draw (3,1.5) arc (180:360:4 and 1);
+\draw (3,1) arc (180:360:4 and 1);
+\draw (3,-2) arc (180:360:4 and 1);
+\node (v20) at (3,2) {};
+\node (v40) at (11,2) {};
+\node (v30) at (3,-2.3) {};
+\node (v50) at (11,-2.3) {};
+\draw  (v20) ++(0,0) edge (v30);
+\draw  (v40)  ++(0,0) edge (v50);
+
+
+\draw  (4.5,7) rectangle (9.5,5);
+\draw  (1,-5) rectangle (6,-7) node (v7) {};
+\draw  (v7) rectangle (11,-5);
+\node at (7,6) {Reasembly};
+\node at (7,-1.5) {\& HARQ Reordering};
+\node at (3.5,-6) {UM Header};
+\node at (8.5,-6) {Data Field};
+
+\node (v15) at (-8,-9) {Logic Channels};
+\node (v16) at (6,-9) {Logic Channels};
+\node (v14) at (-5.5,-5) {};
+\node (v13) at (-6,-3) {};
+\node (v11) at (-6,1) {};
+\node (v9) at (-6,7) {};
+\node (v8) at (-1,9.5) {UM-Service Access Point};
+\node (v22) at (7,7) {};
+\node (v21) at (7,5) {};
+\node (v19) at (7,3) {};
+\node (v18) at (7,-3) {};
+\node (v17) at (8.5,-5) {};
+\node (v12) at (-6,-1) {};
+
+\draw [arrows={ - triangle 45}] (v8) edge (v9);
+\draw [arrows={ - triangle 45}] (v11) edge (v12);
+\draw [arrows={ - triangle 45}] (v13) edge (v14);
+\draw [arrows={ - triangle 45}] (v6) edge (v15);
+\draw [arrows={ - triangle 45}] (v16) edge (v7);
+\draw [arrows={ - triangle 45}] (v17) edge (v18);
+\draw [arrows={ - triangle 45}] (v19) edge (v21);
+\draw [arrows={ - triangle 45}] (v22) edge (v8);
+\node [anchor=west] at (-14,7.75) {Transmitting Side};
+\node [anchor=east] at (13,7.75) {Receiving Side};
+\end{tikzpicture}

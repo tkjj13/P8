@@ -1,0 +1,117 @@
+\definecolor{purple}{HTML}{7030A0}
+\usetikzlibrary{arrows}
+\definecolor{red}{HTML}{FF0000}
+\definecolor{blue}{HTML}{00B0F0}
+
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[scale=0.5]
+
+
+\draw  (-14,5) rectangle (-10,3);
+\node at (-12,4) {\acrshort{UE}};
+\draw  (-4,14) rectangle (2,-8);
+\draw  (6,9) rectangle (10,7);
+\draw  (6,1) rectangle (10,-1);
+\node at (-1,-7) {\acrshort{CIoT} \acrshort{RAN}};
+\node at (8,8) {\acrshort{MME}};
+\node at (8,0) {\acrshort{SGW}};
+ 
+
+
+
+
+\draw  (14,1) rectangle (18,-1);
+\draw  (14,13) rectangle (18,11);
+\draw  (25,6) ellipse (3 and 2);
+\node at (16,12) {\acrshort{SCEF}};
+
+\node at (16,0) {\acrshort{PGW}};
+\node at (25,6) {\acrshort{CIoT} Services};
+
+\draw  (-3,13) rectangle (1,11);
+\draw  (-3,5) rectangle (1,3);
+\draw  (-3,-3) rectangle (1,-5);
+\node at (-1,12) {\acrshort{eNB}};
+\node at (-1,4) {\acrshort{eNB}};
+\node at (-1,-4) {\acrshort{eNB}};
+
+\draw (6,18) -- (6,15); 
+\draw (10,15) -- (10,18);
+\draw  (8,18) ellipse (2 and 0.5);
+\node at (8,15.4) {\acrshort{HSS}};
+\draw (6,15) arc (-120:-60:4);
+
+\draw (14,8.6) -- (14,5.6);
+\draw (18,5.6) -- (18,8.6);
+\draw  (16,8.6) ellipse (2 and 0.5);
+\node at (16,6) {\acrshort{PCRF}};
+\draw (14,5.6) arc (-120:-60:4);
+\node (v27) at (16,5) {};
+
+
+\node (v2) at (-7,4) {\acrshort{CIoT}-Uu};
+\node (v1) at (-10,4) {};
+\node (v3) at (-4,4) {};
+\draw [draw=purple, arrows={triangle 45-},fill=purple] (v1) edge (v2);
+\draw [draw=purple, arrows={-triangle 45},fill=purple] (v2) edge (v3);
+
+\node (v5) at (-1,8) {X2};
+\node (v8) at (-1,0) {X2};
+\node (v4) at (-1,11) {};
+\node (v6) at (-1,5) {};
+\node (v7) at (-1,3) {};
+\node (v9) at (-1,-3) {};
+\draw [draw=red, arrows={triangle 45-},fill=red] (v4) edge (v5);
+\draw [draw=red, arrows={-triangle 45},fill=red] (v5) edge (v6);
+\draw [draw=red, arrows={triangle 45-},fill=red] (v7) edge (v8);
+\draw [draw=red, arrows={-triangle 45},fill=red] (v8) edge (v9);
+\node (v10) at (2,4) {};
+\node (v14) at (6,0) {};
+\node (v12) at (6,8) {};
+\node (v18) at (8,7) {};
+\node (v20) at (8,1) {};
+\node (v17) at (8,9) {};
+\node (v15) at (8,14.4) {};
+\node (v21) at (10,8) {};
+\node (v23) at (14,12) {};
+
+\node (v24) at (10,0) {};
+\node (v26) at (14,0) {};
+
+\node (v33) at (18,0) {};
+\node (v32) at (22,6) {};
+\node (v30) at (18,12) {};
+\node (v29) at (16,1) {};
+
+\node (v11) at (4,6) {S1-\acrshort{MME}};
+\node (v13) at (4,2) {S1-U};
+\node (v19) at (8,4) {S11};
+\node (v16) at (8,12) {S6a};
+\node (v22) at (12,10) {T6a};
+\node (v25) at (12,0) {S5};
+\node (v28) at (16,3) {S7};
+%\node (v31) at (20,9) {};
+\node (v34) at (20,3) {SGi};
+
+\draw [draw=red, arrows={triangle 45-},fill=red]  (v10) edge (v11);
+\draw [draw=red, arrows={-triangle 45},fill=red]  (v11) edge (v12);
+\draw [draw=blue, arrows={triangle 45-},fill=blue]  (v10) edge (v13);
+\draw [draw=blue, arrows={-triangle 45},fill=blue]  (v13) edge (v14);
+
+
+\draw [draw=red, arrows={triangle 45-},fill=red]   (v15) edge (v16);
+\draw [draw=red, arrows={-triangle 45},fill=red]  (v16) edge (v17);
+\draw [draw=red, arrows={triangle 45-},fill=red]  (v18) edge (v19);
+\draw [draw=red, arrows={-triangle 45},fill=red]  (v19) edge (v20);
+\draw [draw=red, arrows={triangle 45-},fill=red]  (v21) edge (v22);
+\draw [draw=red, arrows={-triangle 45},fill=red]  (v22) edge (v23);
+\draw [draw=purple, arrows={triangle 45-},fill=purple]  (v24) edge (v25);
+\draw [draw=purple, arrows={-triangle 45},fill=purple]  (v25) edge (v26);
+\draw [draw=red, arrows={triangle 45-},fill=red]  (v27) edge (v28);
+\draw [draw=red, arrows={-triangle 45},fill=red]  (v28) edge (v29);
+\draw [draw=red, arrows={triangle 45-triangle 45},fill=red]  (v30) edge (v32);
+%\draw [draw=red, arrows={-triangle 45},fill=red]  (v31) edge (v32);
+\draw [draw=purple, arrows={triangle 45-},fill=purple]  (v33) edge (v34);
+\draw [draw=purple, arrows={-triangle 45},fill=purple]  (v34) edge (v32);
+\end{tikzpicture}
+}

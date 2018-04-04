@@ -1,0 +1,44 @@
+\begin{tikzpicture}[scale=0.15]
+
+
+\draw  (-10,15) rectangle (10,5);
+\node at (0,10) {Orchestrator};
+
+\draw  (-40,0) rectangle (-20,-10);
+\node at (-30,-5) {PSU};
+
+\draw  (-10,0) rectangle (10,-10);
+\node at (0,-5) {Ext. Device};
+
+\draw  (20,0) rectangle (40,-10);
+\node at (30,-5) {eNB};
+
+\draw  (-10,-15) rectangle (10,-25);
+\node at (0,-20) {Massive IoT};
+
+\node(PSU_top) at (-30,0) {};
+\node(PC_left) at (-10,12) {};
+\node(PC_bot) at (0,5) {};
+\node(DUT_top) at (0,0) {};
+\node(PC_right) at (10,10) {};
+\node(eNB_top) at (30,0) {};
+\node(v1) at (-30,12) {};
+\node(v2) at (30,10) {};
+\node(PSU_left) at (-20,-5) {};
+\node(PC_left2) at (-10,8) {};
+\node(DUT_left) at (-10,-5) {};
+\node(DUT_right) at (10,-5) {};
+\node(eNB_left) at (20,-5) {};
+
+\draw (-10,12) -- (-30,12) -- (-30,0);
+\draw (10,10) -- (30,10) -- (30,0);
+\draw  (0,5) -- (0,0);
+\draw  (-20,-5) -- (-10,-5);
+\draw  (10,-5) -- (20,-5);
+
+%[arrows={ - triangle 45}] 
+\draw (-10,8) -- (-15,8) -- (-15,-20) -- (-10,-20);
+
+\draw (10,-20) -- (30,-20) -- (30,-10);
+\end{tikzpicture}
+
