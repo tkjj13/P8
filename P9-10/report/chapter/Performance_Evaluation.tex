@@ -1,8 +1,12 @@
 \chapter{Performance Evaluation}
-Here should be an introduction of what we will test (the emulator and/or the protocol). 
+%Here should be an introduction of what we will test (the emulator and/or the protocol). 
+
+To evaluate the designed system a few key parameters are set as main pointers. This include the amount of users and the configurability of the solution, as well as it physical limitations. The system is then used to test the NB-IoT protocol, to show the usability of the solution. Some of these evaluation points have been described prior but a complete list is provided in the following section.
+
 \section{Evaluation Points}
-Here should be a list of all requirement that is tested and criteria for passed not passed. 
-Requirements: 
+%Here should be a list of all requirement that is tested and criteria for passed not passed. 
+The key parameters can be spilt into two groups: the emulator and the protocol. These groups are independent of each other in the sense that any other emulator should reveal the same results for the same protocol.
+
 \begin{itemize}
 \item Emulator
 	\begin{enumerate}
@@ -10,13 +14,14 @@ Requirements:
 		\begin{itemize}
 		\item Support TBD active users and TBD users total
 		\end{itemize}
-	\item Configurable %(Channel, Number of UEs, etc.)
+	\item Configurability  %(Channel, Number of UEs, etc.)
 		\begin{itemize}
 		\item Changeable parameters: Channel type, path loss, number of devices, data profile
 		\end{itemize}
-	\item Power control 
+	\item Limits 
 		\begin{itemize}
 		\item Should support a output power up to 23 dB with a range of TBD dB
+		\item Should support the frequency range from TBD to TBD and a bandwith up to TBD
 		\end{itemize}
 	\end{enumerate}
 \item Protocol
@@ -74,29 +79,38 @@ Based on both the focus explained in \autoref{ch:Introduction} as well as some i
 \begin{itemize}
 \item Emulator
 	\begin{enumerate}
-%	\item Amount of users %(CPU,RAM) 
-	\item Configurable %(Channel, Number of UEs, etc.)
-%	\item Power control 
+%	\item[1.] Amount of users %(CPU,RAM) 
+	\item[2.] Configurability %(Channel, Number of UEs, etc.)
+%	\item[3.] Power control 
 	\end{enumerate}
 \item Protocol
-	\begin{enumerate}[resume]
-%	\item Ultra-low Complexity Devices
-%	\item Improved Coverage
-%	\item Support Massive Number of Devices 
-	\item Improved Power Efficiency
-%	\item Deployment flexibility
+	\begin{enumerate}
+%	\item[4.] Ultra-low Complexity Devices
+%	\item[5.] Improved Coverage
+%	\item[6.] Support Massive Number of Devices 
+	\item[7.] Improved Power Efficiency
+%	\item[8.] Deployment flexibility
 	\end{enumerate}
 \end{itemize}
 
+\newpage
+
 \section{General Test Setup}
-Here should be a description of the general setup (including figure) used in all test and a list of baseline values for all parameters. Including physical setup, BSE, UEE.
+%Here should be a description of the general setup (including figure) used in all test and a list of baseline values for all parameters. Including physical setup, BSE, UEE.
+
+The general way to setup the emulator is described here, some deviations occurs depending on the actual use of the system. A full setup is only needed when an external device is tested under the influence of a large number of interfering devices. The full setup can be seen in \autoref{fig:General_test_setup}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/General_test_setup.pdf}
-\caption{General test setup}
+\caption{General test setup, blue lines are control connections, orange lines are RF connections.}
 \label{fig:General_test_setup}
 \end{figure}
+
+%As seen in \autoref{fig:General_test_setup}, a \gls{TAP} orchestrator maintain the system. The orchestrator has a \gls{LAN} connection with the  
+
+
+
 
 \begin{table}[H]
 \centering
