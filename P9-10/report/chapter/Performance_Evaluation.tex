@@ -107,8 +107,11 @@ The general way to setup the emulator is described here, some deviations occurs 
 \label{fig:General_test_setup}
 \end{figure}
 
-%As seen in \autoref{fig:General_test_setup}, a \gls{TAP} orchestrator maintain the system. The orchestrator has a \gls{LAN} connection with the  
+As seen in \autoref{fig:General_test_setup}, a \gls{TAP} orchestrator maintain the system. The orchestrator has a \gls{LAN} connection with each of the other elements with the exception of the external IoT device which is dependent on the device but typically is a serial connection. The \gls{PSU}s connection with the external IoT device is plain wires used to power on and analyse the power consumption of the device. Both the massive IoT device emulator as well as the external IoT device is connected to a combiner using RF SMA cables, this combiner is connected to the \gls{BSE} also using a RF SMA cable. 
 
+The massive IoT device emulator PC is connected using USB 3.0 to the USRP B210. Mounted on the TX1 and RX1 port is a 30 dB attenuator which is connected to a combiner using RF SMA cables the output of the combiner acts as the output of the emulator.
+
+The \gls{BSE} is interchangeable if the UXM is used TxRx1/Rx1 on RF Transceiver A is used as input. If the Amarisoft BSE is used the input is a combiner connected to the TX1 and RX1 ports on a USRP B210 using RF SMA cables, which is connected to the PC using a USB 3.0 connector.
 
 
 
