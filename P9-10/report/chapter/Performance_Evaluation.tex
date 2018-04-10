@@ -107,16 +107,27 @@ The general way to setup the emulator is described here, some deviations occurs 
 \label{fig:General_test_setup}
 \end{figure}
 
-%As seen in \autoref{fig:General_test_setup}, a \gls{TAP} orchestrator maintain the system. The orchestrator has a \gls{LAN} connection with the  
+As seen in \autoref{fig:General_test_setup}, a \gls{TAP} orchestrator maintain the system. The orchestrator has a \gls{LAN} connection with each of the other elements with the exception of the external IoT device which is dependent on the device but typically is a serial connection. The \gls{PSU}s connection with the external IoT device is plain wires used to power on and analyse the power consumption of the device. Both the massive IoT device emulator as well as the external IoT device is connected to a combiner using RF SMA cables, this combiner is connected to the \gls{BSE} also using a RF SMA cable. 
 
+The massive IoT device emulator PC is connected using USB 3.0 to the USRP B210. Mounted on the TX1 and RX1 port is a 30 dB attenuator which is connected to a combiner using RF SMA cables the output of the combiner acts as the output of the emulator.
 
+The \gls{BSE} is interchangeable if the UXM is used TxRx1/Rx1 on RF Transceiver A is used as input. If the Amarisoft BSE is used the input is a combiner connected to the TX1 and RX1 ports on a USRP B210 using RF SMA cables, which is connected to the PC using a USB 3.0 connector.
 
+The initial settings of each component in the system can be seen in \autoref{tab:setup_parameters}.
 
 \begin{table}[H]
+\captionsetup{belowskip=0em}
+\noindent
 \centering
-\resizebox{!}{0.5\textheight}{
-\begin{tabular}{|l|l|}
+%\resizebox{!}{0.5\textheight}{
+\begin{minipage}[t]{0.48\textwidth}
+\begin{tabular}{|p{4cm}|p{2cm}|}
 \hline
+\multicolumn{2}{|c|}{\textbf{Power Supply/Analyser}}                         \\ \hline
+Enable             & Off            \\ \hline
+Volt               & 3.6 V          \\ \hline
+Ampere             & 2.5 A          \\ \hline
+\multicolumn{2}{c}{}\\ \hline
 \multicolumn{2}{|c|}{\textbf{Massive IoT Emulator}}                          \\ \hline
 \textbf{Parameter} & \textbf{Value} \\ \hline
 Number of devices  & 0              \\ \hline
@@ -125,14 +136,83 @@ Tx gain            & 40 dB          \\ \hline
 R14                & False          \\ \hline
 Dl\_EARFCN         & 6310           \\ \hline
 UE\_category       & Nb1            \\ \hline
-\multicolumn{2}{|c|}{\textbf{Power Supply/Analyser}}                         \\ \hline
-Enable             & Off            \\ \hline
-Volt               & 3.6 V          \\ \hline
-Ampere             & 1 A            \\ \hline
+\end{tabular}
+%\caption{Initial values of the parameters in the emulator.}
+\end{minipage}% 
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{tabular}{|p{4cm}|p{2cm}|}
+\hline
 \multicolumn{2}{|c|}{\textbf{Ekstern IoT device}}                            \\ \hline
 Enable             & Off            \\ \hline
 Dl\_EARFCN         & 6310           \\ \hline
+\multicolumn{2}{c}{}\\ \hline
 \multicolumn{2}{|c|}{\textbf{Base Station Emulator}}                         \\ \hline
+Cell type          & NB-IoT         \\ \hline
+Number of cells    & 1              \\ \hline
+Operation mode     & Standalone     \\ \hline
+Dl\_EARFCN         & 6310           \\ \hline
+Cell ID            & 0              \\ \hline
+Tx gain            & 89 dB          \\ \hline
+R14                & False          \\ \hline
+nprach\_detect\_ threshold  & 19 dB  \\ \hline
+\end{tabular}
+%\caption{Initial values of the parameters in the emulator.}
+%\label{tab:setup_parameters}
+\end{minipage}
+\caption{Initial values of the parameters in the emulator.}
+\label{tab:setup_parameters}
+\end{table}
+
+
+\section{Evaluation}
+%Here should be a step by step procedure of all test for all requirements, maybe put tapplans in appendix.
+
+%\subsection{Amount of Devices}
+
+\subsection{Configurability}
+
+%\subsection{Power Control}
+
+%\subsection{Ultra-low Complexity Devices}
+
+%\subsection{Improved Coverage}
+
+%\subsection{Support Massive Number of Devices}
+
+\subsection{Improved Power Efficiency}
+\subsubsection{Test Overview}
+From \appref{app:bat_model} it can be seen that to estimate the battery life time of a device the following parameters is needed.
+\begin{itemize}
+\item $P_{device}$
+\item $E_{modem,on}$
+\item $E_{sync}$
+\item $E_{attach}$
+\item $P_{tx}$
+\item $P_{eDRX}$
+\item $P_{PSM}$
+\end{itemize}
+
+With these informations the only thing needed is the data profile, here we will assume two different models one transmitting 100 bytes every hour and one transmitting 100 bytes every 24 hours. \todo{see if standards have some specified data profiles.}
+
+From a measurement perspective some of these parameters can and should be measured together, these are $E_{modem,on}$, $E_{sync}$ and $E_{attach}$. This is because all these steps are depending on each other and can not be separated for the measurements only in the post processing. These are collectively referred to as $E_conn$ or energy to connect the device to the cell. 
+
+\subsubsection{Device Power Consumption}
+\textbf{Test Setup}\\
+To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{device power setup}}
+\caption{Setup to measure device power consumption.}
+\label{fig:device_power_setup}
+\end{figure}
+
+Specific settings:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
 Cell type          & NB-IoT         \\ \hline
 Number of cells    & 1              \\ \hline
 Operation mode     & Standalone     \\ \hline
@@ -142,32 +222,256 @@ Tx gain            & 89 dB          \\ \hline
 R14                & False          \\ \hline
 nprach\_detect\_threshold  & 19 dB  \\ \hline
 \end{tabular}
-}
-\caption{My caption}
-\label{my-label}
+\caption{Specific parameter used to measure device power}
+\label{tab:device_power_settings}
+\end{table}
+\todo{table is just copy pasted}
+
+
+\textbf{Test Procedure}\\
+\begin{enumerate}
+\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
+\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Turn on power supply 
+\item Measure power output over 2 min
+\item Save measurements as "Power\_consumption\_<device>\_<Parameters used>"
+\item Turn off power supply
+\item Change to next \gls{DUT}
+\item Repeat step 1-7 for all \gls{DUT}s.
+\end{enumerate}
+
+\textbf{Results}\\
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
+$\mathbf{P_{device}}$	& & & \\ \hline
+\end{tabular}
+\caption{Average power consumption of the \gls{DUT}s}
+\label{tab:device_power_results}
+\end{table}
+
+\subsubsection{Energy to Connect the Device to the Cell}
+\textbf{Test Setup}\\
+To measure the energy to turn on the modem the setup can be seen on \autoref{fig:E_on_setup}, a few changes is also be made for the settings as seen in \autoref{tab:E_on_settings}.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{E on setup}}
+\caption{The setup used to measure the energy to connect the \gls{DUT} to the cell.}
+\label{fig:E_on_setup}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\multicolumn{2}{|c|}{\textbf{Specific settings}} \\ \hline
+\multicolumn{2}{|c|}{Base Station Emulator} \\ \hline
+Cell type          & NB-IoT         \\ \hline
+Number of cells    & 1              \\ \hline
+Operation mode     & Standalone     \\ \hline
+Dl\_EARFCN         & 6310           \\ \hline
+Cell ID            & 0              \\ \hline
+Tx gain            & 89 dB          \\ \hline
+R14                & False          \\ \hline
+nprach\_detect\_threshold  & 19 dB  \\ \hline
+\end{tabular}
+\caption{Specific parameter used to measure device power}
+\label{tab:E_on_settings}
+\end{table}
+\todo{table is just copy pasted}
+
+
+\textbf{Test Procedure}\\
+\begin{enumerate}
+\item Setup the \gls{DUT} as shown on \autoref{fig:E_on_setup}
+\item Put in settings as described in \autoref{tab:E_on_settings} 
+\item Turn on power analyser
+\item Turn on power supply 
+\item Verify connection to cell
+\item Save measurements as "Connection\_<device>\_<Parameters used>"
+\item Turn off power supply
+\item Change to next \gls{DUT}
+\item Repeat step 1-8 for all \gls{DUT}s.
+\end{enumerate}
+
+
+\textbf{Results}\\
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
+$\mathbf{P_{device}}$	& & & \\ \hline
+\end{tabular}
+\caption{•}
+\label{tab:device_power_results}
+\end{table}
+
+\subsubsection{Transmit Power Consumption}
+\textbf{Test Setup}\\
+To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{device power setup}}
+\caption{Setup to measure device power consumption.}
+\label{fig:device_power_setup}
+\end{figure}
+
+Specific settings:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
+Cell type          & NB-IoT         \\ \hline
+Number of cells    & 1              \\ \hline
+Operation mode     & Standalone     \\ \hline
+Dl\_EARFCN         & 6310           \\ \hline
+Cell ID            & 0              \\ \hline
+Tx gain            & 89 dB          \\ \hline
+R14                & False          \\ \hline
+nprach\_detect\_threshold  & 19 dB  \\ \hline
+\end{tabular}
+\caption{Specific parameter used to measure device power}
+\label{tab:device_power_settings}
+\end{table}
+\todo{table is just copy pasted}
+
+
+\textbf{Test Procedure}\\
+\begin{enumerate}
+\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
+\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Turn on power supply 
+\item Measure power output over 2 min
+\item Save measurements as "<device>\_power\_consumption"
+\item Turn off power supply
+\item Change to next device
+\item Repeat step 1-7 for all devices.
+\end{enumerate}
+
+\textbf{Results}\\
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
+$\mathbf{P_{device}}$	& & & \\ \hline
+\end{tabular}
+\caption{•}
+\label{tab:device_power_results}
+\end{table}
+
+\subsubsection{\gls{eDRX} Power Consumption}
+\textbf{Test Setup}\\
+To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{device power setup}}
+\caption{Setup to measure device power consumption.}
+\label{fig:device_power_setup}
+\end{figure}
+
+Specific settings:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
+Cell type          & NB-IoT         \\ \hline
+Number of cells    & 1              \\ \hline
+Operation mode     & Standalone     \\ \hline
+Dl\_EARFCN         & 6310           \\ \hline
+Cell ID            & 0              \\ \hline
+Tx gain            & 89 dB          \\ \hline
+R14                & False          \\ \hline
+nprach\_detect\_threshold  & 19 dB  \\ \hline
+\end{tabular}
+\caption{Specific parameter used to measure device power}
+\label{tab:device_power_settings}
+\end{table}
+\todo{table is just copy pasted}
+
+
+\textbf{Test Procedure}\\
+\begin{enumerate}
+\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
+\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Turn on power supply 
+\item Measure power output over 2 min
+\item Save measurements as "<device>\_power\_consumption"
+\item Turn off power supply
+\item Change to next device
+\item Repeat step 1-7 for all devices.
+\end{enumerate}
+
+\textbf{Results}\\
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
+$\mathbf{P_{device}}$	& & & \\ \hline
+\end{tabular}
+\caption{•}
+\label{tab:device_power_results}
+\end{table}
+
+\subsubsection{\gls{PSM} Power Consumption}
+\textbf{Test Setup}\\
+To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{device power setup}}
+\caption{Setup to measure device power consumption.}
+\label{fig:device_power_setup}
+\end{figure}
+
+Specific settings:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
+Cell type          & NB-IoT         \\ \hline
+Number of cells    & 1              \\ \hline
+Operation mode     & Standalone     \\ \hline
+Dl\_EARFCN         & 6310           \\ \hline
+Cell ID            & 0              \\ \hline
+Tx gain            & 89 dB          \\ \hline
+R14                & False          \\ \hline
+nprach\_detect\_threshold  & 19 dB  \\ \hline
+\end{tabular}
+\caption{Specific parameter used to measure device power}
+\label{tab:device_power_settings}
+\end{table}
+\todo{table is just copy pasted}
+
+
+\textbf{Test Procedure}\\
+\begin{enumerate}
+\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
+\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Turn on power supply 
+\item Measure power output over 2 min
+\item Save measurements as "<device>\_power\_consumption"
+\item Turn off power supply
+\item Change to next device
+\item Repeat step 1-7 for all devices.
+\end{enumerate}
+
+\textbf{Results}\\
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
+$\mathbf{P_{device}}$	& & & \\ \hline
+\end{tabular}
+\caption{•}
+\label{tab:device_power_results}
 \end{table}
 
 
-\section{Evaluation}
-%Here should be a step by step procedure of all test for all requirements, maybe put tapplans in appendix.
-
-\subsection{Amount of Devices}
-
-\subsection{Configurable}
-
-\subsection{Power Control}
-
-\subsection{Ultra-low Complexity Devices}
-
-\subsection{Improved Coverage}
-
-\subsection{Support Massive Number of Devices}
-
-\subsection{Improved Power Efficiency}
-\subsubsection{Test Overview}
-\subsubsection{Test Setup}
-\subsubsection{Test Procedure}
-\subsection{Deployment Flexibility}
 
 %\subsection{Battery Lifetime}
 %From the model derived in \todo{make ref to bat model section} it can be found that the necessary parameters are:
