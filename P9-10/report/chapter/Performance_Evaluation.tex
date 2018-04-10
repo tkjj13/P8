@@ -170,7 +170,7 @@ nprach\_detect\_ threshold  & 19 dB  \\ \hline
 
 %\subsection{Amount of Devices}
 
-\subsection{Configurable}
+\subsection{Configurability}
 
 %\subsection{Power Control}
 
@@ -234,10 +234,10 @@ nprach\_detect\_threshold  & 19 dB  \\ \hline
 \item Put in settings as described in \autoref{tab:device_power_settings} 
 \item Turn on power supply 
 \item Measure power output over 2 min
-\item Save measurements as "<device>\_power\_consumption"
+\item Save measurements as "Power\_consumption\_<device>\_<Parameters used>"
 \item Turn off power supply
-\item Change to next device
-\item Repeat step 1-7 for all devices.
+\item Change to next \gls{DUT}
+\item Repeat step 1-7 for all \gls{DUT}s.
 \end{enumerate}
 
 \textbf{Results}\\
@@ -247,13 +247,22 @@ nprach\_detect\_threshold  & 19 dB  \\ \hline
 \textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
 $\mathbf{P_{device}}$	& & & \\ \hline
 \end{tabular}
-\caption{•}
+\caption{Average power consumption of the \gls{DUT}s}
 \label{tab:device_power_results}
 \end{table}
 
 \subsubsection{Energy to Connect the Device to the Cell}
 \textbf{Test Setup}\\
-To measure the energy to turn on the modem the general setup can be used as seen in \autoref{fig:General_test_setup}. However a few changes should be made for the settings
+To measure the energy to turn on the modem the setup can be seen on \autoref{fig:E_on_setup}, a few changes is also be made for the settings as seen in \autoref{tab:E_on_settings}.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\missingfigure{E on setup}}
+\caption{The setup used to measure the energy to connect the \gls{DUT} to the cell.}
+\label{fig:E_on_setup}
+\end{figure}
+
 
 \begin{table}[H]
 \centering
@@ -277,40 +286,16 @@ nprach\_detect\_threshold  & 19 dB  \\ \hline
 
 \textbf{Test Procedure}\\
 \begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:General_test_setup}
+\item Setup the \gls{DUT} as shown on \autoref{fig:E_on_setup}
 \item Put in settings as described in \autoref{tab:E_on_settings} 
+\item Turn on power analyser
 \item Turn on power supply 
-\item Measure power output over 2 min
-\item Save measurements as "<device>\_power\_consumption"
+\item Verify connection to cell
+\item Save measurements as "Connection\_<device>\_<Parameters used>"
 \item Turn off power supply
-\item Change to next device
-\item Repeat step 1-7 for all devices.
+\item Change to next \gls{DUT}
+\item Repeat step 1-8 for all \gls{DUT}s.
 \end{enumerate}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \textbf{Results}\\
