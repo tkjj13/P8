@@ -5,7 +5,7 @@ To evaluate the designed system a few key parameters are set as main pointers. T
 
 \section{Evaluation Points}
 %Here should be a list of all requirement that is tested and criteria for passed not passed. 
-The key parameters can be spilt into two groups: the emulator and the protocol. These groups are independent of each other in the sense that any other emulator should reveal the same results for the same protocol.
+The key parameters can be spilt into two groups: the emulator and the protocol. These groups are independent of each other in the sense that any other emulator should reveal the same results for the same protocol, given the same parameters.
 
 \begin{itemize}
 \item Emulator
@@ -74,12 +74,12 @@ The key parameters can be spilt into two groups: the emulator and the protocol. 
 %\end{enumerate}
 
 
-Based on both the focus explained in \autoref{ch:Introduction} as well as some issues with the emulator explained TBD. The only points that is actually tested are:
+Based on both the focus explained in \autoref{ch:Introduction} as well as some issues with the emulator explained TBD. The only points that is actually tested are: \todo{check if this is correct later}
 
 \begin{itemize}
 \item Emulator
 	\begin{enumerate}
-%	\item[1.] Amount of users %(CPU,RAM) 
+	\item[1.] Amount of users %(CPU,RAM) 
 	\item[2.] Configurability %(Channel, Number of UEs, etc.)
 %	\item[3.] Power control 
 	\end{enumerate}
@@ -87,9 +87,9 @@ Based on both the focus explained in \autoref{ch:Introduction} as well as some i
 	\begin{enumerate}
 %	\item[4.] Ultra-low Complexity Devices
 %	\item[5.] Improved Coverage
-%	\item[6.] Support Massive Number of Devices 
+	\item[6.] Support Massive Number of Devices 
 	\item[7.] Improved Power Efficiency
-%	\item[8.] Deployment flexibility
+	\item[8.] Deployment flexibility
 	\end{enumerate}
 \end{itemize}
 
@@ -134,7 +134,7 @@ Number of devices  & 0              \\ \hline
 Rx gain            & 40 dB          \\ \hline
 Tx gain            & 40 dB          \\ \hline
 R14                & False          \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
+Dl\_EARFCN         & 6240           \\ \hline
 UE\_category       & Nb1            \\ \hline
 \end{tabular}
 %\caption{Initial values of the parameters in the emulator.}
@@ -145,13 +145,13 @@ UE\_category       & Nb1            \\ \hline
 \hline
 \multicolumn{2}{|c|}{\textbf{Ekstern IoT device}}                            \\ \hline
 Enable             & Off            \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
+Dl\_EARFCN         & 6240           \\ \hline
 \multicolumn{2}{c}{}\\ \hline
 \multicolumn{2}{|c|}{\textbf{Base Station Emulator}}                         \\ \hline
 Cell type          & NB-IoT         \\ \hline
 Number of cells    & 1              \\ \hline
 Operation mode     & Standalone     \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
+Dl\_EARFCN         & 6240           \\ \hline
 Cell ID            & 0              \\ \hline
 Tx gain            & 89 dB          \\ \hline
 R14                & False          \\ \hline
@@ -195,46 +195,55 @@ From \appref{app:bat_model} it can be seen that to estimate the battery life tim
 
 With these informations the only thing needed is the data profile, here we will assume two different models one transmitting 100 bytes every hour and one transmitting 100 bytes every 24 hours. \todo{see if standards have some specified data profiles.}
 
-From a measurement perspective some of these parameters can and should be measured together, these are $E_{modem,on}$, $E_{sync}$ and $E_{attach}$. This is because all these steps are depending on each other and can not be separated for the measurements only in the post processing. These are collectively referred to as $E_conn$ or energy to connect the device to the cell. 
+From a measurement perspective some of these parameters can and should be measured together, these are $E_{modem,on}$, $E_{sync}$ and $E_{attach}$. This is because all these steps are depending on each other and can not be separated for the measurements only in the post processing. These are collectively referred to as $E_{conn}$ or energy to connect the device to the cell. 
 
-\subsubsection{Device Power Consumption}
-\textbf{Test Setup}\\
-To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
+To test these parameters the following setup is modified from \autoref{fig:General_test_setup} to the following:
+
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{
-\missingfigure{device power setup}}
-\caption{Setup to measure device power consumption.}
-\label{fig:device_power_setup}
+\includegraphics[width=0.5\textwidth]{figures/IPE_test_setup.pdf}
+\caption{Setup used to test for the power efficiency of the \gls{DUT}'s}
+\label{fig:IPE_test_setup}
 \end{figure}
 
-Specific settings:
+It should be noted that the \gls{DUT}'s in question have to power inputs, one for the device power and one for the RF modem power. Typically only the modem is connected to the power analyser. With the exception of measuring the device power where the the device power input is connected to the power analyser.
+
+As the UXM is used as \gls{BSE} instead of Amarisoft the initial settings for this can be seen in \autoref{tab:UXM_initial_values}.
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
-Cell type          & NB-IoT         \\ \hline
-Number of cells    & 1              \\ \hline
-Operation mode     & Standalone     \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
-Cell ID            & 0              \\ \hline
-Tx gain            & 89 dB          \\ \hline
-R14                & False          \\ \hline
-nprach\_detect\_threshold  & 19 dB  \\ \hline
+\multicolumn{2}{|c|}{\textbf{UXM \gls{BSE}}} \\ \hline
+Cell type			 & NB-IoT         \\ \hline
+Number of cells		 & 1              \\ \hline
+Operation mode		 & Standalone     \\ \hline
+Host cell Dl\_EARFCN & 6240           \\ \hline
+PRB offset			 & 0	          \\ \hline
+Cell ID				 & 0              \\ \hline
+Tx power			 & -80 dB/per 15 kHz \\ \hline
+Repetition NPDSCH	 & 1	          \\ \hline
+Repetition NPDCCH	 & 1	          \\ \hline
+Repetition NPUSCH	 & 1	          \\ \hline
+Repetition NPRACH	 & 1	          \\ \hline
+CP format			 & Normal         \\ \hline
+Pmax				 & 20 dBm         \\ \hline
 \end{tabular}
-\caption{Specific parameter used to measure device power}
-\label{tab:device_power_settings}
+\caption{Initial parameters of the UXM}
+\label{tab:UXM_initial_values}
 \end{table}
-\todo{table is just copy pasted}
 
+\subsubsection{Device Power Consumption}
 
-\textbf{Test Procedure}\\
+To measure the device power, the power input to the device is used in the setup. The test is performed using the following procedure:
+
+\textbf{Test Procedure}
+\vspace{-1.5em}
 \begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
-\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
+\item Put in settings as described in \autoref{tab:setup_parameters} and \autoref{tab:UXM_initial_values} 
 \item Turn on power supply 
 \item Measure power output over 2 min
-\item Save measurements as "Power\_consumption\_<device>\_<Parameters used>"
+\item Save measurements as "<device>\_Power\_consumption"
 \item Turn off power supply
 \item Change to next \gls{DUT}
 \item Repeat step 1-7 for all \gls{DUT}s.
@@ -252,36 +261,8 @@ $\mathbf{P_{device}}$	& & & \\ \hline
 \end{table}
 
 \subsubsection{Energy to Connect the Device to the Cell}
-\textbf{Test Setup}\\
-To measure the energy to turn on the modem the setup can be seen on \autoref{fig:E_on_setup}, a few changes is also be made for the settings as seen in \autoref{tab:E_on_settings}.
 
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\missingfigure{E on setup}}
-\caption{The setup used to measure the energy to connect the \gls{DUT} to the cell.}
-\label{fig:E_on_setup}
-\end{figure}
-
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{Specific settings}} \\ \hline
-\multicolumn{2}{|c|}{Base Station Emulator} \\ \hline
-Cell type          & NB-IoT         \\ \hline
-Number of cells    & 1              \\ \hline
-Operation mode     & Standalone     \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
-Cell ID            & 0              \\ \hline
-Tx gain            & 89 dB          \\ \hline
-R14                & False          \\ \hline
-nprach\_detect\_threshold  & 19 dB  \\ \hline
-\end{tabular}
-\caption{Specific parameter used to measure device power}
-\label{tab:E_on_settings}
-\end{table}
-\todo{table is just copy pasted}
+To measure the energy used to connect the device to the cell, 
 
 
 \textbf{Test Procedure}\\
