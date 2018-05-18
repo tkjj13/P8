@@ -10,8 +10,8 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=12.4in,
-height=6.357in,
+width=\textwidth,
+height=0.66\textwidth,
 at={(2.08in,0.858in)},
 scale only axis,
 xmin=0.13,
@@ -22,7 +22,7 @@ ymax=1500,
 ylabel={PDF},
 axis background/.style={fill=white},
 title style={font=\bfseries},
-title={Transmit},
+title={Statistical overview},
 legend style={legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot[fill=mycolor1,fill opacity=0.6,draw=black,ybar interval,area legend] plot table[row sep=crcr] {%

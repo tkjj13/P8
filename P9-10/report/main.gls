@@ -23,7 +23,8 @@
 		\setentrycounter[]{page}\glsnumberformat{3\delimN 4}}}%
 \glossentry{BSE}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{3}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{28\delimR 31}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{28\delimN 29}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{31}}}\glsgroupskip
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossentry{C-RNTI}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{16}}}%
@@ -58,7 +59,7 @@
 		\setentrycounter[]{page}\glsnumberformat{15}}}%
 \glossentry{DUT}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{30\delimN 31}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{36}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{35}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{39\delimN 40}}}\glsgroupskip
 \glsgroupheading{E}\relax \glsresetentrylist %
 \glossentry{eDRX}{\glossaryentrynumbers{\relax 
@@ -66,7 +67,7 @@
 		\setentrycounter[]{page}\glsnumberformat{7}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{10}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{27}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{37}}}%
+		\setentrycounter[]{page}\glsnumberformat{38}}}%
 \glossentry{EMM}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{8}}}%
 \glossentry{eNB}{\glossaryentrynumbers{\relax 
@@ -141,7 +142,8 @@
 		\setentrycounter[]{page}\glsnumberformat{9}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{11}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{14}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{17\delimR 20}}}%
+		\setentrycounter[]{page}\glsnumberformat{17\delimR 20}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{30}}}%
 \glossentry{NB-PCID}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{21}}}%
 \glossentry{NB-SIB}{\glossaryentrynumbers{\relax 

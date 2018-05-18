@@ -11,19 +11,19 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=12.4in,
-height=6.357in,
+width=\textwidth,
+height=0.66\textwidth,
 at={(2.08in,0.858in)},
 scale only axis,
 xmin=-30,
 xmax=30,
 xlabel={Pmax [dBm]},
 ymin=0.04,
-ymax=0.18,
+ymax=0.22,
 ylabel={Avg. Power Consumption [W]},
 axis background/.style={fill=white},
-title style={font=\bfseries},
-title={Transmit},
+%title style={font=\bfseries},
+%title={Transmit},
 legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
@@ -127,7 +127,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 7	0.0526741869357233\\
 8	0.05383265068127\\
 };
-\addlegendentry{y = 0.0433*exp(0.0002*x) + 4.13E-03*exp(0.116*x) RMSE = 0.00012};
+\addlegendentry{$y = 0.0433\cdot\exp{(0.0002\cdot x)} + 4.13\cdot10^{-3}\cdot\exp{(0.116\cdot x)}$ RMSE = 0.00012};
 
 \addplot [color=mycolor3,solid]
   table[row sep=crcr]{%
@@ -147,7 +147,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 22	0.141854400898934\\
 23	0.172882008993868\\
 };
-\addlegendentry{y = 0.0399*exp(4.42E-02*x) + 2.23e-07*exp(0.545*x) RMSE = 0.00265};
+\addlegendentry{$y = 0.0399\cdot\exp{(0.0442\cdot x)} + 22.3\cdot10^{-6}\cdot\exp{(0.545\cdot x)}$ RMSE = 0.00265};
 
 \end{axis}
 \end{tikzpicture}%

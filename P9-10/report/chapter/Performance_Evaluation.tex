@@ -194,6 +194,8 @@ From \appref{app:bat_model} it can be seen that to estimate the battery life tim
 \item $P_{PSM}$
 \end{itemize}
 
+However in a \gls{NB-IoT} system a multitude of parameters have an influence either in regards to the time it takes to transmit anything or in the energy consumed during a transmission, this is the case for all states and transitions the device experience. To account for all of this is to humongous a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to further analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the $P_{TX}$  
+
 With these informations the only thing needed is the data profile, the same models are used here as in \citep{Power_article}. Model 1 transmit every hour and Model 2 transmit every 24 hours, transmission size is 100 bytes for both models. %\todo{see if standards have some specified data profiles.}
 
 From a measurement perspective some of these parameters can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can not be separated for the measurements only in the post processing. These are collectively referred to as $E_{conn}$ or energy to connect the device to the cell. 
@@ -227,7 +229,9 @@ Max Repetition NPDCCH & 4	          \\ \hline
 Repetition NPUSCH	 & 1	          \\ \hline
 Repetition NPRACH	 & 1	          \\ \hline
 CP format			 & Normal         \\ \hline
-Pmax				 & 23 dBm         \\ \hline
+$P_{TX}$				 & 23 dBm         \\ \hline
+MAC padding DL		 & off       	  \\ \hline
+MAC padding UL		 & off       	  \\ \hline
 \end{tabular}
 \caption{Initial parameters of the UXM}
 \label{tab:UXM_initial_values}
@@ -269,8 +273,8 @@ To measure the energy used to connect the device to the cell the following proce
 \begin{enumerate}
 \item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
 \item Turn on power supply 
-\item Put in settings as described in \autoref{tab:UXM_initial_values}
-\item Put in chosen value of chosen parameter
+\item Input settings as described in \autoref{tab:UXM_initial_values}
+\item Input chosen value of chosen parameter
 \item Put device in disconnected state 
 \item Input to log "start <Parameters used> <Parameter value>"
 \item Turn on power analyser
@@ -288,131 +292,201 @@ To measure the energy used to connect the device to the cell the following proce
 
 
 \textbf{Results}\\
-
 \begin{figure}[H]
 \centering
+\begin{minipage}[tbp]{0.58\textwidth}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_raw.tex}}
-\caption{Sync Points}
+\end{minipage}%
+\begin{minipage}[tbp]{0.39\textwidth}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|p{6.5cm}|} \hline
+\multicolumn{2}{|c|}{\textbf{Log messages}} \\ \hline
+\textbf{Line number} & \textbf{Message} \\ \hline
+1 & Security Protected NAS Message (Attach Request) \\ \hline
+2 & Security Protected NAS Message (Authentication Response) \\ \hline
+3 & Security Protected NAS Message (Security Mode Command) \\ \hline
+4 & Security Protected NAS Message (Security Mode Complete) \\ \hline
+5 & Security Protected NAS Message (Attach Accept) \\ \hline
+6 & Security Protected NAS Message (Attach Complete) \\ \hline
+\end{tabular}}
+\end{minipage}
+\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure and Area C is Cell release and idle period. Dashed line indicates log messages.}
 \label{fig:device_power_setup}
 \end{figure}
 
-\begin{minipage}{0.48\textwidth}
+The next step is to get the three needed parameters. The parameters are found as:
+
+\begin{align}
+E_{sync} &= \int_{A1}^{A2} f(x) dx \\
+P_{attach} &= E(f(x)) \quad for \, B1 \leq x \leq B2\\
+T_{attach} &=  B2 - B1
+\end{align}
+\begin{where}
+\va{$E_{sync}$}{is the energy to boot up and synchronize to the cell}{J}
+\va{$P_{attach}$}{is the average power consumption during the attach procedure}{W}
+\va{$T_{attach}$}{is the time it take to attach to the network}{s}
+\va{E(•)}{is the mean function}{1}
+\va{f(x)}{is the data point at time x}{W}
+\va{A1}{is the start time of area A}{s}
+\va{A2}{is the end time of area A}{s}
+\va{B1}{is the start time of area B}{s}
+\va{B2}{is the end time of area B}{s}
+\end{where}
+
+
+This is done for all measurements and the results are presented along with their statistical properties in \autoref{fig:Sync_Points}, \autoref{fig:Attach_Power_Points} and \autoref{fig:Attach_Time_Points} respectively.
+
 \begin{figure}[H]
 \centering
+\begin{minipage}{0.48\textwidth}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Sync_Points.tex}}
-\caption{Sync Points}
-\label{fig:device_power_setup}
-\end{figure}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
-\begin{figure}[H]
-\centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Sync_Stat.tex}}
-\caption{Sync Stat}
-\label{fig:device_power_setup}
-\end{figure}
 \end{minipage}
-
-
-
-
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Attach_Time_Points.tex}}
-\caption{Attach Time Points}
-\label{fig:device_power_setup}
+\caption{Energy consumed during boot up and cell synchronization.}
+\label{fig:Sync_Points}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Attach_Time_Stat.tex}}
-\caption{Attach Time Stat}
-\label{fig:device_power_setup}
-\end{figure}
-
-\begin{figure}[H]
-\centering
+\begin{minipage}{0.48\textwidth}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Power_Points.tex}}
-\caption{Attach Power Points}
-\label{fig:device_power_setup}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Attach_Power_Stat.tex}}
+\end{minipage}
+\caption{Average power consumption during attach procedure.}
+\label{fig:Attach_Power_Points}
 \end{figure}
 
 \begin{figure}[H]
 \centering
+\begin{minipage}{0.48\textwidth}
 \resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Attach_Power_Stat.tex}}
-\caption{Attach Power Stat}
-\label{fig:device_power_setup}
+\input{figures/QuectelMeas/Attach_Time_Points.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Attach_Time_Stat.tex}}
+\end{minipage}
+\caption{Time spent during attach procedure}
+\label{fig:Attach_Time_Points}
 \end{figure}
+
+
+The parameters can be modelled in several different ways, it is chosen to use a point distribution for both the $E_{sync}$ and $T_{attach}$ and a Gaussian distribution for $P_{attach}$ based on the the statistical properties of the parameters. 
+
+This means that the parameters with respect to CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value:
+
+\begin{align}
+E_{sync} &\sim\begin{cases} 1.05\cdot 10^{-6} \quad p = 0.758\\
+1.76\cdot 10^{-6} \quad p = 0.242
+\end{cases}\\
+P_{attach} &\sim\mathcal{N}(0.269,0.173\cdot 10^{-6}) \\
+T_{attach} &\sim\begin{cases} 2.215 \quad p = 0.2584\\
+2.345 \quad p = 0.4382\\
+2.470 \quad p = 0.1124\\
+2.615 \quad p = 0.1573\\
+2.725 \quad p = 0.0337
+\end{cases}
+\end{align}
+
+As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, it is therefore looked upon separately in \autoref{fig:Attach_Pmax}. 
 
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Pmax.tex}}
-\caption{Attach Pmax}
-\label{fig:device_power_setup}
+\caption{Average power consumption as a function of $P_{TX}$ during the attach procedure.}
+\label{fig:Attach_Pmax}
 \end{figure}
+
+From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of Pmax this can be contributed to the usage of a power amplifier. 
 
 \subsubsection{Transmit Power Consumption}
-\textbf{Test Setup}\\
-To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\missingfigure{device power setup}}
-\caption{Setup to measure device power consumption.}
-\label{fig:device_power_setup}
-\end{figure}
 
-Specific settings:
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
-Cell type          & NB-IoT         \\ \hline
-Number of cells    & 1              \\ \hline
-Operation mode     & Standalone     \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
-Cell ID            & 0              \\ \hline
-Tx gain            & 89 dB          \\ \hline
-R14                & False          \\ \hline
-nprach\_detect\_threshold  & 19 dB  \\ \hline
-\end{tabular}
-\caption{Specific parameter used to measure device power}
-\label{tab:device_power_settings}
-\end{table}
-\todo{table is just copy pasted}
+To measure the transmit power the same setup used to measure the $E_{conn}$ can be used. However the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. The measurement is performed with the following procedure:
+
 
 
 \textbf{Test Procedure}\\
 \begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
-\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
 \item Turn on power supply 
-\item Measure power output over 2 min
-\item Save measurements as "<device>\_power\_consumption"
+\item Put in settings as described in \autoref{tab:UXM_initial_values} 
+\item Enable MAC padding in UL and DL
+\item Input chosen value of chosen parameter
+\item Input to log "start <Parameter used> <Parameter value>"
+\item Put device in connected state
+\item Measure power output over 35 s
+\item Change to next value
+\item Repeat step 5-9 for all values.
+\item Save measurements as "Transmit/<Parameter used>/Messagelog.csv"
+\item Change to next parameter
+\item Repeat step 5-12 for all parameters.
 \item Turn off power supply
-\item Change to next device
-\item Repeat step 1-7 for all devices.
 \end{enumerate}
 
 \textbf{Results}\\
-\begin{table}[H]
+\begin{figure}[H]
 \centering
-\begin{tabular}{|c|c|c|c|}\hline
-\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
-$\mathbf{P_{device}}$	& & & \\ \hline
-\end{tabular}
-\caption{•}
-\label{tab:device_power_results}
-\end{table}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Transmit_raw.tex}}
+\caption{Example of raw measurements of the transmit case.}
+\label{fig:device_power_setup}
+\end{figure}
+
+The next step is to find the average power consumption as:
+\begin{equation}
+P_{transmit} = E(f(x))
+\end{equation}
+\begin{where}
+\va{$P_{transmit}$}{is the average power consumption during transmit state}{W}
+\end{where}
+
+This is done for all parameters and the result can be seen in \autoref{fig:Transmit_Points}.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Transmit_Points.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Transmit_Stat.tex}}
+\end{minipage}
+\caption{Average power consumption when in transmit state.}
+\label{fig:Transmit_Points}
+\end{figure}
+
+As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelled using a Gaussian distribution with $P_{TX}$ setting the mean value this can be from \autoref{fig:Transmit_Points} and \autoref{fig:Transmit_Pmax}. The mean is split into two models for the transmit part as expected from the attach measurements. 
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Transmit_Pmax.tex}}
+\caption{Transmit Pmax}
+\label{fig:Transmit_Pmax}
+\end{figure}
+
+This means that $P_{transmit}$ can be modelled as:
+\begin{align}
+&P_{transmit} \sim \mathcal{N}(\mu_{Pmax},11.034\cdot 10^{-6}) \\ \nonumber
+&\mu_{Pmax} = \begin{cases} 0.0433\cdot\exp{(0.0002\cdot x)} + 4.13\cdot10^{-3}\cdot\exp{(0.116\cdot x)} \quad for x \leq 8 dBm \\
+0.0399\cdot\exp{(0.0442\cdot x)} + 22.3\cdot10^{-6}\cdot\exp{(0.545\cdot x)} \quad for x > 8 dBm \end{cases}
+\end{align}
+
 
 \subsubsection{\gls{eDRX} Power Consumption}
 \textbf{Test Setup}\\
@@ -427,30 +501,6 @@ To measure the device power the setup needs to be changed as seen in \autoref{fi
 \end{figure}
 
 
-
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Transmit_Points.tex}}
-\caption{Transmit Points}
-\label{fig:device_power_setup}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Transmit_Stat.tex}}
-\caption{Transmit Stat}
-\label{fig:device_power_setup}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Transmit_Pmax.tex}}
-\caption{Transmit Pmax}
-\label{fig:device_power_setup}
-\end{figure}
 
 Specific settings:
 \begin{table}[H]

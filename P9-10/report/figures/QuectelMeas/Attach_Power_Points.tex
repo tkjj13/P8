@@ -11,8 +11,8 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=12.4in,
-height=6.357in,
+width=\textwidth,
+height=0.66\textwidth,
 at={(2.08in,0.858in)},
 scale only axis,
 xmin=0,
@@ -20,10 +20,10 @@ xmax=150,
 xlabel={Data Points},
 ymin=0.25,
 ymax=0.3,
-ylabel={Avg. power consumption [W]},
+ylabel={$P_{attach}$ [W]},
 axis background/.style={fill=white},
 title style={font=\bfseries},
-title={Attach procedure},
+title={Measurement overview},
 legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]

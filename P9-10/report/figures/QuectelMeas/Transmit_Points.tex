@@ -11,8 +11,8 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=12.4in,
-height=6.357in,
+width=\textwidth,
+height=0.66\textwidth,
 at={(2.08in,0.858in)},
 scale only axis,
 xmin=0,
@@ -23,7 +23,7 @@ ymax=0.137,
 ylabel={Avg. Power consumption [W]},
 axis background/.style={fill=white},
 title style={font=\bfseries},
-title={Transmit},
+title={Measurement overview},
 legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]

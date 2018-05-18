@@ -12,8 +12,8 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=12.4in,
-height=6.357in,
+width=\textwidth,
+height=0.66\textwidth,
 at={(2.08in,0.858in)},
 scale only axis,
 xmin=0,
@@ -21,10 +21,10 @@ xmax=150,
 xlabel={Data Points},
 ymin=2.2,
 ymax=2.8,
-ylabel={Time [s]},
+ylabel={$T_{attach}$ [s]},
 axis background/.style={fill=white},
 title style={font=\bfseries},
-title={Attach procedure},
+title={Measurement overview},
 legend style={legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
@@ -254,7 +254,7 @@ legend style={legend cell align=left,align=left,draw=white!15!black}
 53	2.474\\
 54	2.61\\
 };
-\addlegendentry{Pmax};
+\addlegendentry{$P_{TX}$};
 
 \end{axis}
 \end{tikzpicture}%
