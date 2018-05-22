@@ -337,7 +337,9 @@
 \usepackage{tikz}
 \usepackage[americanresistors,americaninductors,americancurrents, americanvoltages]{circuitikz}
 \usetikzlibrary{patterns,decorations.pathreplacing}
-
+\usetikzlibrary{external}
+\tikzexternalize[optimize=false, prefix=build/]
+%\tikzsetexternalprefix{build/}
 % Wall of text logo
 
 \newcommand{\walloftextalert}[0]{\includegraphics[width=\textwidth]{walloftext.png}}
