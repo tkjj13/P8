@@ -174,10 +174,11 @@
 \usepackage[
   %disable, %turn off todonotes
   colorinlistoftodos, %enable a coloured square in the list of todos
-  %inline,
+  % inline,
   textwidth=15mm, %set the width of the todonotes
   textsize=scriptsize, %size of the text in the todonotes
   ]{todonotes}
+  \presetkeys{todonotes}{inline}{}
 \setlength{\marginparwidth}{2cm}
 \newcommand{\todocheck}[1]{\todo[color=green!40, author=Check]{#1}}
 \newcommand{\todojens}[1]{\todo[color=red!40, author=Jens, inline]{#1}}
