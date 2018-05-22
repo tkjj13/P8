@@ -517,6 +517,7 @@ T3412 					  & 30,2s   \\ \hline
 \caption{Specific parameter used to measure device idle power}
 \label{tab:UXM_idle_values}
 \end{table}
+\todo{check with NDS for specific values}
 
 \textbf{Test Procedure}\\
 \begin{enumerate}
@@ -532,34 +533,49 @@ T3412 					  & 30,2s   \\ \hline
 \todo{wrong procedure}
 
 \textbf{Results}\\
-\begin{minipage}{0.49\textwidth}
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/DRX1.tex}}
-\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure and Area C is Cell release and idle period. Dashed line indicates log messages.}
+\caption{Raw measurement of \gls{DRX}. Area A is connection phase and area B is DRX phase.}
 \label{fig:DRX}
 \end{figure}
+\vspace{0.8em}
 \end{minipage}%
-\begin{minipage}{0.49\textwidth}
-\begin{figure}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/eDRX1.tex}}
-\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure and Area C is Cell release and idle period. Dashed line indicates log messages.}
-\label{fig:eDRX1}
-\end{figure}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
+\hfill
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/PSM1.tex}}
-\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure and Area C is Cell release and idle period. Dashed line indicates log messages.}
+\caption{Raw measurement of \gls{PSM}. Area A is connection phase, area B is DRX phase, area C is the PSM phase and area D is the tracking area update phase.}
 \label{fig:PSM}
 \end{figure}
 \end{minipage}
+\vspace{1em}
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX1.tex}}
+\caption{Raw measurement of \gls{eDRX}. Area A is connection phase, area B is the sleep phase of the first eDRX cycle, area C is the paging transmission window of the first eDRX cycle, area D is the sleep phase of the second eDRX cycle and area E is the paging transmission window of the second eDRX cycle.}
+\label{fig:eDRX1}
+\end{minipage}
+\end{figure}
 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\multicolumn{1}{c}{ }	& \multicolumn{5}{c}{Area} \\ \hline
+\textbf{Mode}	& \textbf{A}	& \textbf{B}	& \textbf{C} 	& \textbf{D} 	& \textbf{E} \\ \hline
+DRX				& 0	W			& 0 W			& - 			& - 			& - \\ \hline
+eDRX			& 0 W			& 0 W			& 0 W			& 0 W			& 0 W \\ \hline
+PSM 			& 0 W			& 0 W			& 0 W			& 0 W			& - \\ \hline 
+\end{tabular}
+\caption{•}
+\label{tab:idle_results}
+\end{table}
 
 
 \subsubsection{\gls{PSM} Power Consumption}
