@@ -10,43 +10,53 @@ To make an emulator, that can emulate all scenarios for NB-IoT compared to the t
 
 \todo{Insert beautiful figure}
 
-\textbf{eNB}\\
 
+%First, there should be a conceptual diagram of the setup; this should go into a description of how the emulator is actually put together. 
+%There should be a mention of how an external device can be put into the system to be tested also due to the cellular nature of NB-IoT.
+%The physical connection needs to be explained, how to connect everything and where to put attenuators combiners and so forth.
+%There could also be a section of practical limitation due to digitalization.
+%Should end with differentiation of main and auxiliary components.
 
-To emulate the scenarios 
-
-First, there should be a conceptual diagram of the setup; this should go into a description of how the emulator is actually put together. 
-There should be a mention of how an external device can be put into the system to be tested also due to the cellular nature of NB-IoT.
-The physical connection needs to be explained, how to connect everything and where to put attenuators combiners and so forth.
-There could also be a section of practical limitation due to digitalization.
-Should end with differentiation of main and auxiliary components.
-
-\begin{figure}[H]
-\centering
-\resizebox{0.5\textwidth}{!}{
-\input{figures/test-bed_overview.tex}}
-\caption{Testbed overview}
-\label{fig:test-bed_overview}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\resizebox{0.5\textwidth}{!}{
+%\input{figures/test-bed_overview.tex}}
+%\caption{Testbed overview}
+%\label{fig:test-bed_overview}
+%\end{figure}
 
 \textbf{eNB}\\
-Here should be mentioned that the BSE is not primary concern, therefore use of exsiting BSE. It should also be mentioned that it should be changeable so commercial BS can also be tested. It should end with use we use Amarisoft LTE 100 as primary and support it with UXM.
-	Amarisoft
-Here should be a list of relevant features it have, and how to use them. It should also be mentioned, how we can access it from a main PC to set these features. It should be described how the core network interacts with the eNB. It should also be described where to put USIM data to allow network attach.
-	UXM
-	Here should be a list of relevant features it have, and how to use them. It should also be mentioned, how we can access it from a main PC to set these features. It should be described how the core network interacts with the eNB. It should also be described where to put USIM data to allow network attach.
+
+To emulate a cellular network for this project, a \gls{BS} is needed, which supports \gls{NB-IoT}. As it is not the BS that are in testing focus for this emulator, there can be use an already existing \gls{BSE}. The BSE should be changeable, with the only connections to the system being a physical wired connection to the NB-IoT devices and a control input from the Orchestrator.
+
+For emulation of the massiveness part, the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE} \todo{Insert ref to Amarisoft side} and is tested to synchronize with the software based NB-IoT devices from the Massive IoT component. As it is a commercial BSE, it is not open source and therefore harder to add new features and see all parameters for, so it will only be used for the massiveness part in this project.
+
+For emulation of the battery life part, the \gls{UXM} will be used as it is a test equipment and therefore designed to be able to change all parameters and get output data from. Unfortunately is it not designed to a higher amount of UE and can not be used for the massiveness part.
+
+%Here should be mentioned that the BSE is not primary concern, therefore use of exsiting BSE. It should also be mentioned that it should be changeable so commercial BS can also be tested. It should end with use we use Amarisoft LTE 100 as primary and support it with UXM.
+%	Amarisoft
+%Here should be a list of relevant features it have, and how to use them. It should also be mentioned, how we can access it from a main PC to set these features. It should be described how the core network interacts with the eNB. It should also be described where to put USIM data to allow network attach.
+%	UXM
+%	Here should be a list of relevant features it have, and how to use them. It should also be mentioned, how we can access it from a main PC to set these features. It should be described how the core network interacts with the eNB. It should also be described where to put USIM data to allow network attach.
 
 \textbf{Massive IoT}\\
-Here should be a description of the software from SRS. How the core structure of the code is and how it is expanded to accommodate multiple UEs. There should be a description of how to change key parameters in the code and how to use the system from a main PC (or if the main PC should host the MassM2M).
+To emulate a massive amount of NB-IoT devices to stress test the BS and to interfere with the external NB-IoT device, a software base solution is selected. The ground block for the solution is the SRS NB-IoT UE code, provide by \todo{Can we mention keysight here}, where the code have to be modified to produce multiple UE compared to the single it produce as standard.
+
+%Here should be a description of the software from SRS. How the core structure of the code is and how it is expanded to accommodate multiple UEs. There should be a description of how to change key parameters in the code and how to use the system from a main PC (or if the main PC should host the MassM2M).
 
 \textbf{PSU}\\
-Short description of the feature of the PSU and the limitation (can not measure and change settings simultaneously). There should also be a description of how the PSU responds to SCIPI commands.
+To provide and measure the power use by external NB-IoT device a \gls{PSU} is use. By having the external device connected to the PSU, the power used in different scenarios can be measured. In this case a \todo{Name the fucking equipment} is used as it can be hooked up to the Orchestrator that are being used in these scenarios.
+%Short description of the feature of the PSU and the limitation (can not measure and change settings simultaneously). There should also be a description of how the PSU responds to SCIPI commands.
 
 \textbf{External device}\\
-An explanation of why it is nice to include (possibility to test commercial devices). Some examples of commercial devices. 
+The possibility for connecting an external NB-IoT device, will make it possible to test different scenarios compared to the individual UE handle the massiveness, produce by the Massive IoT component, and measure the battery life, as different devices will have different battery life.
+%An explanation of why it is nice to include (possibility to test commercial devices). Some examples of commercial devices. 
 
 \textbf{Orchestrator}\\
-What are the function of the orchestrator? Mention the use of TAP. A list of all connections and communication protocols. 
+To control the whole emulator, an orchestrator is wanted to control the emulator and handle in- and outputs. The PSU and the UXM used for the battery life test is already set up to be handle with the program called \todo{Thomas, talk about the wonders of TAP}
+
+The code for the Massive IoT is started up on is own and gets its parameter from a config file. 
+%What are the function of the orchestrator? Mention the use of TAP. A list of all connections and communication protocols. 
 
 
 
