@@ -265,7 +265,7 @@ MAC padding UL		 & off       	  \\ \hline
 %\label{tab:device_power_results}
 %\end{table}
 
-\subsubsection{Energy to Connect the Device to the Cell}
+\subsubsection{Energy to Connect the Device to the Cell} \label{sec:performance_attach}
 
 To measure the energy used to connect the device to the cell the following procedure is used.
 
@@ -319,12 +319,12 @@ The next step is to get the three needed parameters. The parameters are found as
 
 \begin{align}
 E_{sync} &= \int_{A1}^{A2} f(x) dx \\
-P_{attach} &= E(f(x)) \quad for \, B1 \leq x \leq B2\\
+P_{attach} &= E(f(x)) \quad for \, B1 \leq x \leq B2 \label{eq:mean_over_phase} \\
 T_{attach} &=  B2 - B1
 \end{align}
 \begin{where}
 \va{$E_{sync}$}{is the energy to boot up and synchronize to the cell}{J}
-\va{$P_{attach}$}{is the average power consumption during the attach procedure}{W}
+\va{$P_{attach}$}{is the average power consumption during the attach procedure}{W} 
 \va{$T_{attach}$}{is the time it take to attach to the network}{s}
 \va{E(•)}{is the mean function}{1}
 \va{f(x)}{is the data point at time x}{W}
@@ -404,7 +404,7 @@ As mentioned the parameter $P_{TX}$ influences the mean value of the power consu
 
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{
+\resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Pmax.tex}}
 \caption{Average power consumption as a function of $P_{TX}$ during the attach procedure.}
 \label{fig:Attach_Pmax}
@@ -439,7 +439,7 @@ To measure the transmit power the same setup used to measure the $E_{conn}$ can 
 \textbf{Results}\\
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{
+\resizebox{0.6\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_raw.tex}}
 \caption{Example of raw measurements of the transmit case.}
 \label{fig:Transmit_raw}
@@ -474,7 +474,7 @@ As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelle
 
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{
+\resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_Pmax.tex}}
 \caption{Transmit Pmax}
 \label{fig:Transmit_Pmax}
@@ -498,39 +498,46 @@ Because of this a new set of parameters need to be defined for the UXM, as can b
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{DRX}}  \\ \hline
-Long DRX cycle     & 1024 subframes \\ \hline
-onDuration Timer   & 4 NPDCCH subframes \\ \hline
+\multicolumn{2}{|c|}{\textbf{DRX}}  	 \\ \hline
+Long DRX cycle     	& 1024 subframes 	 \\ \hline
+onDuration Timer   	& 4 NPDCCH subframes \\ \hline
 Retransmission Timer & 2 NPDCCH subframes \\ \hline
-Inactivity Timer   & 8 NPDCCH subframes \\ \hline
-DRX Start Offset   & 0              \\ \hline
-drx-ULRetransmissionTimer & 0       \\ \hline
-\multicolumn{2}{|c|}{\textbf{eDRX}} \\ \hline
-Idle eDRX State			  & On		\\ \hline
-Paging Time Window Factor & 2       \\ \hline
-Idle eDRX Cycle Factor    & 2		\\ \hline
-\multicolumn{2}{|c|}{\textbf{PSM}}  \\ \hline
-Power Saving Mode		  & On		\\ \hline
-T3324 					  & 3,2s    \\ \hline
-T3412 					  & 30,2s   \\ \hline
+Inactivity Timer   	& 8 NPDCCH subframes \\ \hline
+DRX Start Offset   	& 0              	 \\ \hline
+drx-ULRetransmissionTimer & 0       	 \\ \hline
+\multicolumn{2}{|c|}{\textbf{eDRX}} 	 \\ \hline
+Idle eDRX State		& Off				 \\ \hline
+Paging Time Window  & 5120 subframes 	 \\ \hline
+Idle eDRX Cycle     & 20480 subframes	 \\ \hline
+\multicolumn{2}{|c|}{\textbf{PSM}}  	 \\ \hline
+Power Saving Mode	& Off				 \\ \hline
+T3324 (DRX period)	& 10 s    			 \\ \hline
+T3412 (PSM period)	& 10 s		  		 \\ \hline
 \end{tabular}
 \caption{Specific parameter used to measure device idle power}
 \label{tab:UXM_idle_values}
 \end{table}
-\todo{check with NDS for specific values}
+
 
 \textbf{Test Procedure}\\
 \begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
-\item Put in settings as described in \autoref{tab:device_power_settings} 
+\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
 \item Turn on power supply 
-\item Measure power output over 2 min
-\item Save measurements as "<device>\_power\_consumption"
-\item Turn off power supply
-\item Change to next device
-\item Repeat step 1-7 for all devices.
+\item Put in settings as described in \autoref{tab:UXM_initial_values}
+\item Put in settings as described in \autoref{tab:UXM_idle_values}  
+\item Start to measure power output
+\item Connect device to cell
+\item Release device from cell
+\item Wait for measurements to stop
+\item Save measurements as "Idle/DRX.csv"
+\item Set Idle mode eDRX state to On
+\item Repeat step 5-8
+\item Save measurements as "Idle/eDRX.csv"
+\item Set Idle mode eDRX state to Off and PSM On
+\item Repeat step 5-8
+\item Save measurements as "Idle/PSM.csv"
 \end{enumerate}
-\todo{wrong procedure}
+
 
 \textbf{Results}\\
 \begin{minipage}{0.48\textwidth}
@@ -564,95 +571,28 @@ T3412 					  & 30,2s   \\ \hline
 \end{minipage}
 \end{figure}
 
+As can be seen in the raw measurements each mode has several phases. Phase A of each measurement can be omitted from the analysis since this is the attach phase, which has already been covered in \autoref{sec:performance_attach}. The average power consumption is found for each of the other areas following \autoref{eq:mean_over_phase}, for each area. The results can be seen in \autoref{tab:idle_results}.
+
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|} 
-\multicolumn{1}{c}{ }	& \multicolumn{5}{c}{Area} \\ \hline
-\textbf{Mode}	& \textbf{A}	& \textbf{B}	& \textbf{C} 	& \textbf{D} 	& \textbf{E} \\ \hline
-DRX				& 0	W			& 0 W			& - 			& - 			& - \\ \hline
-eDRX			& 0 W			& 0 W			& 0 W			& 0 W			& 0 W \\ \hline
-PSM 			& 0 W			& 0 W			& 0 W			& 0 W			& - \\ \hline 
+\begin{tabular}{|c|c|c|c|c|} 
+\multicolumn{1}{c}{ }	& \multicolumn{4}{c}{Area} \\ \hline
+\textbf{Mode}	& \textbf{B}	& \textbf{C} 	& \textbf{D} 	& \textbf{E} \\ \hline
+DRX				& 1.898 mW		& - 			& - 			& - \\ \hline
+eDRX			& 3.653 $\mu$W	& 1.901 mW		& 5.738 $\mu$W	& 1.903 mW \\ \hline
+PSM 			& 1.520 mW		& 3.919 $\mu$W	& 31.62 mW		& - \\ \hline 
 \end{tabular}
-\caption{•}
+\caption{Average power consumption of the individual areas for the the three idle measurements.}
 \label{tab:idle_results}
 \end{table}
 
-
-\subsubsection{\gls{PSM} Power Consumption}
-\textbf{Test Setup}\\
-To measure the device power the setup needs to be changed as seen in \autoref{fig:device_power_setup}.
-
-
-Specific settings:
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{Base Station Emulator}} \\ \hline
-Cell type          & NB-IoT         \\ \hline
-Number of cells    & 1              \\ \hline
-Operation mode     & Standalone     \\ \hline
-Dl\_EARFCN         & 6310           \\ \hline
-Cell ID            & 0              \\ \hline
-Tx gain            & 89 dB          \\ \hline
-R14                & False          \\ \hline
-nprach\_detect\_threshold  & 19 dB  \\ \hline
-\end{tabular}
-\caption{Specific parameter used to measure device power}
-%\label{tab:device_power_settings}
-\end{table}
-\todo{table is just copy pasted}
+It can be seen that the in the off periods of the eDRX cycle the Quectel device shuts down to the same state as in PSM mode. This could  mean one of two things, either the device has very bad hardware meaning the PSM power consumption is very high, or as in this case the hardware is very good and it can keep the timing sufficiently with only the timer needed to run PSM mode. This means that the power consumption during the eDRX idle periods can be counted as PSM period and the average power consumption across the measurements are:
+\begin{align}
+P_{DRX} &= 1.898 [mW]\\
+P_{PTW} &= 1.902 [mW] \\
+P_{PSM} &= 4.437 [\mu W]
+\end{align}
 
 
-\textbf{Test Procedure}\\
-\begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:device_power_setup}
-\item Put in settings as described in \autoref{tab:device_power_settings} 
-\item Turn on power supply 
-\item Measure power output over 2 min
-\item Save measurements as "<device>\_power\_consumption"
-\item Turn off power supply
-\item Change to next device
-\item Repeat step 1-7 for all devices.
-\end{enumerate}
-
-\textbf{Results}\\
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|c|}\hline
-\textbf{Device}	& Quectel	& Telit & Ublox \\ \hline
-$\mathbf{P_{device}}$	& & & \\ \hline
-\end{tabular}
-\caption{•}
-%\label{tab:device_power_results}
-\end{table}
-
-
-
-%\subsection{Battery Lifetime}
-%From the model derived in \todo{make ref to bat model section} it can be found that the necessary parameters are:
-%\begin{itemize}
-%\item $P_device$
-%\item 
-%\end{itemize}
-
-\section{Results}
-Here should be a list of all results produced from the test. A short note should be attached to the results if the requirement is passed and if not why not.
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|} \hline
-\textbf{Requirement}              & \textbf{Performance} \\ \hline
-Amount of Devices                 &                      \\ \hline
-Configurability                   &                      \\ \hline
-Power Control                     &                      \\ \hline
-Low Complexity Devices            &                      \\ \hline
-Improved Coverage                 &                      \\ \hline
-Support Massive Amount of Devices &                      \\ \hline
-Improved Power Efficiency         &                      \\ \hline
-Deployment Flexibility            &                      \\ \hline
-\end{tabular}
-\caption{My caption}
-\label{my-label2}
-\end{table}
 
 %\section{Table Summary or Discussion}
