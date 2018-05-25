@@ -6,9 +6,15 @@
 %	Link between
 %	Physical setup/limitations
 
-To make an emulator, that can emulate all scenarios for NB-IoT compared to the test domains, chosen in \todo{ref to domain selection}, a setup, shown on figure \todo{ref}, is chosen. This setup contains a \gls{eNB}, the possibility to connect external IoT devices and the components need to emulate and analyze the test scenarios from the domains. All the components in the emulator, is software based, but are connected together through wires.
+To make an emulator, that can emulate all scenarios for NB-IoT compared to the test domains, chosen in \todo{ref to domain selection}, a setup, shown on \ref{fig:Systemover}, is chosen. This setup contains a \gls{eNB}, the possibility to connect external IoT devices and the components need to emulate and analyze the test scenarios from the domains. All the components in the emulator, is software based, but are connected together through wires.
 
-\todo{Insert beautiful figure}
+\begin{figure}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/System_over.tex}}
+\caption{Overview of the emulator, with a external IoT device attached.}
+\label{fig:Systemover}
+\end{figure}
 
 
 %First, there should be a conceptual diagram of the setup; this should go into a description of how the emulator is actually put together. 
@@ -17,13 +23,7 @@ To make an emulator, that can emulate all scenarios for NB-IoT compared to the t
 %There could also be a section of practical limitation due to digitalization.
 %Should end with differentiation of main and auxiliary components.
 
-%\begin{figure}[H]
-%\centering
-%\resizebox{0.5\textwidth}{!}{
-%\input{figures/test-bed_overview.tex}}
-%\caption{Testbed overview}
-%\label{fig:test-bed_overview}
-%\end{figure}
+
 
 \textbf{eNB}\\
 
