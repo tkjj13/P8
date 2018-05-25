@@ -1,8 +1,8 @@
-\subsection{Massive IoT system overview}
+\chapter{Massive IoT system overview}
 
 The emulation of the massiveness scenarios uses the Massive IoT and eNB (Amarisoft) components. It is possible to connect and external NB-IoT device be combining its signal with the signals from the other two components. But as the focus for this part of the emulator is to stress test the protocol this feature will not be used. The Orchestrator is not used either in this part, as it has not been prioritized to set the two system together and have the same control unit. Both components is started up from a config file. While the Amarisoft software already fits to the purpose as an eNB, the SRS software code need to be change to emulate multiple UE. To understand this changes, there will be looked into the original code
 
-\subsubsection{Original SRS code}
+\section{Original SRS code}
 The code provide by SRS is still in development and is based on the code SRS develop to LTE, which was use in \todo{Ref to Charly and Mathias project}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mention project.
 
 Unfortunately as the code is still in development, does the msg3 transmission not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get an complete attach request, so the project will only work up to the receiving of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \todo{ref to future works}
@@ -25,7 +25,7 @@ The flow of the code is build up into multiple section, which is shown in \todo{
 
 To have the code emulate multiple UE, some parts of the code is need to duplicated. The goal will be to have the UE to be so separated, so must parts of the system still is done individual for the different UE, but the parts the surrounds the share resources, like the TX and RX channels, is done for all the UE together.
 
-\subsubsection{Changed code}
+\section{Changed code}
 
 \textbf{Structure}
 \textbf{Flow of the code}
