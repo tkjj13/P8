@@ -202,6 +202,7 @@ From a measurement perspective some of these parameters can and should be measur
 
 To test these parameters the following setup is modified from \autoref{fig:General_test_setup} to the following:
 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{figures/IPE_test_setup.pdf}
@@ -212,6 +213,7 @@ To test these parameters the following setup is modified from \autoref{fig:Gener
 It should be noted that the \gls{DUT}'s in question have to power inputs, one for the device power and one for the RF modem power. Typically only the modem is connected to the power analyser. With the exception of measuring the device power where the the device power input is connected to the power analyser.
 
 As the UXM is used as \gls{BSE} instead of Amarisoft the initial settings for this can be seen in \autoref{tab:UXM_initial_values}.
+
 
 \begin{table}[H]
 \centering
@@ -292,6 +294,7 @@ To measure the energy used to connect the device to the cell the following proce
 
 
 \textbf{Results}\\
+\tikzsetnextfilename{Attach_raw}
 \begin{figure}[H]
 \centering
 \begin{minipage}[tbp]{0.58\textwidth}
@@ -321,6 +324,7 @@ The next step is to get the three needed parameters. The parameters are found as
 E_{sync} &= \int_{A1}^{A2} f(x) dx \\
 P_{attach} &= E(f(x)) \quad for \, B1 \leq x \leq B2 \label{eq:mean_over_phase} \\
 T_{attach} &=  B2 - B1
+E_{release} &= \int_{C1}^{C2} f(x) dx \\
 \end{align}
 \begin{where}
 \va{$E_{sync}$}{is the energy to boot up and synchronize to the cell}{J}
@@ -332,19 +336,23 @@ T_{attach} &=  B2 - B1
 \va{A2}{is the end time of area A}{s}
 \va{B1}{is the start time of area B}{s}
 \va{B2}{is the end time of area B}{s}
+\va{C1}{is the start time of area C}{s}
+\va{C2}{is the end time of area C}{s}
 \end{where}
 
 
-This is done for all measurements and the results are presented along with their statistical properties in \autoref{fig:Sync_Points}, \autoref{fig:Attach_Power_Points} and \autoref{fig:Attach_Time_Points} respectively.
+This is done for all measurements and the results are presented along with their statistical properties in \autoref{fig:Sync_Points}, \autoref{fig:Attach_Power_Points}, \autoref{fig:Attach_Time_Points} \autoref{fig:Release_Points} respectively.
 
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Sync_Points}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Sync_Points.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Sync_Stat}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Sync_Stat.tex}}
 \end{minipage}
@@ -355,11 +363,13 @@ This is done for all measurements and the results are presented along with their
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Attach_Power_Points}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Power_Points.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Attach_Power_Stat}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Power_Stat.tex}}
 \end{minipage}
@@ -370,11 +380,13 @@ This is done for all measurements and the results are presented along with their
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Attach_Time_Points}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Time_Points.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Attach_Time_Stat}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Time_Stat.tex}}
 \end{minipage}
@@ -382,10 +394,26 @@ This is done for all measurements and the results are presented along with their
 \label{fig:Attach_Time_Points}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Release_Points}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Release_Points.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Release_Stat}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Release_Stat.tex}}
+\end{minipage}
+\caption{Energy spent during release sequence.}
+\label{fig:Release_Points}
+\end{figure}
 
-The parameters can be modelled in several different ways, it is chosen to use a point distribution for both the $E_{sync}$ and $T_{attach}$ and a Gaussian distribution for $P_{attach}$ based on the the statistical properties of the parameters. 
+The parameters can be modelled in several different ways, it is chosen to use a point distribution for both the $E_{sync}$ and $T_{attach}$, a normal distribution for $P_{attach}$ and a lognormal distribution for $E_{release}$ based on the the statistical properties of the parameters. 
 
-This means that the parameters with respect to CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value:
+It can also be seen from this that the parameters are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value. The parameters can therefore be described as follows:
 
 \begin{align}
 E_{sync} &\sim\begin{cases} 1.05\cdot 10^{-6} \quad p = 0.758\\
@@ -397,13 +425,15 @@ T_{attach} &\sim\begin{cases} 2.215 \quad p = 0.2584\\
 2.470 \quad p = 0.1124\\
 2.615 \quad p = 0.1573\\
 2.725 \quad p = 0.0337
-\end{cases}
+\end{cases}\\
+E_{release} &\sim \text{Lognormal}(-3.5287,0.1277)
 \end{align}
 
 As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, it is therefore looked upon separately in \autoref{fig:Attach_Pmax}. 
 
 \begin{figure}[H]
 \centering
+\tikzsetnextfilename{Attach_Pmax}
 \resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Pmax.tex}}
 \caption{Average power consumption as a function of $P_{TX}$ during the attach procedure.}
@@ -411,6 +441,8 @@ As mentioned the parameter $P_{TX}$ influences the mean value of the power consu
 \end{figure}
 
 From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of Pmax this can be contributed to the usage of a power amplifier. 
+
+
 
 \subsubsection{Transmit Power Consumption}
 
@@ -439,6 +471,7 @@ To measure the transmit power the same setup used to measure the $E_{conn}$ can 
 \textbf{Results}\\
 \begin{figure}[H]
 \centering
+\tikzsetnextfilename{Transmit_raw}
 \resizebox{0.6\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_raw.tex}}
 \caption{Example of raw measurements of the transmit case.}
@@ -458,11 +491,13 @@ This is done for all parameters and the result can be seen in \autoref{fig:Trans
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Transmit_Points}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_Points.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Transmit_Stat}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_Stat.tex}}
 \end{minipage}
@@ -474,6 +509,7 @@ As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelle
 
 \begin{figure}[H]
 \centering
+\tikzsetnextfilename{Transmit_Pmax}
 \resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_Pmax.tex}}
 \caption{Transmit Pmax}
@@ -507,7 +543,7 @@ DRX Start Offset   	& 0              	 \\ \hline
 drx-ULRetransmissionTimer & 0       	 \\ \hline
 \multicolumn{2}{|c|}{\textbf{eDRX}} 	 \\ \hline
 Idle eDRX State		& Off				 \\ \hline
-Paging Time Window  & 5120 subframes 	 \\ \hline
+\gls{PTW}			& 5120 subframes 	 \\ \hline
 Idle eDRX Cycle     & 20480 subframes	 \\ \hline
 \multicolumn{2}{|c|}{\textbf{PSM}}  	 \\ \hline
 Power Saving Mode	& Off				 \\ \hline
@@ -542,6 +578,7 @@ T3412 (PSM period)	& 10 s		  		 \\ \hline
 \textbf{Results}\\
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
+\tikzsetnextfilename{DRX1}
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/DRX1.tex}}
@@ -553,6 +590,7 @@ T3412 (PSM period)	& 10 s		  		 \\ \hline
 \hfill
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
+\tikzsetnextfilename{PSM1}
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/PSM1.tex}}
@@ -562,11 +600,12 @@ T3412 (PSM period)	& 10 s		  		 \\ \hline
 \end{minipage}
 \vspace{1em}
 \begin{figure}[H]
+\tikzsetnextfilename{eDRX1}
 \centering
 \begin{minipage}{0.48\textwidth}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/eDRX1.tex}}
-\caption{Raw measurement of \gls{eDRX}. Area A is connection phase, area B is the sleep phase of the first eDRX cycle, area C is the paging transmission window of the first eDRX cycle, area D is the sleep phase of the second eDRX cycle and area E is the paging transmission window of the second eDRX cycle.}
+\caption{Raw measurement of \gls{eDRX}. Area A is connection phase, area B is the sleep phase of the first eDRX cycle, area C is the \gls{PTW} of the first eDRX cycle, area D is the sleep phase of the second eDRX cycle and area E is the \gls{PTW} of the second eDRX cycle.}
 \label{fig:eDRX1}
 \end{minipage}
 \end{figure}
@@ -586,13 +625,182 @@ PSM 			& 1.520 mW		& 3.919 $\mu$W	& 31.62 mW		& - \\ \hline
 \label{tab:idle_results}
 \end{table}
 
-It can be seen that the in the off periods of the eDRX cycle the Quectel device shuts down to the same state as in PSM mode. This could  mean one of two things, either the device has very bad hardware meaning the PSM power consumption is very high, or as in this case the hardware is very good and it can keep the timing sufficiently with only the timer needed to run PSM mode. This means that the power consumption during the eDRX idle periods can be counted as PSM period and the average power consumption across the measurements are:
+It can be seen that the average power consumption of the DRX period is almost equal to the average power consumption of the PTW of the eDRX cycle, this is also expected. It can further be seen that the in the off periods of the eDRX cycle the Quectel device shuts down to the same state as in PSM mode. This could  mean one of two things, either the device has very bad hardware meaning the PSM power consumption is very high, or as in this case the hardware is very good and it can keep the timing sufficiently with only the timer needed to run PSM mode. This means that the power consumption during the eDRX idle periods can be counted as PSM period. This means that only two values is needed to describe the power consumption during the idle phase $P_{DRX}$ and $P_{PSM}$:
 \begin{align}
-P_{DRX} &= 1.898 [mW]\\
-P_{PTW} &= 1.902 [mW] \\
+P_{DRX} &= 1.901 [mW] \\
 P_{PSM} &= 4.437 [\mu W]
 \end{align}
 
 
 \subsubsection{Battery Life Time Estimations}
 
+Now that all the power values are known the battery lifetime can be estimated. To do this however the influence of some cell specific parameters as well as some assumptions of the transmit time is needed. As stated in \appref{app:bat_model} the model used to estimated the battery life time is:
+
+\begin{equation}
+L(t_i) = \frac{C_{bat}\cdot SF_{bat}}{8760\cdot (P_m(t_i) + P_{device})}
+\end{equation}
+\begin{where}
+\va{$L(t_i)$}{is the expected lifetime of the battery}{years}
+\va{$t_i$}{is the transmission time interval}{s}
+\va{$C_{bat}$}{is the capacity of the battery}{Wh}
+\va{$SF_{bat}$}{is the safety factor of the battery}{1}
+\va{$P_m(t_i)$}{is the power consumption of the modem}{W}
+\va{$P_{device}$}{is the power consumption of the IoT device}{W}
+\end{where}
+
+This equation is used under the assumption that $P_{device}$ is negligible, that there is no mobile terminated data occurring and setting $SF_{bat}$ to 0.5, giving:
+\begin{equation}\label{eq:bat_est}
+\begin{gathered}
+	L(t_i) = \frac{1.0274}{P_m(t_i)} \\
+	P_m(t_i) = \frac{E_{active} + E_{idle}}{t_i} \\
+	E_{active} = E_{sync} + P_{attach}\cdot T_{attach} + P_{transmit}\cdot T_{transmit} + E_{release} \\
+	E_{idle} = \begin{cases} P_{DRX}\cdot T_{DRX} + P_{PSM}\cdot (t_i - T_{attach} - T_{transmit} - T_{DRX}) \quad \text{for PSM}\\
+							P_{DRX}\cdot T_{PTW} + P_{PSM} \cdot (T_{PSM} - T_{PTW}) \qquad\qquad\qquad\quad\;\;\, \text{for eDRX}
+				\end{cases}
+\end{gathered}
+\end{equation}
+
+From \autoref{eq:bat_est} a couple of problems become visible. First is that the time to connect and disconnect the devise from the system has not been taken into account. This however will only influence the estimation slightly as the time is essentially added to the idle time and only amounts to a few seconds. Second is that $E_{active}$ depends on two parameters one of which has not been measured or in any other way classified, namely $P_{TX}$ and $T_{transmit}$. Because $T_{transmit}$ depends not only on the amount of data the devise wants to transmit, but also on some cell specific parameters such as repetition etc. will it be considered as a separate parameter for the battery lifetime estimation. As $P_{TX}$ depends on the channel condition for the device it is also as a separate parameter. The third problem is that $E_{idle}$ is depending on several things first is which idle mode is used second is what timer values are associated with the idle mode. Since this potentially has severe consequences for the power consumption the impact of this is also elaborated upon. The forth problem is also with the model used to estimate $E_{idle}$ for PSM mode it is assumed that T3412 is always bigger than $t_i$ meaning that only when the device has data will it wake up from PSM and for eDRX the energy is calculated based on a complete cycle which might be interrupted by the data transmission, this issue become less relevant with larger $t_i$ and smaller $T_{PSM}$. 
+
+A common factor for all these problems is the model will underestimate the battery lifetime except in the case of T3412 being larger than $t_i$, however as the assumptions made here helps simplify the model it is considered to be reasonable. Another important step in this regard is that for all the measured parameters a statistical analysis was made, based on this analysis values are chosen such that there is a 95\% confidence that the device will life for the estimated time or in other words such that at least 95\% of the values are below the chosen value. To start the analysis of the battery lifetime four cases are chosen for idle mode eDRX and PSM respectively, the values for these cases can be seen in \autoref{tab:case_description}. This is done to visualize the impact of the chosen mode and timer values, a case where only DRX is used is not considered as this should only be relevant for very low $t_i$'s and then it is covered by eDRX and PSM already.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+		& $T_{DRX}$	& $T_{PSM}$	& $T_{PTW}$	& $T_{Transmit}$	& $P_{TX}$ 	\\ \hline
+Case 1	& 2 s 		& 20.48 s	& 5.12 s	& 1 s				& 20 dBm	\\ \hline
+Case 2	& 10 s		& 163.84 s	& 10.24 s	& 1 s				& 20 dBm	\\ \hline
+Case 3	& 50 s		& 1310.72 s	& 20.48 s	& 1 s				& 20 dBm	\\ \hline
+Case 4	& 250 s		& 10485.76 s& 40.96 s	& 1 s				& 20 dBm	\\ \hline
+\end{tabular}
+\caption{Timer settings for the four cases.}
+\label{tab:case_description}
+\end{table}
+
+The expected battery lifetime for these four cases is found for different $t_i$'s as can be seen in \autoref{fig:eDRXvsPSM}.
+
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{eDRXvsPSM}
+\resizebox{0.7\textwidth}{!}{
+\input{figures/QuectelMeas/eDRXvsPSM.tex}}
+\caption{Battery life time estimation for the four cases for different $t_i$'s. Full line using PSM, dashed line using eDRX.}
+\label{fig:eDRXvsPSM}
+\end{figure}
+
+As can be seen in \autoref{fig:eDRXvsPSM} the longer the $t_i$ the more impactful the these parameters become which makes sense as more time is spent in idle mode. What is also interesting to note is that each case is going asymptotic towards certain values and that eDRX is more influenced by the timer values than PSM is. To give a more clear picture of the influence of the timer values the $t_i$ is set to 24 hours and the timer values are changed are varied to a further extent this can be seen in \autoref{fig:TimerPlot_plots}.
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_day_TimerPlot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX_each_day_TimerPlot.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{PSM_each_day_TimerPlot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/PSM_each_day_TimerPlot.tex}}
+\end{minipage}
+\caption{Influence of timer settings for the estimated battery lifetime.}
+\label{fig:TimerPlot_plots}
+\end{figure}
+
+From \autoref{fig:TimerPlot_plots} it can be seen that the values for the eDRX timers are very influential as the expected lifetime is varying  from 0.075 years to 10.78 years, where for PSM the lifetime only varies from 10.97 to 10.13 years. The next step is to look at the influence of $T_{transmit}$ and $P_{TX}$. To do this four scenarios are picked such that the differences for high and low $t_i$'s in each idle mode can be compared, the values chosen to showcase this can be seen in \autoref{tab:scenario_description}.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+			& $t_i$ 		& Idle mode	& $T_{DRX}$	& $T_{PSM}$	& $T_{PTW}$	\\ \hline
+Scenario 1	& 1 hour 	& eDRX 		& -			& 5242.88 s	& 10.24 s	\\ \hline
+Scenario 2	& 24 hours 	& eDRX 		& -			& 5242.88 s	& 10.24 s	\\ \hline
+Scenario 3	& 1 hour 	& PSM		& 10 s		& -			& -			\\ \hline
+Scenario 4	& 24 hours 	& PSM		& 10 s		& -			& -			\\ \hline
+\end{tabular}
+\caption{Parameter values chosen for each scenario.}
+\label{tab:scenario_description}
+\end{table}
+
+For each of the four scenarios the transmit power and transmit time is varied independent of each other and the battery lifetime is estimated for each combination as seen in \autoref{fig:lifetime_plots}.
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_hour_lifetime}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX_each_hour_lifetime.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_day_lifetime}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX_each_day_lifetime.tex}}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{PSM_each_hour_lifetime}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/PSM_each_hour_lifetime.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{PSM_each_day_lifetime}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/PSM_each_day_lifetime.tex}}
+\end{minipage}
+\caption{The estimated battery lifetime for the mentioned scenarios with respect to transmit power and transmit duration.}
+\label{fig:lifetime_plots}
+\end{figure}
+
+Here it can be seen again that the values of these parameters have a huge effect. Especially $T_{transmit}$ which alone can bring the lifetime down to less than a year no matter the other parameters. A realistic value for $T_{transmit}$ is not really known as it depends heavily on the usages as well as a multitude of cell parameters. To clarify the utilization of the energy spent four points has been picked out from each plot in \autoref{fig:lifetime_plots}. The values of each point can be seen in \autoref{tab:point_description}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|} \hline
+& $T_{Transmit}$ & $P_{TX}$ \\ \hline
+Point 1 & 100 ms& -20 dBm  	\\ \hline
+Point 2 & 100 s	& -20 dBm  	\\ \hline
+Point 3 & 100 ms& 23 dBm 	\\ \hline
+Point 4 & 100 s	& 23 dBm 	\\ \hline
+\end{tabular}
+\caption{Points chosen to investigate.}
+\label{tab:point_description}
+\end{table} 
+
+For each of the points in each of plots the energy usages has been divided up into five parts corresponding to the five parts in the model: 	sync, attach, transmit, release and idle. The result of which can be seen in \autoref{fig:barplot_plots}.
+ 
+ 
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_hour_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX_each_hour_barplot.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_day_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/eDRX_each_day_barplot.tex}}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{PSM_each_hour_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/PSM_each_hour_barplot.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{PSM_each_day_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/PSM_each_day_barplot.tex}}
+\end{minipage}
+\caption{The distribution of power for each phase of a cycle. Blue is the sync phase, red is the attach phase, yellow is the transmit phase, purple is the release phase and green is the idle phase.}
+\label{fig:barplot_plots}
+\end{figure}
+
+It can be seen that depending on the point and scenario the energy is used quite differently, however some commonalities can be seen. For instance if each transmission is 100 s more than 80\% of the energy is spent during the transmit phase if $P_{TX}$ is also high then more than 99\% of the energy is spent here. Likewise can it be seen that the energy used to synchronise the devise is less negligible. It can also be seen that only when the $t_i$ is high does $E_idle$ take op more than 9\%. Also the energy spent during the attach phase is quite high only really topped by the energy spent during a long transmission and comparable to the energy used during the idle phase for scenario 2 and 4. 
+
+With this analysis it can be concluded that a device will find it hard to achieve a battery lifetime of 10 years in extreme conditions based on the fact that it will increase not only the needed $P_{TX}$ but also the repetition which increases $T_{transmit}$. When these parameters are high it has been shown that a battery lifetime might not even exceed one year independently on all other parameters. To combat this the only way is really to focus in decreasing $T_{transmit}$ as much as possible. 

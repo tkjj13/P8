@@ -1,0 +1,103 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\textwidth,
+height=0.66\textwidth,
+at={(0.758in,0.481in)},
+scale only axis,
+bar width=0.8,
+xmin=0.5,
+xmax=4.5,
+xtick={1,2,3,4},
+xticklabels={Point 1, Point 2, Point 3, Point 4},
+ymin=0,
+ymax=100,
+ylabel={Energy spenditure [\%]},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Scenario 3}
+]
+\addplot[ybar stacked,draw=black,fill=mycolor1,area legend] plot table[row sep=crcr] {%
+1	0.000411484740862782\\
+2	3.30425462359728e-05\\
+3	0.000203592271867335\\
+4	2.78445117589701e-07\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor2,area legend] plot table[row sep=crcr] {%
+1	79.3774625212183\\
+2	6.37407226803143\\
+3	82.5506755743404\\
+4	0.112901301982545\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor3,area legend] plot table[row sep=crcr] {%
+1	0.11455361733398\\
+2	91.9874498704244\\
+3	7.30249123564561\\
+4	99.8732914642296\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor4,area legend] plot table[row sep=crcr] {%
+1	12.3486756425248\\
+2	0.99160830366544\\
+3	6.10981326632674\\
+4	0.00835615054436856\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor5,area legend] plot table[row sep=crcr] {%
+1	8.15889673418209\\
+2	0.646836515332535\\
+3	4.03681633141541\\
+4	0.00545080479836023\\
+};
+\node[above, align=center, text=black]
+at (axis cs:1,0) {0.00\%};
+\node[align=center, text=black]
+at (axis cs:1,39.689) {79.38\%};
+\node[align=center, text=black]
+at (axis cs:1,79.435) {0.11\%};
+\node[align=center, text=black]
+at (axis cs:1,85.667) {12.35\%};
+\node[below, align=center, text=black]
+at (axis cs:1,100) {8.16\%};
+\node[above, align=center, text=black]
+at (axis cs:2,0) {0.00\%};
+\node[align=center, text=black]
+at (axis cs:2,13) {6.37\%};
+\node[align=center, text=black]
+at (axis cs:2,52.368) {91.99\%};
+\node[align=center, text=black]
+at (axis cs:2,87) {0.99\%};
+\node[below, align=center, text=black]
+at (axis cs:2,100) {0.65\%};
+\node[above, align=center, text=black]
+at (axis cs:3,0) {0.00\%};
+\node[align=center, text=black]
+at (axis cs:3,41.276) {82.55\%};
+\node[above, align=center, text=black]
+at (axis cs:3,74) {7.30\%};
+\node[align=center, text=black]
+at (axis cs:3,87) {6.11\%};
+\node[below, align=center, text=black]
+at (axis cs:3,100) {4.04\%};
+\node[above, align=center, text=black]
+at (axis cs:4,0) {0.00\%};
+\node[align=center, text=black]
+at (axis cs:4,13) {0.11\%};
+\node[align=center, text=black]
+at (axis cs:4,50.05) {99.87\%};
+\node[align=center, text=black]
+at (axis cs:4,87) {0.01\%};
+\node[below, align=center, text=black]
+at (axis cs:4,100) {0.01\%};
+\end{axis}
+\end{tikzpicture}%
