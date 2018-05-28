@@ -1,31 +1,51 @@
 \chapter{Massive IoT system overview}
 
-The emulation of the massiveness scenarios uses the Massive IoT and eNB (Amarisoft) components. It is possible to connect and external NB-IoT device be combining its signal with the signals from the other two components. But as the focus for this part of the emulator is to stress test the protocol this feature will not be used. The Orchestrator is not used either in this part, as it has not been prioritized to set the two system together and have the same control unit. Both components is started up from a config file. While the Amarisoft software already fits to the purpose as an eNB, the SRS software code need to be change to emulate multiple UE. To understand this changes, there will be looked into the original code
+As it will be at high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individual, this is not the optimal solution, especially if the desire is to test the impact of massiveness amount devices on a single device. Instead of buying a massive amount of devices, they will be emulated through some software code.
 
-\section{Original SRS code}
-The code provide by SRS is still in development and is based on the code SRS develop to LTE, which was use in \todo{Ref to Charly and Mathias project}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mention project.
+The code will produce the infrastructure of the massive amount of devices and then combine the signals produces and transmit it to the \gls{eNB}. The eNB will be emulated on another device, as this gives the possibilities to configure the eNB. As the used spectrum in this case \todo{Insert freq for the test} is licensed will the transmission between the devices and eNB be through a wire. As the path loss in the wire is so low, compared to transmit through air, there have been added a 30dB attenuator in between so the emulator do not have to transmit at the lowest power level, set for the different emulators. To convert the signals from digital signal to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR} are comparable with both softwares. The setup of the emulators can be seen on \ref{fig:MassSetup}.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\input{figures/Mass_setup.tex}}
+\caption{Overview of the emulator setup}
+\label{fig:MassSetup}
+\end{figure}
+
+
+
+%The emulation of the massiveness scenarios uses the Massive IoT and eNB (Amarisoft) components. It is possible to connect and external NB-IoT device be combining its signal with the signals from the other two components. But as the focus for this part of the emulator is to stress test the protocol this feature will not be used. The Orchestrator is not used either in this part, as it has not been prioritized to set the two system together and have the same control unit. Both components is started up from a config file. While the Amarisoft software already fits to the purpose as an eNB, the SRS software code need to be change to emulate multiple UE. To understand this changes, there will be looked into the original code
+
+\section{eNB emulator}
+For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE} \todo{Insert ref to Amarisoft side} and is tested to synchronize with the software based NB-IoT devices that will be used. As it is a commercial BSE, it is not open source and therefore harder to add new features and change all parameters, but as the focus is the devices, the software will still be used. A longer list of parameters for the Amarisoft LTE 100 code can be found \todo{Insert appendix for this}
+
+\section{Massive device emulator}
+For the emulation of the massive amount of NB-IoT devices the code provide by SRS which have been tested to work with the software eNB from Amarisoft. As the code is design for a single device some change have to be implemented, which requires knowledge of the original code.
+
+\subsection{Original SRS code}
+The code provide by SRS is still in development and is based on the code SRS developed to LTE, which was used in \todo{Ref to Charly and Mathias project}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mention project.
 
 Unfortunately as the code is still in development, does the msg3 transmission not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get an complete attach request, so the project will only work up to the receiving of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \todo{ref to future works}
 
 \textbf{Structure}
-The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a UE with all the different communication layers and handles the protocol. The code is build up into an amount of classes for the different layers, as seen in \todo{ref to figure}, with the PHY and MAC layer being split up into even more classes.\todo{ref to mac and phy figures}
+The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers and handles the protocol. The code is build up into an amount of classes for the different layers, as seen in \todo{ref to figure}, with the PHY and MAC layer being split up into even more classes.\todo{ref to mac and phy figures}
 
 \todo{Insert classe diagram for all, mac and phy}
 
 \todo{Explain short about what the different classes do}
 
-As multiple task is needed to be handle at the same time int different layers, threading is used in multiple classes. \todo{list the classes with threads} Between these classes are there some interfaces, that handles the movement of data and grants.
+As multiple task is needed to be handle at the same time int different layers, threading is used in multiple classes \todo{list the classes with threads} Between these classes are there some interfaces, that handles the movement of data and grants.
 
 \textbf{Flow of the code}
-The flow of the code is build up into multiple section, which is shown in \todo{ref to figure}. After the initialization the steps is matching the steps needed for a UE to connect to an eNB. The different threads will go to different state, dependably on which step in the produce the code have made it to.
+The flow of the code is build up into multiple section, which is shown in \todo{ref to figure}. After the initialization the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, dependably on which step in the produce the code have made it to.
 
 \todo{Flowchart over the process}
 
 \todo{Short description on the different steps}
 
-To have the code emulate multiple UE, some parts of the code is need to duplicated. The goal will be to have the UE to be so separated, so must parts of the system still is done individual for the different UE, but the parts the surrounds the share resources, like the TX and RX channels, is done for all the UE together.
+To have the code emulate multiple devices, some parts of the original devices is needed to be duplicated. The goal will be to have the devices to be so separated, so must parts of the system still are done individual for the different devices, but the parts the surrounds the share resources, like the TX and RX channels, is done for all the devices together.
 
-\section{Changed code}
+\subsection{Changed code}
 
 \textbf{Structure}
 \textbf{Flow of the code}
