@@ -1,6 +1,9 @@
 \section{Battery Consumption Model}
 \label{app:bat_model}
-(Should be limited to only 1 device in the network)
+
+To model the battery lifetime of any cellular device can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work as it is simple and elegant, due note that several factors is not considered in the model, the extent of their influence is also unknown however it is assumed to be minor compared to the included elements.
+
+First is the general description of battery lifetime:
 
 \begin{equation}
 L(t_i) = \frac{C_{bat}\cdot SF_{bat}}{P_m(t_i) + P_{device}}
@@ -14,16 +17,11 @@ L(t_i) = \frac{C_{bat}\cdot SF_{bat}}{P_m(t_i) + P_{device}}
 \va{$P_{device}$}{is the power consumption of the IoT device}{W}
 \end{where}
 
-\textbf{Battery capacity}\\
-This is set from the requirements to 5 Wh
+This equation lays the foundation of the battery lifetime model, here the power consumption has been split between the functionality of the device and the NB-IoT modem itself. The factors explained further in the following sections.
 
-\textbf{Battery safety factor}\\
-set to 0.5 in paper we probably can not use
+\subsection{Modem Power Consumption}
 
-\textbf{Device power consumption}\\
-Modem off on the used devices. It is a little irrelevant as none of the devices are final and low power. Should still be measured to draw some conclusion anyway, might be negligible.
-
-\textbf{Modem power consumption}\\
+To define the power consumption of the modem several different approaches can be used. It is important to note that just by looking at a single instance of powering on transmitting and going back to idle or off puts the device through several different phases for which a multitude of parameters is influential. The most accurate model would likely employ a markov decision process, however to keep it simple the model use for this report assumes that each transmission goes through three phases and that the device is idle for the rest of the duration. The phases are connecting to the cell, transmitting the data and releasing the cell again. It is also assumed that all data will be mobile originated and not mobile terminated. This means that the modem power consumption can be modelled as:
 
 \begin{equation}
 P_m(t_i) = \frac{E_{conn} + E_{tx} + E_{disconn} + E_{idle}}{t_i}
@@ -38,7 +36,9 @@ P_m(t_i) = \frac{E_{conn} + E_{tx} + E_{disconn} + E_{idle}}{t_i}
 %\va{$t_{disconn}$}{is the time it takes to disconnect from the network}{s}
 \end{where}
 
+
 \textbf{Energy used to Connect to the Network}
+The first term is the energy used to connect to the network, this covers the energy it takes to boot up the modem find and synchronize to a cell as well as perform an attach procedure. 
 
 \begin{equation}
 E_{conn} = E_{modem,on} + E_{sync} + E_{attach}
@@ -86,8 +86,17 @@ parameters: timer settings\\
 Time spent in eDRX and PSM mode respectively.
 
 
+\subsection{Other Parameters}
+The other parameters include device power, battery capacity and the safety factor of the battery.
 
+\textbf{Device Power Consumption}\\
+Because the functionality of the device vary depending on the use case is it very hard to put up a model for it. As all relevant use cases here is assumed low energy it can be assumed that the factor have little influence on the overall battery lifetime, however a measurement or a more specific model is needed to give an accurate estimate of the battery lifetime.
 
+\textbf{Battery Capacity}\\
+A performance objective for IoT protocols is to achieve a battery lifetime of 10 years on a 5 Wh battery. 
+
+\textbf{Safety Factor}\\
+The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 which will also be used here \citep{Power_article}.
 
 
 
