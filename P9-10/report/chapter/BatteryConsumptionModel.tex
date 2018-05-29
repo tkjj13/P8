@@ -1,7 +1,7 @@
 \section{Battery Consumption Model}
 \label{app:bat_model}
 
-To model the battery lifetime of any cellular device can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work as it is simple and elegant, due note that several factors is not considered in the model, the extent of their influence is also unknown however it is assumed to be minor compared to the included elements.
+To model the battery lifetime of any cellular device can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work as it is simple and elegant, due note that several factors is not considered in the model, the extent of their influence is also unknown however it is assumed to be minor compared to the included elements. It is also assumed for the model that it does not experience interference in any way from other devices.
 
 First is the general description of battery lifetime:
 
@@ -37,53 +37,161 @@ P_m(t_i) = \frac{E_{conn} + E_{tx} + E_{disconn} + E_{idle}}{t_i}
 \end{where}
 
 
-\textbf{Energy used to Connect to the Network}
+\textbf{Energy used to Connect to the Network}\\
 The first term is the energy used to connect to the network, this covers the energy it takes to boot up the modem find and synchronize to a cell as well as perform an attach procedure. 
 
 \begin{equation}
 E_{conn} = E_{modem,on} + E_{sync} + E_{attach}
 \end{equation}
+\begin{where}
+\va{$E_{modem,on}$}{is the energy needed to turn the modem on}{J}
+\va{$E_{sync}$}{is the energy used to synchronize the device to the network}{J}
+\va{$E_{attach}$}{is the energy to attach the device to the network}{J}
+\end{where}
 
-$E_{modem,on}$\\
-parameters: modem\\
-The energy to turn the modem on.
+Each of these phase's energy consumptions is dependent on other parameters. An overview of these parameters is found in \autoref{tab:Econn_parameter_overview}.
 
-$E_{sync}$\\
-parameters: modem, frequency, operation mode, coverage level\\
-The energy to synchronize to the network.
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
+$E_{modem,on}$ & \begin{itemize} 
+\item modem
+\end{itemize} \\ \hline
+$E_{sync}$ & \begin{itemize}
+\item modem
+\item frequency
+\end{itemize} \\ \hline
+$E_{attach}$ & \begin{itemize}
+\item modem 
+\item frequency
+\item transmit power
+\item operation mode
+\item \gls{CP}-format
+\item repetition
+\item NPRACH interval
+\item NPRACH power level
+\item \gls{MCS}
+\item \gls{TBS}
+\item sub-carrier spacing
+\item bandwidth
+\item transmission gap size
+\item number of antenna ports
+\end{itemize} \\ \hline
+\end{tabular}}
+\caption{Paremeter overview for each term in the connection energy calculation.}
+\label{tab:Econn_parameter_overview}
+\end{table}
 
-$E_{attach}$\\
-parameters: modem, frequency, path loss, operation mode, coverage level\\
-The energy to attach to the network. Should be split so that attachment from different idle states is supported (with and without AS).
 
-\textbf{Transmission Power}
+
+\textbf{Transmission Power}\\
+To calculate the energy used for a transmission it is split up in to the average power consumption and the time used to transmit the data. 
 \begin{equation}
 E_{tx} = P_{tx}\cdot t_{tx}
 \end{equation}
+\begin{where}
+\va{$P_{transmit}$}{is the average power consumption during a transmission period}{W}
+\va{$T_{transmit}$}{is the time it takes to transmit the data}{s}
+\end{where}
 
-$P_{tx}$\\
-parameters: modem, frequency, path loss\\
-Transmission power
+Both of these factor's energy consumptions is dependent on other parameters. An overview of these parameters is found in \autoref{tab:Etransmit_parameter_overview}.
 
-$t_{tx}$\\
-parameters: operation mode, coverage level, amount of data\\
-Transmission time
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
+\textbf{Term} & \textbf{Parameters} & \textbf{Description} \\ \hline
+$P_{transmit}$ & \begin{itemize}
+\item modem
+\item frequency
+\item transmit power 
+\end{itemize} & The modem power consumption during transmission period \\ \hline
+$t_{transmit}$ & \begin{itemize}
+\item amount of data
+\item operation mode
+\item repetition
+\item NPRACH interval
+\item \gls{MCS}
+\item \gls{TBS}
+\item sub-carrier spacing
+\item bandwidth
+\item transmission gap size
+\end{itemize} & The needed time to transmit all data \\ \hline
+\end{tabular}}
+\caption{Paremeter overview for each term in the transmit energy calculation.}
+\label{tab:Etransmit_parameter_overview}
+\end{table}
 
-\textbf{Disconnection Energy}
-Overhead of detach procedure
 
-\textbf{Idle Mode Power}
+\textbf{Disconnection Energy}\\
+The disconnection energy covers the energy it takes to detach the device from the network and go into idle mode. The disconnection energy is dependent on several parameters as seen in \autoref{tab:Erelease_parameter_overview}.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
+$E_{diconn}$ & \begin{itemize}
+\item modem 
+\item frequency
+\item transmit power
+\item operation mode
+\item \gls{CP}-format
+\item repetition
+\item NPRACH interval
+\item NPRACH power level
+\item \gls{MCS}
+\item \gls{TBS}
+\item sub-carrier spacing
+\item bandwidth
+\item transmission gap size
+\item number of antenna ports
+\end{itemize} \\ \hline
+\end{tabular}}
+\caption{Paremeter overview for disconnection energy.}
+\label{tab:Erelease_parameter_overview}
+\end{table}
+
+\textbf{Idle Mode Power}\\
+Idle mode power consumption covers several things, as the device has a few options when going unto idle mode. Four types of idle mode is defined in \gls{NB-IoT} namely: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. The case of cDRX will not be considered as this means the device would actually stay connected to the network after it is done transmitting. The case of DRX is not really considered either as it can be covered by the PSM case. 
+  
 \begin{equation}
-E_{idle} = P_{eDRX}\cdot t_{eDRX}+P_{PSM}\cdot t_{PSM}
+E_{idle} = \begin{cases} P_{DRX}\cdot T_{PTW}+P_{PSM}\cdot T_{PSM} \qquad \text{for eDRX}\\
+			 P_{DRX}\cdot T_{DRX} + P_{PSM}\cdot (T_i-T_{DRX}-T_{attach}-T_{transmit}) \qquad \text{for PSM}
+		   \end{cases}
 \end{equation}
+\begin{where}
+\va{$P_{DRX}$}{is the average power consumption during DRX}{W}
+\va{$T_{PTW}$}{is the length of the \gls{PTW}}{s}
+\va{$P_{PSM}$}{is the average power consumption of the device in PSM}{W}
+\va{$T_{DRX}$}{is the time spent in DRX mode before going into PSM mode}{s}
+\va{$T_i$}{is the data transmission time interval}{s}
+\va{$T_{attach}$}{is the time it takes to attach the device to the network}{s}
+\va{$T_{transmit}$}{is the time it takes to transmit the data}{s}
+\end{where}
 
-$P_{eDRX,PSM}$\\
-parameters: modem, paging interval\\
-Power consumed in idle modes
+Each of these factors depends on several other parameters as seen in 
 
-$t_{eDRX,PSM}$\\
-parameters: timer settings\\
-Time spent in eDRX and PSM mode respectively.
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
+\textbf{Term} & \textbf{Parameters} & \textbf{Description} \\ \hline
+$P_{eDRX,PSM}$ & \begin{itemize}
+\item modem
+\item paging interval
+\end{itemize} & Power consumed in idle modes \\ \hline
+$t_{eDRX,PSM}$ & \begin{itemize}
+\item timer settings
+\end{itemize} & Time spent in eDRX and PSM mode respectively \\ \hline
+\end{tabular}}
+\caption{Paremeter overview for each term in the idle energy calculation.}
+\label{tab:Eidle_parameter_overview}
+\end{table}
+\todo{update table}
+
 
 
 \subsection{Other Parameters}
@@ -96,7 +204,7 @@ Because the functionality of the device vary depending on the use case is it ver
 A performance objective for IoT protocols is to achieve a battery lifetime of 10 years on a 5 Wh battery. 
 
 \textbf{Safety Factor}\\
-The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 which will also be used here \citep{Power_article}.
+The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 \citep{Power_article}, however from the standards specify a safety factor of 1 for the performance objective which will be used here \citep[Sec. 5.4]{safte_factor_standard}.
 
 
 
