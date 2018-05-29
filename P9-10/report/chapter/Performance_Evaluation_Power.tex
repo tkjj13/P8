@@ -14,7 +14,22 @@ $P_{eDRX}$ & the power consumption during \gls{eDRX} idle mode. \\
 $P_{PSM}$ & the power consumption during \gls{PSM} idle mode. \\
 \end{tabular}
 
-Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which influence can the throughput and energy consumption during a transmission and thereby influence several of the states and transitions the device experience. To account for all of this is to huge a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \todo{ref til NDS rapport}. However it will not be further considered here.
+Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which influence can the throughput and energy consumption during a transmission and thereby influence several of the states and transitions the device experience. To account for all of this is to huge a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. For the four parameters the values chosen can be seen in \autoref{tab:par_val}, note that these ranges are only valid for the measurements containing to the specific parameter, in all other cases a fixed value is chosen instead.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|p{8cm}|} \hline
+\textbf{Parameter} & \textbf{Values} \\ \hline
+CP-format & Normal and extended \\ \hline
+Operation mode & In-band, guard-band and standalone \\ \hline
+$P_{TX}$ & from -30 dBm to 23 dBm with 1 dB interval \\ \hline
+Frequency & 791 MHz to 820.8 MHz with 0.2 MHz interval corresponding to EARFCN 6150 to 6448 with steps of 2
+\end{tabular}
+\caption{Parameters and the corresponding values}
+\label{tab:par_val}
+\end{table}
+
+Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \todo{ref til NDS rapport}. However it will not be further considered here.
 
 From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
 
@@ -26,11 +41,11 @@ All the parameters can be tested with the same setup which can be seen in \autor
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/IPE_test_setup.pdf}
+%\includegraphics[width=0.5\textwidth]{figures/IPE_test_setup.pdf}
+\input{figures/Test_Setup_Bat.tex}
 \caption{Setup used to test for the power efficiency of the \gls{DUT}'s}
 \label{fig:IPE_test_setup}
 \end{figure}
-\todo{Make fig in tikz}
 
 
 As seen in \autoref{fig:IPE_test_setup}, an orchestrator, in this case \gls{TAP}, maintains the system. The orchestrator has a \gls{LAN} connection with the \gls{PSU} and the UXM and in this case a serial connection with the DUT. The \gls{PSU}s connection with the DUT is wires used to power on and analyse the power consumption of the device. It should be noted that the \gls{DUT} in question have two power inputs, one for the device power and one for the RF modem power, here only the modem is connected to the power analyser. The DUT is connected to the UXM using RF SMA cables.
@@ -90,6 +105,23 @@ MAC padding UL		 & off       	  \\ \hline
 \label{tab:setup_parameters}
 \end{table}
 
+The procedures to measure the different elements can be in \appref{app:test_procedures}. When the data is procured the energy, power and time is needed for different parts of the measurement and is calculated respectively as:
+
+\begin{align}
+E &= \int_{A_{start}}^{A_{end}} f(x) dx \label{eq:energy}\\
+P &= \mathbf{E}(f(x)) \quad for \, A_{start} \leq x \leq A_{end} \label{eq:power} \\
+T &=  A_{end} - A_{start} \label{eq:time}\\
+\end{align}
+\begin{where}
+\va{$E$}{is the energy of area A}{J}
+\va{$P$}{is the average power consumption of area A}{W} 
+\va{$T$}{is the duration of area A}{s}
+\va{$\mathbf{E}$(•)}{is the mean function}{1}
+\va{f(x)}{is the data point at time x}{W}
+\va{$A_{start}$}{is the start time of area A}{s}
+\va{$A_{end}$}{is the end time of area A}{s}
+\end{where}
+
 
 
 %\subsubsection{Device Power Consumption}
@@ -122,12 +154,8 @@ MAC padding UL		 & off       	  \\ \hline
 
 \section{Energy to Connect and Disconnect the DUT to the Cell} \label{sec:performance_attach}
 
-To measure the energy used to connect and disconnect the device to the cell the following procedure is used.
+First step is to get an overview of the measurements, to do this an example of the raw data from a measurement is presented in \autoref{fig:Attach_raw}.
 
-
-
-
-\subsection{Results}
 \tikzsetnextfilename{Attach_raw}
 \begin{figure}[H]
 \centering
@@ -152,31 +180,9 @@ To measure the energy used to connect and disconnect the device to the cell the 
 \label{fig:Attach_raw}
 \end{figure}
 
-The next step is to get the four needed elements. The elements are found as:
-
-\begin{align}
-E_{sync} &= \int_{A_{start}}^{A_{end}} f(x) dx \\
-P_{attach} &= \mathbf{E}(f(x)) \quad for \, B_{start} \leq x \leq B_{end} \label{eq:mean_over_phase} \\
-T_{attach} &=  B_{end} - B_{start} \\
-E_{release} &= \int_{C_{start}}^{C_{end}} f(x) dx \\
-\end{align}
-\begin{where}
-\va{$E_{sync}$}{is the energy to boot up and synchronize to the cell}{J}
-\va{$P_{attach}$}{is the average power consumption during the attach procedure}{W} 
-\va{$T_{attach}$}{is the time it take to attach to the network}{s}
-\va{$\mathbf{E}$(•)}{is the mean function}{1}
-\va{f(x)}{is the data point at time x}{W}
-\va{$A_{start}$}{is the start time of area A}{s}
-\va{$A_{end}$}{is the end time of area A}{s}
-\va{$B_{start}$}{is the start time of area B}{s}
-\va{$B_{end}$}{is the end time of area B}{s}
-\va{$C_{start}$}{is the start time of area C}{s}
-\va{$C_{end}$}{is the end time of area C}{s}
-\end{where}
-\todo{Standalizere this functions, so they can be used everywhere}
+In \appref{app:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
 
 
-This is done for all measurements and the results are presented along with their statistical properties in \autoref{fig:Sync_Points}, \autoref{fig:Attach_Power_Points}, \autoref{fig:Attach_Time_Points} \autoref{fig:Release_Points} respectively.
 
 \begin{figure}[H]
 \centering
@@ -195,6 +201,11 @@ This is done for all measurements and the results are presented along with their
 \label{fig:Sync_Points}
 \end{figure}
 
+As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \appref{app:bat_model}. A point distribution is used to describe this as two spikes are seen. The reason behind the two spikes is unknown as it is assumed small discrepancies around them is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
+
+The next element to look at is the energy used to attach to the network. This is found based on the log where a messages is telling where the NPRACH starts and where the attach is complete. This can be seen as area B in \autoref{fig:Attach_raw}. It is determined to split the energy into the average power and the time it takes based on the measurements. First the power is found based on \autoref{eq:power} for area B. 
+This is done for all measurements and the results are presented in \autoref{fig:Attach_Power_Points}.
+
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
@@ -211,6 +222,24 @@ This is done for all measurements and the results are presented along with their
 \caption{Average power consumption during attach procedure.}
 \label{fig:Attach_Power_Points}
 \end{figure}
+
+As seen from \autoref{fig:Attach_Power_Points} the $P_{TX}$ is not included, the reason for this is it has a significant effect on the average power consumption and is investigated separately. It looks like almost all frequency measurements is a layer above the others, however as one of the middle points of the frequency is used as a standard value this should not be the case. Likewise, for all frequencies CP-format and operation mode is used which means three of the points in this plot should be identical, which they are not. It might also look like CP-format and operation mode has an influence on the average power consumption, but comparing to the spread of the frequency it is neglectable. Looking at it statistically it seems to be a little weird in its distribution, it was expected to be unimodal and not bimodal. It might be due to a lack of measurements or some other factors. The reasoning for choosing a lognormal distribution is that the fluctuation should be normal distributed for the current consumption but since the power is the current squared and always positive it would then have a lognormal behaviour. With this said future works should probably investigate the reason behind this bimodal tendency. 
+
+As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, this can be seen in \autoref{fig:Attach_Pmax}. 
+
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{Attach_Pmax}
+\resizebox{0.7\textwidth}{!}{
+\input{figures/QuectelMeas/Attach_Pmax.tex}}
+\caption{Average power consumption as a function of $P_{TX}$ during the attach procedure.}
+\label{fig:Attach_Pmax}
+\end{figure}
+
+From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of Pmax. The need for two function to approximate the characteristic can be contributed to the usage of a power amplifier. This parameter determines the mean value of the average power consumption. 
+
+Now the time to attach is investigated the time is found based on \autoref{eq:time} and the results can be seen in \autoref{fig:Attach_Time_Points}.
+
 
 \begin{figure}[H]
 \centering
@@ -229,6 +258,10 @@ This is done for all measurements and the results are presented along with their
 \label{fig:Attach_Time_Points}
 \end{figure}
 
+As can be seen in \autoref{fig:Attach_Time_Points} the time to attach seems to centered around certain values. This could very potentially be based on the occurrences of NPRACH occasions. Beside this none of the parameters seems to influence the time it takes. Because of this a point distribution is applied as it fits this scenario. 
+
+The final element is the energy needed to release the the device. This is found based on area C which is remainder of the time after the attach is completed. Here quite a bit of the time is also spent in idle mode, but the energy consumption of this is assumed to be negligible. Because of this \autoref{eq:energy} is used on area C to find the energy of the release process. The result of which can be seen in \autoref{fig:Release_Points}.
+
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
@@ -246,15 +279,18 @@ This is done for all measurements and the results are presented along with their
 \label{fig:Release_Points}
 \end{figure}
 
-The parameters can be modelled in several different ways, it is chosen to use a point distribution for both the $E_{sync}$ and $T_{attach}$, a normal distribution for $P_{attach}$ and a lognormal distribution for $E_{release}$ based on the the statistical properties of the parameters. 
+In the same sense as with the power two peaks can be seen here, but again a unimodal distribution is used as no explanation is known to do otherwise. A little surprisingly it does not seem that the $P_{TX}$ has any significant influence on the energy consumption. It is chosen to use a lognormal distribution for the same reasoning as with the average power consumption for the attach procedure.   
 
-It can also be seen from this that the parameters are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value. The parameters can therefore be described as follows:
+
+From this it can concluded that the elements are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value. The parameters can therefore be described as follows:
 
 \begin{align}
 E_{sync} &\sim\begin{cases} 1.05\cdot 10^{-6} \quad p = 0.758\\
 1.76\cdot 10^{-6} \quad p = 0.242
 \end{cases}\\
-P_{attach} &\sim\mathcal{N}(0.269,0.173\cdot 10^{-6}) \\
+P_{attach} &\sim\text{Lognormal}(\mu_{attach},4.4274\cdot 10^{-4}) \\
+\mu_{attach} &= \begin{cases} log\left(0.1328\cdot\exp(1.4\cdot 10^{-3}\cdot x) + 1.51\cdot 10^{-3}\exp(0.229\cdot x)\right) \quad for x \leq 8 dBm \\
+log\left(0.1225\cdot\exp(21.0\cdot 10^{-3}\cdot x) + 11.7\cdot 10^{-12}\cdot \exp(0.981\cdot x)\right) \quad for x > 8 dBm \end{cases} \\
 T_{attach} &\sim\begin{cases} 2.215 \quad p = 0.2584\\
 2.345 \quad p = 0.4382\\
 2.470 \quad p = 0.1124\\
@@ -264,28 +300,13 @@ T_{attach} &\sim\begin{cases} 2.215 \quad p = 0.2584\\
 E_{release} &\sim \text{Lognormal}(-3.5287,0.1277)
 \end{align}
 
-As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, it is therefore looked upon separately in \autoref{fig:Attach_Pmax}. 
-
-\begin{figure}[H]
-\centering
-\tikzsetnextfilename{Attach_Pmax}
-\resizebox{0.7\textwidth}{!}{
-\input{figures/QuectelMeas/Attach_Pmax.tex}}
-\caption{Average power consumption as a function of $P_{TX}$ during the attach procedure.}
-\label{fig:Attach_Pmax}
-\end{figure}
-
-From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of Pmax this can be contributed to the usage of a power amplifier. 
 
 
 
 \section{Transmit Power Consumption}
 
-To measure the transmit power consumption the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. 
+To measure the transmit power consumption the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. An example of the raw data can be seen in \autoref{fig:Transmit_raw}.
 
-
-
-\subsection{Results}
 \begin{figure}[H]
 \centering
 \tikzsetnextfilename{Transmit_raw}
@@ -295,15 +316,7 @@ To measure the transmit power consumption the UXM needs to enable the MAC paddin
 \label{fig:Transmit_raw}
 \end{figure}
 
-The next step is to find the average power consumption as:
-\begin{equation}
-P_{transmit} = \mathbf{E}(f(x))
-\end{equation}
-\begin{where}
-\va{$P_{transmit}$}{is the average power consumption during transmit state}{W}
-\end{where}
-
-This is done for all parameters and the result can be seen in \autoref{fig:Transmit_Points}.
+As seen in \autoref{fig:Transmit_raw} the device is in a transmit state for the entirety of the measurement. The average power consumption is therefore calculated based on \autoref{eq:power} with the whole measurement being the area of interest. This is done for all parameters and the result can be seen in \autoref{fig:Transmit_Points}.
 
 \begin{figure}[H]
 \centering
@@ -322,7 +335,7 @@ This is done for all parameters and the result can be seen in \autoref{fig:Trans
 \label{fig:Transmit_Points}
 \end{figure}
 
-As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelled using a Gaussian distribution with $P_{TX}$ setting the mean value this can be from \autoref{fig:Transmit_Points} and \autoref{fig:Transmit_Pmax}. The mean is split into two models for the transmit part as expected from the attach measurements. 
+As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelled using a lognormal distribution with $P_{TX}$ setting the mean value. An issue arises however because as seen the mesurement of CP-format with a value of normal is placed significantly lower than the rest. When calculating the mean and variance of the lognormal distribution this point is omitted since all the other points has this as a standard value. The reason this point is so low is unknown. The influence of $P_{TX}$ can be seen in \autoref{fig:Transmit_Pmax}. 
 
 \begin{figure}[H]
 \centering
@@ -333,9 +346,10 @@ As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelle
 \label{fig:Transmit_Pmax}
 \end{figure}
 
-This means that $P_{transmit}$ can be modelled as:
+The influence on the average power consumption can be modelled using two function which again can be contributed to the use of a power amplifier. This means that $P_{transmit}$ can be modelled as:
+
 \begin{align}
-&P_{transmit} \sim \mathcal{N}(\mu_{Pmax},11.034\cdot 10^{-6}) \\ \nonumber
+&P_{transmit} \sim \text{Lognormal}(\mu_{Pmax},6.0040\cdot 10^{-6}) \\ \nonumber
 &\mu_{Pmax} = \begin{cases} 0.0433\cdot\exp{(0.0002\cdot x)} + 4.13\cdot10^{-3}\cdot\exp{(0.116\cdot x)} \quad for x \leq 8 dBm \\
 0.0399\cdot\exp{(0.0442\cdot x)} + 22.3\cdot10^{-6}\cdot\exp{(0.545\cdot x)} \quad for x > 8 dBm \end{cases}
 \end{align}
