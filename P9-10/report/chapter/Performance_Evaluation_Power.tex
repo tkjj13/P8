@@ -144,6 +144,7 @@ To measure the energy used to connect and disconnect the device to the cell the 
 \item Save measurements as "Attach\_<Parameters used>\_MessageLog.csv"
 \item Change to next parameter
 \item Repeat step 3-17 for all parameters
+\item Turn off power supply
 \end{enumerate}
 
 
@@ -193,6 +194,7 @@ E_{release} &= \int_{C_{start}}^{C_{end}} f(x) dx \\
 \va{$C_{start}$}{is the start time of area C}{s}
 \va{$C_{end}$}{is the end time of area C}{s}
 \end{where}
+\todo{Standalizere this functions, so they can be used everywhere}
 
 
 This is done for all measurements and the results are presented along with their statistical properties in \autoref{fig:Sync_Points}, \autoref{fig:Attach_Power_Points}, \autoref{fig:Attach_Time_Points} \autoref{fig:Release_Points} respectively.
@@ -312,11 +314,12 @@ To measure the transmit power consumption the UXM needs to enable the MAC paddin
 \item Input to log "start <Parameter used> <Parameter value>"
 \item Put device in connected state
 \item Measure power output over 35 s
+\item Disconnect device
 \item Change to next value
-\item Repeat step 5-9 for all values.
+\item Repeat step 5-10 for all values.
 \item Save measurements as "Transmit/<Parameter used>/Messagelog.csv"
 \item Change to next parameter
-\item Repeat step 5-12 for all parameters.
+\item Repeat step 5-113 for all parameters.
 \item Turn off power supply
 \end{enumerate}
 
@@ -332,7 +335,7 @@ To measure the transmit power consumption the UXM needs to enable the MAC paddin
 
 The next step is to find the average power consumption as:
 \begin{equation}
-P_{transmit} = E(f(x))
+P_{transmit} = \mathbf{E}(f(x))
 \end{equation}
 \begin{where}
 \va{$P_{transmit}$}{is the average power consumption during transmit state}{W}
