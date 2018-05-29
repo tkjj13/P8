@@ -7,7 +7,7 @@ For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can h
 
 For the \gls{MDE} the code from SRS which have been tested to work with the software eNB from Amarisoft is chosen. This is chosen primarily because access to the source code is available through Keysight Technologies.\todo{check if this is okay or keysight does not want to get mentioned in this connection} As the code is designed for a single device some change have to be implemented, which requires knowledge of the original code. 
 
-The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \ref{fig:MassSetup}.
+The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE or GSM spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \ref{fig:MassSetup}.
 
 \begin{figure}[H]
 \centering
@@ -35,11 +35,43 @@ The code provide by SRS is still in development and is based on the code SRS dev
 Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \todo{ref to future works}
 
 \textbf{Structure}\\
-The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers, as seen in \todo{ref to figure}, with the PHY and MAC layer being split up into even more classes. \todo{ref to mac and phy figures}
+The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers, as seen in \ref{fig:MassClass}, with the PHY and MAC layer being split up into even more classes. The structure of the PHY layer can be seen in \ref{fig:PhyClass}.
 
-\todo{Insert classe diagram for all, mac and phy}
+\begin{figure}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MassClass.tex}}
+\caption{Class overview of SRS emulation code}
+\label{fig:MassClass}
+\end{figure}
 
-\todo{Explain short about what the different classes do}
+\begin{figure}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/PhyClass.tex}}
+\caption{Class overview of the PHY layer from the SRS emulation code}
+\label{fig:PhyClass}
+\end{figure}
+
+Here following a description of the different classes and their functionality:
+\begin{itemize}
+\item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
+\item [PHY] The PHY layer handles the syncronatation, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
+	\begin{itemize}
+	\item [PHCH recv] 
+	\item [PHCH common]
+	\item [Thread pool]
+	\item [PHCH workers]
+	\item [NPRACH]
+	\end{itemize}
+\item [MAC]
+\item [RLC]
+\item [PDCP]
+\item [RRC]
+\item [GW]
+\item [NAS]
+\item [USIM]
+\end{itemize}
 
 As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes \todo{list the classes with threads} Between these classes are there some interfaces, that handles the movement of data and grants. \todo{description of the necessity of this}
 
