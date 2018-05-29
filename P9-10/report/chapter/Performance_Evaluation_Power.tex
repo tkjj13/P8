@@ -3,10 +3,10 @@
 
 The focus of this chapter is to provide an overview and an estimate of the power efficiency of the NB-IoT protocol. From \autoref{ch:NB-IoT} it is known that the desired performance of any IoT protocol is to achieve a battery life time of 10 years with a battery capacity of 5 Wh even in extreme situations. 
 
-In \autoref{app:bat_model} the model which will be used to estimate the battery lifetime is described, but to use it effectively several elements needs to be measured on an actual device, these are:
+In \appref{app:bat_model} the model which will be used to estimate the battery lifetime is described, but to use it effectively several elements needs to be measured on an actual device, these are:
 
 \begin{tabular}{ll}
-$E_{sync}$ & the energy used for the modem to boot an synchronise to a cell. \\
+$E_{sync}$ & the energy used for the modem to boot and synchronise to a cell. \\
 $E_{attach}$ & the energy needed to attach the device to the cell. \\
 $P_{tx}$ & the power consumption during the data transmission. \\
 $E_{release}$ & the energy spent when disconnecting from the cell. \\
@@ -14,7 +14,7 @@ $P_{eDRX}$ & the power consumption during \gls{eDRX} idle mode. \\
 $P_{PSM}$ & the power consumption during \gls{PSM} idle mode. \\
 \end{tabular}
 
-Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which influence either the throughput or energy consumption during a transmission and thereby influence several of the states and transitions the device experience. To account for all of this is to huge a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to further analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \todo{ref til NDS rapport}. However it will not be further considered here.
+Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which influence can the throughput and energy consumption during a transmission and thereby influence several of the states and transitions the device experience. To account for all of this is to huge a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \todo{ref til NDS rapport}. However it will not be further considered here.
 
 From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
 
@@ -30,15 +30,16 @@ All the parameters can be tested with the same setup which can be seen in \autor
 \caption{Setup used to test for the power efficiency of the \gls{DUT}'s}
 \label{fig:IPE_test_setup}
 \end{figure}
+\todo{Make fig in tikz}
 
 
-As seen in \autoref{fig:IPE_test_setup}, an orchestrator, in this case \gls{TAP}, maintains the system. The orchestrator has a \gls{LAN} connection with the \gls{PSU} and the UXM and in this case a serial connection with the DUT. The \gls{PSU}s connection with the external IoT device is normal wires used to power on and analyse the power consumption of the device. It should be noted that the \gls{DUT} in question have two power inputs, one for the device power and one for the RF modem power, here only the modem is connected to the power analyser. The DUT is connected to the UXM using RF SMA cables.
+As seen in \autoref{fig:IPE_test_setup}, an orchestrator, in this case \gls{TAP}, maintains the system. The orchestrator has a \gls{LAN} connection with the \gls{PSU} and the UXM and in this case a serial connection with the DUT. The \gls{PSU}s connection with the DUT is wires used to power on and analyse the power consumption of the device. It should be noted that the \gls{DUT} in question have two power inputs, one for the device power and one for the RF modem power, here only the modem is connected to the power analyser. The DUT is connected to the UXM using RF SMA cables.
 
-\gls{TAP} is a software developed by Keysight Technologies which enables quick and easy access to the computers external connection. It also allows for C\# features to be used in the test design, meaning test steps can and has been designed to enable functionalities of the instruments. This includes for instance cell activation of the UXM and data collection from the PSU among other key functionalities, this couple with the ability to use loops, parallel test steps, serial comm ports and batch scripts make this a very strong tool in designing, controlling and performing measurements. \citep{TAP} 
+\gls{TAP} is a software developed by Keysight Technologies which enables quick and easy access to the computers external connection. It also allows for C\# features to be used in the test design, meaning test steps can and has been designed to enable functionalities of the instruments. This includes for instance cell activation of the UXM and data collection from the PSU among other key functionalities, this couple with the ability to use loops, parallel test steps, serial com ports and batch scripts make this a very strong tool in designing, controlling and performing measurements. \citep{TAP} 
 
-The \gls{PSU} is a N6705C DC Power Analyzer with the internal module TBD it has a range of TBD. When getting data from the device it can be done in a couple different ways here though the internal RAM of the PSU is used to store the data before download this has a limitation of 512.000 data points per capture. \citep{PSU}
+The \gls{PSU} is a N6705C DC Power Analyzer with the internal module TBD it has a range of TBD. When getting data from the PSU it can be done in a couple different ways, but here it is stored in the internal RAM of the PSU before download. This though has a limitation of 512.000 data points per capture. \citep{PSU}
 
-The base station is a E7515A UXM Wireless Test Set it is a Keysight product which is able to emulate, both LTE and NB-IoT conditions. It features most of the functionalities in the NB-IoT protocol until release 13. It has a multitude of changeable parameters with easy access through a SCPI interface. \citep{UXM}
+The base station is a E7515A UXM Wireless Test Set from Keysight Technologies which is able to emulate, both LTE and NB-IoT conditions. It features most of the functionalities in the NB-IoT protocol until release 13. It has a multitude of changeable parameters with easy access through a SCPI interface. \citep{UXM}
 
 The initial settings of each component in the system can be seen in \autoref{tab:setup_parameters}.
 
@@ -132,16 +133,17 @@ To measure the energy used to connect and disconnect the device to the cell the 
 \item Put device in disconnected state 
 \item Input to log "start <Parameters used> <Parameter value>"
 \item Turn on power analyser
+\item Start up and attach of DUT
 \item Verify connection to cell
 \item Release DUT
 \item Turn off power analyser
 \item Save L3 log from UXM as "Attach\_<Parameters used>\_<Parameters value>.xml"
 \item Turn off power supply
 \item Change to next value
-\item Repeat step 4-13 for all values
+\item Repeat step 4-14 for all values
 \item Save measurements as "Attach\_<Parameters used>\_MessageLog.csv"
 \item Change to next parameter
-\item Repeat step 3-16 for all parameters
+\item Repeat step 3-17 for all parameters
 \end{enumerate}
 
 
@@ -170,26 +172,26 @@ To measure the energy used to connect and disconnect the device to the cell the 
 \label{fig:Attach_raw}
 \end{figure}
 
-The next step is to get the three needed parameters. The parameters are found as:
+The next step is to get the four needed elements. The elements are found as:
 
 \begin{align}
-E_{sync} &= \int_{A1}^{A2} f(x) dx \\
-P_{attach} &= E(f(x)) \quad for \, B1 \leq x \leq B2 \label{eq:mean_over_phase} \\
-T_{attach} &=  B2 - B1
-E_{release} &= \int_{C1}^{C2} f(x) dx \\
+E_{sync} &= \int_{A_{start}}^{A_{end}} f(x) dx \\
+P_{attach} &= \mathbf{E}(f(x)) \quad for \, B_{start} \leq x \leq B_{end} \label{eq:mean_over_phase} \\
+T_{attach} &=  B_{end} - B_{start} \\
+E_{release} &= \int_{C_{start}}^{C_{end}} f(x) dx \\
 \end{align}
 \begin{where}
 \va{$E_{sync}$}{is the energy to boot up and synchronize to the cell}{J}
 \va{$P_{attach}$}{is the average power consumption during the attach procedure}{W} 
 \va{$T_{attach}$}{is the time it take to attach to the network}{s}
-\va{E(•)}{is the mean function}{1}
+\va{$\mathbf{E}$(•)}{is the mean function}{1}
 \va{f(x)}{is the data point at time x}{W}
-\va{A1}{is the start time of area A}{s}
-\va{A2}{is the end time of area A}{s}
-\va{B1}{is the start time of area B}{s}
-\va{B2}{is the end time of area B}{s}
-\va{C1}{is the start time of area C}{s}
-\va{C2}{is the end time of area C}{s}
+\va{$A_{start}$}{is the start time of area A}{s}
+\va{$A_{end}$}{is the end time of area A}{s}
+\va{$B_{start}$}{is the start time of area B}{s}
+\va{$B_{end}$}{is the end time of area B}{s}
+\va{$C_{start}$}{is the start time of area C}{s}
+\va{$C_{end}$}{is the end time of area C}{s}
 \end{where}
 
 
@@ -498,7 +500,7 @@ L(t_i) = \frac{C_{bat}\cdot SF_{bat}}{8760\cdot (P_m(t_i) + P_{device})}
 \va{$P_{device}$}{is the power consumption of the IoT device}{W}
 \end{where}
 
-This equation is used under the assumption that $P_{device}$ is negligible, that there is no mobile terminated data occurring and setting $SF_{bat}$ to 0.5, giving:
+This equation is used under the assumption that $P_{device}$ is negligible, that there is no mobile terminated data occurring and setting $SF_{bat}$ to 0.5 and $C_{bat}$ to 5 Wh, giving:
 \begin{equation}\label{eq:bat_est}
 \begin{gathered}
 	L(t_i) = \frac{1.0274}{P_m(t_i)} \\
@@ -510,7 +512,7 @@ This equation is used under the assumption that $P_{device}$ is negligible, that
 \end{gathered}
 \end{equation}
 
-From \autoref{eq:bat_est} a couple of problems become visible. First is that the time to connect and disconnect the devise from the system has not been taken into account. This however will only influence the estimation slightly as the time is essentially added to the idle time and only amounts to a few seconds. Second is that $E_{active}$ depends on two parameters one of which has not been measured or in any other way classified, namely $P_{TX}$ and $T_{transmit}$. Because $T_{transmit}$ depends not only on the amount of data the devise wants to transmit, but also on some cell specific parameters such as repetition etc. will it be considered as a separate parameter for the battery lifetime estimation. As $P_{TX}$ depends on the channel condition for the device it is also as a separate parameter. The third problem is that $E_{idle}$ is depending on several things first is which idle mode is used second is what timer values are associated with the idle mode. Since this potentially has severe consequences for the power consumption the impact of this is also elaborated upon. The forth problem is also with the model used to estimate $E_{idle}$ for PSM mode it is assumed that T3412 is always bigger than $t_i$ meaning that only when the device has data will it wake up from PSM and for eDRX the energy is calculated based on a complete cycle which might be interrupted by the data transmission, this issue become less relevant with larger $t_i$ and smaller $T_{PSM}$. 
+From \autoref{eq:bat_est} a couple of problems become visible. First is that the time to sync and release of the devise from the system has not been taken into account. This however will only influence the estimation slightly as the time is essentially added to the idle time and only amounts to a few seconds. Second is that $E_{active}$ depends on two parameters one of which has not been measured or in any other way classified, namely $P_{TX}$ and $T_{transmit}$\todo{Refresh sentence, so Mads understands}. Because $T_{transmit}$ depends not only on the amount of data the devise wants to transmit, but also on some cell specific parameters such as repetition etc. will it be considered as a separate parameter for the battery lifetime estimation. As $P_{TX}$ depends on the channel condition for the device it is also as a separate parameter. The third problem is that $E_{idle}$ is depending on several things first is which idle mode is used second is what timer values are associated with the idle mode. Since this potentially has severe consequences for the power consumption the impact of this is also elaborated upon. The forth problem is also with the model used to estimate $E_{idle}$ for PSM mode it is assumed that T3412 is always bigger than $t_i$ meaning that only when the device has data will it wake up from PSM and for eDRX the energy is calculated based on a complete cycle which might be interrupted by the data transmission, this issue become less relevant with larger $t_i$ and smaller $T_{PSM}$. 
 
 A common factor for all these problems is the model will underestimate the battery lifetime except in the case of T3412 being larger than $t_i$, however as the assumptions made here helps simplify the model it is considered to be reasonable. Another important step in this regard is that for all the measured parameters a statistical analysis was made, based on this analysis values are chosen such that there is a 95\% confidence that the device will life for the estimated time or in other words such that at least 95\% of the values are below the chosen value. To start the analysis of the battery lifetime four cases are chosen for idle mode eDRX and PSM respectively, the values for these cases can be seen in \autoref{tab:case_description}. This is done to visualize the impact of the chosen mode and timer values, a case where only DRX is used is not considered as this should only be relevant for very low $t_i$'s and then it is covered by eDRX and PSM already.
 
