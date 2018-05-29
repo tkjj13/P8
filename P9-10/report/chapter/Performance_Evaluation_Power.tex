@@ -124,28 +124,7 @@ MAC padding UL		 & off       	  \\ \hline
 
 To measure the energy used to connect and disconnect the device to the cell the following procedure is used.
 
-\subsection{Test Procedure}
-\begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
-\item Turn on power supply 
-\item Input settings as described in \autoref{tab:setup_parameters}
-\item Input chosen value of chosen parameter
-\item Put device in disconnected state 
-\item Input to log "start <Parameters used> <Parameter value>"
-\item Turn on power analyser
-\item Start up and attach of DUT
-\item Verify connection to cell
-\item Release DUT
-\item Turn off power analyser
-\item Save L3 log from UXM as "Attach\_<Parameters used>\_<Parameters value>.xml"
-\item Turn off power supply
-\item Change to next value
-\item Repeat step 4-14 for all values
-\item Save measurements as "Attach\_<Parameters used>\_MessageLog.csv"
-\item Change to next parameter
-\item Repeat step 3-17 for all parameters
-\item Turn off power supply
-\end{enumerate}
+
 
 
 \subsection{Results}
@@ -304,24 +283,7 @@ From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be 
 
 To measure the transmit power consumption the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. 
 
-\subsection{Test Procedure}
-\begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
-\item Turn on power supply 
-\item Put in settings as described in \autoref{tab:setup_parameters} 
-\item Enable MAC padding in UL and DL
-\item Input chosen value of chosen parameter
-\item Input to log "start <Parameter used> <Parameter value>"
-\item Put device in connected state
-\item Measure power output over 35 s
-\item Disconnect device
-\item Change to next value
-\item Repeat step 5-10 for all values.
-\item Save measurements as "Transmit/<Parameter used>/Messagelog.csv"
-\item Change to next parameter
-\item Repeat step 5-113 for all parameters.
-\item Turn off power supply
-\end{enumerate}
+
 
 \subsection{Results}
 \begin{figure}[H]
@@ -410,24 +372,7 @@ T3412 (PSM period)	& 10 s		  		 \\ \hline
 \end{table}
 
 
-\subsection{Test Procedure}
-\begin{enumerate}
-\item Setup the \gls{DUT} as shown on \autoref{fig:IPE_test_setup}
-\item Turn on power supply 
-\item Put in settings as described in \autoref{tab:setup_parameters}
-\item Put in settings as described in \autoref{tab:UXM_idle_values}  
-\item Start to measure power output
-\item Connect device to cell
-\item Release device from cell
-\item Wait for measurements to stop
-\item Save measurements as "Idle/DRX.csv"
-\item Set Idle mode eDRX state to On
-\item Repeat step 5-8
-\item Save measurements as "Idle/eDRX.csv"
-\item Set Idle mode eDRX state to Off and PSM On
-\item Repeat step 5-8
-\item Save measurements as "Idle/PSM.csv"
-\end{enumerate}
+
 
 
 \subsection{Results}
