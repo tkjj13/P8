@@ -53,8 +53,7 @@ Each of these phase's energy consumptions is dependent on other parameters. An o
 
 \begin{table}[H]
 \centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} \\ \hline
 $E_{modem,on}$ & \begin{itemize} 
 \item modem
@@ -79,7 +78,7 @@ $E_{attach}$ & \begin{itemize}
 \item transmission gap size
 \item number of antenna ports
 \end{itemize} \\ \hline
-\end{tabular}}
+\end{tabular}
 \caption{Paremeter overview for each term in the connection energy calculation.}
 \label{tab:Econn_parameter_overview}
 \end{table}
@@ -100,9 +99,8 @@ Both of these factor's energy consumptions is dependent on other parameters. An 
 
 \begin{table}[H]
 \centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
-\textbf{Term} & \textbf{Parameters} & \textbf{Description} \\ \hline
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
 $P_{transmit}$ & \begin{itemize}
 \item modem
 \item frequency
@@ -130,7 +128,6 @@ The disconnection energy covers the energy it takes to detach the device from th
 
 \begin{table}[H]
 \centering
-\resizebox{\textwidth}{!}{
 \begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} \\ \hline
 $E_{diconn}$ & \begin{itemize}
@@ -149,7 +146,7 @@ $E_{diconn}$ & \begin{itemize}
 \item transmission gap size
 \item number of antenna ports
 \end{itemize} \\ \hline
-\end{tabular}}
+\end{tabular}
 \caption{Paremeter overview for disconnection energy.}
 \label{tab:Erelease_parameter_overview}
 \end{table}
@@ -176,8 +173,7 @@ Each of these factors depends on several other parameters as seen in
 
 \begin{table}[H]
 \centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|m{3cm}|m{6cm}|m{7cm}|} \hline
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} & \textbf{Description} \\ \hline
 $P_{eDRX,PSM}$ & \begin{itemize}
 \item modem
@@ -186,7 +182,7 @@ $P_{eDRX,PSM}$ & \begin{itemize}
 $t_{eDRX,PSM}$ & \begin{itemize}
 \item timer settings
 \end{itemize} & Time spent in eDRX and PSM mode respectively \\ \hline
-\end{tabular}}
+\end{tabular}
 \caption{Paremeter overview for each term in the idle energy calculation.}
 \label{tab:Eidle_parameter_overview}
 \end{table}
@@ -204,7 +200,7 @@ Because the functionality of the device vary depending on the use case is it ver
 A performance objective for IoT protocols is to achieve a battery lifetime of 10 years on a 5 Wh battery. 
 
 \textbf{Safety Factor}\\
-The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 \citep{Power_article}, however from the standards specify a safety factor of 1 for the performance objective which will be used here \citep[Sec. 5.4]{safte_factor_standard}.
+The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 \citep{Power_article}, however from the standards specify a safety factor of 1 for the performance objective which will be used here \citep[Sec. 5.4]{safty_factor_standard}.
 
 
 
