@@ -1,0 +1,27 @@
+\usetikzlibrary{arrows}
+\begin{tikzpicture}
+
+\draw  (-2.5,-1) rectangle (1.5,-3);
+\draw  (-3,0) rectangle (2,-3.5);
+\draw  (-7.5,-1) rectangle (-3.5,-3);
+\draw  (-7.5,2.5) rectangle (2,0.5);
+\draw  (-2.5,5) rectangle (1.5,3);
+\node at (-2,-0.25) {Thread pool};
+\node at (-0.5,-2) {PHCH workers};
+\node at (-5.5,-2) {PHCH common};
+\node at (-3.25,1.5) {PHCH recv};
+\node at (-0.5,4) {NPRACH};
+\draw [-triangle 60](-2.5,-2) -- (-3.5,-2);
+\draw [-triangle 60](-7.5,1) -- (-8.5,1) -- (-8.5,-4.5);
+\draw (-7.5,-2.5) -- (-8.5,-2.5);
+\node at (-8.5,-4.75) {Radio};
+\draw [-triangle 60](-0.5,0.5) -- (-0.5,0);
+\draw [-triangle 60](-7.5,-1.5) -- (-8,-1.5)  -- (-8,5.5);
+\draw (-7.5,2) -- (-8,2);
+\node at (-8,5.75) {MAC};
+\draw (-0.5,-3) -- (-0.5,-4) -- (-8,-4) -- (-8,-0);
+\draw [-triangle 60](-0.5,2.5) -- (-0.5,3);
+\draw [-triangle 60](-5.5,0.5) -- (-5.5,-1);
+\draw [-triangle 60](-5.5,2.5) -- (-5.5,5.5);
+\node at (-5.5,5.75) {RRC};
+\end{tikzpicture}
