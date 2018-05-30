@@ -36,7 +36,7 @@ The code provide by SRS is still in development and is based on the code SRS dev
 Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \autoref{ch:Future}.
 
 \textbf{Structure}\\
-The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers, as seen in \autoref{fig:MassClass}, with the PHY and MAC layer being split up into even more classes. The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes \todo{list the classes with threads}
+The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers, as seen in \autoref{fig:MassClass}, with the PHY and MAC layer being split up into even more classes. The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
 \begin{figure}[H]
 \centering
@@ -60,11 +60,11 @@ Even if the class layout look like the OSI model but it does not follow it on po
 
 \begin{itemize}
 \item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
-\item [PHY] The PHY class handles the syncronatation, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
+\item [PHY] The PHY class handles the synchronization, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
 	\begin{itemize}
 	\item [PHCH recv] Controls the whole PHY class system. Keeps track on which state the system is in and activates the different underclasses in the PHY class.
 	\item [PHCH common] Contains most parameters for the PHY underclasses, here under the RNTI's and metrics for UL and DL, and communication up to the MAC class and sends transmission data to the radio class.
-	\item [PHCH workers] Handles all processing of data after decoding of MIB and SIBs messages, both encoding and decoding dependably on the grants granted by the MAC class.
+	\item [PHCH workers] Handles all processing of data after decoding of MIB and SIBs messages, both encoding and decoding dependably on the grants granted by the MAC class. Their can be multiple workers for one device, but in these cases, their will only be used one.
 	\item [Thread pool] Contains and controls the array of PHCH workers.	
 	\item [NPRACH] Used to send msg1 in the RAP and keep track of the parameters set for this transmission, like preamble id.
 	\end{itemize}
@@ -79,9 +79,8 @@ Even if the class layout look like the OSI model but it does not follow it on po
 
 Between these classes are there some interfaces, that handles the movement of data, grants, parameters and other information. These interfaces is build as a class for it self for each interface, with an overall interface for functionalities used multiple places.
 
-\textbf{Flow of the code}\\
-\todo{the flow is not build up into anything, it might be split or parallelised or follow a sequence}
-The flow of the code is build up into multiple section, which is shown in \todo{ref to figure}. After the initialization the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the produce\todo{?? process ??} the code have made it to.
+\textbf{Execution of the code}\\
+The code is build up into multiple section which runs at different times, which is shown in \todo{ref to figure}. After the initialization, the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the process the code have made it to.
 
 \todo{Flowchart over the process}
 
