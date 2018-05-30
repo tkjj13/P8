@@ -4,26 +4,31 @@
 %  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
 %where you can also make suggestions and rate matlab2tikz.
 %
+%Point distribution 
+%mean = 2.371081339712919 
+%var = 0.019530805852043
+%
 \definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
 \definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
 %
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=\textwidth,
+width=0.951\textwidth,
 height=0.66\textwidth,
-at={(2.08in,0.858in)},
+at={(0\textwidth,0\textwidth)},
 scale only axis,
 xmin=2.2,
 xmax=2.8,
-xlabel={$T_{attach}$ [s]},
+xlabel={Time [s]},
 ymin=0,
 ymax=0.45,
 ylabel={Probability},
 axis background/.style={fill=white},
 title style={font=\bfseries},
-title={Statistical overview},
-legend style={legend cell align=left,align=left,draw=white!15!black}
+title={Attach procedure},
+legend style={legend cell align=left,align=left,draw=white!15!black},
+y tick label style={/pgf/number format/fixed}
 ]
 \addplot[fill=mycolor1,fill opacity=0.6,draw=black,ybar interval,area legend] plot table[row sep=crcr] {%
 x	y\\
