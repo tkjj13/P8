@@ -35,8 +35,8 @@ The code provide by SRS is still in development and is based on the code SRS dev
 
 Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \autoref{ch:Future}.
 
-\textbf{Structure}\\
-The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers, as seen in \autoref{fig:MassClass}, with the PHY and MAC layer being split up into even more classes. The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
+\subsection{Structure}
+The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
 \begin{figure}[H]
 \centering
@@ -79,12 +79,60 @@ Even if the class layout look like the OSI model but it does not follow it on po
 
 Between these classes are there some interfaces, that handles the movement of data, grants, parameters and other information. These interfaces is build as a class for it self for each interface, with an overall interface for functionalities used multiple places.
 
-\textbf{Execution of the code}\\
-The code is build up into multiple section which runs at different times, which is shown in \todo{ref to figure}. After the initialization, the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the process the code have made it to.
+\subsection{Execution of the code}
+The code is build up into multiple section which runs at different times, which is shown in \autoref{fig:MassStep}. After the initialization, the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the process the code have made it to.
 
-\todo{Flowchart over the process}
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{MassStep}
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MassStep.tex}}
+\caption{A simplification of the steps in the code process}
+\label{fig:MassStep}
+\end{figure}
 
-\todo{Short description on the different steps}
+\textbf{Initialization}
+The initialization step starts up all the different classes and sets pointers to the different interfaces between them and read the config file, which includes a longer list of parameters, which can be found in \todo{Insert app ref to that}. The PHY have a number of underclasses and which are initialized in the PHY thread, which close down afterwards. The main thread will wait on the PHY to finish initialize, before sending an attach request, through the NAS class. This process is shown in \autoref{fig:InitStep}.
+
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{InitStep}
+\resizebox{0.5\textwidth}{!}{
+\input{figures/InitFlow.tex}}
+\caption{A simplification of the steps in the code process}
+\label{fig:InitStep}
+\end{figure}
+
+
+\textbf{Synchronization}
+
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{RecvState}
+\resizebox{0.5\textwidth}{!}{
+\input{figures/RecvState.tex}}
+\caption{A simplification of the steps in the code process}
+\label{fig:RecvState}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 To have the code emulate multiple devices, some parts of the original device is needed to be duplicated. The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.
 
