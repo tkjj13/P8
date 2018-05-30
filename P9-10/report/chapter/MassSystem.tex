@@ -53,10 +53,11 @@ The code is written in C++, with a little C in some of the lower level files. Th
 \label{fig:PhyClass}
 \end{figure}
 
-Here following a description of the different classes and their functionality:
+Even if the class layout look like the OSI model but it does not follow it on point
+Here following is a description of the different classes and their functionality:
 \begin{itemize}
 \item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
-\item [PHY] The PHY layer handles the syncronatation, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
+\item [PHY] The PHY class handles the syncronatation, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
 	\begin{itemize}
 	\item [PHCH recv] 
 	\item [PHCH common]
