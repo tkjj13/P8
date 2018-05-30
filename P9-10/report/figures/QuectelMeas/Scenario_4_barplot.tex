@@ -1,0 +1,64 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\textwidth,
+height=0.66\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+bar width=0.8,
+xmin=0.5,
+xmax=4.5,
+xtick={1,2,3,4},
+xticklabels={{Point 1},{Point 2},{Point 3},{Point 4}},
+ymin=0,
+ymax=100,
+ylabel={Energy spenditure [\%]},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Scenario 4},
+y tick label style={/pgf/number format/fixed}
+]
+\addplot[ybar stacked,draw=black,fill=mycolor1,area legend] plot table[row sep=crcr] {%
+1	0.000148933954494186\\
+2	3.17039253642208e-05\\
+3	0.000102603609620936\\
+4	2.77194764324209e-07\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor2,area legend] plot table[row sep=crcr] {%
+1	35.9580654744451\\
+2	7.6544789797284\\
+3	52.2138260888245\\
+4	0.141061306426043\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor3,area legend] plot table[row sep=crcr] {%
+1	0.0369870919032137\\
+2	78.7353028476013\\
+3	3.69187276544643\\
+4	99.739941403004\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor4,area legend] plot table[row sep=crcr] {%
+1	4.46951469537128\\
+2	0.951436230895694\\
+3	3.07913895495748\\
+4	0.00831862738644596\\
+};
+\addplot[ybar stacked,draw=black,fill=mycolor5,area legend] plot table[row sep=crcr] {%
+1	59.5285418538365\\
+2	12.6573150628023\\
+3	41.0104149212867\\
+4	0.110665837920824\\
+};
+\end{axis}
+\end{tikzpicture}%
