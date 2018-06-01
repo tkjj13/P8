@@ -1,5 +1,5 @@
 \chapter{Massive IoT system overview}
-
+\label{ch:MassOver}
 It has a high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individually, especially if the desire is to test the impact of massiveness on the individual devices. A more optimal solution is instead of buying a massive amount of devices, to emulate them through software.
 
 
@@ -91,7 +91,7 @@ The code is build up into multiple section which runs at different times, which 
 \label{fig:MassStep}
 \end{figure}
 
-\textbf{Initialization}
+\textbf{Initialization} \\
 The initialization step starts up all the different classes and sets pointers to the different interfaces between them and read the config file, which includes a longer list of parameters, which can be found in \appref{app:SRSconfig}. The PHY have a number of underclasses and which are initialized in the PHY thread, which close down afterwards. The main thread will wait on the PHY to finish initialize, before sending an attach request, through the NAS class. This process is shown in \autoref{fig:InitStep}.
 
 \begin{figure}[H]
@@ -104,7 +104,7 @@ The initialization step starts up all the different classes and sets pointers to
 \end{figure}
 
 
-\textbf{Synchronization and MIB}
+\textbf{Synchronization and MIB} \\
 The synchronization is where the device tries to find the NPSS and NSSS in the right frequency. This is done in the PHCH recv class, which handles both the synchronization and MIB, which is also decode here. The PHCH recv main functionalities is triggered in the loop, which run in it threads. This functionalities is triggered dependably on which state the class is in, which is shown in \autoref{fig:RecvState}.
 
 \begin{figure}[H]
@@ -129,8 +129,8 @@ Cell camp is the PHCH recv stage, where all further process will be handle, whic
 
 From all stages can the process be triggered to go into idle state, if an error occurred or the system tries to reset. Here it will try to start up into cell search again unless if it is the close down trigger.
 
-\textbf{SIB1 and SIB2}
-When the PHCH recv is in cell camp state, is it ready to activates the 
+\textbf{SIB1 and SIB2} \\
+When the PHCH recv is in cell camp state, is it ready to activate the PHCH workers.
 
 
 
@@ -157,3 +157,5 @@ To have the code emulate multiple devices, some parts of the original device is 
 
 \textbf{Structure}\\
 \textbf{Flow of the code}\\
+
+\input{chapter/TestMass.tex}
