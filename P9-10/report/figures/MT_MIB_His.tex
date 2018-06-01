@@ -1,0 +1,51 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=0.7,
+xmax=1.5,
+xlabel={Number of UEs},
+ymin=0,
+ymax=25,
+ylabel={Trials},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Histogram for Mib}
+]
+\addplot[fill=mycolor1,fill opacity=0.6,draw=black,ybar interval,area legend] plot table[row sep=crcr] {%
+x	y\\
+0.72	11\\
+0.757	14\\
+0.794	13\\
+0.831	18\\
+0.868	16\\
+0.905	17\\
+0.942	23\\
+0.979	16\\
+1.016	16\\
+1.053	20\\
+1.09	24\\
+1.127	17\\
+1.164	12\\
+1.201	18\\
+1.238	24\\
+1.275	15\\
+1.312	18\\
+1.349	4\\
+1.386	1\\
+1.423	1\\
+1.46	1\\
+};
+\end{axis}
+\end{tikzpicture}%

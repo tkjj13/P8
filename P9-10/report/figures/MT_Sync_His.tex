@@ -1,0 +1,51 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=0.6,
+xmax=1.8,
+xlabel={Number of UEs},
+ymin=0,
+ymax=250,
+ylabel={Trials},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Histogram for Sync}
+]
+\addplot[fill=mycolor1,fill opacity=0.6,draw=black,ybar interval,area legend] plot table[row sep=crcr] {%
+x	y\\
+0.6	223\\
+0.655	61\\
+0.71	0\\
+0.765	0\\
+0.82	0\\
+0.875	0\\
+0.93	0\\
+0.985	0\\
+1.04	9\\
+1.095	0\\
+1.15	0\\
+1.205	0\\
+1.26	0\\
+1.315	0\\
+1.37	3\\
+1.425	0\\
+1.48	0\\
+1.535	0\\
+1.59	0\\
+1.645	2\\
+1.7	2\\
+};
+\end{axis}
+\end{tikzpicture}%
