@@ -46,17 +46,20 @@ From this it can also be seen that there are no requirements to the latency of t
 
 
 \textbf{Synchronization} \\
-The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}. 
+The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}, as the device first needs to search for the cell and then acquire the system information. 
+
 
 \tikzsetnextfilename{sync-NB}
 \begin{figure}[H]
 \centering
 \input{figures/sync-NB.tex}
-\caption{sync-NB}
+\caption{The process needed to synchronize to a cell.}
 \label{fig:sync-NB}
 \end{figure}
 
-First the \gls{NPSS} is located this provides the initial \gls{CFO} as well as timing alignment. Then the \gls{NSSS} is decoded this provides the \gls{NB-PCID} and timing within a 80 ms block \citep{primer}. For low complexity \gls{UE}s a single 10 ms segment might not suffice at a low \gls{SNR}, the structure of the \gls{NPSS} is therefore made so the signals can accumulate coherently over multiple 10 ms segments \citep{primer}. The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{CRC} bits, they are transmitted in eight self-decodeable blocks which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
+The device first looks for the \gls{NPSS}, the search spaces for the \gls{NPSS} is predetermined based on the LTE bands. \todo{make ref to LTE bands} This provides the initial \gls{CFO} as well as a 10 ms timing alignment. As mentioned the NPSS takes up the entire fifth subframe of each frame, a frequency domain Zadoff-Chu sequence is used for the 11 available \gls{OFDM} symbols, as the first 3 OFDM might be used for LTE PDCCH. For low complexity devices a single 10 ms segment might not suffice at a low \gls{SNR}, the structure of the \gls{NPSS} is therefore made so the signals can accumulate coherently over multiple 10 ms segments. \citep{NB-IoT_Book,primer}. The \gls{NSSS} is also based on a frequency domain Zadoff-Chu sequence, but is further scrambled based on the \gls{NB-PCID}. This means the device has to manually try each frequency and then manually test for each of the 504 NB-PCID. When this is done the device will be frequency and in a 80 ms window time synchronized with the eNB and know the NB-PCID also \citep{NB-IoT_Book,primer}. 
+
+The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{CRC} bits, they are transmitted in eight self-decodeable blocks which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
  
 \tikzsetnextfilename{MIB-NB}
 \begin{figure}[H]
