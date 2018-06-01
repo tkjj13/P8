@@ -48,6 +48,7 @@ From this it can also be seen that there are no requirements to the latency of t
 \textbf{Synchronization} \\
 The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}. 
 
+\tikzsetnextfilename{sync-NB}
 \begin{figure}[H]
 \centering
 \input{figures/sync-NB.tex}
@@ -57,6 +58,7 @@ The synchronization procedure is very similar to that of a \gls{LTE} as can be s
 
 First the \gls{NPSS} is located this provides the initial \gls{CFO} as well as timing alignment. Then the \gls{NSSS} is decoded this provides the \gls{NB-PCID} and timing within a 80 ms block \citep{primer}. For low complexity \gls{UE}s a single 10 ms segment might not suffice at a low \gls{SNR}, the structure of the \gls{NPSS} is therefore made so the signals can accumulate coherently over multiple 10 ms segments \citep{primer}. The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{CRC} bits, they are transmitted in eight self-decodeable blocks which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
  
+\tikzsetnextfilename{MIB-NB}
 \begin{figure}[H]
 \centering
 \input{figures/MIB-NB.tex}

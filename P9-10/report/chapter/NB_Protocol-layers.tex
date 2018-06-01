@@ -35,6 +35,7 @@ The \gls{RRC} layer of the protocol is strictly control plane layer. It handles 
 
 One of the biggest changes from \gls{LTE} to \gls{NB-IoT} is the focus on reducing power consumption therefore a new state has been introduced compared to the \gls{LTE} system this can be seen in \autoref{fig:UE-states}.
 
+\tikzsetnextfilename{state-diagram}
 \begin{figure}[H]
 \centering
 \input{figures/state-diagram.tex}
@@ -119,6 +120,7 @@ The \gls{PDCP} layer is just below the \gls{RRC} it handles both control functio
 
 The \gls{PDCP} gets \gls{PDCP} \gls{SDU}s from the \gls{RRC} and \gls{NAS} layer. 
 
+\tikzsetnextfilename{PDCP_data_flow}
 \begin{figure}[H]
 \centering
 \resizebox{0.8\textwidth}{!}{
@@ -154,6 +156,7 @@ The \gls{AM} adds all the functionalities of the \gls{UM} but also provide retra
 
 \captionsetup{belowskip=0em}
 \begin{minipage}[H]{0.48\textwidth}
+\tikzsetnextfilename{RLC_UM-SAP}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
@@ -164,6 +167,7 @@ The \gls{AM} adds all the functionalities of the \gls{UM} but also provide retra
 \end{minipage}
 \begin{minipage}[H]{0.48\textwidth}
 \begin{figure}[H]
+\tikzsetnextfilename{RLC_AM-SAP}
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/RLC_AM-SAP.tex}}
@@ -196,6 +200,7 @@ The \gls{MAC} layer takes care of several things first of it maps the logical ch
 
 \captionsetup{belowskip=0em}
 \begin{minipage}{0.48\textwidth}
+	\tikzsetnextfilename{MAC_DL-mapping}
 	\begin{figure}[H]
 	\centering
 	\resizebox{\textwidth}{!}{
@@ -205,6 +210,7 @@ The \gls{MAC} layer takes care of several things first of it maps the logical ch
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.48\textwidth}
+	\tikzsetnextfilename{MAC_UL-mapping}
 	\begin{figure}[H]
 	\centering
 	\resizebox{\textwidth}{!}{
@@ -217,7 +223,7 @@ The \gls{MAC} layer takes care of several things first of it maps the logical ch
 
 A \gls{MAC} \gls{PDU} consist of the \gls{MAC} header along with the \gls{MAC} control elements and the \gls{MAC} \gls{SDU}s and potentially some padding as can be seen in \autoref{fig:MAC_PDU}
 
-
+\tikzsetnextfilename{MAC_PDU}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
@@ -274,7 +280,7 @@ To fit into a \gls{LTE} \gls{PRB} the frame structure needs to be very similar t
 
 As the \gls{NB-IoT} system is placed outside the \gls{PRB}s used for LTE synchronization most of the subframes are available to use, the only exception is if a \gls{MBSFN} is present, this can occupy either of subframes (1,2,3,6,7,8) \citep{LTE-MBSFN}. Therefore the \gls{NPSS} and \gls{NSSS} is placed in subframe 5 and 9 respectively as seen in \autoref{fig:frame-structure}. By having the \gls{NSSS} being present only in even frame numbers, the \gls{LSB} of the frame numbers can be deduced directly, this increases the efficiency of the system by freeing subframe 9 in odd frames and omitting that bit from the \gls{NB-IoT} overhead. The \gls{NPBCH} is located in the subframe 0 and contains the \gls{MIB-NB} which was explained in \autoref{sec:RRC} \citep{REL-13}.  
 
-
+\tikzsetnextfilename{frameStructure}
 \begin{figure}[H]
 \centering
 \input{figures/frameStructure.tex}
@@ -285,6 +291,7 @@ As the \gls{NB-IoT} system is placed outside the \gls{PRB}s used for LTE synchro
 
 By zooming in on a subframe, it is possible to see how the different \gls{OFDM} symbols is utilized. During a subframe 14 \gls{OFDM} symbols are transmitted each having 12 subcarriers. As can be seen from \autoref{fig:subframe-structure} almost half of the \gls{RE} in a subframe might be reserved for different signals and \gls{LTE} control information \citep{REL-13}. An \gls{LTE} cell can allocate up to three symbols for \gls{PDCCH}, an might use up to four carriers needing four \gls{RS}s \citep{whitepaper}. The \gls{NB-IoT} structure allows for up to two carriers and needs therefore two \gls{RS} namely \gls{NRS}1 and \gls{NRS}2 \citep{REL-13}. The placement of all these signals can be seen in \autoref{fig:subframe-structure}.  
 
+\tikzsetnextfilename{subframe}
 \begin{figure}[H]
 \centering
 \input{figures/subframe.tex}

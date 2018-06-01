@@ -20,10 +20,10 @@ Multiple devices would of cause increase the accuracy of the model, but here onl
 \centering
 \begin{tabular}{|c|p{8cm}|} \hline
 \textbf{Parameter} & \textbf{Values} \\ \hline
-CP-format & Normal and extended \\ \hline
-Operation mode & In-band, guard-band and standalone \\ \hline
-$P_{TX}$ & From -30 dBm to 23 dBm with 1 dB interval \\ \hline
+CP-format & Extended and normal\\ \hline
 Frequency & From 791 MHz to 820.8 MHz with 0.2 MHz interval corresponding to EARFCN 6150 to 6448 with steps of 2 \\ \hline
+Operation mode & Guard-band, in-band and standalone \\ \hline
+$P_{TX}$ & From -30 dBm to 23 dBm with 1 dB interval \\ \hline
 \end{tabular}
 \caption{Parameters and the corresponding values}
 \label{tab:par_val}
@@ -31,7 +31,7 @@ Frequency & From 791 MHz to 820.8 MHz with 0.2 MHz interval corresponding to EAR
 
 Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \todo{ref til NDS rapport}. However it will not be further considered here.
 
-From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
+In each of the following graphs that depicts the measured data points, the order of the parameter is the same as in \autoref{tab:par_val}. From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
 
 
 
@@ -206,9 +206,10 @@ First step is to get an overview of the measurements, to do this an example of t
 6 & Security Protected NAS Message (Attach Complete) \\ \hline
 \end{tabular}}
 \end{minipage}
-\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure and Area C is Cell release and idle period. Dashed line indicates log messages.}
+\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure, area C is Cell release and area D is off period. Dashed line indicates log messages.}
 \label{fig:Attach_raw}
 \end{figure}
+\todo{make a D area}
 
 In \appref{app:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
 
@@ -231,7 +232,7 @@ In \appref{app:bat_model} it was found that three elements is needed from this m
 \label{fig:Sync_Points}
 \end{figure}
 
-As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \appref{app:bat_model}. A point distribution is used to describe this as two spikes are seen. The reason behind the two spikes is unknown as it is assumed small discrepancies around them is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
+As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \appref{app:bat_model}. A single point is therefore chosen as it is assumed the small discrepancies around it is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
 
 The next element to look at is the energy used to attach to the network. This is found based on the log where a messages is telling where the NPRACH starts and where the attach is complete. This can be seen as area B in \autoref{fig:Attach_raw}. It is determined to split the energy into the average power and the time it takes based on the measurements. First the power is found based on \autoref{eq:power} for area B. 
 This is done for all measurements and the results are presented in \autoref{fig:Attach_Power_Points}.
@@ -253,7 +254,7 @@ This is done for all measurements and the results are presented in \autoref{fig:
 \label{fig:Attach_Power_Points}
 \end{figure}
 
-As seen from \autoref{fig:Attach_Power_Points} the $P_{TX}$ is not included, the reason for this is it has a significant effect on the average power consumption and is investigated separately. It looks like almost all frequency measurements is a layer above the others, however as one of the middle points of the frequency is used as a standard value this should not be the case. Likewise, for all frequencies CP-format and operation mode is used which means three of the points in this plot should be identical, which they are not. It might also look like CP-format and operation mode has an influence on the average power consumption, but comparing to the spread of the frequency it is neglectable. Looking at it statistically it seems to be a little weird in its distribution, it was expected to be unimodal and not bimodal. It might be due to a lack of measurements or some other factors. The reasoning for choosing a lognormal distribution is that the fluctuation should be normal distributed for the current consumption but since the power is the current squared and always positive it would then have a lognormal behaviour. With this said future works should probably investigate the reason behind this bimodal tendency. 
+As seen from \autoref{fig:Attach_Power_Points} the $P_{TX}$ has a significant effect on the average power consumption and is will therefore be investigated separately. It looks like almost all frequency measurements is a layer above the others, this is unexpected as a common point shared across all four parameters, which should therefore have used the same average power. It might also look like CP-format and operation mode has an influence on the average power consumption, but comparing to the spread of the frequency it is neglectable. The variance is investigated statistically, a lognormal distribution is chosen to approximate the power consumption as it is assumed, that the fluctuation of the current should be normal distributed and since the power is the current squared and therefore always positive it would should have a lognormal behaviour.  
 
 As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, this can be seen in \autoref{fig:Attach_Pmax}. 
 
@@ -290,44 +291,74 @@ Now the time to attach is investigated the time is found based on \autoref{eq:ti
 
 As can be seen in \autoref{fig:Attach_Time_Points} the time to attach seems to centered around certain values. This could very potentially be based on the occurrences of NPRACH occasions. Beside this none of the parameters seems to influence the time it takes. Because of this a point distribution is applied as it fits this scenario. 
 
-The final element is the energy needed to release the the device. This is found based on area C which is remainder of the time after the attach is completed. Here quite a bit of the time is also spent in idle mode, but the energy consumption of this is assumed to be negligible. Because of this \autoref{eq:energy} is used on area C to find the energy of the release process. The result of which can be seen in \autoref{fig:Release_Points}.
+The final element is the energy needed to release the the device. This is found based on area C which is the time after the attach is completed and until the power drops to just around zero. It is investigated like the attach element by splitting it up into power and time. The average power consumption is found based on \autoref{eq:power}. The result of which can be seen in \autoref{fig:Release_Power_Points}.
 
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
-\tikzsetnextfilename{Release_Points}
+\tikzsetnextfilename{Release_Power_Points}
 \resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Release_Points.tex}}
+\input{figures/QuectelMeas/Release_Power_Points.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
 \tikzsetnextfilename{Release_Stat}
 \resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Release_Stat.tex}}
+\input{figures/QuectelMeas/Release_Power_Stat.tex}}
 \end{minipage}
-\caption{Energy spent during release sequence.}
-\label{fig:Release_Points}
+\caption{Average power consumption during release sequence.}
+\label{fig:Release_Power_Points}
 \end{figure}
 
-In the same sense as with the power two peaks can be seen here, but again a unimodal distribution is used as no explanation is known to do otherwise. A little surprisingly it does not seem that the $P_{TX}$ has any significant influence on the energy consumption. It is chosen to use a lognormal distribution for the same reasoning as with the average power consumption for the attach procedure.   
+%In the same sense as with the power two peaks can be seen here, but again a unimodal distribution is used as no explanation is known to do otherwise. A little surprisingly it does not seem that the $P_{TX}$ has any significant influence on the energy consumption. It is chosen to use a lognormal distribution for the same reasoning as with the average power consumption for the attach procedure.   
+It is seen from \autoref{fig:Release_Power_Points}, that the $P_{TX}$ has an influence, however compared to the influence on the attach procedure the impact is not nearly as defined. It is believe to be because to the energy is mainly spent on RX instead of TX. Likewise the other parameters their own mean value which should not be the case since they share points across the measurements. What can be taken from this is the model does not really support a complicated scenario like a release procedure. Because of this a statistical analysis of the distribution does not make much sense, however instead the value for which 95\% of the measurements is contained is found based on a CDF of the data. 
 
+The time to do the release sequence is found based on \autoref{eq:time} for area C. This is done for all the measurements and the result can be seen in \autoref{fig:Release_Time_Points}. 
 
-From this it can concluded that the elements are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value. The parameters can therefore be described as follows:
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Release_Time_Points}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Release_Time_Points.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Release_Time_Stat1}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Release_Time_Stat1.tex}}
+\end{minipage}
+\caption{Time spent during release sequence.}
+\label{fig:Release_Time_Points}
+\end{figure}
+
+It can be seen that the time it takes to release the device from the network varies a lot. Based on the networks structure, restrictions are made about how long time it can take, but to account for all the values with e.g. a point distribution is not really feasible. Because of this the same trick is applied as with the average power consumption and the 95\% point is found based on the CDF of the data, which can be seen in \autoref{fig:Release_Time_Stat2}.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{Release_Time_Stat2}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Release_Time_Stat2.tex}}
+\end{minipage}
+\caption{Time spent during release sequence.}
+\label{fig:Release_Time_Stat2}
+\end{figure}
+
+From this it can concluded that the elements are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value, but also that the model might be a bit too simplified. Based on the measurement the elements can be described as follows:
 
 \begin{align}
-E_{sync} &\sim\begin{cases} 1.05\cdot 10^{-6} \quad p = 0.758\\
-1.76\cdot 10^{-6} \quad p = 0.242
-\end{cases}\\
-P_{attach} &\sim\text{Lognormal}(\mu_{attach},4.4274\cdot 10^{-4}) \\
+E_{sync} &= 0.223 [J]
+P_{attach} &\sim\text{Lognormal}(\mu_{attach},4.4274\cdot 10^{-4}) [W] \\
 \mu_{attach} &= \begin{cases} log\left(0.1328\cdot\exp(1.4\cdot 10^{-3}\cdot x) + 1.51\cdot 10^{-3}\exp(0.229\cdot x)\right) \quad for x \leq 8 dBm \\
 log\left(0.1225\cdot\exp(21.0\cdot 10^{-3}\cdot x) + 11.7\cdot 10^{-12}\cdot \exp(0.981\cdot x)\right) \quad for x > 8 dBm \end{cases} \\
-T_{attach} &\sim\begin{cases} 2.215 \quad p = 0.2584\\
-2.345 \quad p = 0.4382\\
-2.470 \quad p = 0.1124\\
-2.615 \quad p = 0.1573\\
-2.725 \quad p = 0.0337
+T_{attach} &\sim\begin{cases} 2.215 [s] \quad p = 0.2584\\
+2.345 [s] \quad p = 0.4382\\
+2.470 [s] \quad p = 0.1124\\
+2.615 [s] \quad p = 0.1573\\
+2.725 [s] \quad p = 0.0337
 \end{cases}\\
-E_{release} &\sim \text{Lognormal}(-3.5287,0.1277)
+E_{release} &=0.1799 [W] \cdot 2.938 [s] 
 \end{align}
 
 
@@ -379,7 +410,7 @@ As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelle
 The influence on the average power consumption can be modelled using two function which again can be contributed to the use of a power amplifier. This means that $P_{transmit}$ can be modelled as:
 
 \begin{align}
-&P_{transmit} \sim \text{Lognormal}(\mu_{Pmax},6.0040\cdot 10^{-6}) \\ \nonumber
+&P_{transmit} \sim \text{Lognormal}(\mu_{Pmax},6.0040\cdot 10^{-6}) [W]\\ \nonumber
 &\mu_{Pmax} = \begin{cases} 0.0433\cdot\exp{(0.0002\cdot x)} + 4.13\cdot10^{-3}\cdot\exp{(0.116\cdot x)} \quad for x \leq 8 dBm \\
 0.0399\cdot\exp{(0.0442\cdot x)} + 22.3\cdot10^{-6}\cdot\exp{(0.545\cdot x)} \quad for x > 8 dBm \end{cases}
 \end{align}
@@ -494,18 +525,18 @@ Case 4	& 250 s		& 10485.76 s& 40.96 s	& 1 s				& 20 dBm	\\ \hline
 \label{tab:case_description}
 \end{table}
 
-The expected battery lifetime for these four cases is found for different $t_i$'s as can be seen in \autoref{fig:eDRXvsPSM}.
+The expected battery lifetime for these four cases is found for different $T_i$'s as can be seen in \autoref{fig:eDRXvsPSM}.
 
 \begin{figure}[H]
 \centering
 \tikzsetnextfilename{eDRXvsPSM}
 \resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/eDRXvsPSM2.tex}}
-\caption{Battery life time estimation for the four cases for different $t_i$'s. Full line using PSM, dashed line using eDRX.}
+\caption{Battery life time estimation for the four cases for different $T_i$'s. Full line using PSM, dashed line using eDRX.}
 \label{fig:eDRXvsPSM}
 \end{figure}
 
-As can be seen in \autoref{fig:eDRXvsPSM} the longer the $t_i$ the more impactful the these parameters become which makes sense as more time is spent in idle mode. What is also interesting to note is that each case is going asymptotic towards certain values and that eDRX is more influenced by the timer values than PSM is. To give a more clear picture of the influence of the timer values the $t_i$ is set to 24 hours and the timer values are changed are varied to a further extent this can be seen in \autoref{fig:TimerPlot_plots}.
+As can be seen in \autoref{fig:eDRXvsPSM} the longer the $T_i$ the more impactful the these parameters become which makes sense as more time is spent in idle mode. What is also interesting to note is that each case is going asymptotic towards certain values and that eDRX is more influenced by the timer values than PSM is. To give a more clear picture of the influence of the timer values the $T_i$ is set to 24 hours and the timer values are changed are varied to a further extent this can be seen in \autoref{fig:TimerPlot_plots}.
 
 
 \begin{figure}[H]
@@ -525,7 +556,7 @@ As can be seen in \autoref{fig:eDRXvsPSM} the longer the $t_i$ the more impactfu
 \label{fig:TimerPlot_plots}
 \end{figure}
 
-From \autoref{fig:TimerPlot_plots} it can be seen that the values for the eDRX timers are very influential as the expected lifetime is varying  from 0.075 years to 10.78 years, where for PSM the lifetime only varies from 10.97 to 10.13 years. The next step is to look at the influence of $T_{transmit}$ and $P_{TX}$. To do this four scenarios are picked such that the differences for high and low $T_i$'s in each idle mode can be compared, the values chosen to showcase this can be seen in \autoref{tab:scenario_description}.
+From \autoref{fig:TimerPlot_plots} it can be seen that the values for the eDRX timers are very influential, as the expected lifetime is varying from 0.15 years to 17.34 years, where for PSM the lifetime only varies from 15.33 to 16.28 years. The next step is to look at the influence of $T_{transmit}$ and $P_{TX}$. To do this four scenarios are picked such that the differences for high and low $T_i$'s in each idle mode can be compared, the values chosen to showcase this can be seen in \autoref{tab:scenario_description}.
 
 
 \begin{table}[H]
@@ -597,94 +628,95 @@ For each of the points in each of plots the energy usages has been divided up in
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
-\tikzsetnextfilename{eDRX_each_hour_barplot}
+\tikzsetnextfilename{PSM_each_hour_barplot}
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Scenario_1_barplot.tex}}
 \end{minipage}
-\hfill
 \begin{minipage}{0.48\textwidth}
+%Scenario 1
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|} \hline
- & Pont 1	& Pont 2	& Pont 3	& Pont 4 \\ \hline
-\cellcolor{mycolor5} Idle	& 6.8015\% 	& 0.7056\%	& 3.3341\%	& 0.0054\%\\ \hline
-\cellcolor{mycolor4}Release	& 10.2942\% 	& 1.0816\%	& 5.0462\%	& 0.0083\%\\ \hline
-\cellcolor{mycolor3}Transmit	& 0.0852\% 	& 89.5107\%	& 6.0503\%	& 99.8450\%\\ \hline
-\cellcolor{mycolor2}Attach	& 82.8188\% 	& 8.7020\%	& 85.5693\%	& 0.1412\%\\ \hline
-\cellcolor{mycolor1}Sync	& 0.0003\% 	& 0.0000\%	& 0.0002\%	& 0.0000\%\\ \hline
-Lifetime (years) & 4.0048 & 0.4208 & 1.9631 & 0.0032 \\ \hline
-\end{tabular}}
-\end{table}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\tikzsetnextfilename{eDRX_each_day_barplot}
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Scenario_2_barplot.tex}}
-\end{minipage}
-\hfill
-\begin{minipage}{0.48\textwidth}
-\begin{table}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|c|c|c|c|c|} \hline
- & Pont 1	& Pont 2	& Pont 3	& Pont 4 \\ \hline
-\cellcolor{mycolor5}Idle	& 45.6896\% 	& 7.6534\%	& 28.4484\%	& 0.0633\%\\ \hline
-\cellcolor{mycolor4}Release	& 5.9988\% 	& 1.0060\%	& 3.7351\%	& 0.0083\%\\ \hline
-\cellcolor{mycolor3}Transmit	& 0.0496\% 	& 83.2475\%	& 4.4784\%	& 99.7872\%\\ \hline
-\cellcolor{mycolor2}Attach	& 48.2617\% 	& 8.0931\%	& 63.3379\%	& 0.1411\%\\ \hline
-\cellcolor{mycolor1}Sync	& 0.0002\% 	& 0.0000\%	& 0.0001\%	& 0.0000\%\\ \hline
-Lifetime (years) & 56.0102 & 9.3925 & 34.8745 & 0.0777 \\ \hline
-\end{tabular}}
-\end{table}
-\end{minipage}
-\begin{minipage}{0.48\textwidth}
-\tikzsetnextfilename{PSM_each_hour_barplot}
-\resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Scenario_3_barplot.tex}}
-\end{minipage}
-\hfill
-\begin{minipage}{0.48\textwidth}
-\begin{table}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|c|c|c|c|c|} \hline
- & Pont 1	& Pont 2	& Pont 3	& Pont 4 \\ \hline
-\cellcolor{mycolor5}Idle	& 5.7725\% 	& 0.5839\%	& 2.8138\%	& 0.0045\%\\ \hline
-\cellcolor{mycolor4}Release	& 10.4079\% 	& 1.0830\%	& 5.0733\%	& 0.0083\%\\ \hline
-\cellcolor{mycolor3}Transmit	& 0.0861\% 	& 89.6204\%	& 6.0829\%	& 99.8460\%\\ \hline
-\cellcolor{mycolor2}Attach	& 83.7335\% 	& 8.7127\%	& 86.0300\%	& 0.1412\%\\ \hline
-\cellcolor{mycolor1}Sync	& 0.0003\% 	& 0.0000\%	& 0.0002\%	& 0.0000\%\\ \hline
-Lifetime (years) & 4.0490 & 0.4213 & 1.9737 & 0.0032 \\ \hline
+ & Pont 1	& Pont 2	& Pont 3	& Pont 4	\\ \hline
+\cellcolor{mycolor5}Idle	& 4.6009\% 	& 0.8012\%	& 2.9499\%	& 0.0067\%\\ \hline
+\cellcolor{mycolor4}Release	& 50.7850\% 	& 9.0970\%	& 32.5614\%	& 0.0763\%\\ \hline
+\cellcolor{mycolor3}Transmit	& 0.0458\% 	& 82.1184\%	& 4.2587\%	& 99.7759\%\\ \hline
+\cellcolor{mycolor2}Attach	& 44.5683\% 	& 7.9834\%	& 60.2301\%	& 0.1411\%\\ \hline
+Lifetime (years)	& 2.1552 	& 0.3860	& 1.3818	& 0.0032\\ \hline
 \end{tabular}}
 \end{table}
 \end{minipage}
 \begin{minipage}{0.48\textwidth}
 \tikzsetnextfilename{PSM_each_day_barplot}
 \resizebox{\textwidth}{!}{
-\input{figures/QuectelMeas/Scenario_4_barplot.tex}}
+\input{figures/QuectelMeas/Scenario_2_barplot.tex}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
+%Scenario 2
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|} \hline
- & Pont 1	& Pont 2	& Pont 3	& Pont 4 \\ \hline
-\cellcolor{mycolor5}Idle	& 59.5285\% 	& 12.6573\%	& 41.0104\%	& 0.1107\%\\ \hline
-\cellcolor{mycolor4}Release	& 4.4695\% 	& 0.9514\%	& 3.0791\%	& 0.0083\%\\ \hline
-\cellcolor{mycolor3}Transmit	& 0.0370\% 	& 78.7353\%	& 3.6919\%	& 99.7399\%\\ \hline
-\cellcolor{mycolor2}Attach	& 35.9581\% 	& 7.6545\%	& 52.2138\%	& 0.1411\%\\ \hline
-\cellcolor{mycolor1}Sync	& 0.0001\% 	& 0.0000\%	& 0.0001\%	& 0.0000\%\\ \hline
-Lifetime (years) & 41.7312 & 8.8834 & 28.7495 & 0.0777 \\ \hline
+ & Pont 1	& Pont 2	& Pont 3	& Pont 4	\\ \hline
+\cellcolor{mycolor5}Idle	& 53.6666\% 	& 16.6180\%	& 42.1967\%	& 0.1655\%\\ \hline
+\cellcolor{mycolor4}Release	& 24.6652\% 	& 7.6465\%	& 19.3936\%	& 0.0762\%\\ \hline
+\cellcolor{mycolor3}Transmit	& 0.0223\% 	& 69.0250\%	& 2.5365\%	& 99.6174\%\\ \hline
+\cellcolor{mycolor2}Attach	& 21.6459\% 	& 6.7105\%	& 35.8732\%	& 0.1409\%\\ \hline
+Lifetime (years)	& 25.1212 	& 7.7878	& 19.7521	& 0.0776\\ \hline
 \end{tabular}}
 \end{table}
-
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_hour_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Scenario_3_barplot.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+%Scenario 3
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|} \hline
+ & Pont 1	& Pont 2	& Pont 3	& Pont 4	\\ \hline
+\cellcolor{mycolor5}Idle	& 1.3897\% 	& 0.2812\%	& 0.9489\%	& 0.0024\%\\ \hline
+\cellcolor{mycolor4}Release	& 42.1584\% 	& 8.7741\%	& 28.7849\%	& 0.0763\%\\ \hline
+\cellcolor{mycolor3}Transmit	& 0.0381\% 	& 79.2038\%	& 3.7648\%	& 99.7451\%\\ \hline
+\cellcolor{mycolor2}Attach	& 36.9977\% 	& 7.7000\%	& 53.2445\%	& 0.1411\%\\ \hline
+\cellcolor{mycolor1}Sync	& 19.4162\% 	& 4.0409\%	& 13.2570\%	& 0.0351\%\\ \hline
+Lifetime (years)	& 1.7891 	& 0.3723	& 1.2215	& 0.0032\\ \hline
+\end{tabular}}
+\end{table}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\tikzsetnextfilename{eDRX_each_day_barplot}
+\resizebox{\textwidth}{!}{
+\input{figures/QuectelMeas/Scenario_4_barplot.tex}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+%Scenario 4
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|} \hline
+ & Pont 1	& Pont 2	& Pont 3	& Pont 4	\\ \hline
+\cellcolor{mycolor5}Idle	& 25.2881\% 	& 6.5054\%	& 18.7042\%	& 0.0603\%\\ \hline
+\cellcolor{mycolor4}Release	& 31.9412\% 	& 8.2264\%	& 23.6251\%	& 0.0762\%\\ \hline
+\cellcolor{mycolor3}Transmit	& 0.0288\% 	& 74.2601\%	& 3.0899\%	& 99.6874\%\\ \hline
+\cellcolor{mycolor2}Attach	& 28.0312\% 	& 7.2194\%	& 43.7002\%	& 0.1410\%\\ \hline
+\cellcolor{mycolor1}Sync	& 14.7106\% 	& 3.7887\%	& 10.8806\%	& 0.0351\%\\ \hline
+Lifetime (years)	& 32.5317 	& 8.3785	& 24.0618	& 0.0776\\ \hline
+\end{tabular}}
+\end{table}
 \end{minipage}
 \caption{The distribution of power for each phase of a cycle. Blue is the sync phase, red is the attach phase, yellow is the transmit phase, purple is the release phase and green is the idle phase.}
 \label{fig:barplot_plots}
 \end{figure}
 
-It can be seen that depending on the point and scenario the energy is used quite differently, however some commonalities can be seen. For instance if each transmission is 100 s more than 78\% of the energy is spent during the transmit phase if $P_{TX}$ is also high then more than 99\% of the energy is spent here. Likewise can it be seen that the energy used to synchronise the devise is negligible. Another point is that  only when the $T_i$ is high does $E_idle$ take op more than 9\% of the used energy. The energy spent during the attach phase is also quite high only really topped by the energy spent during a long transmission and comparable to the energy used during the idle phase for scenario 2 and 4. 
+It can be seen that depending on the point and scenario the energy is used quite differently, however some commonalities can be seen. For instance if each transmission is 100 s more than 69\% of the energy is spent during the transmit phase if $P_{TX}$ is also high then more than 99\% of the energy is spent here. Another point is that with a low $T_i$, $E_idle$ take op less than 5\% of the used energy, while for a high $T_i$ it can take up 53\% of the energy. As mentioned when finding the energy to release the device from the network, the model fails to predict how it scales with $P_{TX}$ and a 95\% limit was taken as a worst case estimate. This shows here as the energy spent during the attach phase is actually less than that used during the release phase when $P_{TX}$ is set low, which in reality should not be the case. It can also be seen here why a low $T_i$ makes eDRX more feasible than PSM, as the energy spent to synchronize is fairly high, while for high $T_i$ the paging will be even higher.  
 
-With this analysis it can be concluded that a device can achieve a battery lifetime of more than 10 years, but in extreme situations the repetition value will increase which makes $T_{transmit}$ increase, and also the needed $P_{TX}$ would be high. When these parameters are high it has been shown that a battery lifetime might not even exceed one year independently on all other parameters. To combat this focus should be on decreasing $T_{transmit}$ as much as possible, and also on increasing $T_i$. 
+With this analysis it can be concluded that a device can achieve a battery lifetime of more than 10 years, but in extreme situations the repetition value will increase which makes $T_{transmit}$ increase, and also the needed $P_{TX}$ would be high. When these parameters are high it has been shown that a battery lifetime might not even exceed one year independently on all other parameters. To combat this when designing the devices, focus should be put on decreasing $T_{transmit}$ as much as possible, and also on increasing $T_i$. 
