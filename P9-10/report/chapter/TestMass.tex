@@ -3,7 +3,122 @@ The focus of this chapter is to showcase the emulator describe in \autoref{ch:Ma
 
 \textit{The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.}
 
-This will be done by comparing the changed code to the original code as well as testing the performance of the code at higher number of devices emulated.
-The performance criteria that will be look into is CPU usage, memory usage, execution time and error rate.
-CPU and memory usage is used to test where possible bottle necks can be compared to overloading the used computer. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual kernels at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. The execution time will be look into to see if any processes in code is taking longer, after the changes. This will be measured by inserting prints of time stamps into the code, when the code goes from one step to another. Lastly the error rate will showcase the stability of the code.
-The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}.
+This will be done by comparing the changed code to the baseline code as well as testing the performance of the code at higher number of devices emulated.
+The performance criteria that will be look into is:
+
+\begin{itemize}
+\item CPU usage
+\item Memory usage
+\item Execution time
+\item Error rate
+\end{itemize}
+
+CPU and memory usage is used to test where possible bottle necks can be compared to overloading the used computer. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual kernels at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. 
+
+The execution time will be look into to see if any processes in code is taking longer, after the changes. This will be measured by inserting prints of time stamps into the code, when the code goes from one step to another. 
+
+Lastly the error rate will showcase the stability of the code. This is done by running the code multiple times and to analyze the errors occurring. The errors can be analyzed from the log files, produce by the code, when executed.
+
+The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}. The test will be split up into the different steps in the code process discussed in \autoref{sub:MassStruct}.
+
+\section{Error rate}
+The error rate is found by 20 trials at each number of devices, until the emulator hit 100\% in error rate. Beside testing the emulator with the changed code, the baseline code will also be tested, but as it can only emulate one devices, this will be what the code will be matched against. These result can be seen in \autoref{fig:MT_error}.
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_error}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_error.tex}}
+\caption{Error rate for different amount of devices.}
+\label{fig:MT_error}
+\end{figure}
+
+As it can be seen in \autoref{fig:MT_error}, the error rate is higher for the changed code, than the baseline which still is not perfect. Another important aspect is that when the number of devices hit 13, the error rate goes to 100\%, which shows the limit of the emulator. To get a better understanding of these error, a diagram over the different error is shown in \autoref{fig:MT_error_dist}.
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_error_dist}
+\centering
+\resizebox{0.8\textwidth}{!}{
+\input{figures/MT_error_dist.tex}}
+\caption{The distribution of different errors for different amount of devices.}
+\label{fig:MT_error_dist}
+\end{figure}
+
+As seen in \autoref{fig:MT_error_dist} is there six different types of errors that have occurred in the testing.
+
+Radio error is the only error type that the baseline also have. It comes from miscommunication between the radio class and the API for the USRP B210. It occur when the process begins the search after SIB messages, where some radio parameters is changed. As the radio error is the only error occurring for the baseline, this should be the only error which are not produced by the changed made to the baseline.
+
+The ilde after MIB error occur in the same part of the process as the radio error, where the emulator gets stuck and runs without retrying or closing down. This error type is the most occurring type of the errors produced by the changes, which will be the most optimal place to improve the error rate, especially for higher amount of devices.
+
+The msg2 not received error is when all devices have gone through the NPRACH step and waiting on the msg2, which is never received or not registered if received. This error is very rare and have no tendencies.
+
+Cell sync error is when the emulator shuts down before a synchronization is finalized and it goes to the MIB step. This errors is very rare, but as the error occurs so early in the process, these test runs will not give any data for any other step, beside initialization.
+
+Transmission after SIB1 is an error that occurs sometimes at the SIB1 step and the radio class transmit a signal, which course the emulator to shut down. This error type have a tendency to occur with higher amount of devices and can indicate a bottleneck in the process to get a higher amount of devices.
+
+NPRACH error is an error that occurs when some devices completes the NPRACH step, but other do not, as the system shuts down before hand. This error type have the same tendency as the transmission after SIB1 error and indicates the same thing.
+
+
+
+
+
+\section{Initialization}
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_Init_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_Init_Time.tex}}
+\caption{Execution time for the initialization for different amount of devices. The fitted line is a linear approximation.}
+\label{fig:MT_Init_Time}
+\end{figure}
+
+\section{Synchronization}
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_Sync_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_Sync_Time.tex}}
+\caption{Execution time for the synchronization for different amount of devices.}
+\label{fig:MT_Sync_Time}
+\end{figure}
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_Sync_His}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_Sync_His.tex}}
+\caption{The distribution for the execution time for synchronization for all different amount of devices}
+\label{fig:MT_Sync_His}
+\end{figure}
+
+\section{MIB decoding}
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_MIB_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_MIB_Time.tex}}
+\caption{Execution time for the decoding the MIB for different amount of devices.}
+\label{fig:MT_MIB_Time}
+\end{figure}
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_MIB_His}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_MIB_His.tex}}
+\caption{The distribution for the execution time for decoding the MIB for all different amount of devices.}
+\label{fig:MT_MIB_His}
+\end{figure}
+
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_MIB_Tries}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_MIB_Tries.tex}}
+\caption{The distribution for number of tries for decoding the MIB for different amount of devices.}
+\label{fig:MT_MIB_Tries}
+\end{figure}
