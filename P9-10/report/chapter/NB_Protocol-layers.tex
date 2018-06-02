@@ -13,10 +13,10 @@ The following is focused on the communication protocol in the \gls{CIoT}-Uu inte
 The purpose and functionalities of these layers are explained in the following.
 
 \subsection{NAS}
-The \gls{NAS} layer is the top layer in the control plane. It signals directly between the \gls{UE} and the \gls{MME} \citep[ch. 3]{book_LTE_for_UMTS}. There are two protocols in the \gls{NAS} layer, the \gls{EMM} and the \gls{ESM}. The \gls{EMM} handles re-activation from idle mode. The \gls{UE} initiated case is called service request, the network initiated case is called paging. The \gls{EMM} protocol is used for handling attachment and detachment from the system when the \gls{UE} is in idle mode, in connected mode lower layer protocols handles this instead \citep[ch. 3]{book_LTE_for_UMTS}. It has been suggested that a new protocol should be implemented allowing the \gls{UE} to transmit a small amount of data directly in the \gls{NAS} layer, the details of this protocol has not yet been established \citep{REL-13}. 
+The \gls{NAS} layer is the top layer in the control plane. It signals directly between the \gls{UE} and the \gls{MME} \citep[ch. 3]{book_LTE_for_UMTS}. There are two protocols in the \gls{NAS} layer, the \gls{EMM} and the \gls{ESM}. The \gls{EMM} handles re-activation from idle mode. The \gls{UE} initiated case is called service request, the network initiated case is called paging. The \gls{EMM} protocol is used for handling attachment and detachment from the system when the \gls{UE} is in idle mode, in connected mode lower layer protocols handles this instead \citep[ch. 3]{book_LTE_for_UMTS}. It has been suggested that a new protocol should be implemented allowing the device to transmit a small amount of data directly in the \gls{NAS} layer, the details of this protocol has not yet been established \citep{REL-13}. 
 
 \subsection{RRC} \label{sec:RRC}
-The \gls{RRC} layer of the protocol is strictly control plane layer. It handles a great deal of control functions in the system including transition between \gls{UE} states and bearer request. The functionalities provided by the \gls{RRC} is \citep[ch. 6.6]{book_LTE_for_UMTS}:
+The \gls{RRC} layer of the protocol is strictly control plane layer. It handles a great deal of control functions in the system including transition between device states and bearer request. The functionalities provided by the \gls{RRC} is \citep[ch. 6.6]{book_LTE_for_UMTS}:
 
 \begin{itemize}
 	\item Broadcast of system information
@@ -44,7 +44,7 @@ One of the biggest changes from \gls{LTE} to \gls{NB-IoT} is the focus on reduci
 \end{figure}
 
 
-With this new structure comes a greater focus on \gls{RRC} resume connection, which is very advantageous with regards to power consumption as it allows the \gls{UE} to suspend its connection and save its \gls{AS} go into \gls{eDRX}, when it then wakes up again it can make a resume request where it uses its previous \gls{AS} to transmit its data reducing the overhead considerably. This can also be seen from \autoref{tab:signaling_comparison} where a comparison between the different procedures is shown. 
+With this new structure comes a greater focus on \gls{RRC} resume connection, which is very advantageous with regards to power consumption as it allows the device to suspend its connection and save its \gls{AS} go into \gls{eDRX}, when it then wakes up again it can make a resume request where it uses its previous \gls{AS} to transmit its data reducing the overhead considerably. This can also be seen from \autoref{tab:signaling_comparison} where a comparison between the different procedures is shown. 
 
 \begin{table}[H]
 \centering
@@ -72,7 +72,7 @@ The \gls{RRC} sets up three different \gls{SRB}s. The \gls{SRB}s is used to carr
 
 
 \textbf{\gls{SIB}s}\\
-Before the \gls{UE} attempts to access the system it needs a lot of information about the system, that is carried in the \gls{SIB}s. For \gls{NB-IoT} there are eight different \gls{SIB}s messages. A list of the information carried in the different \gls{SIB}s can be seen in  \autoref{tab:NB-SIB}. The \gls{RRC} takes care of updating these messages and paging \gls{UE}s if changes occur.
+Before the device attempts to access the system it needs a lot of information about the system, that is carried in the \gls{SIB}s. For \gls{NB-IoT} there are eight different \gls{SIB}s messages. A list of the information carried in the different \gls{SIB}s can be seen in \autoref{tab:NB-SIB}. The \gls{RRC} takes care of updating these messages and paging the devices if changes occur.
 
 \begin{table}[H]
 \centering
@@ -92,10 +92,10 @@ Before the \gls{UE} attempts to access the system it needs a lot of information 
 \end{table}
 
 \textbf{Paging} \\
-Paging serves two main functions, the first is to notify a \gls{UE} in \gls{RRC} idle state to set up a \gls{RRC} connection to handle incoming data, the second is to inform \gls{UE}s both in \gls{RRC} idle and  \gls{RRC} connected state the system information has changed. \citep[ch. 7]{NB-IoT_Book}
+Paging serves two main functions, the first is to notify a device in \gls{RRC} idle state to set up a \gls{RRC} connection to handle incoming data, the second is to inform the devices both in \gls{RRC} idle and \gls{RRC} connected state the system information has changed. \citep[ch. 7]{NB-IoT_Book}
 
 \textbf{Establishment, Maintenance and Release of \gls{RRC} Connection} \\
-When an \gls{RRC} connection setup is requested, the \gls{eNB} has the option to reject it with a wait timer if the network is overloaded and can set the access barrer parameters appropriately in the \gls{NB-SIB}14. In the \gls{RRC} connection request message the \gls{UE} can trasmit its \gls{S-TMSI} if it possess a valid version else it will transmit a 40 bits random value. Five different establishment causes has been defined: emergency, high-priority access, mobility-terminated access, mobile-originated signaling and mobile-originated data. In \gls{NB-SIB}1 there exists at most six different \gls{PLMN} identities, the \gls{UE} selects one and reports it in the  \gls{RRC} connection setup complete message along with any \gls{MME} the \gls{UE} might already be registered to. The \gls{eNB} then finds the \gls{MME} and starts the S1 connection setup. When a connection setup is successful the \gls{UE} moves to the \gls{RRC} connected state. \citep[ch. 6.6]{book_LTE_for_UMTS}
+When an \gls{RRC} connection setup is requested, the \gls{eNB} has the option to reject it with a wait timer if the network is overloaded and can set the access barrer parameters appropriately in the \gls{NB-SIB}14. In the \gls{RRC} connection request message the device can trasmit its \gls{S-TMSI} if it possess a valid version else it will transmit a 40 bits random value. Five different establishment causes has been defined: emergency, high-priority access, mobility-terminated access, mobile-originated signaling and mobile-originated data. In \gls{NB-SIB}1 there exists at most six different \gls{PLMN} identities, the device selects one and reports it in the  \gls{RRC} connection setup complete message along with any \gls{MME} the device might already be registered to. The \gls{eNB} then finds the \gls{MME} and starts the S1 connection setup. When a connection setup is successful the device moves to the \gls{RRC} connected state. \citep[ch. 6.6]{book_LTE_for_UMTS}
 
 %\todo{should we put detailed connection options in here, should we go in detail with further RRC functions and what about radio bearers}
 
@@ -232,7 +232,7 @@ A \gls{MAC} \gls{PDU} consist of the \gls{MAC} header along with the \gls{MAC} c
 \label{fig:MAC_PDU}
 \end{figure}
 
-The header is different depending upon which transport channel is used as can be seen in \autoref{fig:MAC_PDU}. It include key parameter for control of both the physical layer as well as the logical channel identity. It is also the \gls{MAC} layer that handles contention resolution with \gls{HARQ}, for this purpose the header includes \gls{CCCH} and \gls{C-RNTI} for the \gls{UE}. When a \gls{UE} tries to connect to the network the \gls{MAC} layer also calculates timing advance. 
+The header is different depending upon which transport channel is used as can be seen in \autoref{fig:MAC_PDU}. It include key parameter for control of both the physical layer as well as the logical channel identity. It is also the \gls{MAC} layer that handles contention resolution with \gls{HARQ}, for this purpose the header includes \gls{CCCH} and \gls{C-RNTI} for the device. When a device tries to connect to the network the \gls{MAC} layer also calculates timing advance. 
 
 
 \subsection{PHY}\label{sec:NB-IoT/Physical Layer}
@@ -251,7 +251,7 @@ To allow in-band operation the physical layer of \gls{NB-IoT} needs to follow th
 \subsubsection{Downlink}
 As the primary users of legacy \gls{LTE} does not know of the \gls{NB-IoT} system the primary concern is the interference it causes. Some structural guidelines is therefore needed when designing the \gls{NB-IoT} system, first it needs to blend in with the \gls{OFDM} symbols of the \gls{LTE} system meaning that timing alignment and subcarrier spacing is already determined \citep[ch. 7.2]{NB-IoT_Book}. 
 
-\textbf{Channel Raster}\\
+Channel Raster\\
 As \gls{NB-IoT} functions as an individual system it needs it own overhead. To ensure the functionality of both systems the \gls{PRB}s used for \gls{NB-IoT} is therefore placed outside the six center \gls{PRB}'s, as these are used for LTE synchronization. This implies that only the LTE cells with a bandwidth larger than 1.4 MHz can host NB-IoT \citep{whitepaper}. Furthermore to keep the receiver complexity and the battery consumption at a minimum the \gls{UE} searches for the \gls{NB-IoT} cell on a raster of 100 kHz \citep[ch. 7.2]{NB-IoT_Book}. The center of the bandwidth host a DC-subcarrier, and the \gls{PRB}'s is placed around this. This means that the center of a PRB will be offset from the raster for instance PRB \#25 in \autoref{fig:NB deployment} has a center of 97.5 kHz which is 2.5 kHz off from the raster. Because of this an additional requirement is made that only those \gls{PRB}'s where the offset is less than 7.5 kHz can be used to host a NB-IoT cell \citep{primer}. The PRB's that fulfil this criteria can be seen in \autoref{tab:available-PRBs}. 
 
 \begin{table}[H]
@@ -265,8 +265,7 @@ Available PRB indexes		& 2, 12	& 2, 7, 17, 22	& 4, 9, 14, 19, 30, 35, 40, 45 & 2
 \end{table}
 
 
-\textbf{Frame Structure}\\
-
+Frame Structure\\
 To fit into a \gls{LTE} \gls{PRB} the frame structure needs to be very similar to legacy \gls{LTE}, the structure is divided into: hyperframe, frame, subframe and slots. Where two slots make a subframe, ten subframes make a frame and 1024 frames make a hyperframe. A complete cycle takes 1024 hyperframes which corresponds to 2 hours 54 minutes and 46 seconds.  \autoref{fig:downlink-structure} \citep[ch. 7.2]{NB-IoT_Book}. 
 
 
@@ -301,16 +300,18 @@ By zooming in on a subframe, it is possible to see how the different \gls{OFDM} 
 
 It should be noted that the described allocation is a worst case scenario for the \gls{DL}. If the system is deployed either in guard-band or as stand-alone only the \gls{NRS} is actually used, but before the \gls{UE} is synchronized it does not know what is in use and needs to guard for this worst case scenario. When the \gls{UE} receive the \gls{MIB-NB} and \gls{NB-SIB}1 will it get information in regards to the number of carriers and the size of \gls{LTE} \gls{PDCCH} \citep{whitepaper}. 
 
+Channels\\ 
+As shown above three channels exist in the \gls{DL} part of the protocol, these are respectively: \gls{NPBCH}, \gls{NPDCCH} and \gls{NPDSCH}. The structure of the \gls{NPBCH} is explained in the \autoref{sec:Network_access}.
 
+The \gls{NPDCCH} carries three types of information, one is use to indicate \gls{DL} scheduling for the devices, one provides \gls{UL} grant information and the last indicates paging or system information update \citep{NB-IoT_Book}. It should be noted that which subframes contain \gls{NPDCCH} is signaled during \gls{RRC} in the connection phase typically a 10 or 40 bits bitmap \citep{whitepaper}, and depending on the coverage level the \gls{NPDCCH} might be repeated up 2048 times \citep{NB-IoT_Book}.
 
+The \gls{NPDSCH} is used to transmit data when an bearer is established. Depending on the coverage level the \gls{NPDSCH} might be repeated up 2048 times \citep{NB-IoT_Book}. It may carry up to 680 bits per \gls{TBS} depending on the \gls{TBS} index and the number of subframes used. 
 
 \subsubsection{Uplink}
-As mentioned in \autoref{ch:Introduction} most of the data in the system is \gls{UL} data. Therefore has the \gls{UL} spectrum been tuned to accommodate the massive amount of users. The timing alignment of the \gls{UL} follows the \gls{DL} meaning when synchronized to the \gls{DL} band, the \gls{UE} is also synchronized to the \gls{UL} except for the delay introduced by the travelling time of the signal. This delay is found at the beginning of the \gls{RAP}, which will be further explained in \autoref{sec:RAP}.
+As mentioned in \autoref{ch:Introduction} most of the data in the system is \gls{UL} data. Therefore has the \gls{UL} spectrum been tuned to accommodate the massive amount of users. The timing alignment of the \gls{UL} follows the \gls{DL} meaning when synchronized to the \gls{DL} band, the device is also synchronized to the \gls{UL} except for the delay introduced by the travelling time of the signal. This delay is found at the beginning of the \gls{RAP}, which will be further explained in \autoref{sec:RAP}.
 
-\textbf{Frame Structure}\\
+Frame Structure\\
 Compared to legacy \gls{LTE} the \gls{UL} frame can take different formats. It is 180 kHz wide as the \gls{DL} frame, however the sub carrier width can be both 3.75 kHz and 15 kHz.
 
 
-\subsection{Channels} 
-All subframes that are not used for the above mentioned or used for \gls{MBSFN} can be used for either \gls{NPDCCH} or \gls{NPDSCH}. The \gls{NPDCCH} is meant for indicate for which \gls{UE} there is data, where to find it and how often it is repeated. It also provides \gls{UL} grant and position for \gls{UL} data. Finally paging or system information update is also indicated on this channel \citep{whitepaper}. It should be noted that which subframes contain \gls{NPDCCH} is signaled during \gls{RRC} in the connection phase typically a 10 or 40 bits bitmap \citep{whitepaper}. 
 

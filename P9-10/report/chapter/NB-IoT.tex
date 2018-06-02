@@ -1,22 +1,22 @@
 %\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp{|}\hsp}{0pt}{\Huge\bfseries}
 \chapter{NB-IoT Protocol}\label{ch:NB-IoT}
 
-The structure of \gls{NB-IoT} is still in the process of being defined, however some structure has been integrated in the \gls{LTE} Rel-13 \citep{REL-13}. The primary difference between \gls{LTE} and \gls{NB-IoT} is the requirements set by the \gls{UE}. For \gls{LTE} it is the download capacity that is needed i.e. video streaming, internet surfing etc. however for the \gls{NB-IoT} it is the uplink capacity that is needed, users are primarily smart meters and other measurement equipment \citep{primer}. These sort of devices has a low throughput and are fairly insensitive towards delay, however in terms of battery life time and coverage area the requirements are more severe as the equipment might be placed in hard to get to places e.g. cellars, sewers etc. A overview of the requirements set for \gls{NB-IoT} is \citep{NB-IoT_Book}:
+The structure of \gls{NB-IoT} is still in the process of being defined, however some structure has been integrated in the \gls{LTE} Rel-13 \citep{REL-13}. The primary difference between \gls{LTE} and \gls{NB-IoT} is the requirements set for the devices. Because of this most of the content in this chapter is based on the usage of the \gls{LTE} system, trying to elaborate on the the specific \gls{NB-IoT} features. For \gls{LTE} it is the download capacity that is needed i.e. video streaming, internet surfing etc. however for the \gls{NB-IoT} it is the uplink capacity that is needed, users are primarily smart meters and other measurement equipment \citep{primer}. These sort of devices has a low throughput and are fairly insensitive towards delay, however in terms of battery life time and coverage area the requirements are more severe as the equipment might be placed in hard to get to places e.g. cellars, sewers etc. A overview of the requirements set for \gls{NB-IoT} is \citep{NB-IoT_Book}:
 
 \begin{itemize}
-\item Ultra-low complexity \gls{UE}s
+\item Ultra-low complexity devices
 	\begin{itemize}
-	\item The \gls{UE} has a sample rate of 240 KHz
-	\item Only supports \gls{TBCC}
-	\item Half-duplex
-	\item Uses \gls{SISO} connection
+	\item The devices have a sample rate no higher than 240 KHz
+	\item The devices only needs to use \gls{TBCC}
+	\item The devices only uses half-duplex
+	\item The connection is limited to \gls{SISO}
 	\end{itemize}
 \item Improved coverage with a \gls{MCL} up to 164 dB
 	\begin{itemize}
-	\item \gls{MCL} surpassing \gls{GPRS} system with 20 dB
+	\item The \gls{MCL} should surpass \gls{GPRS} system with 20 dB
 	\item Improve coverage by introducing \gls{CE} levels 
 	\end{itemize}
-\item Support massive number of \gls{UE}s as high as 52547 devices per cell-site sector
+\item Support massive number of devices as high as 52547 devices per cell-site sector
 \item Improved power efficiency with a battery life time of 10 years with a battery capacity of 5 Wh
 	\begin{itemize}
 	\item Using \gls{CE} to minimize Power amplifier backoff increasing efficiency.
@@ -29,7 +29,7 @@ The structure of \gls{NB-IoT} is still in the process of being defined, however 
 	\end{itemize}
 \end{itemize}
 
-From this it can also be seen that there are no requirements to the latency of the communication between \gls{UE} and the network. To describe how to fulfill the set requirements a top down method will be used. Starting with the network structure of \gls{NB-IoT}.
+From this it can also be seen that there are no requirements to the latency of the communication between the device and the network. To describe how to fulfil the set requirements a top down method will be used. Starting with the network structure of \gls{NB-IoT}.
 
 
 
@@ -101,10 +101,10 @@ msg5 & is the connection establishment complete message\\
 This process can also be seen on \autoref{fig:RAP}
 
 
-%\tikzsetnextfilename{RAP}
+\tikzsetnextfilename{RAP}
 \begin{figure}[H]
 \centering
-%\input{figures/MIB-NB.tex}
+\input{figures/RAP.tex}
 \caption{Message visualisation of the \gls{RAP}}
 \label{fig:RAP}
 \end{figure}
@@ -113,7 +113,7 @@ The important parts to take from this is that the device gets a \gls{Ra-RNTI} ba
 
 
 \subsection{Connection Control}
-A connected device needs to be able to move around the different device states as seen in \autoref{fig:RecvState}. To do this different procedures is used. The primary concern here is moving in and out of idle modes, generally when connected, a device does not want to give up on its \gls{C-RNTI} as this makes the attach sequence significantly longer, that is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS} when it goes in idle mode, this \gls{AS} is then used again when the device resumes the connection, this feature is utilized whenever possible. 
+A connected device needs to be able to move around the different device states as seen in \autoref{fig:UE-states}. To do this different procedures is used. The primary concern here is moving in and out of idle modes, generally when connected, a device does not want to give up on its \gls{C-RNTI} as this makes the attach sequence significantly longer, that is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS} when it goes in idle mode, this \gls{AS} is then used again when the device resumes the connection, this feature is utilized whenever possible. 
 
 Another important aspect is the idle modes, this is where a device is expected to spend most of its time so the power consumption here needs to be minimal. The two primary idle modes are \gls{eDRX} and \gls{PSM}, however in both modes a period of time is spent in normal DRX mode. 
 
@@ -185,11 +185,6 @@ The PSM mode is designed to support long transmission intervals, a DRX period st
 
 The values for the DRX period and the PSM period is a bit more loosely defined with the possibility of a PSM cycle to take more than a year \citep{NB-IoT_Book}.
 
-\section{Data Transfer}
 
-\subsection{Control Plane Optimization}
 
-\subsection{Multi Carrier Configuration}
-
-\subsection{Repetition Schemes}
 
