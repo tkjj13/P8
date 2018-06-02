@@ -7,22 +7,23 @@ This will be done by comparing the changed code to the baseline code as well as 
 The performance criteria that will be look into is:
 
 \begin{itemize}
+\item Error rate
+\item Execution time
 \item CPU usage
 \item Memory usage
-\item Execution time
-\item Error rate
 \end{itemize}
 
-CPU and memory usage is used to test where possible bottle necks can be compared to overloading the used computer. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual kernels at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. 
+The error rate will showcase the stability of the code. This is done by running the code multiple times and to analyze the errors occurring. The errors can be analyzed from the log files, produce by the code, when executed.
 
 The execution time will be look into to see if any processes in code is taking longer, after the changes. This will be measured by inserting prints of time stamps into the code, when the code goes from one step to another. 
 
-Lastly the error rate will showcase the stability of the code. This is done by running the code multiple times and to analyze the errors occurring. The errors can be analyzed from the log files, produce by the code, when executed.
+CPU and memory usage is used to test where possible bottle necks can be compared to overloading the used computer. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual processes at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. 
 
-The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}. The test will be split up into the different steps in the code process discussed in \autoref{sub:MassStruct}.
+The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}. The emulator have executed the code 20 times per different amount of devices until the emulator hit 100\% in error rate multiple times in a row. Beside testing the emulator with the changed code, the baseline code will also be tested, but as it can only emulate one devices, this will be what the code will be matched against.
 
 \section{Error rate}
-The error rate is found by 20 trials at each number of devices, until the emulator hit 100\% in error rate. Beside testing the emulator with the changed code, the baseline code will also be tested, but as it can only emulate one devices, this will be what the code will be matched against. These result can be seen in \autoref{fig:MT_error}.
+\label{sec:MTerror}
+The error rate is analyze from the log messages coming from the emulator on its process through the code. These result can be seen in \autoref{fig:MT_error}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_error}
@@ -58,61 +59,82 @@ Transmission after SIB1 is an error that occurs sometimes at the SIB1 step and t
 
 NPRACH error is an error that occurs when some devices completes the NPRACH step, but other do not, as the system shuts down before hand. This error type have the same tendency as the transmission after SIB1 error and indicates the same thing.
 
-
-
-
+To further test the emulator, the test will be split up into the different steps in the code process discussed in \autoref{sub:MassStruct}.
 
 \section{Initialization}
+The execution time for the initialization step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Init_Time}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Init_Time}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/MT_Init_Time.tex}}
-\caption{Execution time for the initialization for different amount of devices. The fitted line is a linear approximation.}
+\caption{Execution time for the initialization for different amount of devices and the baseline. The fitted line is a linear approximation.}
 \label{fig:MT_Init_Time}
 \end{figure}
 
-\section{Synchronization}
+From \autoref{fig:MT_Init_Time} it can be seen that there is a linear tendency scaling with the number of devices. It is also seen that even if the baseline and the changed code emulates one device, the baseline have a lower execution time, with a estimated difference to be the same as a single step between different number of devices. The fitted line is estimated to be:
 
+\begin{align}
+&T_{init} (\text{NoD}) = 0.0942 \cdot \text{NoD} + 1.526 [s]
+\end{align}
+
+\section{Synchronization}
+The execution time for the synchronization step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Sync_Time}. As the error type cell sync, mention in \autoref{sec:MTerror}, occurs in this step of the process, some measurements will be equal zero, as the execution time can not be calculated.
+
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Sync_Time}
 \centering
-\resizebox{0.5\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{
 \input{figures/MT_Sync_Time.tex}}
-\caption{Execution time for the synchronization for different amount of devices.}
+\caption{Execution time for the synchronization for different amount of devices and the baseline}
 \label{fig:MT_Sync_Time}
 \end{figure}
-
+\end{minipage}%
+\hfill
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Sync_His}
 \centering
-\resizebox{0.5\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{
 \input{figures/MT_Sync_His.tex}}
 \caption{The distribution for the execution time for synchronization for all different amount of devices}
 \label{fig:MT_Sync_His}
 \end{figure}
+\end{minipage}
+
+As seen in \autoref{fig:MT_Sync_Time} is the execution time for different amount of devices behaving equal to each other. Another aspect seen on the figure is that some measurements have taken some extra time to execute, but is align at the same time values, which also indicated on the histogram in \autoref{fig:MT_Sync_His}. Here it is seen that most measurements is placed at 0.6 s to 0.8 s and the amount at the other points is much lower.
+
+
 
 \section{MIB decoding}
+The execution time for the MIB decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_MIB_Time}. All these measurements is for a full decoding of MIB and all retries have been removed.
+As all earlier occurred errors will infect that there is no measurement point for further steps in the process, the cell sync errors from the synchronization step will still infect the given measurements here and further on.
 
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_Time}
 \centering
-\resizebox{0.5\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{
 \input{figures/MT_MIB_Time.tex}}
-\caption{Execution time for the decoding the MIB for different amount of devices.}
+\caption{Execution time for the decoding the MIB for different amount of devices and the baseline. A single measurement for the base line is placed at 5.0834 s, which is not shown on this figure.}
 \label{fig:MT_MIB_Time}
 \end{figure}
-
+\end{minipage}%
+\hfill
+\begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_His}
 \centering
-\resizebox{0.5\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{
 \input{figures/MT_MIB_His.tex}}
 \caption{The distribution for the execution time for decoding the MIB for all different amount of devices.}
 \label{fig:MT_MIB_His}
 \end{figure}
+\end{minipage}
 
+As seen in \autoref{fig:MT_MIB_Time} do the execution time for the MIB decoding step have the same tendency across different amount of devices. The spread is bigger compared to the synchronazitation step, which also can be seen when comparing the histogram for the two steps, \autoref{fig:MT_MIB_His} and \autoref{fig:MT_Sync_His}. The baseline have the same tendency as the changed code. Mention before are these execution times only for a full decoding. In \autoref{fig:MT_MIB_Tries} is it shown how many tries the different measurements needed before completing the MIB decoding step.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_Tries}
@@ -122,3 +144,8 @@ NPRACH error is an error that occurs when some devices completes the NPRACH step
 \caption{The distribution for number of tries for decoding the MIB for different amount of devices.}
 \label{fig:MT_MIB_Tries}
 \end{figure}
+
+It is seen in \autoref{fig:MT_MIB_Tries} that baseline code is not different from the changed code at a lower amount of devices. At a higher amount of devices does it seems that the changed code is more efficient, as these levels is the amount of tries lower.
+
+
+
