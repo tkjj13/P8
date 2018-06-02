@@ -41,12 +41,10 @@ From this it can also be seen that there are no requirements to the latency of t
 
 
 \section{Network Access}
+This section describes the different procedures needed to navigate in the NB-IoT framework. This is the procedure to establish a connection as well as the procedures to navigate between different connection states. 
 
 \subsection{Cell Search and Synchronization Procedure}
-
-
-\textbf{Synchronization} \\
-The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}, as the device first needs to search for the cell and then acquire the system information. 
+The first thing needed of a device is to locate a cell, this is done during the as part of the synchronization procedure. The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}, as the device first needs to search for the cell and then acquire the system information. 
 
 
 \tikzsetnextfilename{sync-NB}
@@ -71,31 +69,121 @@ The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{
 
 The information carried in the \gls{MIB-NB} are:
 
-\begin{itemize}
-\item[2 bit] hyper frame number
-\item[4 bit] \gls{SFN}
-\item[4 bit] \gls{NB-SIB}1 scheduling
-\item[5 bit] value tag
-\item[1 bit] access barrer
-\item[7 bit] operation mode and values
-\item[11 bit] reserved for future use
-\end{itemize}
+\begin{tabular}{ll}\\
+2 bits & hyper frame number\\
+4 bits & \gls{SFN}\\
+4 bits & \gls{NB-SIB}1 scheduling\\
+5 bits & value tag\\
+1 bit & access barrer\\
+7 bits & operation mode and values\\
+11 bits & reserved for future use\\
+\end{tabular}
 
-From the \gls{MIB-NB} the schedule for \gls{NB-SIB}1 is found, this is always transmitted in subframe 4 however only the frames indicated by \gls{MIB-NB} carry \gls{NB-SIB}1. The next step is to decode all the \gls{NB-SIB}s.
+From the \gls{MIB-NB} the schedule for \gls{NB-SIB}1 is found, this is always transmitted in subframe 4 however only the frames indicated by \gls{MIB-NB} carry \gls{NB-SIB}1. The final step in the synchronization is to decode all the \gls{NB-SIB}s.
 
-When the \gls{UE} have read all \gls{NB-SIB}s it has fully synchronized with the \gls{eNB}. The complete synchronization process can be seen in \autoref{fig:sync-NB}. It is mandatory for the \gls{UE} to have a valid version of \gls{MIB-NB} as well as \gls{NB-SIB}1-5, \gls{NB-SIB}14 and 16 is only read when required. Furthermore once connected to the system the \gls{UE} is not expected to update its version of the \gls{NB-SIB}s unless instructed to \citep{whitepaper}. Now the \gls{UE} is ready to start the \gls{NRAP} which is described later. 
+When the device have read all \gls{NB-SIB}s it has fully synchronized with the \gls{eNB}. It is mandatory for the device to have a valid version of \gls{MIB-NB} as well as \gls{NB-SIB}1-5, \gls{NB-SIB}14 and 16 is only read when required. Furthermore once connected to the system the device is not expected to update its version of the \gls{NB-SIB}s unless instructed to \citep{whitepaper}. 
+
+When the device is synchronized it can initiate the attach procedure which will now be described. 
 
 
 
 
-\subsection{Random Access Procedure} \label{sec:RAP}
+\subsection{Narrowband Attach Procedure} \label{sec:RAP}
+Before starting the narrowband attach procedure the device measures the reference signals and determine based and some \gls{RSRP} thresholds which coverage level should be applied. The coverage level determines the power level used as well as the number of repetition used \citep{NB-IoT_Book}. The narrowband attach procedure comes in three forms, a full attach where a connection is established and all the security modes and authentication happens, a connection resume where the previously established security is used and an establishment carrying data. Each form contains some smaller steps, but can generally be divided into: \gls{NRAP} and security establishment \citep{REL-13}. The security establishment follows the same pattern as LTE and will not be further explained. The \gls{NRAP} contain five messages:
+\begin{tabular}{ll}
+msg1 & is the NPRACH that can happen when a NPRACH occasion exists \\
+msg2 & is the \gls{RAR} informing the device of timing offsets and providing a grant for msg3 \\
+msg3 & is the connection request or connection resume request \\
+msg4 & is contention resolution and acknowledgement of the request \\
+msg5 & is the connection establishment complete message\\
+\end{tabular}
+
+This process can also be seen on \autoref{fig:RAP}
+
+
+%\tikzsetnextfilename{RAP}
+\begin{figure}[H]
+\centering
+%\input{figures/MIB-NB.tex}
+\caption{Message visualisation of the \gls{RAP}}
+\label{fig:RAP}
+\end{figure}
+
+The important parts to take from this is that the device gets a \gls{Ra-RNTI} based on the preamble it selects for msg1. This identifier is used to decode the rest of the messages. During the attach procedure the device is also given a \gls{P-RNTI} and a \gls{C-RNTI}, which is used for decoding radio and paging transmission later on \citep{whitepaper}. If a control plane data transmission is desired it is transmitted during the \gls{NRAP} \citep{primer}.
+
 
 \subsection{Connection Control}
+A connected device needs to be able to move around the different device states as seen in \autoref{fig:RecvState}. To do this different procedures is used. The primary concern here is moving in and out of idle modes, generally when connected, a device does not want to give up on its \gls{C-RNTI} as this makes the attach sequence significantly longer, that is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS} when it goes in idle mode, this \gls{AS} is then used again when the device resumes the connection, this feature is utilized whenever possible. 
 
-RRC connection resume
-PSM
-eDRX
-NAS data transfer
+Another important aspect is the idle modes, this is where a device is expected to spend most of its time so the power consumption here needs to be minimal. The two primary idle modes are \gls{eDRX} and \gls{PSM}, however in both modes a period of time is spent in normal DRX mode. 
+
+
+\subsubsection{DRX}
+When the device wants to disconnect from the network it might be required to listen for mobile terminated data, this is done through the paging channel. The DRX cycle consist of a paging opportunity and a DRX opportunity, this can be seen in \autoref{fig:DRX_structure}. 
+
+%\tikzsetnextfilename{DRX_structure}
+\begin{figure}[H]
+\centering
+%\input{figures/MIB-NB.tex}
+\caption{Structure of \gls{DRX}}
+\label{fig:DRX_structure}
+\end{figure}
+
+As seen on \autoref{fig:DRX_structure} several parameters define the DRX structure, the different parameters use and typical values can be found in \autoref{tab:DRX_parameters}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|p{6cm}|p{4cm}|} \hline
+\textbf{Parameter} & \textbf{Definition} & \textbf{Typical value} \\ \hline 
+On duration &  the number of subframes that is monitored during the paging opportunity & 1-2 subframes\\ \hline
+DRX inactivity timer & the period after a scheduling message where the device should be in continuous reception mode & 25-50 subframes \\ \hline
+DRX short cycle timer & the duration of the short DRX cycle & 20-40 subframes \\ \hline
+Retransmission timer & the period after a \gls{HARQ} round trip time in which the device needs to monitor the control channel & 20  subframes \\ \hline
+Long DRX cycle & the duration of the short DRX cycle & 1024 subframes \\ \hline
+\end{tabular}
+\caption{The different parameters and their typical value when defining the DRX structure \citep{book_LTE_for_UMTS}.}
+\label{tab:DRX_parameters}
+\end{table}
+
+It should be noted that these typical values are based on the DRX of LTE in NB-IoT it is uncertain if the short cycle would be used at all, and the long cycle might be as long as 10240 subframes. It is also important to note that contrary to LTE NB-IoT supports repetition of the NPDCCH channel which directly influences the paging messages. \citep{NB-IoT_Book}
+
+
+\subsubsection{eDRX}
+The eDRX idle mode is an extension of the DRX idle mode. It is designed to accommodate a medium length transmission interval. The build up consist of a long DRX opportunity followed by a normal DRX period often referred to as \gls{PTW}. During the long DRX opportunity only the necessary timers and PLL's to keep synchronize with the network is on, there is no need to listen to the NPDCCH for incoming data. In the \gls{PTW} the device returns to a normal DRX cycle structure and monitors the paging opportunities. This cycle can be seen on \autoref{fig:eDRX_structure}.
+
+%\tikzsetnextfilename{eDRX_structure}
+\begin{figure}[H]
+\centering
+%\input{figures/MIB-NB.tex}
+\caption{Structure of \gls{eDRX}}
+\label{fig:eDRX_structure}
+\end{figure}
+
+A few parameters helps define this cycle, the first is the eDRX cycle the next is the duration of the \gls{PTW}. Supported values for these parameters can be seen in \autoref{tab:eDRX_parameters}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|p{8cm}|} \hline
+\textbf{Parameter} & \textbf{Values in seconds} \\ \hline 
+PTW & 2.56, 5.12, 7.68, 10.24, 12.8, 15.36, 17.92, 20.48, 23.04, 25.6, 28.16, 30.72, 33.28, 35.84, 38.40 and 40.96\\ \hline
+eDRX cycle & 20.48, 40.96, 81.92, 163.84, 327.68, 655.36, 1310.72, 2621.44, 5242.88 and 10485.76 \\ \hline
+\end{tabular}
+\caption{The different parameters and their typical value when defining the DRX structure \citep{book_LTE_for_UMTS}.}
+\label{tab:eDRX_parameters}
+\end{table}
+
+\subsubsection{PSM}
+The PSM mode is designed to support long transmission intervals, a DRX period starts the PSM mode followed by the PSM state. While in the PSM state the device is only required to maintain its real time clock nothing else, this means that whenever the device wants to reconnect to the network it first needs to synchronize itself again. A timer is set when the device enters PSM mode, this timer defines when the device needs to wake up and perform a \gls{TAU}. This is to keep track of if a device has change location since it last connected to the network. After a TAU the device enters a DRX period again to enable mobile terminated data transmission. The structure of a PSM cycle can be seen in \autoref{fig:PSM_structure}.
+
+%\tikzsetnextfilename{PSM_structure}
+\begin{figure}[H]
+\centering
+%\input{figures/MIB-NB.tex}
+\caption{Structure of \gls{PSM}}
+\label{fig:PSM_structure}
+\end{figure}
+
+The values for the DRX period and the PSM period is a bit more loosely defined with the possibility of a PSM cycle to take more than a year \citep{NB-IoT_Book}.
 
 \section{Data Transfer}
 
