@@ -10,9 +10,9 @@ As seen from \todo{Insert tabel ref from ch 2} is there many version of emulator
 
 The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As it is a third party\todo{Right term?} code and was not intended to emulate multiple devices, there have to be made a higher amount of changes, to make the emulator emulate a massive amount of devices.
 
-The concept to produce this type of emulator, with the focus on having as high a number of devices active, while they still keep all functionalities for the individual device, will be to split up the code up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
+The concept to produce this type of emulator, with the focus on having as high a number of devices active, while they still keep all functionalities for the individual device, will be to split up the code up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated further down in the report.
 
-
+\todo{Insert overall structure}
 
 
 
@@ -55,7 +55,9 @@ As stated before, is the baseline emulator from SRS stil in development. The str
 
 \subsection{Structure}
 \label{sub:MassStruct}
-The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
+To estimate the parts of the code that should be common for all devices  and which shall be kept individual, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated
+
+%The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
 \tikzsetnextfilename{MassClass}
 \begin{figure}[H]
