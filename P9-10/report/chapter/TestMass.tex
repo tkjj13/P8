@@ -147,5 +147,59 @@ As seen in \autoref{fig:MT_MIB_Time} do the execution time for the MIB decoding 
 
 It is seen in \autoref{fig:MT_MIB_Tries} that baseline code is not different from the changed code at a lower amount of devices. At a higher amount of devices does it seems that the changed code is more efficient, as these levels is the amount of tries lower.
 
+\section{SIB1}
+The execution time for the SIB1 decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_SIB1_Time}. The test is executed with the different amount of devices, but the results shown in \autoref{fig:MT_SIB1_Time} is only for the first device which also will be the procedure for the following steps. As both the radio error and ilde after MIB error occurs in this step of the process, the amount of measurement points are lowered. \todo{shown time difference from first to last SIB mes}
 
+\begin{figure}[H]
+\tikzsetnextfilename{MT_SIB1_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_SIB1_Time.tex}}
+\caption{Execution time for the decoding the SIB1 step for different amount of devices and the baseline.}
+\label{fig:MT_SIB1_Time}
+\end{figure}
 
+As seen in \autoref{fig:MT_SIB1_Time} do the baseline and changed code have the same tendency around four different time values, with some measurements way off. Compared to the previous steps, this step have long execution time and the steps between the time values is around 600 ms.
+\todo{Maybe make a histogram here to}
+
+\section{SIB2}
+The execution time for the SIB2 decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_SIB2_Time}. The transmission after SIB1 error narrows the number of measurement points down even further for this step in the process.
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_SIB2_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_SIB2_Time.tex}}
+\caption{Execution time for the decoding the SIB2 step for different amount of devices and the baseline.}
+\label{fig:MT_SIB2_Time}
+\end{figure}
+
+As seen in \autoref{fig:MT_SIB2_Time} do the baseline and changed code have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements for all the other setups.
+
+\section{NPRACH}
+The execution time for the NPRACH step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Nprach_Time}. Here will the NPRACH error occur for some of the measurements and will effect the results. As the shown results is only for the first device, there are still measurement points for measurements where this error occurs, but no following RAR measurement.
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_Nprach_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_Nprach_Time.tex}}
+\caption{Execution time for the NPRACH step for different amount of devices and the baseline.}
+\label{fig:MT_Nprach_Time}
+\end{figure}
+
+As seen in \autoref{fig:MT_Nprach_Time} does the baseline and changed code the same time values, but the changed code have a bigger spread of its measurement point. For all the measurements for the changed code over 12 devices, do not follow the other measurements tendency.
+
+\section{RAR}
+The execution time for the RAR step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Rar_Time}. Here does the msg2 error occurs and no msg2 will be received and no measurements can be made.
+
+\begin{figure}[H]
+\tikzsetnextfilename{MT_Rar_Time}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/MT_Rar_Time.tex}}
+\caption{Execution time for the decoding the MIB for different amount of devices and the baseline. A single measurement for the base line is placed at 5.0834 s, which is not shown on this figure.}
+\label{fig:MT_Rar_Time}
+\end{figure}
+
+As seen in \autoref{fig:MT_Rar_Time} does the changed code starts out with following the tendency for the baseline, where it around eight devices begin to get a higher and higher execution time and getting a wider spread compared to the values at a low amount of devices.
