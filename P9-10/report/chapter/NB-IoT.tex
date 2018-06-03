@@ -41,6 +41,7 @@ From this it can also be seen that there are no requirements to the latency of t
 
 
 \section{Network Access}
+\label{sec:Network_access}
 This section describes the different procedures needed to navigate in the NB-IoT framework. This is the procedure to establish a connection as well as the procedures to navigate between different connection states. 
 
 \subsection{Cell Search and Synchronization Procedure}
@@ -124,8 +125,8 @@ When the device wants to disconnect from the network it might be required to lis
 %\tikzsetnextfilename{DRX_structure}
 \begin{figure}[H]
 \centering
-%\input{figures/MIB-NB.tex}
-\caption{Structure of \gls{DRX}}
+\includegraphics[width=\textwidth]{figures/DRX_structure.pdf}
+\caption{The structure of \gls{DRX} idle mode \citep{book_LTE_for_UMTS2}}
 \label{fig:DRX_structure}
 \end{figure}
 
@@ -151,11 +152,12 @@ It should be noted that these typical values are based on the DRX of LTE in NB-I
 \subsubsection{eDRX}
 The eDRX idle mode is an extension of the DRX idle mode. It is designed to accommodate a medium length transmission interval. The build up consist of a long DRX opportunity followed by a normal DRX period often referred to as \gls{PTW}. During the long DRX opportunity only the necessary timers and PLL's to keep synchronize with the network is on, there is no need to listen to the NPDCCH for incoming data. In the \gls{PTW} the device returns to a normal DRX cycle structure and monitors the paging opportunities. This cycle can be seen on \autoref{fig:eDRX_structure}.
 
-%\tikzsetnextfilename{eDRX_structure}
+\tikzsetnextfilename{eDRX_structure}
 \begin{figure}[H]
 \centering
-%\input{figures/MIB-NB.tex}
-\caption{Structure of \gls{eDRX}}
+\resizebox{\textwidth}{!}{
+\input{figures/eDRX_structure.tex}}
+\caption{The structure of the \gls{eDRX} cycle}
 \label{fig:eDRX_structure}
 \end{figure}
 
@@ -175,11 +177,12 @@ eDRX cycle & 20.48, 40.96, 81.92, 163.84, 327.68, 655.36, 1310.72, 2621.44, 5242
 \subsubsection{PSM}
 The PSM mode is designed to support long transmission intervals, a DRX period starts the PSM mode followed by the PSM state. While in the PSM state the device is only required to maintain its real time clock nothing else, this means that whenever the device wants to reconnect to the network it first needs to synchronize itself again. A timer is set when the device enters PSM mode, this timer defines when the device needs to wake up and perform a \gls{TAU}. This is to keep track of if a device has change location since it last connected to the network. After a TAU the device enters a DRX period again to enable mobile terminated data transmission. The structure of a PSM cycle can be seen in \autoref{fig:PSM_structure}.
 
-%\tikzsetnextfilename{PSM_structure}
+\tikzsetnextfilename{PSM_structure}
 \begin{figure}[H]
 \centering
-%\input{figures/MIB-NB.tex}
-\caption{Structure of \gls{PSM}}
+\resizebox{\textwidth}{!}{
+\input{figures/PSM_structure.tex}}
+\caption{The structure of the \gls{PSM} cycle}
 \label{fig:PSM_structure}
 \end{figure}
 
