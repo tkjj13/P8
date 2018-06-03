@@ -1,23 +1,38 @@
 \chapter{Massive IoT system overview}
 \label{ch:MassOver}
-\todo{Write this is for linux}
+The focus of this chapter is to provide an overview over the concept and design of the \gls{MDE}. From \autoref{ch:NB-IoT} it is known that \todo{Insert knowledge fact about massive.} and a known concept is known from the project \todo{Insert charly/mathias ref}.
+
 It has a high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individually, especially if the desire is to test the impact of massiveness on the individual devices. A more optimal solution is instead of buying a massive amount of devices, to emulate them through software.
 
+The challenges with emulating a massive amount of devices, is that a single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspect of devices functionalities also is wanted in the emulator, to perform test with in the future. So to emulate a massive amount of device, there will be needed a lot CPU power and memory to process all data for the individual devices and containing the devices them self. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handle en quickly as the system is a real time system.
 
-For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE}s \citep{Amarisoft_solutions} and is tested to synchronize with the software based NB-IoT devices that will be used. As it is a commercial BSE, it is not open source and therefore harder to add new features and change all parameters, but as the focus is the devices, the software will still be used. A longer list of parameters for the Amarisoft LTE 100 code can be found in \appref{app:Amarisoft}.
+As seen from \todo{Insert tabel ref from ch 2} is there many version of emulators for a single NB-IoT device, but as the protocol still is in development, is these emulator also in development stage only and they only emulate a single device. But as a foundation for the project will the SRS NB-IoT emulator be use as baseline, as it designing the emulator from scratch will \todo{Find a good formulation here}. The SRS emulator is chosen, as it was accessible to get with the source code, as there have to be some restructure in the code, and it is based on the LTE emulator from SRS, which was used in \todo{CM ref}, were the base concept in this project will be taken from.
 
-For the \gls{MDE} the code from SRS which have been tested to work with the software eNB from Amarisoft is chosen. This is chosen primarily because access to the source code is available through Keysight Technologies.\todo{check if this is okay or keysight does not want to get mentioned in this connection} As the code is designed for a single device some change have to be implemented, which requires knowledge of the original code. 
+The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As it is a third party\todo{Right term?} code and was not intended to emulate multiple devices, there have to be made a higher amount of changes, to make the emulator emulate a massive amount of devices.
 
-The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE or GSM spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \autoref{fig:MassSetup}.
+The concept to produce this type of emulator, with the focus on having as high a number of devices active, while they still keep all functionalities for the individual device, will be to split up the code up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
 
-\tikzsetnextfilename{MassSetup}
-\begin{figure}[H]
-\centering
-\resizebox{0.9\textwidth}{!}{
-\input{figures/Mass_setup.tex}}
-\caption{Overview of the emulator setup}
-\label{fig:MassSetup}
-\end{figure}
+
+
+
+
+
+
+
+%For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE}s \citep{Amarisoft_solutions} and is tested to synchronize with the software based NB-IoT devices that will be used. As it is a commercial BSE, it is not open source and therefore harder to add new features and change all parameters, but as the focus is the devices, the software will still be used. A longer list of parameters for the Amarisoft LTE 100 code can be found in \appref{app:Amarisoft}.
+
+%For the \gls{MDE} the code from SRS which have been tested to work with the software eNB from Amarisoft is chosen. This is chosen primarily because access to the source code is available through Keysight Technologies. As the code is designed for a single device some change have to be implemented, which requires knowledge of the original code. 
+
+%The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE or GSM spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \autoref{fig:MassSetup}.
+
+%\tikzsetnextfilename{MassSetup}
+%\begin{figure}[H]
+%\centering
+%\resizebox{0.9\textwidth}{!}{
+%\input{figures/Mass_setup.tex}}
+%\caption{Overview of the emulator setup}
+%\label{fig:MassSetup}
+%\end{figure}
 
 
 
@@ -31,10 +46,12 @@ The code will produce the infrastructure of the \gls{MDE} combining and transmit
 
 
 
-\section{Original SRS code}
-The code provide by SRS is still in development and is based on the code SRS developed to LTE, which was used in \citep{thesis_report}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mentioned project.
+\section{Baseline emulator}
+As stated before, is the baseline emulator from SRS stil in development. The structure of the code have been copied from the LTE version, where it follows the communication layer structure known from \autoref{ch:NB-IoT}. The code process only goes up to msg2, as SRS have not developed the functionalities to transmit msg3 correctly. This blocks the possibilities to make a full attach and transmit data and all other functionalities after completing an attach. But as a prove of concept, to showcase the possibility of emulating a massive amount of device, as this aspect is one of the new aspects that have to be taken into account when using NB-IoT.
 
-Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \autoref{ch:Future}.
+%The code provide by SRS is still in development and is based on the code SRS developed to LTE, which was used in \citep{thesis_report}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mentioned project.
+
+%Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \autoref{ch:Future}.
 
 \subsection{Structure}
 \label{sub:MassStruct}
