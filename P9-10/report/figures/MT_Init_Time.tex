@@ -10,15 +10,15 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=4.521in,
-height=3.566in,
+width=0.9\textwidth,
+height=0.6\textwidth,
 at={(0.758in,0.481in)},
 scale only axis,
 xmin=-0.5,
 xmax=15.5,
 xtick={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15},
 xticklabels={{Baseline},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}},
-xlabel={Number of UEs},
+xlabel={Number of devices},
 ymin=1.4,
 ymax=3.2,
 ylabel={Time (s)},
@@ -27,6 +27,9 @@ title style={font=\bfseries},
 title={Initialization time},
 legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
 ]
+
+
+
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
   table[row sep=crcr]{%
 1	1.60657000541687\\
@@ -52,7 +55,32 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 };
 \addlegendentry{Change code};
 
-\addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
+\addplot [color=mycolor2,only marks,mark=*,mark options={solid}]
+  table[row sep=crcr]{%
+0	1.51574110984802\\
+0	1.60954785346985\\
+0	1.61224007606506\\
+0	1.51666712760925\\
+0	1.51392078399658\\
+0	1.51035499572754\\
+0	1.50713300704956\\
+0	1.51292109489441\\
+0	1.51016092300415\\
+0	1.5099790096283\\
+0	1.51415991783142\\
+0	1.51640319824219\\
+0	1.51323890686035\\
+0	1.51066589355469\\
+0	1.5165901184082\\
+0	1.50853300094604\\
+0	1.50311899185181\\
+0	1.60737919807434\\
+0	1.51729917526245\\
+0	1.50886988639832\\
+};
+\addlegendentry{Baseline};
+
+\addplot [color=mycolor1,only marks,mark=*,mark options={solid},forget plot]
   table[row sep=crcr]{%
 2	1.70376014709473\\
 2	1.69752597808838\\
@@ -75,9 +103,9 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 2	1.69405889511108\\
 2	1.70744895935059\\
 };
-\addlegendentry{Baseline};
 
-\addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
+
+\addplot [color=mycolor1,only marks,mark=*,mark options={solid},forget plot]
   table[row sep=crcr]{%
 3	1.79403805732727\\
 3	1.80174088478088\\
@@ -100,7 +128,6 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 3	1.80774402618408\\
 3	1.79226994514465\\
 };
-\addlegendentry{Fitted line};
 
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid},forget plot]
   table[row sep=crcr]{%
@@ -378,29 +405,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 15	3.02637410163879\\
 15	2.90584707260132\\
 };
-\addplot [color=mycolor2,only marks,mark=*,mark options={solid},forget plot]
-  table[row sep=crcr]{%
-0	1.51574110984802\\
-0	1.60954785346985\\
-0	1.61224007606506\\
-0	1.51666712760925\\
-0	1.51392078399658\\
-0	1.51035499572754\\
-0	1.50713300704956\\
-0	1.51292109489441\\
-0	1.51016092300415\\
-0	1.5099790096283\\
-0	1.51415991783142\\
-0	1.51640319824219\\
-0	1.51323890686035\\
-0	1.51066589355469\\
-0	1.5165901184082\\
-0	1.50853300094604\\
-0	1.50311899185181\\
-0	1.60737919807434\\
-0	1.51729917526245\\
-0	1.50886988639832\\
-};
+
 \addplot [color=red,solid,forget plot]
   table[row sep=crcr]{%
 0	1.52591009015129\\
@@ -1405,5 +1410,6 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 14.985	2.93750175885672\\
 15	2.93891476353009\\
 };
+\addlegendentry{Fitted line};
 \end{axis}
 \end{tikzpicture}%

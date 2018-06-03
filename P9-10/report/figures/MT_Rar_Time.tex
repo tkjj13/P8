@@ -10,15 +10,15 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=4.521in,
-height=3.566in,
+width=\textwidth,
+height=.66\textwidth,
 at={(0.758in,0.481in)},
 scale only axis,
 xmin=-0.5,
 xmax=15.5,
 xtick={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15},
 xticklabels={{Baseline},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}},
-xlabel={Number of UEs},
+xlabel={Number of devices},
 ymin=0.03,
 ymax=0.06,
 ylabel={Time (s)},
@@ -52,7 +52,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 };
 \addlegendentry{Change code};
 
-\addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
+\addplot [color=mycolor1,only marks,mark=*,mark options={solid},forget plot]
   table[row sep=crcr]{%
 2	0\\
 2	0.0342118740081787\\
@@ -75,7 +75,6 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 2	0.0333349704742432\\
 2	0\\
 };
-\addlegendentry{Baseline};
 
 \addplot [color=mycolor1,only marks,mark=*,mark options={solid},forget plot]
   table[row sep=crcr]{%
@@ -376,7 +375,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 15	0\\
 15	0\\
 };
-\addplot [color=mycolor2,only marks,mark=*,mark options={solid},forget plot]
+\addplot [color=mycolor2,only marks,mark=*,mark options={solid}]
   table[row sep=crcr]{%
 0	0.034182071685791\\
 0	0\\
@@ -399,5 +398,6 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 0	0.0341842174530029\\
 0	0.0342390537261963\\
 };
+\addlegendentry{Baseline};
 \end{axis}
 \end{tikzpicture}%

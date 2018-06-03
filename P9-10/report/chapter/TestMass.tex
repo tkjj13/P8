@@ -1,9 +1,11 @@
 \chapter{Testing of Massive IoT system} \label{ch:mass_test}
-The focus of this chapter is to showcase the emulator describe in \autoref{ch:MassOver}. This is done in a series of test, where it is compared to the original code and to see if the changed made for fill the goal set in \autoref{ch:MassOver}:
+\todo{could we instead of saying code all the time use emulator, baseline emulator and massive emulator}
+The focus of this chapter is to showcase the emulator described in \autoref{ch:MassOver}. This is done in a series of test, where it is compared to the original code and to see if the changes made fulfil the goal set in \autoref{ch:MassOver}:
 
 \textit{The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.}
+\todo{massive amount of devices is untestable, goal needs to be more precise, allways transmit as one or just using the same radio interface}
 
-This will be done by comparing the changed code to the baseline code as well as testing the performance of the code at higher number of devices emulated.
+The is is done by comparing the changed code to the baseline code as well as testing the performance of the code at higher number of devices emulated.
 The performance criteria that will be look into is:
 
 \begin{itemize}
@@ -13,17 +15,17 @@ The performance criteria that will be look into is:
 \item Memory usage
 \end{itemize}
 
-The error rate will showcase the stability of the code. This is done by running the code multiple times and to analyze the errors occurring. The errors can be analyzed from the log files, produce by the code, when executed.
+The error rate will showcase the stability of the code. This is done by running the code multiple times and to analyze the errors occurring. The errors can be analyzed from the log files.
 
-The execution time will be look into to see if any processes in code is taking longer, after the changes. This will be measured by inserting prints of time stamps into the code, when the code goes from one step to another. 
+The execution time is looked into to see if any processes in the code is taking longer, after the changes. This is measured by logging the time stamps, where the code goes from one step to another. 
 
-CPU and memory usage is used to test where possible bottle necks can be compared to overloading the used computer. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual processes at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. 
+CPU and memory usage is used to test for possible bottlenecks. CPU usage will be measure with the CPU stat tool, which can measure the CPU usage on the individual processes at a sample rate of 3 Hz. The memory usage is measured using the system monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static. 
 
-The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}. The emulator have executed the code 20 times per different amount of devices until the emulator hit 100\% in error rate multiple times in a row. Beside testing the emulator with the changed code, the baseline code will also be tested, but as it can only emulate one devices, this will be what the code will be matched against.
+The parameters used for the eNB and SRS code is the default settings shown in \todo{Insert app ref to the two apps}. The emulator is executed 20 times each time the number of devices is increased until the emulator hit 100\% in error rate multiple times in a row. Besides testing the emulator with the changed code, the baseline code is also tested, this is what the code is matched against. Note that baseline code can only emulate one device, the results will be extrapolated for comparison with multiple devices though.
 
 \section{Error rate}
 \label{sec:MTerror}
-The error rate is analyze from the log messages coming from the emulator on its process through the code. These result can be seen in \autoref{fig:MT_error}.
+The error rate is analyzed from the log messages coming from the emulator on its process through the code. These result can be seen in \autoref{fig:MT_error}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_error}
@@ -33,41 +35,42 @@ The error rate is analyze from the log messages coming from the emulator on its 
 \caption{Error rate for different amount of devices.}
 \label{fig:MT_error}
 \end{figure}
+\todo{is it possible to order the errors in the order the could occur instead of what looks like a random order}
 
-As it can be seen in \autoref{fig:MT_error}, the error rate is higher for the changed code, than the baseline which still is not perfect. Another important aspect is that when the number of devices hit 13, the error rate goes to 100\%, which shows the limit of the emulator. To get a better understanding of these error, a diagram over the different error is shown in \autoref{fig:MT_error_dist}.
+As it can be seen in \autoref{fig:MT_error}, the error rate is higher for the changed code, than the baseline that still is not perfect. Another important aspect is that when the number of devices hit 13, the error rate goes to 100\%, which shows the limit of the emulator. A more detailed overview of these error show that six different types of errors occur during the testing as shown in \autoref{fig:MT_error_dist}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_error_dist}
 \centering
-\resizebox{0.8\textwidth}{!}{
+\resizebox{0.9\textwidth}{!}{
 \input{figures/MT_error_dist.tex}}
 \caption{The distribution of different errors for different amount of devices.}
 \label{fig:MT_error_dist}
 \end{figure}
 
-As seen in \autoref{fig:MT_error_dist} is there six different types of errors that have occurred in the testing.
+Radio error comes from miscommunication between the radio class and the API for the USRP B210. It occur when the process begins the search after \todo{for or after} SIB messages, where some radio parameters is changed. As the radio error is the only error occurring for the baseline, this should be the only error that is not produced by the changed made to the baseline.
 
-Radio error is the only error type that the baseline also have. It comes from miscommunication between the radio class and the API for the USRP B210. It occur when the process begins the search after SIB messages, where some radio parameters is changed. As the radio error is the only error occurring for the baseline, this should be the only error which are not produced by the changed made to the baseline.
-
-The ilde after MIB error occur in the same part of the process as the radio error, where the emulator gets stuck and runs without retrying or closing down. This error type is the most occurring type of the errors produced by the changes, which will be the most optimal place to improve the error rate, especially for higher amount of devices.
+The idle after MIB error occur in the same part of the process as the radio error, where the emulator gets stuck and runs without retrying or closing down. This error type is the most occurring type of the errors produced by the changes, which will be the most optimal place to improve the error rate, especially for higher amount of devices.
 
 The msg2 not received error is when all devices have gone through the NPRACH step and waiting on the msg2, which is never received or not registered if received. This error is very rare and have no tendencies.
 
-Cell sync error is when the emulator shuts down before a synchronization is finalized and it goes to the MIB step. This errors is very rare, but as the error occurs so early in the process, these test runs will not give any data for any other step, beside initialization.
+Cell sync error occur when the emulator shuts down before the device has synchronized to the cell and it goes to the MIB step. This error is very rare, but as the error occurs so early in the process, these test runs will not give any data for any other step, beside initialization.
 
-Transmission after SIB1 is an error that occurs sometimes at the SIB1 step and the radio class transmit a signal, which course the emulator to shut down. This error type have a tendency to occur with higher amount of devices and can indicate a bottleneck in the process to get a higher amount of devices.
+Transmission after SIB1 is an error that occurs sometimes at the SIB1 step and the radio class transmit a signal, which causes the emulator to shut down. This error type have a tendency to occur with higher amount of devices and can indicate a bottleneck in the process to get a higher amount of devices.
 
-NPRACH error is an error that occurs when some devices completes the NPRACH step, but other do not, as the system shuts down before hand. This error type have the same tendency as the transmission after SIB1 error and indicates the same thing.
+NPRACH error is an error that occurs when some devices completes the NPRACH step, but other do not, as the system shuts down beforehand. This error type have the same tendency as the transmission after SIB1 error and also indicates a potential bottleneck.
 
 To further test the emulator, the test will be split up into the different steps in the code process discussed in \autoref{sub:MassStruct}.
 
+\todo{keep the structure from your list it helps the reader know how far we are}
 \section{Initialization}
 The execution time for the initialization step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Init_Time}.
+
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Init_Time}
 \centering
-\resizebox{0.5\textwidth}{!}{
+\resizebox{0.7\textwidth}{!}{
 \input{figures/MT_Init_Time.tex}}
 \caption{Execution time for the initialization for different amount of devices and the baseline. The fitted line is a linear approximation.}
 \label{fig:MT_Init_Time}
@@ -78,10 +81,12 @@ From \autoref{fig:MT_Init_Time} it can be seen that there is a linear tendency s
 \begin{align}
 &T_{init} (\text{NoD}) = 0.0942 \cdot \text{NoD} + 1.526 [s]
 \end{align}
+\todo{where list needed}
 
 \section{Synchronization}
 The execution time for the synchronization step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Sync_Time}. As the error type cell sync, mention in \autoref{sec:MTerror}, occurs in this step of the process, some measurements will be equal zero, as the execution time can not be calculated.
 
+\captionsetup{belowskip=0em}
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Sync_Time}
@@ -103,15 +108,19 @@ The execution time for the synchronization step is measured dependably on the nu
 \label{fig:MT_Sync_His}
 \end{figure}
 \end{minipage}
+\captionsetup{belowskip=-1.5em}
+\todo{make more coluoms in histogram}
 
-As seen in \autoref{fig:MT_Sync_Time} is the execution time for different amount of devices behaving equal to each other. Another aspect seen on the figure is that some measurements have taken some extra time to execute, but is align at the same time values, which also indicated on the histogram in \autoref{fig:MT_Sync_His}. Here it is seen that most measurements is placed at 0.6 s to 0.8 s and the amount at the other points is much lower.
+As seen in \autoref{fig:MT_Sync_Time} is the execution time for different amount of devices is behaving equal to each other. Another aspect seen on the figure is that some measurements have taken some extra time to execute, but is align at the same time values, which also indicated on the histogram in \autoref{fig:MT_Sync_His}. Here it is seen that most measurements is placed at 0.6 s to 0.8 s and the amount at the other points is much lower.
 
 
 
 \section{MIB decoding}
+\todo{this first line is the same for all the sections here move it to some introductory thing}
 The execution time for the MIB decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_MIB_Time}. All these measurements is for a full decoding of MIB and all retries have been removed.
-As all earlier occurred errors will infect that there is no measurement point for further steps in the process, the cell sync errors from the synchronization step will still infect the given measurements here and further on.
+As all earlier occurred errors will infect that there is no measurement point for further steps in the process, the cell sync errors from the synchronization step will still infect the given measurements here and further on. \todo{what are you trying to say here, btw think you effect not infect}
 
+\captionsetup{belowskip=0em}
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_Time}
@@ -133,8 +142,9 @@ As all earlier occurred errors will infect that there is no measurement point fo
 \label{fig:MT_MIB_His}
 \end{figure}
 \end{minipage}
+\captionsetup{belowskip=-1.5em}
 
-As seen in \autoref{fig:MT_MIB_Time} do the execution time for the MIB decoding step have the same tendency across different amount of devices. The spread is bigger compared to the synchronazitation step, which also can be seen when comparing the histogram for the two steps, \autoref{fig:MT_MIB_His} and \autoref{fig:MT_Sync_His}. The baseline have the same tendency as the changed code. Mention before are these execution times only for a full decoding. In \autoref{fig:MT_MIB_Tries} is it shown how many tries the different measurements needed before completing the MIB decoding step.
+As seen in \autoref{fig:MT_MIB_Time} the execution time for the MIB decoding step have the same tendency across different amount of devices. The spread is bigger compared to the synchronazitation step, which also can be seen when comparing the histogram for the two steps, \autoref{fig:MT_Sync_His} and \autoref{fig:MT_MIB_His}. The baseline have the same tendency as the changed code. Mention before are these execution times only for a full decoding \todo{what is your intention with this sentence}. In \autoref{fig:MT_MIB_Tries} is it shown how many tries the different measurements needed before completing the MIB decoding step.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_Tries}
@@ -145,10 +155,10 @@ As seen in \autoref{fig:MT_MIB_Time} do the execution time for the MIB decoding 
 \label{fig:MT_MIB_Tries}
 \end{figure}
 
-It is seen in \autoref{fig:MT_MIB_Tries} that baseline code is not different from the changed code at a lower amount of devices. At a higher amount of devices does it seems that the changed code is more efficient, as these levels is the amount of tries lower.
+It is seen in \autoref{fig:MT_MIB_Tries} that baseline code is not different from the changed code at a lower amount of devices. At a higher amount of devices it seems like the changed code is more efficient, as these levels is the amount of tries lower. \todo{call it retries or attemps instead of tries}
 
 \section{SIB1}
-The execution time for the SIB1 decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_SIB1_Time}. The test is executed with the different amount of devices, but the results shown in \autoref{fig:MT_SIB1_Time} is only for the first device which also will be the procedure for the following steps. As both the radio error and ilde after MIB error occurs in this step of the process, the amount of measurement points are lowered. \todo{shown time difference from first to last SIB mes}
+The execution time for the SIB1 decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_SIB1_Time}. The test is executed with the different amount of devices, but the results shown in \autoref{fig:MT_SIB1_Time} is only for the first device which also will be the procedure for the following steps. \todo{an explanation is needed for why this is the case: as the sib is decoded for each device....} As both the radio error and idle after MIB error occurs in this step of the process, the amount of measurement points are lowered. \todo{shown time difference from first to last SIB mes}
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_SIB1_Time}
@@ -159,8 +169,8 @@ The execution time for the SIB1 decoding step is measured dependably on the numb
 \label{fig:MT_SIB1_Time}
 \end{figure}
 
-As seen in \autoref{fig:MT_SIB1_Time} do the baseline and changed code have the same tendency around four different time values, with some measurements way off. Compared to the previous steps, this step have long execution time and the steps between the time values is around 600 ms.
-\todo{Maybe make a histogram here to}
+As seen in \autoref{fig:MT_SIB1_Time} the baseline and changed code have the same tendency around four different time values, with some measurements way off. Compared to the previous steps, this step have long execution time and the steps between the time values is around 600 ms.
+\todo{Maybe make a histogram here to, good idea :)}
 
 \section{SIB2}
 The execution time for the SIB2 decoding step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_SIB2_Time}. The transmission after SIB1 error narrows the number of measurement points down even further for this step in the process.
@@ -174,10 +184,12 @@ The execution time for the SIB2 decoding step is measured dependably on the numb
 \label{fig:MT_SIB2_Time}
 \end{figure}
 
-As seen in \autoref{fig:MT_SIB2_Time} do the baseline and changed code have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements for all the other setups.
+\todo{is this expected when each device decodes the SIB2 message or is this because you have picked device number 1.}
+
+As seen in \autoref{fig:MT_SIB2_Time} do the baseline and changed code have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements for all the other setups. \todo{any comment on why?}
 
 \section{NPRACH}
-The execution time for the NPRACH step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Nprach_Time}. Here will the NPRACH error occur for some of the measurements and will effect the results. As the shown results is only for the first device, there are still measurement points for measurements where this error occurs, but no following RAR measurement.
+The execution time for the NPRACH step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Nprach_Time}. Here will the NPRACH error occur for some of the measurements and will effect the results. As the shown results is only for the first device, there are still measurement points for measurements where this error occurs, but no following RAR measurement \todo{the last sentence is confusing and needs to be reformulated}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Nprach_Time}
@@ -188,10 +200,10 @@ The execution time for the NPRACH step is measured dependably on the number of d
 \label{fig:MT_Nprach_Time}
 \end{figure}
 
-As seen in \autoref{fig:MT_Nprach_Time} does the baseline and changed code the same time values, but the changed code have a bigger spread of its measurement point. For all the measurements for the changed code over 12 devices, do not follow the other measurements tendency.
+As seen in \autoref{fig:MT_Nprach_Time} the baseline and changed code takes approximately the same time, but the changed code have a bigger spread of its measurement point. All the measurements of the changed code over 12 devices, however does not follow the tendency of the other measurements. \todo{any comment on why not?}
 
 \section{RAR}
-The execution time for the RAR step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Rar_Time}. Here does the msg2 error occurs and no msg2 will be received and no measurements can be made.
+The execution time for the RAR step is measured dependably on the number of devices emulated and the baseline is measured as well, which gives the results seen in \autoref{fig:MT_Rar_Time}. Here does the msg2 error occurs if no msg2 is received and the measurements should therefore be excluded. \todo{maybe do a similar explanation in the introduction of the other errors}
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Rar_Time}
@@ -202,4 +214,6 @@ The execution time for the RAR step is measured dependably on the number of devi
 \label{fig:MT_Rar_Time}
 \end{figure}
 
-As seen in \autoref{fig:MT_Rar_Time} does the changed code starts out with following the tendency for the baseline, where it around eight devices begin to get a higher and higher execution time and getting a wider spread compared to the values at a low amount of devices.
+As seen in \autoref{fig:MT_Rar_Time} the changed code starts out with following the tendency for the baseline, but around eight devices it begin to get a higher and higher execution time and getting a wider spread compared to the values at a low amount of devices. \todo{any comment on why?}
+
+\todo{a summary of the time would be nice and also what have been found in this regards bottlenecks and so on}
