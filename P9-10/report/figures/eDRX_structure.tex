@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+
+\draw[dashed] (-10,1.5) -- (-1,1.5);
+\draw[dashed] (1,1.5) -- (10,1.5);
+
+
+\draw[dashed] (-10,0) -- (-1,0) node (v4) {};
+\draw[dashed] (1,0) node (v5) {} -- (10,0) node (v8) {};
+\draw (0,1.5) -- (-0.5,1) -- (0,0.5) -- (-0.5,0);
+\draw (0.5,1.5) -- (0,1) -- (0.5,0.5) -- (0,0);
+\node at (-10,1.5) {};
+\node[anchor=east] at (-10,1.5) {RX:};
+\node[anchor=east] (v1) at (-10,0) {Sleep:};
+\draw (v1) -- (-9,0) -- (-9,1.5) -- (-8.5,1.5) -- (-8.5,0) node (v2) {};
+\draw (v2) -- (-7.5,0) -- (-7.5,1.5) -- (-7,1.5) -- (-7,0) node (v3) {};
+\draw (v3) -- (-6,0) -- (-6,1.5) -- (-5.5,1.5) -- (-5.5,0) -- (v4);
+\draw (v5) -- (6,0) -- (6,1.5) -- (6.5,1.5) -- (6.5,0) node (v6) {};
+\draw (v6) -- (7.5,0) -- (7.5,1.5) -- (8,1.5) -- (8,0) node (v7) {};
+\draw (v7) -- (9,0) -- (9,1.5) -- (9.5,1.5) -- (9.5,0) -- (v8);
+
+\draw[arrows={triangle 45- triangle 45}] (-9,-0.5) -- (-7.5,-0.5);
+\draw[arrows={triangle 45- triangle 45}] (-9,-1.5) -- (-5.5,-1.5) ;
+\draw[arrows={triangle 45- triangle 45}] (-9,-2.5) -- (6,-2.5);
+\node at (-8.25,-1) {DRX cycle};
+\node at (-7.25,-2) {PTW};
+\node at (-1.5,-3) {eDRX cycle};
+\end{tikzpicture}

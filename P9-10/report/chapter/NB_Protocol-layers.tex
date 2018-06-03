@@ -305,13 +305,46 @@ As shown above three channels exist in the \gls{DL} part of the protocol, these 
 
 The \gls{NPDCCH} carries three types of information, one is use to indicate \gls{DL} scheduling for the devices, one provides \gls{UL} grant information and the last indicates paging or system information update \citep{NB-IoT_Book}. It should be noted that which subframes contain \gls{NPDCCH} is signaled during \gls{RRC} in the connection phase typically a 10 or 40 bits bitmap \citep{whitepaper}, and depending on the coverage level the \gls{NPDCCH} might be repeated up 2048 times \citep{NB-IoT_Book}.
 
-The \gls{NPDSCH} is used to transmit data when an bearer is established. Depending on the coverage level the \gls{NPDSCH} might be repeated up 2048 times \citep{NB-IoT_Book}. It may carry up to 680 bits per \gls{TBS} depending on the \gls{TBS} index and the number of subframes used. 
+The \gls{NPDSCH} is used to transmit data when an bearer is established. Depending on the coverage level the \gls{NPDSCH} might be repeated up 2048 times. It may carry up to 680 bits per \gls{TBS} depending on the \gls{TBS} index and the number of subframes used. \citep{NB-IoT_Book}
 
 \subsubsection{Uplink}
-As mentioned in \autoref{ch:Introduction} most of the data in the system is \gls{UL} data. Therefore has the \gls{UL} spectrum been tuned to accommodate the massive amount of users. The timing alignment of the \gls{UL} follows the \gls{DL} meaning when synchronized to the \gls{DL} band, the device is also synchronized to the \gls{UL} except for the delay introduced by the travelling time of the signal. This delay is found at the beginning of the \gls{RAP}, which will be further explained in \autoref{sec:RAP}.
+As mentioned in \autoref{ch:Introduction} most of the data in the system is \gls{UL} data. Therefore is the \gls{UL} spectrum tuned to accommodate the massive amount of users. The timing alignment of the \gls{UL} follows the \gls{DL} meaning when synchronized to the \gls{DL} band, the device is also synchronized to the \gls{UL} except for the delay introduced by the travelling time of the signal. This delay is found at the beginning of the \gls{RAP}, which will be further explained in \autoref{sec:RAP}. 
 
 Frame Structure\\
-Compared to legacy \gls{LTE} the \gls{UL} frame can take different formats. It is 180 kHz wide as the \gls{DL} frame, however the sub carrier width can be both 3.75 kHz and 15 kHz.
+Compared to legacy \gls{LTE} two differences should be noted. The channel \gls{PUCCH} has been removed and the \gls{UL} frame can take different formats, it is 180 kHz wide, as the \gls{DL} frame, however the sub carrier spacing can be both 3.75 kHz and 15 kHz, giving 48 and 12 subcarriers respectively. This is however only done on the \gls{NPUSCH}, in the \gls{NPRACH} the subcarrier spacing is 3.75 kHz \citep{NB-IoT_Book}. For each symbol that is transmitted a \gls{CP} is used. The structure of the channels can be seen on \autoref{fig:NPUSCH1_structure}, \autoref{fig:NPUSCH2_structure} and \autoref{fig:NPRACH_structure}.
+
+\begin{minipage}{0.48\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/NPUSCH1_structure.pdf}
+\caption{The structure of NPUSCH format 1 \citep{NB-IoT_Book}}
+\label{fig:NPUSCH1_structure}
+\end{figure}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.48\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/NPUSCH2_structure.pdf}
+\caption{The structure of NPUSCH format 2 \citep{NB-IoT_Book}}
+\label{fig:NPUSCH2_structure}
+\end{figure}
+\end{minipage}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/NPRACH_frequency_hopping.pdf}
+\caption{The structure of a NPRACH symbol group \citep{NB-IoT_Book}}
+\label{fig:NPRACH_structure}
+\end{figure}
+
+Channels\\
+The \gls{UL} consists of two channels and one signal, namely the \gls{NPRACH}, \gls{NPUSCH} and \gls{DMRS}.
+
+The \gls{NPRACH} consist of a repetition of four symbol groups, for each symbol group \gls{CP} is attached followed by five symbols. The duration of the CP is dependent CP-format chosen this can be seen in \autoref{fig:NPRACH_structure}, and depending on the coverage level the \gls{NPRACH} might be repeated up to 128 times. \citep{NB-IoT_Book}
+
+The \gls{NPUSCH} carries the data transmission form the device and \gls{HARQ} acknowledgement for \gls{NPDSCH}. This is referred to as format 1 and 2 respectively, format 1 can carry up 1000 bits per transport block. As seen on \autoref{fig:NPUSCH1_structure} and \autoref{fig:NPUSCH2_structure} the DMRS, which is used for channel estimation at the base station, is multiplexed with the NPUSCH. 
 
 
 
