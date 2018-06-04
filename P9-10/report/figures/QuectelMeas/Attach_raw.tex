@@ -13,7 +13,7 @@ height=0.66\textwidth,
 at={(0.758in,0.481in)},
 scale only axis,
 xmin=0,
-xmax=51.1998976,
+xmax=16,
 xlabel={Time [s]},
 ymin=-0.1,
 ymax=0.8,
@@ -2386,29 +2386,39 @@ axis background/.style={fill=white}
 \addplot[area legend,solid,draw=black,fill=black,fill opacity=0.1,forget plot]
 table[row sep=crcr] {%
 x	y\\
-11.619	-0.1\\
-11.619	0.8\\
+0		-0.1\\
+0		0.8\\
 5.319	0.8\\
 5.319	-0.1\\
 }--cycle;
 
+\addplot[area legend,solid,draw=black,fill=black,fill opacity=0.1,forget plot]
+table[row sep=crcr] {%
+x	y\\
+11.619	-0.1\\
+11.619	0.8\\
+13.906	0.8\\
+13.906	-0.1\\
+}--cycle;
 
 \end{axis}
 %2.795
-\node at (2.96,7.55) {1};
-\node at (3.225,7.88) {2};
-\node at (3.225,7.55) {3};
-\node at (3.482,7.55) {4};
-\node at (3.75,7.55) {5};
-\node at (4.03,7.55) {6};
+\node at (5.24,7.55) {1};
+\node at (6.095,7.88) {2};
+\node at (6.095,7.55) {3};
+\node at (6.952,7.55) {4};
+\node at (7.81,7.55) {5};
+\node at (8.69,7.55) {6};
 
 %\node[rotate=90] at (2.75,6.5) {Boot up and cell sync};
 %\node at (4.615,6.5) {Attach};
 %\node at (12,6.5) {Release and idle};
 \draw [thick,decoration={brace,raise=-0.6cm},decorate]
-   (1.93,8.7) -- (2.88,8.7) node [pos=0.5,anchor=north] {A};
+   (1.93,8.7) -- (5.0,8.7) node [pos=0.5,anchor=north] {A};
 \draw [thick,decoration={brace,raise=-0.6cm},decorate]
-   (2.9,8.7) -- (4.02,8.7) node [pos=0.5,anchor=north] {B};
+   (5.02,8.7) -- (8.66,8.7) node [pos=0.5,anchor=north] {B};
 \draw [thick,decoration={brace,raise=-0.6cm},decorate]
-   (4.04,8.7) -- (11.2,8.7) node [pos=0.5,anchor=north] {C};
+   (8.68,8.7) -- (9.98,8.7) node [pos=0.5,anchor=north] {C};
+\draw [thick,decoration={brace,raise=-0.6cm},decorate]
+   (10.0,8.7) -- (11.2,8.7) node [pos=0.5,anchor=north] {D};
 \end{tikzpicture}%
