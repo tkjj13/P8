@@ -33,8 +33,8 @@ This gives the whole setup seen in \autoref{fig:MassSetup}.
 
 %The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE or GSM spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \autoref{fig:MassSetup}.
 
-\tikzsetnextfilename{MassSetup}
 \begin{figure}[H]
+\tikzsetnextfilename{MassSetup}
 \centering
 \resizebox{0.9\textwidth}{!}{
 \input{figures/Mass_setup.tex}}
@@ -68,8 +68,9 @@ To estimate the parts of the code that should be common for all devices  and whi
 
 %The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
-\tikzsetnextfilename{MassClass}
+
 \begin{figure}[H]
+\tikzsetnextfilename{MassClass}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/MassClass.tex}}
@@ -150,13 +151,13 @@ The synchronization is where the device tries to find the NPSS and NSSS in the r
 \caption{State machine for PHCH recv. The whole process start in ilde.}
 \label{fig:RecvState}
 \end{figure}
-\todo{Write triggers into diagram}
+
 
 The PHCH recv is in idle, until it gets triggered by the attach request, which have gone from the NAS to the RRC to the PHY, which then call sync start, so the state becomes cell search.
 
 In cell search, the PHCH recv starts up the radio class and begins to receive signals from it, where it looks for the NPSS and NSSS through all different frequencies, where it will chose the one with the highest peak, over a certain level. If it does not find a frequency, where there supposed to be a cell, it retries and are stuck in this loop. If it finds a cell, it will then try to locate the MIB from the information from NPSS and NSSS. If it is found, the change the state from cell search to cell select.
 
-In cell select the MIB is received and decoded and send to the MAC. In the case that it is not received well and can not be decoded in the first try \todo{Insert part with soft combining}. If it gets decode it will jump to cell measure, if their is none rsrp measurements \todo{gls maybe} or directly jump to cell camp, where it will begin to look into the SIB messages.
+In cell select the MIB is received and decoded and send to the MAC. In the case that it is not received well and can not be decoded in the first try, it will try to do soft combination with the next received data, which is possible with the way the MIB is designed (see \autoref{sec:cellsync}). If it gets decode it will jump to cell measure, if their is none \gls{RSRP} measurements or directly jump to cell camp, where it will begin to look into the SIB messages.
 
 In cell measure it will measure the rsrp to correct the receiving parameters and then change to the cell camp stage.
 
@@ -233,8 +234,38 @@ The other underclasses in the PHY class all contains parts which should be keep 
 
 With all classes, besides radio and PHCH recv being copied for each device emulated, some changes have to be made in the initialization.
 
-\textbf{PHCH recv}\\
+\textbf{Initialization}\\
+As seen in \autoref{fig:MassClass}, are the both the MAC and RRC connected to the PHY class and to add are there the interaction between the PHCH recv and the other underclasses from the PHY class, as seen in \autoref{fig:PhyClass}. So when the initialization step begins, the PHCH recv needs pointer to all the different MAC, RRC and other PHY classes to move data around and its other tasks. A problem when implemented this, is that the MAC class need the PHY class to be initialized, before it can initialize itself and the PHCH recv is in need of all the MAC classes to be initialized, before it can it self. So is done by splitting the PHY initialize up into two parts, where first all the PHY underclasses, beside the PHCH recv is initialized, while all higher layer classes (besides MAC) and radio is next, then MAC and lastly the PHCH recv. This up splitting can be seen in \autoref{fig:InitNew}.
 
+%\begin{figure}[H]
+%\tikzsetnextfilename{InitNew}
+%\centering
+%\resizebox{0.9\textwidth}{!}{
+%\input{figures/InitNew.tex}}
+%\caption{Overview of the emulator setup}
+%\label{fig:InitNew}
+%\end{figure}
 
+Another change for the initialization step, is that instead of start the attach request in the NAS class, it will directly start up in the PHCH recv, as it else will give many devices asking for starting the attach, instead of only doing it a single time.
+
+This way of splitting up the classes into common and individual for the individual devices was also done in the project, which was the predecessor to this project. This mostly comes from the likelihood of the two baseline used. But the way that the common classes is different from each other. The old version is seen in %\autoref{fig:OldStruct}, while the new version used in this project is seen in %\autoref{fig:NewStruct}.
+
+%\begin{figure}[H]
+%\tikzsetnextfilename{OldStruct}
+%\centering
+%\resizebox{0.9\textwidth}{!}{
+%\input{figures/OldStruct.tex}}
+%\caption{Overview of the emulator setup}
+%\label{fig:OldStruct}
+%\end{figure}
+%
+%\begin{figure}[H]
+%\tikzsetnextfilename{NewStruct}
+%\centering
+%\resizebox{0.9\textwidth}{!}{
+%\input{figures/NewStruct.tex}}
+%\caption{Overview of the emulator setup}
+%\label{fig:NewStruct}
+%\end{figure}
 
 \input{chapter/TestMass.tex}
