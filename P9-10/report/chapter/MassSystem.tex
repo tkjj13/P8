@@ -5,12 +5,12 @@ The focus of this chapter is to provide an overview over the concepts and design
 %It has a high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individually, especially if the desire is to test the impact of massiveness on the individual devices. A more optimal solution is instead of buying a massive amount of devices, to emulate them through software.
 
 To test the scenario of massiveness can be done in two ways, with a massive amount of hardware devices that require a system to control them individually or to emulate multiple devices in software using a minimal amount of hardware. For this type of emulation the optimal solution is the latter, as the desired amount of devices numbers several thousands. 
-\todo{I like this way of describing it better what do you think?}
 
-The challenges with emulating a massive amount of devices, is that every single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspects of the devices functionalities are also wanted in the emulator. So to emulate a massive amount of devices, takes a lot of CPU power and memory to process the data for each individual device and containing the devices them self \todo{containing the devices them self???? what do you mean?}. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handled quickly as the system operate in real time.
+The challenges with emulating a massive amount of devices, is that every single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspects of the devices functionalities are also wanted in the emulator. So to emulate a massive amount of devices, takes a lot of CPU power to process the data for each individual device and having enough memory for then and the data they receive. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handled quickly as the system operate in real time.
 
-As seen from \todo{Insert tabel ref from ch 2} there is multiple version of emulators for a single NB-IoT device, but as the protocol still is in development, these emulators are also in the development stage and they only emulate a single device. But as a foundation for the project the SRS NB-IoT emulator will be used as a baseline, as designing the emulator from scratch is undesired \todo{Find a good formulation here, happy?}. The SRS emulator is chosen, as it was accessible to get with the source code, as there have to be some restructure in the code, and it is based on the LTE emulator from SRS, which was used in \todo{CM ref}, were the base concept in this project will be taken from. \todo{this sentence is a mess, PS charlie's og mathias's report is }
-%citep{thesis_report}
+As seen in \autoref{tab:protocol_decision} from \autoref{ch:Introduction} there is multiple version of emulators for a single NB-IoT device, but as the protocol still is in development, these emulators are also in the development stage and they only emulate a single device. But as a foundation for the project the SRS NB-IoT emulator will be used as a baseline, as designing the emulator from scratch is undesired and to time consuming. The SRS emulator is chosen, as it was accessible to get with the source code, as there have to be some restructure in the code, and it is based on the LTE emulator from SRS, which was the baseline for an earlier project \citep{thesis_report}, which are the predecessor for this project.
+
+
 The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As the code was never intended to emulate multiple devices, several changes is needed, to emulate multiple devices.
 
 
@@ -18,9 +18,10 @@ The SRS NB-IoT emulator is a bigger c++ code project structured up into classes.
 
 The key idea for the emulator, is to split between active and inactive devices. This is done to achieve as high a number of devices as possible. Each device needs to keep all functionalities of a device, however some functionalities should be common for all devices. These functionalities refers to the radio layer functionalities, as only one radio is used for all devices it makes sense to only handle the radio functionalities once and share the data later to each device. To do this the code should be split up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
 
-\todo{Insert overall structure}
-\todo{you have only explained the massive part of your emulator what about the rest?}
-\todo{the idea german explained was to keep it in concept form first but not single out the emulator like this}
+To test the emulator, it needs to communicated with a BS. To not interfere with other users and cancel out any other factors that can interfere with the whole setup, it is chosen to work with a BS emulator and connect the two emulator through wires. For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE}s \citep{Amarisoft_solutions} and is tested to synchronize with the software based NB-IoT devices that will be used. 
+
+To convert the signals, that the emulators produce, from digital to analog and reverse is there use a USRP B210 for each emulator, as it have been tested to work with both emulators. A last thing that have been put into the whole setup is a 30 dB attenuator, as the wired do not have as much path loss as transmission through air would have had.
+This gives the whole setup seen in \autoref{fig:MassSetup}. 
 
 
 
@@ -32,14 +33,15 @@ The key idea for the emulator, is to split between active and inactive devices. 
 
 %The code will produce the infrastructure of the \gls{MDE} combining and transmitting the signals produced to the \gls{eNB}. The eNB will be emulated on secondary PC, as this frees up the PC running the \gls{MDE}. The NB-IoT spectrum overlaps with the LTE or GSM spectrum, meaning the spectrum is licensed, therefore a wire is used to connect \gls{MDE} and eNB. As the path loss in the wire is quite low, compared to transmission through the air, a 30 dB attenuator is added in between to increase the dynamic spectrum of the \gls{MDE} and eNB. To convert from digital signals to RF signals, a USRP B210 is connected to each the two emulators as these \gls{SDR}s are comparable with both softwares. The setup of the emulators can be seen on \autoref{fig:MassSetup}.
 
-%\tikzsetnextfilename{MassSetup}
-%\begin{figure}[H]
-%\centering
-%\resizebox{0.9\textwidth}{!}{
-%\input{figures/Mass_setup.tex}}
-%\caption{Overview of the emulator setup}
-%\label{fig:MassSetup}
-%\end{figure}
+\tikzsetnextfilename{MassSetup}
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\input{figures/Mass_setup.tex}}
+\caption{Overview of the emulator setup}
+\label{fig:MassSetup}
+\end{figure}
+
 
 
 
@@ -62,7 +64,7 @@ As stated before, is the baseline emulator from SRS stil in development. The str
 
 \subsection{Structure}
 \label{sub:MassStruct}
-To estimate the parts of the code that should be common for all devices  and which shall be kept individual, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated
+To estimate the parts of the code that should be common for all devices  and which shall be kept individual, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated with the USRP B210, and the srsUE, where the main classes and control of the system is placed. The structure of the srsUE part can be seen in \autoref{fig:MassClass}. 
 
 %The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
@@ -75,6 +77,21 @@ To estimate the parts of the code that should be common for all devices  and whi
 \label{fig:MassClass}
 \end{figure}
 
+The structure designed like the communication model OSI, but do not follow the model fully, which can be seen in their functionallities seen below.
+
+\begin{itemize}
+\item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
+\item [PHY] The PHY class handles the synchronization, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data.
+\item [MAC] Keep track of TTI and give grants to PHY class to decode and encode of DL and UL. Control flow from the PHY class to the RLC class. Take over the RAP from the NPRACH class for msg2 and onward.
+\item [RRC] Is the overall control class for the whole device. Here it control how far through the process the device is and if it got all the needed parameters, which is the reason for it being connected to all lower classes, besides the radio class.
+\end{itemize}
+
+Even if the class layout look like the OSI model but it does not follow it on point especially the lower layers (PHY and MAC). This comes from that many of the MAC layers task is moved to the PHY class and normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS and USIM classes is not used much, as their functionality is for the process after the RAP or at least msg4 have been received. Therefore have they not been though much development in the SRS code.
+
+Between these classes are there some interfaces, that handles the movement of data, grants, parameters and other information. These interfaces is build as a class for it self for each interface, with an overall interface for functionalities used multiple places. 
+
+The PHY class contains many tasks and and contains more classes which handles these tasks. The structure and description of these classes can be seen below.
+
 \begin{figure}[H]
 \centering
 \tikzsetnextfilename{PhyClass}
@@ -84,30 +101,22 @@ To estimate the parts of the code that should be common for all devices  and whi
 \label{fig:PhyClass}
 \end{figure}
 
-Even if the class layout look like the OSI model but it does not follow it on point especially the lower layers (PHY and MAC). This comes from that many of the MAC layers task is moved to the PHY class and normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS and USIM classes is not used much, as their functionality is for the process after the RAP or at least msg4 have been received. Therefore have they not been though much development in the SRS code. Here following is a description of the different classes and their functionality:
-
 \begin{itemize}
-\item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
-\item [PHY] The PHY class handles the synchronization, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data. As it have a high number of task, it is split up into an amount of underclasses.
-	\begin{itemize}
-	\item [PHCH recv] Controls the whole PHY class system. Keeps track on which state the system is in and activates the different underclasses in the PHY class.
-	\item [PHCH common] Contains most parameters for the PHY underclasses, here under the RNTI's and metrics for UL and DL, and communication up to the MAC class and sends transmission data to the radio class.
-	\item [PHCH workers] Handles all processing of data after decoding of MIB and SIBs messages, both encoding and decoding dependably on the grants granted by the MAC class. Their can be multiple workers for one device, but in these cases, their will only be used one.
-	\item [Thread pool] Contains and controls the array of PHCH workers.	
-	\item [NPRACH] Used to send msg1 in the RAP and keep track of the parameters set for this transmission, like preamble id.
-	\end{itemize}
-\item [MAC] Keep track of TTI and give grants to PHY class to decode and encode of DL and UL. Control flow from the PHY class to the RLC class. Take over the RAP from the NPRACH class for msg2 and onward.
-%\item [RLC] Control data package sizes down to the MAC layer though a buffer, but this 
-%\item [PDCP]
-\item [RRC] Is the overall control class for the whole device. Here it control how far through the process the device is and if it got all the needed parameters, which is the reason for it being connected to all lower classes, besides the radio class.
-%\item [GW]
-%\item [NAS]
-%\item [USIM]
+\item [PHCH recv] Controls the whole PHY class system. Keeps track on which state the system is in and activates the different underclasses in the PHY class.
+\item [PHCH common] Contains most parameters for the PHY underclasses, here under the RNTI's and metrics for UL and DL, and communication up to the MAC class and sends transmission data to the radio class.
+\item [PHCH workers] Handles all processing of data after decoding of MIB and SIBs messages, both encoding and decoding dependably on the grants granted by the MAC class. Their can be multiple workers for one device, but in these cases, their will only be used one.
+\item [Thread pool] Contains and controls the array of PHCH workers.	
+\item [NPRACH] Used to send msg1 in the RAP and keep track of the parameters set for this transmission, like preamble id.
 \end{itemize}
 
-Between these classes are there some interfaces, that handles the movement of data, grants, parameters and other information. These interfaces is build as a class for it self for each interface, with an overall interface for functionalities used multiple places.
+There are multiple other classes in the srsUE part, but they are a bi-product of the copied structure from the LTE version and are not executed, as either the feature have not been added yet or that its functionallities are first meant to be executed after msg2.
+
+With the knowledge of the structure of the baseline, the process of code will be look into now.
+
 
 \subsection{Execution of the code}
+
+
 The code is build up into multiple section which runs at different times, which is shown in \autoref{fig:MassStep}. After the initialization, the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the process the code have made it to.
 
 \begin{figure}[H]
