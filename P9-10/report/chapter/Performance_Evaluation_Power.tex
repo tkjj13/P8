@@ -1,20 +1,207 @@
 \chapter{Battery Lifetime of a NB-IoT Device} \label{ch:BatTest}
 %Here should be an introduction of what we will test (the emulator and/or the protocol). 
 
-The focus of this chapter is to provide an overview and an estimate of the power efficiency of the NB-IoT protocol. From \autoref{ch:NB-IoT} it is known that the desired performance of any IoT protocol is to achieve a battery life time of 10 years with a battery capacity of 5 Wh even in extreme situations. 
+The focus of this chapter is to provide an overview and an estimate of the power efficiency of the NB-IoT protocol. From \autoref{ch:NB-IoT} it is known that the desired performance of any IoT protocol is to achieve a battery life time of 10 years with a battery capacity of 5 Wh even in extreme situations. To do this the first step is to establish a model that considers the different aspects of the protocol and use of the devices.
 
-In \appref{app:bat_model} the model which will be used to estimate the battery lifetime is described, but to use it effectively several elements needs to be measured on an actual device, these are:
+\section{Battery Lifetime Estimation Model}
+\label{sec:bat_model}
+
+To model the battery lifetime of any cellular device can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work as it is simple and elegant, it should be noted that several factors is hidden in the model and influence of several parameters is not investigated. It is also seem to be assumed for the model that it does not experience interference in any way from other devices. The model will use this as a baseline due to its simplicity and potential. First is the general description of the battery lifetime \citep{Power_article}:
+
+\begin{equation}
+L(T_i) = \frac{C_{bat}\cdot SF_{bat}}{8760 \left(P_m(T_i) + P_{device}\right)}
+\end{equation}
+\begin{where}
+\va{$L(T_i)$}{is the expected lifetime of the battery}{y}
+\va{$T_i$}{is the transmission time interval}{h}
+\va{$C_{bat}$}{is the capacity of the battery}{Wh}
+\va{$SF_{bat}$}{is the safety factor of the battery}{1}
+\va{8760}{is the number of ours in a year}{$\frac{h}{y}$}
+\va{$P_m(T_i)$}{is the power consumption of the modem}{W}
+\va{$P_{device}$}{is the power consumption of the IoT device}{W}
+\end{where}
+
+This equation lays the foundation of the battery lifetime model, here the power consumption has been split between the functionality of the device and the NB-IoT modem itself. The factors explained further in the following sections.
+
+\subsection{Modem Power Consumption}
+
+To define the power consumption of the modem several different approaches can be used. It is important to note that just by looking at a single instance of powering on transmitting and going back to idle or off puts the device through several different phases for which a multitude of parameters is influential. To keep the model simple it is assumed that each transmission goes through three phases and that the device is idle for the rest of the duration. The phases are connecting to the cell, transmitting the data and releasing the cell again. It is thereby assumed that all data will be mobile originated and not mobile terminated. This means that the modem power consumption can be modelled as:
+
+\begin{equation}
+P_m(t_i) = \frac{E_{conn} + E_{transmit} + E_{disconn} + E_{idle}}{T_i}
+\end{equation}
+\begin{where}
+\va{$E_{conn}$}{is the energy used to connect to the network}{J}
+\va{$E_{transmit}$}{is the energy used during transmission}{J}
+%\va{$t_{tx}$}{is the time it takes to transmit}{s}
+\va{$E_{disconn}$}{is the energy used to disconnect from the network}{J}
+\va{$E_{idle}$}{is the energy used during the idle period}{J}
+%\va{$t_{conn}$}{is the time it takes to connect to the network}{s}
+%\va{$t_{disconn}$}{is the time it takes to disconnect from the network}{s}
+\end{where}
+
+
+\textbf{Energy used to Connect to the Network}\\
+The first term is the energy used to connect to the network, this covers the energy it takes to boot up the modem find and synchronize to a cell as well as perform an attach procedure. 
+
+\begin{equation}
+E_{conn} = E_{modem,on} + E_{sync} + E_{attach}
+\end{equation}
+\begin{where}
+\va{$E_{modem,on}$}{is the energy needed to turn the modem on}{J}
+\va{$E_{sync}$}{is the energy used to synchronize the device to the network}{J}
+\va{$E_{attach}$}{is the energy to attach the device to the network}{J}
+\end{where}
+
+Each of these phase's energy consumptions is dependent on a set of parameters. An overview of these parameters is found in \autoref{tab:Econn_parameter_overview}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
+$E_{modem,on}$ & \begin{itemize} 
+\item modem
+\end{itemize} \\ \hline
+$E_{sync}$ & \begin{itemize}
+\item frequency
+\item modem
+\item SIB repetition
+\end{itemize} \\ \hline
+$E_{attach}$ & \begin{itemize}
+\item bandwidth
+\item \gls{CP}-format
+\item frequency
+\item modem 
+\item \gls{MCS}
+\item NPRACH interval
+\item NPRACH power level
+\item number of antenna ports
+\item operation mode
+\item repetition
+\item sub-carrier spacing
+\item \gls{TBS}
+\item transmission gap size
+\item transmit power
+\end{itemize} \\ \hline
+\end{tabular}
+\caption{Paremeter overview for each term in the connection energy calculation.}
+\label{tab:Econn_parameter_overview}
+\end{table}
+
+
+
+\textbf{Transmission Power}\\
+To calculate the energy used for a transmission it is split up in to the average power consumption and the time used to transmit the data. 
+\begin{equation}
+E_{transmit} = P_{transmit}\cdot T_{transmit}
+\end{equation}
+\begin{where}
+\va{$P_{transmit}$}{is the average power consumption during a transmission period}{W}
+\va{$T_{transmit}$}{is the time it takes to transmit the data}{s}
+\end{where}
+
+Both of these factor's energy consumptions is dependent on other parameters. An overview of these parameters is found in \autoref{tab:Etransmit_parameter_overview}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
+$P_{transmit}$ & \begin{itemize}
+\item frequency
+\item modem
+\item transmit power 
+\end{itemize} \\ \hline
+$T_{transmit}$ & \begin{itemize}
+\item amount of data
+\item bandwidth
+\item \gls{MCS}
+\item NPRACH interval
+\item operation mode
+\item repetition
+\item sub-carrier spacing
+\item \gls{TBS}
+\item transmission gap size
+\end{itemize} \\ \hline
+\end{tabular}
+\caption{Paremeter overview for each term in the transmit energy calculation.}
+\label{tab:Etransmit_parameter_overview}
+\end{table}
+
+
+\textbf{Disconnection Energy}\\
+The disconnection energy covers the energy it takes to detach the device from the network and go into idle mode. The disconnection energy is dependent on several parameters as seen in \autoref{tab:Erelease_parameter_overview}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|m{3cm}|m{6cm}|} \hline
+\textbf{Term} & \textbf{Parameters} \\ \hline
+$E_{diconn}$ & \begin{itemize}
+\item bandwidth
+\item \gls{CP}-format
+\item frequency
+\item \gls{MCS}
+\item modem 
+\item NPRACH interval
+\item NPRACH power level
+\item number of antenna ports
+\item operation mode
+\item repetition
+\item sub-carrier spacing
+\item \gls{TBS}
+\item transmission gap size
+\item transmit power
+\end{itemize} \\ \hline
+\end{tabular}
+\caption{Paremeter overview for disconnection energy.}
+\label{tab:Erelease_parameter_overview}
+\end{table}
+
+\textbf{Idle Mode Power}\\
+Idle mode power consumption covers several things, as the device has a few options when going unto idle mode. Four types of idle mode is defined in \gls{NB-IoT} namely: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. The case of cDRX will not be considered as this means the device would actually stay connected to the network after it is done transmitting. The case of DRX is not really considered either as it can be covered by the PSM case. 
+  
+\begin{equation}
+E_{idle} = \begin{cases} P_{DRX}\cdot T_{PTW}+P_{PSM}\cdot T_{PSM} \qquad \text{for eDRX}\\
+			 P_{DRX}\cdot T_{DRX} + P_{PSM}\cdot (T_i-T_{DRX}-T_{attach}-T_{transmit}) \qquad \text{for PSM}
+		   \end{cases}
+\end{equation}
+\begin{where}
+\va{$P_{DRX}$}{is the average power consumption during DRX}{W}
+\va{$T_{PTW}$}{is the length of the \gls{PTW}}{s}
+\va{$P_{PSM}$}{is the average power consumption of the device in PSM}{W}
+\va{$T_{DRX}$}{is the time spent in DRX mode before going into PSM mode}{s}
+\va{$T_{attach}$}{is the time it takes to attach the device to the network}{s}
+\end{where}
+
+The dependency for these factors are explained in \autoref{sec:Network_access}.
+
+
+
+\subsection{Other Parameters}
+The other parameters include device power, battery capacity and the safety factor of the battery.
+
+\textbf{Device Power Consumption}\\
+Because the functionality of the device vary depending on the use case is it very hard to put up a model for it. As all relevant use cases here is assumed low energy it can be assumed that the factor have little influence on the overall battery lifetime, however a measurement or a more specific model is needed to give an accurate estimate of the battery lifetime.
+
+\textbf{Battery Capacity}\\
+A performance objective for IoT protocols is to achieve a battery lifetime of 10 years on a 5 Wh battery. 
+
+\textbf{Safety Factor}\\
+The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 \citep{Power_article}, however from the standards specify a safety factor of 1 for the performance objective which will be used here \citep[Sec. 5.4]{safty_factor_standard}.
+
+
+\section{Test Setup}
+To use the model effectively several elements needs to be measured on an actual device, these are:
 
 \begin{tabular}{ll}
 $E_{sync}$ & the energy used for the modem to boot and synchronise to a cell. \\
 $E_{attach}$ & the energy needed to attach the device to the cell. \\
-$P_{tx}$ & the power consumption during the data transmission. \\
+$P_{transmit}$ & the power consumption during the data transmission. \\
 $E_{release}$ & the energy spent when disconnecting from the cell. \\
 $P_{eDRX}$ & the power consumption during \gls{eDRX} idle mode. \\
 $P_{PSM}$ & the power consumption during \gls{PSM} idle mode. \\
 \end{tabular}
 
-Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which influence can the throughput and energy consumption during a transmission and thereby influence several of the states and transitions the device experience. To account for all of this is to huge a task for this project, therefore a couple of parameters is chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. For the four parameters the values chosen can be seen in \autoref{tab:par_val}, note that these ranges are only valid for the measurements containing to the specific parameter, in all other cases a fixed value is chosen instead.
+Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which can influence the throughput and energy consumption. To account for all of this is to huge a task for this project, therefore a couple of parameters are chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. For the four parameters the values chosen can be seen in \autoref{tab:par_val}, note that these ranges are only valid for the measurements containing to the specific parameter, in all other cases a fixed value is chosen instead.
 
 \begin{table}[H]
 \centering
@@ -35,7 +222,7 @@ In each of the following graphs that depicts the measured data points, the order
 
 
 
-\section{Test Setup}
+
 %Here should be a description of the general setup (including figure) used in all test and a list of baseline values for all parameters. Including physical setup, BSE, UEE.
 All the parameters can be tested with the same setup which can be seen in \autoref{fig:IPE_test_setup}.
 
@@ -64,43 +251,46 @@ The initial settings of each component in the system can be seen in \autoref{tab
 \centering
 %\resizebox{!}{0.5\textheight}{
 \begin{minipage}[t]{0.48\textwidth}
-\begin{tabular}{|p{4cm}|p{2cm}|}
-\hline
-\multicolumn{2}{|c|}{\textbf{Power Supply/Analyser}}                         \\ \hline
-Enable             & Off            \\ \hline
-Volt               & 3.6 V          \\ \hline
-Ampere             & 2.5 A          \\ \hline
-Sample interval	   & 100 $\mu$s		\\ \hline
-\multicolumn{2}{c}{}\\ \hline
-\multicolumn{2}{|c|}{\textbf{Ekstern IoT device}}                            \\ \hline
-Enable             & Off            \\ \hline
+\begin{tabular}{|p{4cm}|p{2cm}|} \hline
+\multicolumn{2}{|c|}{\textbf{Ekstern IoT device}}   \\ \hline
 DL\_EARFCN         & 6240           \\ \hline
+Enable             & Off            \\ \hline
+\multicolumn{2}{c}{}  \\ 
+\multicolumn{2}{c}{}  \\ 
 \end{tabular}
 %\caption{Initial values of the parameters in the emulator.}
 \end{minipage}% 
 \hfill
 \begin{minipage}[t]{0.48\textwidth}
+\raggedleft
 \begin{tabular}{|p{4cm}|p{2cm}|} \hline
-\multicolumn{2}{|c|}{\textbf{UXM \gls{BSE}}} \\ \hline
-Cell type			 & NB-IoT         \\ \hline
-Number of cells		 & 1              \\ \hline
-Operation mode		 & Standalone     \\ \hline
-Host cell DL\_EARFCN & 6240           \\ \hline
-PRB offset			 & 0	          \\ \hline
-Cell ID				 & 0              \\ \hline
-Tx power			 & -80 dB/per 15 kHz \\ \hline
-Repetition NPDSCH	 & 1	          \\ \hline
-Max Repetition NPDCCH & 4	          \\ \hline
-Repetition NPUSCH	 & 1	          \\ \hline
-Repetition NPRACH	 & 1	          \\ \hline
-CP format			 & Normal         \\ \hline
-$P_{TX}$				 & 23 dBm         \\ \hline
-MAC padding DL		 & off       	  \\ \hline
-MAC padding UL		 & off       	  \\ \hline
+\multicolumn{2}{|c|}{\textbf{Power Supply/Analyser}} \\ \hline
+Ampere             & 2.5 A          \\ \hline
+Enable             & Off            \\ \hline
+Sample interval	   & 100 $\mu$s		\\ \hline
+Volt               & 3.6 V          \\ \hline
 \end{tabular}
 %\caption{Initial values of the parameters in the emulator.}
 %\label{tab:setup_parameters}
+\vspace{1em}
 \end{minipage}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{5cm}|p{3cm}|p{4cm}|p{3cm}|} \hline
+\multicolumn{4}{|c|}{\textbf{UXM \gls{BSE}}} \\ \hline
+Cell ID                   & 0        & Cell type              	& NB-IoT         \\ \hline
+CP format                 & Normal   & DRX Start Offset       	& 0              \\ \hline
+drx-ULRetransmissionTimer & 0        & Host cell DL\_EARFCN 	& 6240           \\ \hline
+Idle eDRX Cycle     & 20480 subframes& Idle eDRX State        	& Off            \\ \hline
+Inactivity Timer        & 8 NPDCCH subframes & Long DRX cycle   & 1024 subframes \\ \hline
+MAC padding DL           & off       & Max Repetition NPDCCH 	& 4              \\ \hline
+Number of cells          & 1         & onDuration Timer         & 4 NPDCCH subframes \\ \hline
+Operation mode           & Standalone& Power Saving Mode		& Off            \\ \hline
+PRB offset               & 0         &$P_{TX}$                  & 23 dBm         \\ \hline
+\gls{PTW}                & 5120 subframes & Repetition NPDSCH   & 1              \\ \hline
+Repetition NPRACH        & 1         & Repetition NPUSCH        & 1              \\ \hline
+Retransmission Timer & 2 NPDCCH subframes & T3324 (DRX period)  & 10 s           \\ \hline
+T3412 (PSM period)      & 10 s       & Tx power                 & -80 dB/per 15 kHz \\ \hline
+\end{tabular}}
 \caption{Initial values of the parameters in the emulator.}
 \label{tab:setup_parameters}
 \end{table}
@@ -122,34 +312,11 @@ T &=  A_{end} - A_{start} \label{eq:time}\\
 \va{$A_{end}$}{is the end time of area A}{s}
 \end{where}
 
-Four different kinds of idle mode exist for a NB-IoT device: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. It is chosen not to look into \gls{cDRX} due to an assumption of the device transmitting its data quickly and then going into deep sleep. 
+%Four different kinds of idle mode exist for a NB-IoT device: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. It is chosen not to look into \gls{cDRX} due to an assumption of the device transmitting its data quickly and then going into deep sleep. 
 
-When the device is in idle mode most parameters lose their influence entirely. Because of this a whole new set of parameters should be considered. For the \gls{DRX} case the cycle period is important, while for \gls{eDRX} however a few parameter more should be considered such as the repetition of the DRX cycle and the eDRX cycle period. For \gls{PSM} its is also the DRX cycle period as well as the repetition of the DRX cycle as well as the PSM cycle time. This can be summed up to two different types of parameters: period lengths and repetition numbers. It is assumed that both of these parameters have a proportional relation to the energy consumption of the idle modes, this means that only a single instance of the power consumption is needed for these different idle modes to extrapolate from.
+%When the device is in idle mode most parameters lose their influence entirely. Because of this a whole new set of parameters should be considered. For the \gls{DRX} case the cycle period is important, while for \gls{eDRX} however a few parameter more should be considered such as the repetition of the DRX cycle and the eDRX cycle period. For \gls{PSM} its is also the DRX cycle period as well as the repetition of the DRX cycle as well as the PSM cycle time. This can be summed up to two different types of parameters: period lengths and repetition numbers. It is assumed that both of these parameters have a proportional relation to the energy consumption of the idle modes, this means that only a single instance of the power consumption is needed for these different idle modes to extrapolate from.
 
-Because of this an extra set of parameters need to be defined for the UXM, as can be seen in \autoref{tab:UXM_idle_values}.
 
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|} \hline
-\multicolumn{2}{|c|}{\textbf{DRX}}  	 \\ \hline
-Long DRX cycle     	& 1024 subframes 	 \\ \hline
-onDuration Timer   	& 4 NPDCCH subframes \\ \hline
-Retransmission Timer & 2 NPDCCH subframes \\ \hline
-Inactivity Timer   	& 8 NPDCCH subframes \\ \hline
-DRX Start Offset   	& 0              	 \\ \hline
-drx-ULRetransmissionTimer & 0       	 \\ \hline
-\multicolumn{2}{|c|}{\textbf{eDRX}} 	 \\ \hline
-Idle eDRX State		& Off				 \\ \hline
-\gls{PTW}			& 5120 subframes 	 \\ \hline
-Idle eDRX Cycle     & 20480 subframes	 \\ \hline
-\multicolumn{2}{|c|}{\textbf{PSM}}  	 \\ \hline
-Power Saving Mode	& Off				 \\ \hline
-T3324 (DRX period)	& 10 s    			 \\ \hline
-T3412 (PSM period)	& 10 s		  		 \\ \hline
-\end{tabular}
-\caption{Specific parameter used to measure device idle power}
-\label{tab:UXM_idle_values}
-\end{table}
 
 
 
@@ -184,7 +351,7 @@ T3412 (PSM period)	& 10 s		  		 \\ \hline
 
 \section{Energy to Connect and Disconnect the DUT to the Cell} \label{sec:performance_attach}
 
-First step is to get an overview of the measurements, to do this an example of the raw data from a measurement is presented in \autoref{fig:Attach_raw}.
+The energy to connect and disconnect the DUT to the cell involves the elements $E_{sync}$, $E_{attach}$ and $E_{release}$. The procedure to measure these can be found in \appref{app:test_procedures}. The first step is to get an overview of the measurements, to do this an example of the raw data from a measurement is presented in \autoref{fig:Attach_raw}. The areas are related to the elements in order, area D is when the device has been release and is therefore not used.
 
 \tikzsetnextfilename{Attach_raw}
 \begin{figure}[H]
@@ -209,9 +376,8 @@ First step is to get an overview of the measurements, to do this an example of t
 \caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure, area C is Cell release and area D is off period. Dashed line indicates log messages.}
 \label{fig:Attach_raw}
 \end{figure}
-\todo{make a D area}
 
-In \appref{app:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
+In \autoref{sec:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
 
 
 
@@ -232,7 +398,7 @@ In \appref{app:bat_model} it was found that three elements is needed from this m
 \label{fig:Sync_Points}
 \end{figure}
 
-As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \appref{app:bat_model}. A single point is therefore chosen as it is assumed the small discrepancies around it is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
+As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \autoref{sec:bat_model}. A single point is therefore chosen as it is assumed the small discrepancies around it is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
 
 The next element to look at is the energy used to attach to the network. This is found based on the log where a messages is telling where the NPRACH starts and where the attach is complete. This can be seen as area B in \autoref{fig:Attach_raw}. It is determined to split the energy into the average power and the time it takes based on the measurements. First the power is found based on \autoref{eq:power} for area B. 
 This is done for all measurements and the results are presented in \autoref{fig:Attach_Power_Points}.
@@ -267,7 +433,7 @@ As mentioned the parameter $P_{TX}$ influences the mean value of the power consu
 \label{fig:Attach_Pmax}
 \end{figure}
 
-From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of Pmax. The need for two function to approximate the characteristic can be contributed to the usage of a power amplifier. This parameter determines the mean value of the average power consumption. 
+From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of $P_{TX}$. The need for two function to approximate the characteristic can be contributed to the usage of a power amplifier. This parameter determines the mean value of the average power consumption. 
 
 Now the time to attach is investigated the time is found based on \autoref{eq:time} and the results can be seen in \autoref{fig:Attach_Time_Points}.
 
@@ -285,7 +451,7 @@ Now the time to attach is investigated the time is found based on \autoref{eq:ti
 \resizebox{\textwidth}{!}{
 \input{figures/QuectelMeas/Attach_Time_Stat.tex}}
 \end{minipage}
-\caption{Time spent during attach procedure}
+\caption{Time spent during attach procedure.}
 \label{fig:Attach_Time_Points}
 \end{figure}
 
@@ -348,10 +514,10 @@ It can be seen that the time it takes to release the device from the network var
 From this it can concluded that the elements are uninfluenced by CP format, frequency, operation mode and $P_{TX}$ except in the case of $P_{attach}$ where $P_{TX}$ influences the mean value, but also that the model might be a bit too simplified. Based on the measurement the elements can be described as follows:
 
 \begin{align}
-E_{sync} &= 0.223 [J]
+E_{sync} &= 0.223 [J] \\
 P_{attach} &\sim\text{Lognormal}(\mu_{attach},4.4274\cdot 10^{-4}) [W] \\
-\mu_{attach} &= \begin{cases} log\left(0.1328\cdot\exp(1.4\cdot 10^{-3}\cdot x) + 1.51\cdot 10^{-3}\exp(0.229\cdot x)\right) \quad for x \leq 8 dBm \\
-log\left(0.1225\cdot\exp(21.0\cdot 10^{-3}\cdot x) + 11.7\cdot 10^{-12}\cdot \exp(0.981\cdot x)\right) \quad for x > 8 dBm \end{cases} \\
+\mu_{attach} &= \begin{cases} \log\left(0.1328\cdot\exp(1.4\cdot 10^{-3}\cdot x) + 1.51\cdot 10^{-3}\exp(0.229\cdot x)\right) \quad for x \leq 8 dBm \\
+\log\left(0.1225\cdot\exp(21.0\cdot 10^{-3}\cdot x) + 11.7\cdot 10^{-12}\cdot \exp(0.981\cdot x)\right) \quad for x > 8 dBm \end{cases} \\
 T_{attach} &\sim\begin{cases} 2.215 [s] \quad p = 0.2584\\
 2.345 [s] \quad p = 0.4382\\
 2.470 [s] \quad p = 0.1124\\
@@ -366,7 +532,7 @@ E_{release} &=0.1799 [W] \cdot 2.938 [s]
 
 \section{Transmit Power Consumption}
 
-To measure the transmit power consumption the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. An example of the raw data can be seen in \autoref{fig:Transmit_raw}.
+The transmit power consumption involves the elment $P_{transmit}$, to measure this the UXM needs to enable the MAC padding this is done in both UL and DL to ensure the maximum utilization of the device. The full procedure can be found in \appref{app:test_procedures}. An example of the raw data can be seen in \autoref{fig:Transmit_raw}.
 
 \begin{figure}[H]
 \centering
@@ -403,7 +569,7 @@ As $P_{transmit}$ shares several traits with $P_{attach}$ it can also be modelle
 \tikzsetnextfilename{Transmit_Pmax}
 \resizebox{0.7\textwidth}{!}{
 \input{figures/QuectelMeas/Transmit_Pmax.tex}}
-\caption{Transmit Pmax}
+\caption{Average power consumption as a function of $P_{TX}$ during a transmit phase.}
 \label{fig:Transmit_Pmax}
 \end{figure}
 
@@ -417,7 +583,7 @@ The influence on the average power consumption can be modelled using two functio
 
 
 \section{Idle Mode Power Consumption}
-To measure the idle mode power consumption the device is release from the cell after the desired idle mode is enabled. The raw data from each of the idle mode measurements can be seen in the following figures.
+The idle mode power consumption involves the elements $P_{eDRX}$ and $P_{PSM}$, to measure those the device is release from the cell after the desired idle mode is enabled. The procedure used to measure the idle modes can be found in \appref{app:test_procedures}. The raw data from each of the idle mode measurements can be seen in the following figures.
 
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[H]
@@ -478,21 +644,14 @@ P_{PSM} &= 4.437 [\mu W]
 
 \section{Battery Lifetime Estimations}
 
-Now that all the power values are known the battery lifetime can be estimated. To do this however the influence of some cell specific parameters as well as some assumptions of the transmit time is needed. As stated in \appref{app:bat_model} the model used to estimated the battery life time is:
+Now that all the power values are known the battery lifetime can be estimated. To do this however the influence of some cell specific parameters as well as some assumptions of the transmit time is needed. As stated in \autoref{sec:bat_model} the model used to estimated the battery life time is:
 
 \begin{equation}
 L(T_i) = \frac{C_{bat}\cdot SF_{bat}}{8760\cdot (P_m(T_i) + P_{device})}
 \end{equation}
-\begin{where}
-\va{$L(T_i)$}{is the expected lifetime of the battery}{years}
-\va{$T_i$}{is the transmission time interval}{s}
-\va{$C_{bat}$}{is the capacity of the battery}{Wh}
-\va{$SF_{bat}$}{is the safety factor of the battery}{1}
-\va{$P_m(T_i)$}{is the power consumption of the modem}{W}
-\va{$P_{device}$}{is the power consumption of the IoT device}{W}
-\end{where}
 
-This equation is used under the assumption that $P_{device}$ is negligible, that there is no mobile terminated data occurring. The standards specify that $SF_{bat}$ is 1 and $C_{bat}$ is 5 Wh \citep[sec. 5.4]{safty_factor_standard}, giving:
+
+This equation is used under the assumption that $P_{device}$ is negligible, that there is no mobile terminated data occurring and as the standards specify, that $SF_{bat}$ is 1 and $C_{bat}$ is 5 Wh \citep[sec. 5.4]{safty_factor_standard}. This reduces the equation to:
 \begin{equation}\label{eq:bat_est}
 \begin{gathered}
 	L(t_i) = \frac{2.0548}{P_m(T_i)} \\
@@ -503,7 +662,7 @@ This equation is used under the assumption that $P_{device}$ is negligible, that
 				\end{cases}
 \end{gathered}
 \end{equation}
-\todo{er mads tilfreds}
+
 From \autoref{eq:bat_est} a couple of problems become visible. 
 First is that the time to sync and release of the device from the system has not been taken into account. This however will only influence the estimation slightly as the time is essentially added to the idle time and only amounts to a few seconds. 
 Second is that $E_{active}$ depends on two parameters, $P_{TX}$ and $T_{transmit}$. Measurements has been done to characterize $P_{TX}$ but not $T_{transmit}$, because $T_{transmit}$ depends not only on the amount of data the device wants to transmit, but also on some cell specific parameters such as repetition, TBS etc. It is used as a parameter here but future work should consider defining this in terms of it own parameters. 
@@ -514,12 +673,16 @@ A common factor for all these problems is the model will underestimate the batte
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|} \hline
-		& $T_{DRX}$	& $T_{PSM}$	& $T_{PTW}$	& $T_{Transmit}$	& $P_{TX}$ 	\\ \hline
-Case 1	& 2 s 		& 20.48 s	& 5.12 s	& 1 s				& 20 dBm	\\ \hline
-Case 2	& 10 s		& 163.84 s	& 10.24 s	& 1 s				& 20 dBm	\\ \hline
-Case 3	& 50 s		& 1310.72 s	& 20.48 s	& 1 s				& 20 dBm	\\ \hline
-Case 4	& 250 s		& 10485.76 s& 40.96 s	& 1 s				& 20 dBm	\\ \hline
+\begin{tabular}{|c|c|c|c|c|c|c|} \hline
+				& Idle mode & $T_{DRX}$	& $T_{PSM}$	& $T_{PTW}$	& $T_{Transmit}$	& $P_{TX}$ 	\\ \hline
+\multirow{2}{*}{Case 1}	& eDRX & - 		& 20.48 s	& 5.12 s	& 1 s				& 20 dBm	\\ \cline{2-7}
+						& PSM  & 2 s 	& -			& -			& 1 s				& 20 dBm	\\ \hline
+\multirow{2}{*}{Case 2}	& eDRX & -		& 163.84 s	& 10.24 s	& 1 s				& 20 dBm	\\ \cline{2-7}
+						& PSM  & 10 s	& -			& -			& 1 s				& 20 dBm	\\ \hline
+\multirow{2}{*}{Case 3}	& eDRX & -		& 1310.72 s	& 20.48 s	& 1 s				& 20 dBm	\\ \cline{2-7}
+						& PSM  & 50 s	& -			& -			& 1 s				& 20 dBm	\\ \hline
+\multirow{2}{*}{Case 4}	& eDRX & -		& 10485.76 s& 40.96 s	& 1 s				& 20 dBm	\\ \cline{2-7}
+						& PSM  & 250 s	& -			& -			& 1 s				& 20 dBm	\\ \hline
 \end{tabular}
 \caption{Timer settings for the four cases.}
 \label{tab:case_description}
@@ -536,7 +699,7 @@ The expected battery lifetime for these four cases is found for different $T_i$'
 \label{fig:eDRXvsPSM}
 \end{figure}
 
-As can be seen in \autoref{fig:eDRXvsPSM} the longer the $T_i$ the more impactful the these parameters become which makes sense as more time is spent in idle mode. What is also interesting to note is that each case is going asymptotic towards certain values and that eDRX is more influenced by the timer values than PSM is. To give a more clear picture of the influence of the timer values the $T_i$ is set to 24 hours and the timer values are changed are varied to a further extent this can be seen in \autoref{fig:TimerPlot_plots}.
+As can be seen in \autoref{fig:eDRXvsPSM} the longer the $T_i$ the more impactful the these parameters become which makes sense as more time is spent in idle mode. What is also interesting to note is that each case is going asymptotic towards certain values and that eDRX is more influenced by the timer values than PSM is. To give a more clear picture of the influence of the timer values the $T_i$ is set to 24 hours and the timer values are changed are varied according to the values found in \autoref{sec:Network_access} this can be seen in \autoref{fig:TimerPlot_plots}.
 
 
 \begin{figure}[H]
@@ -563,8 +726,8 @@ From \autoref{fig:TimerPlot_plots} it can be seen that the values for the eDRX t
 \centering
 \begin{tabular}{|c|c|c|c|c|c|} \hline
 			& $T_i$ 		& Idle mode	& $T_{DRX}$	& $T_{PSM}$	& $T_{PTW}$	\\ \hline
-Scenario 1	& 1 hour 	& eDRX 		& -			& 5242.88 s	& 10.24 s	\\ \hline
-Scenario 2	& 24 hours 	& eDRX 		& -			& 5242.88 s	& 10.24 s	\\ \hline
+Scenario 1	& 1 hour 	& eDRX 		& -			& 10485.76 s& 10.24 s	\\ \hline
+Scenario 2	& 24 hours 	& eDRX 		& -			& 10485.76 s& 10.24 s	\\ \hline
 Scenario 3	& 1 hour 	& PSM		& 10 s		& -			& -			\\ \hline
 Scenario 4	& 24 hours 	& PSM		& 10 s		& -			& -			\\ \hline
 \end{tabular}
@@ -717,6 +880,6 @@ Lifetime (years)	& 32.5317 	& 8.3785	& 24.0618	& 0.0776\\ \hline
 \label{fig:barplot_plots}
 \end{figure}
 
-It can be seen that depending on the point and scenario the energy is used quite differently, however some commonalities can be seen. For instance if each transmission is 100 s more than 69\% of the energy is spent during the transmit phase if $P_{TX}$ is also high then more than 99\% of the energy is spent here. Another point is that with a low $T_i$, $E_idle$ take op less than 5\% of the used energy, while for a high $T_i$ it can take up 53\% of the energy. As mentioned when finding the energy to release the device from the network, the model fails to predict how it scales with $P_{TX}$ and a 95\% limit was taken as a worst case estimate. This shows here as the energy spent during the attach phase is actually less than that used during the release phase when $P_{TX}$ is set low, which in reality should not be the case. It can also be seen here why a low $T_i$ makes eDRX more feasible than PSM, as the energy spent to synchronize is fairly high, while for high $T_i$ the paging will be even higher.  
+It can be seen that depending on the point and scenario the energy is used quite differently, however some commonalities can be seen. For instance if each transmission is 100 s more than 69\% of the energy is spent during the transmit phase if $P_{TX}$ is also high then more than 99\% of the energy is spent here. Another point is that with a low $T_i$, $E_{idle}$ take op less than 5\% of the used energy, while for a high $T_i$ it can take up 53\% of the energy. As mentioned when finding the energy to release the device from the network, the model fails to predict how it scales with $P_{TX}$ and a 95\% limit was taken as a worst case estimate. This shows here as the energy spent during the attach phase is actually less than that used during the release phase when $P_{TX}$ is set low, which in reality should not be the case. It can also be seen here why a low $T_i$ makes eDRX more feasible than PSM, as the energy spent to synchronize is fairly high, while for high $T_i$ the paging will be even higher.  
 
 With this analysis it can be concluded that a device can achieve a battery lifetime of more than 10 years, but in extreme situations the repetition value will increase which makes $T_{transmit}$ increase, and also the needed $P_{TX}$ would be high. When these parameters are high it has been shown that a battery lifetime might not even exceed one year independently on all other parameters. To combat this when designing the devices, focus should be put on decreasing $T_{transmit}$ as much as possible, and also on increasing $T_i$. 
