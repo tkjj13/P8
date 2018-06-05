@@ -15,16 +15,16 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=3.02in,
-height=3.566in,
+width=.8\textwidth,
+height=.533\textwidth,
 at={(0.533in,0.481in)},
 scale only axis,
 bar width=0.5,
 xmin=-0.5,
 xmax=15.5,
 xtick={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15},
-xticklabels={{Baseline},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}},
-xlabel={Number of UEs},
+xticklabels={{Base},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}},
+xlabel={Number of devices},
 ymin=0,
 ymax=100,
 ylabel={Trials},
@@ -111,7 +111,7 @@ legend style={at={(1.03,1)},anchor=north west,legend cell align=left,align=left,
 14	65\\
 15	60\\
 };
-\addlegendentry{Ilde after MIB};
+\addlegendentry{Idle after MIB-NB};
 
 \addplot[ybar stacked,draw=black,fill=mycolor5,area legend] plot table[row sep=crcr] {%
 0	0\\
@@ -131,7 +131,7 @@ legend style={at={(1.03,1)},anchor=north west,legend cell align=left,align=left,
 14	10\\
 15	20\\
 };
-\addlegendentry{Transmission after SIB1};
+\addlegendentry{Transmission after NB-SIB1};
 
 \addplot[ybar stacked,draw=black,fill=mycolor6,area legend] plot table[row sep=crcr] {%
 0	0\\

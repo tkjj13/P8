@@ -10,13 +10,15 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=4.521in,
-height=3.566in,
+width=.5\textwidth,
+height=.33\textwidth,
 at={(0.758in,0.481in)},
 scale only axis,
-xmin=1,
-xmax=15,
-xlabel={Number of UEs},
+xmin=0.5,
+xmax=15.5,
+xtick={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15},
+xticklabels={{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}},
+xlabel={Number of devices},
 ymin=0,
 ymax=100,
 ylabel={Error rate (\%)},
@@ -25,7 +27,7 @@ title style={font=\bfseries},
 title={Error rate},
 legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
 ]
-\addplot [color=mycolor1,solid]
+\addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
   table[row sep=crcr]{%
 1	25\\
 2	40\\
@@ -43,7 +45,7 @@ legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=le
 14	100\\
 15	100\\
 };
-\addlegendentry{Change code};
+\addlegendentry{MDE};
 
 \addplot [color=mycolor2,solid]
   table[row sep=crcr]{%

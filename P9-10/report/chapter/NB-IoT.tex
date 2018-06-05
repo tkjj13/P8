@@ -1,7 +1,7 @@
 %\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp{|}\hsp}{0pt}{\Huge\bfseries}
 \chapter{NB-IoT Protocol}\label{ch:NB-IoT}
 
-The structure of \gls{NB-IoT} is still in the process of being defined, however some structure has been integrated in the \gls{LTE} Rel-13 \citep{REL-13}. The primary difference between \gls{LTE} and \gls{NB-IoT} is the requirements set for the devices. Because of this most of the content in this chapter is based on the usage of the \gls{LTE} system, trying to elaborate on the the specific \gls{NB-IoT} features. For \gls{LTE} it is the download capacity that is needed i.e. video streaming, internet surfing etc. however for the \gls{NB-IoT} it is the uplink capacity that is needed, users are primarily smart meters and other measurement equipment \citep{primer}. These sort of devices has a low throughput and are fairly insensitive towards delay, however in terms of battery life time and coverage area the requirements are more severe as the equipment might be placed in hard to get to places e.g. cellars, sewers etc. A overview of the requirements set for \gls{NB-IoT} is \citep{NB-IoT_Book}:
+The structure of \gls{NB-IoT} is still in the process of being defined, however some structure has been integrated in the \gls{LTE} Rel-13 \citep{REL-13}. The primary difference between \gls{LTE} and \gls{NB-IoT} are the requirements set for the devices. Because of this, most of the content in this chapter is based on the \gls{LTE} system, trying to elaborate on the the specific \gls{NB-IoT} features. For \gls{LTE} it is the download capacity that is needed i.e. video streaming, internet surfing etc. However for the \gls{NB-IoT} it is the uplink capacity that is needed. Devices are primarily smart meters and other measurement equipment \citep{primer}. These sort of devices has a low throughput and are fairly insensitive towards delay, however in terms of battery lifetime and coverage area the requirements are more severe, as the equipment might be placed in hard to get to location e.g. cellars, sewers etc. Here an overview of the requirements set for \gls{NB-IoT} is provided \citep{NB-IoT_Book}.
 
 \begin{itemize}
 \item Ultra-low complexity devices
@@ -9,27 +9,27 @@ The structure of \gls{NB-IoT} is still in the process of being defined, however 
 	\item The devices have a sample rate no higher than 240 KHz
 	\item The devices only needs to use \gls{TBCC}
 	\item The devices only uses half-duplex
-	\item The connection is limited to \gls{SISO}
+	%\item The connection is limited to \gls{SISO}
 	\end{itemize}
 \item Improved coverage with a \gls{MCL} up to 164 dB
 	\begin{itemize}
 	\item The \gls{MCL} should surpass \gls{GPRS} system with 20 dB
 	\item Improve coverage by introducing \gls{CE} levels 
 	\end{itemize}
-\item Support massive number of devices as high as 52547 devices per cell-site sector
+\item Support massive number of devices as high as 60000 devices per km$^2$
 \item Improved power efficiency with a battery life time of 10 years with a battery capacity of 5 Wh
 	\begin{itemize}
-	\item Using \gls{CE} to minimize Power amplifier backoff increasing efficiency.
+	\item Using \gls{CE} to minimize Power amplifier backoff increasing efficiency
 	\item Using \gls{cDRX}, \gls{eDRX} and \gls{PSM} 
 	\end{itemize}
 \item Deployment flexibility
 	\begin{itemize}
-	\item The system should be able to be deployed both inside existing systems.
-	\item The system should be able to be deployed as a stand alone solution.
+	\item The system should be able to be deployed inside the \gls{LTE} systems
+	\item The system should be able to be deployed as a stand alone solution
 	\end{itemize}
 \end{itemize}
 
-From this it can also be seen that there are no requirements to the latency of the communication between the device and the network. To describe how to fulfil the set requirements a top down method will be used. Starting with the network structure of \gls{NB-IoT}.
+From this it can also be seen that there are no requirements to the latency of the communication between the device and the network. To describe how to fulfill the set design objectives, a top down method will be used. Starting with the network structure of \gls{NB-IoT}.
 
 
 
@@ -46,7 +46,7 @@ This section describes the different procedures needed to navigate in the NB-IoT
 
 \subsection{Cell Search and Synchronization Procedure}
 \label{sec:cellsync}
-The first thing needed of a device is to locate a cell, this is done during the as part of the synchronization procedure. The synchronization procedure is very similar to that of a \gls{LTE} as can be seen in \autoref{fig:sync-NB}, as the device first needs to search for the cell and then acquire the system information. 
+The first thing needed of a device is to locate a cell, which is done based on the NPSS and NSSS, mentioned in \autoref{sec:NB-IoT/Physical Layer}. The synchronization procedure is very similar to that of \gls{LTE}, as can be seen on \autoref{fig:sync-NB}, as the device first needs to search for the cell and then acquire the system information. 
 
 
 \tikzsetnextfilename{sync-NB}
@@ -57,33 +57,33 @@ The first thing needed of a device is to locate a cell, this is done during the 
 \label{fig:sync-NB}
 \end{figure}
 
-The device first looks for the \gls{NPSS}, the search spaces for the \gls{NPSS} is predetermined based on the LTE bands. \todo{make ref to LTE bands} This provides the initial \gls{CFO} as well as a 10 ms timing alignment. As mentioned the NPSS takes up the entire fifth subframe of each frame, a frequency domain Zadoff-Chu sequence is used for the 11 available \gls{OFDM} symbols, as the first 3 OFDM might be used for LTE PDCCH. For low complexity devices a single 10 ms segment might not suffice at a low \gls{SNR}, the structure of the \gls{NPSS} is therefore made so the signals can accumulate coherently over multiple 10 ms segments. \citep{NB-IoT_Book,primer}. The \gls{NSSS} is also based on a frequency domain Zadoff-Chu sequence, but is further scrambled based on the \gls{NB-PCID}. This means the device has to manually try each frequency and then manually test for each of the 504 NB-PCID. When this is done the device will be frequency and in a 80 ms window time synchronized with the eNB and know the NB-PCID also \citep{NB-IoT_Book,primer}. 
+The device first looks for the \gls{NPSS}, where the search spaces are predetermined based on the LTE bands \citep{whitepaper}. This provides the initial \gls{CFO} as well as a 10 ms timing alignment. As mentioned before, the NPSS is located in subframe 5 of each frame. A frequency domain Zadoff-Chu sequence is used for the 11 available \gls{OFDM} symbols, as the first 3 OFDM symbols might be used for LTE PDCCH. For low complexity devices a single 10 ms segment might not suffice at a low \gls{SNR}, so the structure of the \gls{NPSS} is therefore made such that the signals can accumulate coherently over multiple 10 ms segments \citep{NB-IoT_Book,primer}. The \gls{NSSS} is also based on a frequency domain Zadoff-Chu sequence, but is further scrambled based on the \gls{NB-PCID}. This means the device has to manually try each frequency and then manually test for each of the 504 NB-PCIDs. When this is done, the device will be synchronized with the eNB, in frequency and time within a 80 ms window and know the NB-PCID also \citep{NB-IoT_Book,primer}. 
 
-The next step is to decode the \gls{MIB-NB}, it consists of 34 bits and 16 \gls{CRC} bits, they are transmitted in eight self-decodeable blocks which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
+The next step is to decode the \gls{MIB-NB}, which consists of 34 bits and 16 \gls{CRC} bits. The MIB-NB is transmitted in the NPBCH in eight self-decodeable blocks, which is repeated eight times resulting in a total transmission time of 640 ms as can be seen on \autoref{fig:MIB-NB}. 
  
 \tikzsetnextfilename{MIB-NB}
 \begin{figure}[H]
 \centering
 \input{figures/MIB-NB.tex}
-\caption{MIB-NB}
+\caption{The transmission schedule of the MIB-NB. The lowest line visualizes each subframe in which the MIB-NB is transmitted.}
 \label{fig:MIB-NB}
 \end{figure}
 
 The information carried in the \gls{MIB-NB} are:
 
 \begin{tabular}{ll}\\
-2 bits & hyper frame number\\
+2 bits & Hyper frame number\\
 4 bits & \gls{SFN}\\
 4 bits & \gls{NB-SIB}1 scheduling\\
-5 bits & value tag\\
-1 bit & access barrer\\
-7 bits & operation mode and values\\
-11 bits & reserved for future use\\
+5 bits & Value tag\\
+1 bit & Access barrer\\
+7 bits & Operation mode and values\\
+11 bits & Reserved for future use\\
 \end{tabular}
 
-From the \gls{MIB-NB} the schedule for \gls{NB-SIB}1 is found, this is always transmitted in subframe 4 however only the frames indicated by \gls{MIB-NB} carry \gls{NB-SIB}1. The final step in the synchronization is to decode all the \gls{NB-SIB}s.
+From the \gls{MIB-NB}, the schedule for \gls{NB-SIB}1 is found. It is always transmitted in subframe 4, however only the frames indicated by \gls{MIB-NB} carry \gls{NB-SIB}1. The final step in the synchronization is to decode all the \gls{NB-SIB}s.
 
-When the device have read all \gls{NB-SIB}s it has fully synchronized with the \gls{eNB}. It is mandatory for the device to have a valid version of \gls{MIB-NB} as well as \gls{NB-SIB}1-5, \gls{NB-SIB}14 and 16 is only read when required. Furthermore once connected to the system the device is not expected to update its version of the \gls{NB-SIB}s unless instructed to \citep{whitepaper}. 
+When the device have read all \gls{NB-SIB}s, it has fully synchronized with the \gls{eNB}. It is mandatory for the device to have a valid version of \gls{MIB-NB} as well as \gls{NB-SIB}1-5. \gls{NB-SIB}14 and 16 is only read when required. Furthermore once connected to the system the device is not expected to update its version of the \gls{NB-SIB}s unless instructed to through paging \citep{whitepaper}. 
 
 When the device is synchronized it can initiate the attach procedure which will now be described. 
 
@@ -91,10 +91,11 @@ When the device is synchronized it can initiate the attach procedure which will 
 
 
 \subsection{Narrowband Attach Procedure} \label{sec:RAP}
-Before starting the narrowband attach procedure the device measures the reference signals and determine based and some \gls{RSRP} thresholds which coverage level should be applied. The coverage level determines the power level used as well as the number of repetition used \citep{NB-IoT_Book}. The narrowband attach procedure comes in three forms, a full attach where a connection is established and all the security modes and authentication happens, a connection resume where the previously established security is used and an establishment carrying data. Each form contains some smaller steps, but can generally be divided into: \gls{NRAP} and security establishment \citep{REL-13}. The security establishment follows the same pattern as LTE and will not be further explained. The \gls{NRAP} contain five messages:
+Before starting the narrowband attach procedure, the device measures the reference signals and determine based on some \gls{RSRP} thresholds, which coverage level should be applied. The coverage level determines the power level used as well as the number of repetition used \citep{NB-IoT_Book}. The narrowband attach procedure comes in three forms, as mentioned in \autoref{sec:RRC}. Each form contains some smaller steps, but can generally be divided into: \gls{NRAP} and security establishment \citep{REL-13}. The security establishment follows the same pattern as LTE and will not be further explained. The \gls{NRAP} contain five messages:
+
 \begin{tabular}{ll}
 msg1 & is the NPRACH that can happen when a NPRACH occasion exists \\
-msg2 & is the \gls{RAR} informing the device of timing offsets and providing a grant for msg3 \\
+msg2 & is the \gls{RAR}, informing the device of timing offsets and providing a grant for msg3 \\
 msg3 & is the connection request or connection resume request \\
 msg4 & is contention resolution and acknowledgement of the request \\
 msg5 & is the connection establishment complete message\\
@@ -107,27 +108,27 @@ This process can also be seen on \autoref{fig:RAP}
 \begin{figure}[H]
 \centering
 \input{figures/RAP.tex}
-\caption{Message visualisation of the \gls{RAP} for connection resume.}
+\caption{Message visualisation of the \gls{RAP} for connection resume \citep{NB-IoT_Book}.}
 \label{fig:RAP}
 \end{figure}
 
-The important parts to take from this is that the device gets a \gls{Ra-RNTI} based on the preamble it selects for msg1. This identifier is used to decode the rest of the messages. During the attach procedure the device is also given a \gls{P-RNTI} and a \gls{C-RNTI}, which is used for decoding radio and paging transmission later on \citep{whitepaper}. If a control plane data transmission is desired it is transmitted during the \gls{NRAP} \citep{primer}.
+The important parts to take from this, is that the device gets a \gls{Ra-RNTI} based on the preamble it selects for msg1. This identifier is used to decode the rest of the messages. During the attach procedure the device is also given a \gls{P-RNTI} and a \gls{C-RNTI}, which is used for decoding radio and paging transmission later on \citep{whitepaper}. If a control plane data transmission is desired it is transmitted during the \gls{NRAP} \citep{primer}.
 
 
 \subsection{Connection Control}
-A connected device needs to be able to move around the different device states as seen in \autoref{fig:UE-states}. To do this different procedures is used. The primary concern here is moving in and out of idle modes, generally when connected, a device does not want to give up on its \gls{C-RNTI} as this makes the attach sequence significantly longer, that is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS} when it goes in idle mode, this \gls{AS} is then used again when the device resumes the connection, this feature is utilized whenever possible. 
+A connected device needs to be able to move around the different device states as seen in \autoref{fig:UE-states}. To do this, different procedures is used. The primary concern here is moving in and out of idle modes. Generally when connected, a device does not want to give up on its \gls{C-RNTI}, as this makes the attach sequence significantly longer, which is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS}, when it goes into idle mode. This \gls{AS} is then used again, when the device resumes its connection. 
 
-Another important aspect is the idle modes, this is where a device is expected to spend most of its time so the power consumption here needs to be minimal. The two primary idle modes are \gls{eDRX} and \gls{PSM}, however in both modes a period of time is spent in normal DRX mode. 
+Another aspect is the idle modes, this is where a device is expected to spend most of its time so the power consumption here needs to be minimal. The two primary idle modes are \gls{eDRX} and \gls{PSM}, however in both modes a period of time is spent in normal DRX mode. 
 
 
-\subsubsection{DRX}
-When the device wants to disconnect from the network it might be required to listen for mobile terminated data, this is done through the paging channel. The DRX cycle consist of a paging opportunity and a DRX opportunity, this can be seen in \autoref{fig:DRX_structure}. 
+\subsubsection{DRX Mode}
+When the device wants to disconnect from the network, it might be required to listen for mobile terminated data. This is done through the paging channel. The DRX cycle consist of a paging opportunity and a DRX opportunity, which can be seen on \autoref{fig:DRX_structure}. 
 
 %\tikzsetnextfilename{DRX_structure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/DRX_structure.pdf}
-\caption{The structure of \gls{DRX} idle mode \citep{book_LTE_for_UMTS2}}
+\caption{The structure of \gls{DRX} idle mode \citep{book_LTE_for_UMTS2}.}
 \label{fig:DRX_structure}
 \end{figure}
 
@@ -137,53 +138,53 @@ As seen on \autoref{fig:DRX_structure} several parameters define the DRX structu
 \centering
 \begin{tabular}{|c|p{6cm}|p{4cm}|} \hline
 \textbf{Parameter} & \textbf{Definition} & \textbf{Typical value} \\ \hline 
-On duration &  the number of subframes that is monitored during the paging opportunity & 1-2 subframes\\ \hline
+On duration &  The number of subframes that is monitored during the paging opportunity & 1-2 subframes\\ \hline
 DRX inactivity timer & the period after a scheduling message where the device should be in continuous reception mode & 25-50 subframes \\ \hline
 DRX short cycle timer & the duration of the short DRX cycle & 20-40 subframes \\ \hline
 Retransmission timer & the period after a \gls{HARQ} round trip time in which the device needs to monitor the control channel & 20  subframes \\ \hline
-Long DRX cycle & the duration of the short DRX cycle & 1024 subframes \\ \hline
+Long DRX cycle & the duration of the long DRX cycle & 1024 subframes \\ \hline
 \end{tabular}
 \caption{The different parameters and their typical value when defining the DRX structure \citep{book_LTE_for_UMTS}.}
 \label{tab:DRX_parameters}
 \end{table}
 
-It should be noted that these typical values are based on the DRX of LTE in NB-IoT it is uncertain if the short cycle would be used at all, and the long cycle might be as long as 10240 subframes. It is also important to note that contrary to LTE NB-IoT supports repetition of the NPDCCH channel which directly influences the paging messages. \citep{NB-IoT_Book}
+It should be noted that these typical values are based on the DRX of LTE. In NB-IoT it is uncertain, if the short cycle would be used at all and the long cycle might be as long as 10240 subframes. It is also important to note that contrary to LTE, NB-IoT supports repetition of the NPDCCH channel which directly influences the paging messages. \citep{NB-IoT_Book}
 
 
-\subsubsection{eDRX}
-The eDRX idle mode is an extension of the DRX idle mode. It is designed to accommodate a medium length transmission interval. The build up consist of a long DRX opportunity followed by a normal DRX period often referred to as \gls{PTW}. During the long DRX opportunity only the necessary timers and PLL's to keep synchronize with the network is on, there is no need to listen to the NPDCCH for incoming data. In the \gls{PTW} the device returns to a normal DRX cycle structure and monitors the paging opportunities. This cycle can be seen on \autoref{fig:eDRX_structure}.
+\subsubsection{eDRX Mode}
+The eDRX idle mode is an extension of the DRX idle mode. It is designed to accommodate a medium length transmission interval. The build up consist of a long DRX opportunity followed by a normal DRX period often referred to as \gls{PTW}. During the long DRX opportunity only the necessary timers and \gls{PLL}'s, to keep synchronize with the network, is powered, as there is no need to listen for incoming data. This cycle can be seen on \autoref{fig:eDRX_structure}.
 
 \tikzsetnextfilename{eDRX_structure}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/eDRX_structure.tex}}
-\caption{The structure of the \gls{eDRX} cycle}
+\caption{The structure of the \gls{eDRX} cycle \citep{NB-IoT_Book}.}
 \label{fig:eDRX_structure}
 \end{figure}
 
-A few parameters helps define this cycle, the first is the eDRX cycle the next is the duration of the \gls{PTW}. Supported values for these parameters can be seen in \autoref{tab:eDRX_parameters}.
+Two parameters helps define this cycle the eDRX cycle duration, $T_{eDRX}$, and \gls{PTW} duration, $T_{PTW}$. Supported values for these parameters can be seen in \autoref{tab:eDRX_parameters}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|p{8cm}|} \hline
 \textbf{Parameter} & \textbf{Values in seconds} \\ \hline 
-PTW & 2.56, 5.12, 7.68, 10.24, 12.8, 15.36, 17.92, 20.48, 23.04, 25.6, 28.16, 30.72, 33.28, 35.84, 38.40 and 40.96\\ \hline
-eDRX cycle & 20.48, 40.96, 81.92, 163.84, 327.68, 655.36, 1310.72, 2621.44, 5242.88 and 10485.76 \\ \hline
+$T_{PTW}$ & 2.56, 5.12, 7.68, 10.24, 12.8, 15.36, 17.92, 20.48, 23.04, 25.6, 28.16, 30.72, 33.28, 35.84, 38.40 and 40.96\\ \hline
+$T_{eDRX}$ & 20.48, 40.96, 81.92, 163.84, 327.68, 655.36, 1310.72, 2621.44, 5242.88 and 10485.76 \\ \hline
 \end{tabular}
 \caption{The different parameters and their typical value when defining the DRX structure \citep{book_LTE_for_UMTS}.}
 \label{tab:eDRX_parameters}
 \end{table}
 
 \subsubsection{PSM}
-The PSM mode is designed to support long transmission intervals, a DRX period starts the PSM mode followed by the PSM state. While in the PSM state the device is only required to maintain its real time clock nothing else, this means that whenever the device wants to reconnect to the network it first needs to synchronize itself again. A timer is set when the device enters PSM mode, this timer defines when the device needs to wake up and perform a \gls{TAU}. This is to keep track of if a device has change location since it last connected to the network. After a TAU the device enters a DRX period again to enable mobile terminated data transmission. The structure of a PSM cycle can be seen in \autoref{fig:PSM_structure}.
+The PSM is designed to support long transmission intervals. A DRX period starts the PSM, followed by the PSM state. While in the PSM state, the device is only required to maintain its real time clock and nothing else. This means that, whenever the device wants to reconnect to the network, it first needs to synchronize itself again. A timer is set when the device enters PSM, this timer defines when the device needs to wake up and perform a \gls{TAU}. This is to keep track of if the device has change location, since it last connected to the network. After a TAU the device enters a DRX period again to enable mobile terminated data transmission. The structure of a PSM cycle can be seen in \autoref{fig:PSM_structure}.
 
 \tikzsetnextfilename{PSM_structure}
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \input{figures/PSM_structure.tex}}
-\caption{The structure of the \gls{PSM} cycle}
+\caption{The structure of the \gls{PSM} cycle.}
 \label{fig:PSM_structure}
 \end{figure}
 
