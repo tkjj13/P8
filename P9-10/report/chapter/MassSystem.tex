@@ -200,9 +200,20 @@ Firstly does the worker ask the MAC if it has a DL grant from earlier. If not, i
 If the MAC have a DL grant from earlier, it will try to decode the data, which is send through the NPDSCH. If this is successful, it will send the decoded data up to MAC to handle it. After sending the data to the MAC or error in the decoding, there is a check if there should be send a ACK/NACK back to the BS. If this flag is set, it will generate the ACK/NACK and a new UL grant. Following this will the UL process begin.
 
 \textbf{Uplink encoding and transmission} \\
-After the DL, does the
+After the DL, does the system check if it need to send data through UL and have a UL grant, which is encode and UL parameters is set and this is send to PHCH common, which calls the transmission function in the radio class. Next time the worker is finish with a run through the thread and it have nothing to transmit, will the PHCH common tell the radio class to end transmission. This whole process is seen in \autoref{fig:ULwork}.
+
+\begin{figure}[H]
+\centering
+\tikzsetnextfilename{ULwork}
+\resizebox{0.8\textwidth}{!}{
+\input{figures/ULwork.tex}}
+\caption{The process for the uplink decoding in PHCH worker.}
+\label{fig:ULwork}
+\end{figure}
 
 
+\textbf{SIB1, SIB2 and msg2 in RAP} \\
+These three messages is all received in the DL after the MIB and in the msg2 case, after transmitted msg1. When the NPDCCH is decode, there can be a grant to one of these messages and it will begin to look for it in the NPDSCH and decode it, when it is received. After decoding it will go to the next step in the code.
 
 
 
@@ -213,6 +224,7 @@ After the DL, does the
 To have the emulator emulate multiple devices, some parts of the original device is needed to be duplicated. The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.
 
 \section{Changed code}
+\label{sec:Changes}
 This section looks into where the changes have been made to the code and what impact it should have had onto process and usage of the emulator.
 
 The concept mentioned in the start of this chapter, focus on making as many functionalities common for all devices, to minimize the work load, but still have the devices to be as split as possible, so they still can be seen as individual devices.
@@ -237,35 +249,42 @@ With all classes, besides radio and PHCH recv being copied for each device emula
 \textbf{Initialization}\\
 As seen in \autoref{fig:MassClass}, are the both the MAC and RRC connected to the PHY class and to add are there the interaction between the PHCH recv and the other underclasses from the PHY class, as seen in \autoref{fig:PhyClass}. So when the initialization step begins, the PHCH recv needs pointer to all the different MAC, RRC and other PHY classes to move data around and its other tasks. A problem when implemented this, is that the MAC class need the PHY class to be initialized, before it can initialize itself and the PHCH recv is in need of all the MAC classes to be initialized, before it can it self. So is done by splitting the PHY initialize up into two parts, where first all the PHY underclasses, beside the PHCH recv is initialized, while all higher layer classes (besides MAC) and radio is next, then MAC and lastly the PHCH recv. This up splitting can be seen in \autoref{fig:InitNew}.
 
-%\begin{figure}[H]
-%\tikzsetnextfilename{InitNew}
-%\centering
-%\resizebox{0.9\textwidth}{!}{
-%\input{figures/InitNew.tex}}
-%\caption{Overview of the emulator setup}
-%\label{fig:InitNew}
-%\end{figure}
+\begin{figure}[H]
+\tikzsetnextfilename{InitNew}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/InitNew.tex}}
+\caption{Overview of the emulator setup}
+\label{fig:InitNew}
+\end{figure}
 
 Another change for the initialization step, is that instead of start the attach request in the NAS class, it will directly start up in the PHCH recv, as it else will give many devices asking for starting the attach, instead of only doing it a single time.
 
-This way of splitting up the classes into common and individual for the individual devices was also done in the project, which was the predecessor to this project. This mostly comes from the likelihood of the two baseline used. But the way that the common classes is different from each other. The old version is seen in %\autoref{fig:OldStruct}, while the new version used in this project is seen in %\autoref{fig:NewStruct}.
+This way of splitting up the classes into common and individual for the individual devices was also done in the project, which was the predecessor to this project. This mostly comes from the likelihood of the two baseline used. But the way that the common classes is different from each other. The old version is seen in \autoref{fig:OldStruct}, while the new version used in this project is seen in \autoref{fig:NewStruct}.
 
-%\begin{figure}[H]
-%\tikzsetnextfilename{OldStruct}
-%\centering
-%\resizebox{0.9\textwidth}{!}{
-%\input{figures/OldStruct.tex}}
-%\caption{Overview of the emulator setup}
-%\label{fig:OldStruct}
-%\end{figure}
-%
-%\begin{figure}[H]
-%\tikzsetnextfilename{NewStruct}
-%\centering
-%\resizebox{0.9\textwidth}{!}{
-%\input{figures/NewStruct.tex}}
-%\caption{Overview of the emulator setup}
-%\label{fig:NewStruct}
-%\end{figure}
+\begin{figure}[H]
+\tikzsetnextfilename{OldStruct}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/OldStruct.tex}}
+\caption{Low layer design for old project. Black boxes is not used. Blue lines is for DL and orange is for UL}
+\label{fig:OldStruct}
+\end{figure}
+
+\begin{figure}[H]
+\tikzsetnextfilename{NewStruct}
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/NewStruct.tex}}
+\caption{Low layer design for this project. Black boxes is not used. Blue lines is for DL and orange is for UL}
+\label{fig:NewStruct}
+\end{figure}
+
+As seen on the two figures above, is the big difference that the PHCH recv class use as the common class for all devices, is in the old version placed in device 1, while in the new version, it a full PHY class, which shall be named Co Phy for future reference, where only the PHCH recv is active. By moving the common PHCH recv out of device 1 and into it owns, gives new possibilities to use other PHY class function and underclasses, such as having a PHCH worker in the Co Phy used to go through the SIB1 and SIB2 steps, so not all device has to decode these messages. Other possibilities are listed in \autoref{ch:Future}. 
+
+Another pro is that device 1 is not any more connected more to the common PHCH recv class than other devices and needs to be active. The con is that the setup for interfaces between the Co Phy and the devices becomes more complicated, as seen earlier in this section. This choice of structure is mostly influence by the possibilities, which can be found in \autoref{ch:Future}, as the structure is more free from device 1.
+
+\section{Summary}
+The design of the massive emulator follows the concept, which also was used from the old project, some changes to the lower structure and it is implemented, as the NB-IoT code have the same structure as the LTE version, but is still in development and then some changes because difference in protocol. The system process is split up into seven steps, which will be tested in the following chapter, compared against the baseline.
 
 \input{chapter/TestMass.tex}
