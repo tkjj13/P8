@@ -1,0 +1,190 @@
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\#                   srsUE configuration file  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# RF configuration  \\
+\#  \\
+\# dl\_earfcn: Downlink EARFCN code.  \\
+\# freq\_offset: Uplink and Downlink optional frequency offset (in Hz)  \\
+\# tx\_gain: Transmit gain (dB).   \\
+\# rx\_gain: Optional receive gain (dB). If disabled, AGC if enabled  \\
+\#  \\
+\# Optional parameters:   \\
+\# nof\_rx\_ant:         Number of RX antennas (Default 1, supported 1 or 2)  \\
+\# device\_name:        Device driver family. Supported options: "auto" (uses first found), "UHD" or "bladeRF" \\  
+\# device\_args:        Arguments for the device driver. Options are "auto" or any string.   \\
+\#                     Default for UHD: "recv\_frame\_size=9232,send\_frame\_size=9232"  \\
+\#                     Default for bladeRF: ""  \\
+\# \#time\_adv\_nsamples: Transmission time advance (in number of samples) to compensate for RF delay   \\
+\#                     from antenna to timestamp insertion.   \\
+\#                     Default "auto". B210 USRP: 100 samples, bladeRF: 27.  \\
+\# burst\_preamble\_us:  Preamble length to transmit before start of burst.   \\
+\#                     Default "auto". B210 USRP: 400 us, bladeRF: 0 us.   \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+
+$[$rf$]$  \\
+\# 759.6 MHz  \\
+dl\_earfcn = 6310  \\
+\# 801.3 MHz  \\
+\#dl\_earfcn = 6253  \\
+freq\_offset = 0  \\
+tx\_gain = 40  \\
+rx\_gain = 40  \\
+  \\
+\#nof\_rx\_ant = 1  \\
+\#device\_name = auto  \\
+\#device\_args = auto  \\
+\#time\_adv\_nsamples = auto  \\
+time\_adv\_nsamples = 65  \\
+\#burst\_preamble\_us = auto  \\
+  
+  
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# MAC-layer packet capture configuration  \\
+\#  \\
+\# Packets are captured to file in the compact format decoded by   \\
+\# the Wireshark mac-lte-framed dissector and with DLT 147.   \\
+\# To use the dissector, edit the preferences for DLT\_USER to   \\
+\# add an entry with DLT=147, Payload Protocol=mac-lte-framed.  \\
+\# For more information see: https://wiki.wireshark.org/MAC-LTE  \\
+\#  \\
+\# enable:   Enable MAC layer packet captures (true/false)  \\
+\# filename: File path to use for packet captures  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+
+$[$pcap$]$  \\
+enable = false  \\
+filename = /tmp/ue.pcap  \\
+  
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# Log configuration  \\
+\#  \\
+\# Log levels can be set for individual layers. "all\_level" sets log  \\
+\# level for all layers unless otherwise configured.  \\
+\# Format: e.g. phy\_level = info  \\
+\#  \\
+\# In the same way, packet hex dumps can be limited for each level.  \\
+\# "all\_hex\_limit" sets the hex limit for all layers unless otherwise  \\
+\# configured.  \\
+\# Format: e.g. phy\_hex\_limit = 32  \\
+\#  \\
+\# Logging layers: phy, mac, rlc, pdcp, rrc, nas, gw, usim, all  \\
+\# Logging levels: debug, info, warning, error, none  \\
+\#  \\
+\# filename: File path to use for log output  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+
+$[$log$]$  \\
+all\_level = warning  \\
+all\_hex\_limit = 32  \\
+\#filename = /tmp/ue.log  \\
+filename = stdout  \\
+  
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# USIM configuration  \\
+\#  \\
+\# algo: Authentication algorithm (xor/milenage)  \\
+\# op:   128-bit Operator Variant Algorithm Configuration Field (hex)  \\
+\# amf:  16-bit Authentication Management Field (hex)  \\
+\# k:    128-bit subscriber key (hex)  \\
+\# imsi: 15 digit International Mobile Subscriber Identity  \\
+\# imei: 15 digit International Mobile Station Equipment Identity  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+
+$[$usim$]$  \\
+algo = xor  \\
+op   = 63BFA50EE6523365FF14C1F45F88737D  \\
+amf  = 9001  \\
+k    = 00112233445566778899aabbccddeeff  \\
+imsi = 001010123456789  \\
+imei = 353490069873319  \\
+  
+$[$gui$]$  \\
+enable = false  \\
+  
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# Expert configuration options  \\
+\#  \\
+\# ue\_category:          Sets UE category (range 1-5). Default: 4   \\
+\#  \\
+\# prach\_gain:           PRACH gain (dB). If defined, forces a gain for the tranmsission of PRACH only.,   \\
+\#                       Default is to use tx\_gain in $[$rf$]$ section.   \\
+\# cqi\_max:              Upper bound on the maximum CQI to be reported. Default 15.   \\
+\# cqi\_fixed:            Fixes the reported CQI to a constant value. Default disabled.  \\
+\# snr\_ema\_coeff:        Sets the SNR exponential moving average coefficient (Default 0.1)  \\
+\# snr\_estim\_alg:        Sets the noise estimation algorithm. (Default refs)  \\
+\#                          Options: pss:   use difference between received and known pss signal,   \\
+\#                                   refs:  use difference between noise references and noiseless (after filtering) \\  
+\#                                   empty: use empty subcarriers in the boarder of pss/sss signal  \\
+\# pdsch\_max\_its:        Maximum number of turbo decoder iterations (Default 4)  \\
+\# attach\_enable\_64qam:  Enables PUSCH 64QAM modulation before attachment (Necessary for old   \\
+\#                        Amarisoft LTE 100 eNodeB, disabled by default)  \\
+\# nof\_phy\_threads:      Selects the number of PHY threads (maximum 4, minimum 1, default 2)  \\
+\# equalizer\_mode:       Selects equalizer mode. Valid modes are: "mmse", "zf" or any   \\
+\#                       non-negative real number to indicate a regularized zf coefficient.  \\
+\#                       Default is MMSE.   \\
+\# cfo\_integer\_enabled:  Enables integer CFO estimation and correction. This needs improvement \\ 
+\#                       and may lead to incorrect synchronization. Use with caution.   \\
+\# cfo\_correct\_tol\_hz:   Tolerance (in Hz) for digial CFO compensation. Lower tolerance means that   \\
+\#                       a new table will be generated more often.   \\
+\# time\_correct\_period:  Period for sampling time offset correction. Default is 10 (ue\_sync.c),   \\
+\#                       good for long channels. For best performance at highest SNR reduce it to 1.  \\  
+\# sfo\_correct\_disable:  Disables phase correction before channel estimation to compensate for   \\
+\#                       sampling frequency offset. Default is enabled.   \\
+\# sss\_algorithm:        Selects the SSS estimation algorithm. Can choose between   \\
+\#                       {full, partial, diff}.   \\
+\# estimator\_fil\_w:      Chooses the coefficients for the 3-tap channel estimator centered filter.  \\ 
+\#                       The taps are $[$w, 1-2w, w$]$  \\
+\# metrics\_period\_secs:  Sets the period at which metrics are requested from the UE.   \\
+\#  \\
+\# pregenerate\_signals:  Pregenerate uplink signals after attach. Improves CPU performance.  \\
+\#  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+
+$[$expert$]$  \\
+phy.verbose          = error  \\
+\#n\_id\_ncell           = 37  \\
+nbiot\_r14            = false  \\
+ue\_category          = nb1  \\
+\#n\_id\_ncell           = 0  \\
+prach\_gain          = 20  \\
+\#cqi\_max             = 15  \\
+\#cqi\_fixed           = 10  \\
+\#snr\_ema\_coeff       = 0.1  \\
+\#snr\_estim\_alg       = refs  \\
+\#pdsch\_max\_its       = 4  \\
+\#attach\_enable\_64qam = false\\  
+nof\_phy\_threads     = 1  \\
+\#equalizer\_mode      = mmse\\  
+\#cfo\_integer\_enabled = false\\  
+\#cfo\_correct\_tol\_hz  = 50  \\
+\#cfo\_pss\_ema	     = 0.1  \\
+cfo\_ema		     = 0.1  \\
+time\_correct\_period = 0  \\
+\#sfo\_correct\_disable = false \\ 
+\#sss\_algorithm       = full  \\
+\#estimator\_fil\_w     = 0.1  \\
+\#pregenerate\_signals = false  \\
+\#metrics\_csv\_enable = true  \\
+\#metrics\_csv\_filename = /tmp/ue\_metrics.csv  \\
+  
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  \\
+\# Manual RF calibration  \\
+\#  \\
+\# Applies DC offset and IQ imbalance to TX and RX modules.   \\
+\# Currently this configuration is only used if the detected device is a bladeRF  \\
+\#  \\
+\# tx\_corr\_dc\_gain: TX DC offset gain correction  \\
+\# tx\_corr\_dc\_phase: TX DC offset phase correction  \\
+\# tx\_corr\_iq\_i: TX IQ imbalance inphase correction  \\
+\# tx\_corr\_iq\_q: TX IQ imbalance quadrature correction \\ 
+\# same can be configured for rx\_*  \\
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \\  
+
+$[$rf\_calibration$]$  \\
+tx\_corr\_dc\_gain = 20  \\
+tx\_corr\_dc\_phase = 184  \\
+tx\_corr\_iq\_i = 19  \\
+tx\_corr\_iq\_q = 97  \\
+  
+$[$mass$]$  \\
+number\_of\_ue = 12 \\
