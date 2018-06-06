@@ -1,12 +1,12 @@
 \chapter{Battery Lifetime of a NB-IoT Device} \label{ch:BatTest}
 %Here should be an introduction of what we will test (the emulator and/or the protocol). 
 
-The focus of this chapter is to provide an overview and an estimate of the power efficiency of the NB-IoT protocol. From \autoref{ch:NB-IoT} it is known that the desired performance of any IoT protocol is to achieve a battery life time of 10 years with a battery capacity of 5 Wh even in extreme situations. To do this the first step is to establish a model that considers the different aspects of the protocol and use of the devices.
+The focus of this chapter is to provide an overview and an estimate of the power efficiency of the NB-IoT protocol. From \autoref{ch:NB-IoT} it is known that the desired performance of any IoT protocol, is to achieve a battery life time of 10 years with a battery capacity of 5 Wh, even in extreme situations. To do this the first step is to establish a model, that considers the different aspects of the protocol and uses of the devices.
 
 \section{Battery Lifetime Estimation Model}
 \label{sec:bat_model}
 
-To model the battery lifetime of any cellular device can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work as it is simple and elegant, it should be noted that several factors is hidden in the model and influence of several parameters is not investigated. It is also seem to be assumed for the model that it does not experience interference in any way from other devices. The model will use this as a baseline due to its simplicity and potential. First is the general description of the battery lifetime \citep{Power_article}:
+To model the battery lifetime, of any cellular device, can be done in a multitude of ways, depending on the cellular system as well as the complexity of the desired model. Here a very simple model is used to model a NB-IoT device battery lifetime. A similar attempt has been done in a collaboration between AAU, Kamstrup and Keysight \citep{Power_article}. The model will take offset in this work, as it is simple and elegant. It should be noted that several factors are hidden in the model and influenced by several parameters not being investigated. It is also seem to be assumed for the model, that it does not experience interference in any way from other devices. The model will be used as a baseline, due to its simplicity and potential. First is the general description of the battery lifetime \citep{Power_article}:
 
 \begin{equation}
 L(T_i) = \frac{C_{bat}\cdot SF_{bat}}{8760 \left(P_m(T_i) + P_{device}\right)}
@@ -16,16 +16,16 @@ L(T_i) = \frac{C_{bat}\cdot SF_{bat}}{8760 \left(P_m(T_i) + P_{device}\right)}
 \va{$T_i$}{is the transmission time interval}{h}
 \va{$C_{bat}$}{is the capacity of the battery}{Wh}
 \va{$SF_{bat}$}{is the safety factor of the battery}{1}
-\va{8760}{is the number of ours in a year}{$\frac{h}{y}$}
+\va{8760}{is the number of hours in a year}{$\frac{h}{y}$}
 \va{$P_m(T_i)$}{is the power consumption of the modem}{W}
 \va{$P_{device}$}{is the power consumption of the IoT device}{W}
 \end{where}
 
-This equation lays the foundation of the battery lifetime model, here the power consumption has been split between the functionality of the device and the NB-IoT modem itself. The factors explained further in the following sections.
+This equation lays the foundation of the battery lifetime model. Here is the power consumption has been split between the functionality of the device and the NB-IoT modem itself. The factors explained further in the following sections.
 
 \subsection{Modem Power Consumption}
 
-To define the power consumption of the modem several different approaches can be used. It is important to note that just by looking at a single instance of powering on transmitting and going back to idle or off puts the device through several different phases for which a multitude of parameters is influential. To keep the model simple it is assumed that each transmission goes through three phases and that the device is idle for the rest of the duration. The phases are connecting to the cell, transmitting the data and releasing the cell again. It is thereby assumed that all data will be mobile originated and not mobile terminated. This means that the modem power consumption can be modelled as:
+To define the power consumption of the modem several different approaches can be used. It is important to note, that just by looking at a single instance of powering on, transmitting and going back to idle, puts the device through several different phases for which a multitude of parameters is influential. To keep the model simple it is assumed that each transmission goes through three phases and that the device is idle for the rest of the duration. The phases are connecting to the network, transmitting the data and releasing from the network. It is thereby assumed that all data will be mobile originated and not mobile terminated. This means that the modem power consumption can be modelled as:
 
 \begin{equation}
 P_m(t_i) = \frac{E_{conn} + E_{transmit} + E_{disconn} + E_{idle}}{T_i}
@@ -42,7 +42,7 @@ P_m(t_i) = \frac{E_{conn} + E_{transmit} + E_{disconn} + E_{idle}}{T_i}
 
 
 \textbf{Energy used to Connect to the Network}\\
-The first term is the energy used to connect to the network, this covers the energy it takes to boot up the modem find and synchronize to a cell as well as perform an attach procedure. 
+The first term is the energy used to connect to the network. This covers the energy it takes to boot up the modem, find and synchronize to a cell as well as perform an attach procedure. 
 
 \begin{equation}
 E_{conn} = E_{modem,on} + E_{sync} + E_{attach}
@@ -60,28 +60,28 @@ Each of these phase's energy consumptions is dependent on a set of parameters. A
 \begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} \\ \hline
 $E_{modem,on}$ & \begin{itemize} 
-\item modem
+\item Modem
 \end{itemize} \\ \hline
 $E_{sync}$ & \begin{itemize}
-\item frequency
-\item modem
+\item Frequency
+\item Modem
 \item SIB repetition
 \end{itemize} \\ \hline
 $E_{attach}$ & \begin{itemize}
-\item bandwidth
+\item Bandwidth
 \item \gls{CP}-format
-\item frequency
-\item modem 
+\item Frequency
+\item Modem 
 \item \gls{MCS}
 \item NPRACH interval
 \item NPRACH power level
-\item number of antenna ports
-\item operation mode
-\item repetition
-\item sub-carrier spacing
+\item Number of antenna ports
+\item Operation mode
+\item Repetition
+\item Sub-carrier spacing
 \item \gls{TBS}
-\item transmission gap size
-\item transmit power
+\item Transmission gap size
+\item Transmit power
 \end{itemize} \\ \hline
 \end{tabular}
 \caption{Paremeter overview for each term in the connection energy calculation.}
@@ -91,7 +91,7 @@ $E_{attach}$ & \begin{itemize}
 
 
 \textbf{Transmission Power}\\
-To calculate the energy used for a transmission it is split up in to the average power consumption and the time used to transmit the data. 
+To calculate the energy used for a transmission, it is split up in to the average power consumption and the time used to transmit the data. 
 \begin{equation}
 E_{transmit} = P_{transmit}\cdot T_{transmit}
 \end{equation}
@@ -107,20 +107,20 @@ Both of these factor's energy consumptions is dependent on other parameters. An 
 \begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} \\ \hline
 $P_{transmit}$ & \begin{itemize}
-\item frequency
-\item modem
-\item transmit power 
+\item Frequency
+\item Modem
+\item Transmit power 
 \end{itemize} \\ \hline
 $T_{transmit}$ & \begin{itemize}
-\item amount of data
-\item bandwidth
+\item Amount of data
+\item Bandwidth
 \item \gls{MCS}
 \item NPRACH interval
-\item operation mode
-\item repetition
-\item sub-carrier spacing
+\item Operation mode
+\item Repetition
+\item Sub-carrier spacing
 \item \gls{TBS}
-\item transmission gap size
+\item Transmission gap size
 \end{itemize} \\ \hline
 \end{tabular}
 \caption{Paremeter overview for each term in the transmit energy calculation.}
@@ -136,20 +136,20 @@ The disconnection energy covers the energy it takes to detach the device from th
 \begin{tabular}{|m{3cm}|m{6cm}|} \hline
 \textbf{Term} & \textbf{Parameters} \\ \hline
 $E_{diconn}$ & \begin{itemize}
-\item bandwidth
+\item Bandwidth
 \item \gls{CP}-format
-\item frequency
+\item Frequency
 \item \gls{MCS}
-\item modem 
+\item Modem 
 \item NPRACH interval
 \item NPRACH power level
-\item number of antenna ports
-\item operation mode
-\item repetition
-\item sub-carrier spacing
+\item Number of antenna ports
+\item Operation mode
+\item Repetition
+\item Sub-carrier spacing
 \item \gls{TBS}
-\item transmission gap size
-\item transmit power
+\item Transmission gap size
+\item Transmit power
 \end{itemize} \\ \hline
 \end{tabular}
 \caption{Paremeter overview for disconnection energy.}
@@ -157,7 +157,7 @@ $E_{diconn}$ & \begin{itemize}
 \end{table}
 
 \textbf{Idle Mode Power}\\
-Idle mode power consumption covers several things, as the device has a few options when going unto idle mode. Four types of idle mode is defined in \gls{NB-IoT} namely: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. The case of cDRX will not be considered as this means the device would actually stay connected to the network after it is done transmitting. The case of DRX is not really considered either as it can be covered by the PSM case. 
+Idle mode power consumption covers several things, as the device has a few options, when going unto idle mode. Four types of idle mode is defined in \gls{NB-IoT}: \gls{cDRX}, \gls{DRX}, \gls{eDRX} and \gls{PSM}. The case of cDRX will not be considered, as this means the device would actually stay connected to the network after it is done transmitting. The case of DRX is not really considered either, as it can be covered by the PSM case. 
   
 \begin{equation}
 E_{idle} = \begin{cases} P_{DRX}\cdot T_{PTW}+P_{PSM}\cdot T_{PSM} \qquad \text{for eDRX}\\
@@ -177,54 +177,56 @@ The dependency for these factors are explained in \autoref{sec:Network_access}.
 
 
 \subsection{Other Parameters}
-The other parameters include device power, battery capacity and the safety factor of the battery.
+The other parameters include device power consumption, battery capacity and the safety factor of the battery.
 
 \textbf{Device Power Consumption}\\
-Because the functionality of the device vary depending on the use case is it very hard to put up a model for it. As all relevant use cases here is assumed low energy it can be assumed that the factor have little influence on the overall battery lifetime, however a measurement or a more specific model is needed to give an accurate estimate of the battery lifetime.
+Because the functionality of the device may vary depending on the use case, is it very hard to put up a model for it. As all relevant use cases here is assumed low energy it can be assumed that the factor have little influence on the overall battery lifetime, however measurements or a more specific model is needed to give an accurate estimate of the battery lifetime.
 
 \textbf{Battery Capacity}\\
 A performance objective for IoT protocols is to achieve a battery lifetime of 10 years on a 5 Wh battery. 
 
 \textbf{Safety Factor}\\
-The safety factor is depending on which battery is used. In the article which also put up a battery lifetime model they used 0.5 \citep{Power_article}, however from the standards specify a safety factor of 1 for the performance objective which will be used here \citep[Sec. 5.4]{safty_factor_standard}.
+The safety factor is depending on which battery is used. In the article, which also put up a battery lifetime model, they used 0.5 \citep{Power_article}. However the standards specify a safety factor of 1 for the performance objective, which will be used here \citep[Sec. 5.4]{safty_factor_standard}.
 
 
 \section{Test Setup}
-To use the model effectively several elements needs to be measured on an actual device, these are:
+To use the model effectively, several elements needs to be measured on an actual device, which are:
 
 \begin{tabular}{ll}
-$E_{sync}$ & the energy used for the modem to boot and synchronise to a cell. \\
-$E_{attach}$ & the energy needed to attach the device to the cell. \\
+$E_{sync}$ & the energy used for the modem to boot and synchronise to the network \\
+$E_{attach}$ & the energy needed to attach the device to the network. \\
 $P_{transmit}$ & the power consumption during the data transmission. \\
-$E_{release}$ & the energy spent when disconnecting from the cell. \\
+$E_{release}$ & the energy spent when disconnecting from the network. \\
 $P_{eDRX}$ & the power consumption during \gls{eDRX} idle mode. \\
 $P_{PSM}$ & the power consumption during \gls{PSM} idle mode. \\
 \end{tabular}
 
-Multiple devices would of cause increase the accuracy of the model, but here only evaluation board for the Quectel BC95 modem is tested \citep{BC95}. Even with that a \gls{NB-IoT} system has a multitude of parameters which can influence the throughput and energy consumption. To account for all of this is to huge a task for this project, therefore a couple of parameters are chosen to simplify this task. The downside of this is the reliability of the results as these can only be assume valid in cases where the other parameters are chosen to the same values as used in this project. The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters which also only has a few values, repetition could also be considered here however as four different channels can be repeated with each having its own specifying parameter it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware used it is therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption when the device is active. For the four parameters the values chosen can be seen in \autoref{tab:par_val}, note that these ranges are only valid for the measurements containing to the specific parameter, in all other cases a fixed value is chosen instead.
+Multiple devices would of cause increase the accuracy of the model, but here only the evaluation board Quectel BC95 modem is tested \citep{BC95}. Even with only one device to test, a \gls{NB-IoT} system has a multitude of parameters which can influence the energy consumption. To account for all of this, is a to huge task for this project. Therefore a couple of parameters are chosen to simplify this task. The downside of this is the reliability of the results, as these can only be assume valid in cases where the other parameters are chosen to the same values, as used in this project. 
+
+The values chosen are CP format, operation mode, frequency and $P_{TX}$. The CP format and operation mode is chosen as these are some often mentioned parameters, which also only has a few values. Repetition could also be considered here, however as four different channels can be repeated with each having its own specifying parameter, it is chosen to set all repetition to 1 and leave this parameter up to future analysis. The frequency typically has a high influence on the hardware usage, therefore considered as well as the transmit power, $P_{TX}$, which also will have a significant influence on the power consumption, when the device is active. For the four parameters the values chosen can be seen in \autoref{tab:par_val}. Note that these ranges are only valid for the measurements containing to the specific parameter, in all other cases, a fixed value is chosen instead.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|p{8cm}|} \hline
 \textbf{Parameter} & \textbf{Values} \\ \hline
 CP-format & Extended and normal\\ \hline
-Frequency & From 791 MHz to 820.8 MHz with 0.2 MHz interval corresponding to EARFCN 6150 to 6448 with steps of 2 \\ \hline
+Frequency & From 791 MHz to 820.8 MHz with 0.2 MHz interval, corresponding to EARFCN 6150 to 6448 with steps of 2 \\ \hline
 Operation mode & Guard-band, in-band and standalone \\ \hline
 $P_{TX}$ & From -30 dBm to 23 dBm with 1 dB interval \\ \hline
 \end{tabular}
-\caption{Parameters and the corresponding values}
+\caption{Parameters and the corresponding values.}
 \label{tab:par_val}
 \end{table}
 
-Some of the main parameters that are not tested besides repetition is \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \citep{NDS_report}. However it will not be further considered here.
+Some of the main parameters, that are not tested besides repetition, are \gls{MCS}, \gls{TBS}, NPRACH start power, NPRACH step size, number of tones, sub-carrier spacing, number of antenna ports and LTE parameters in inband deployment. The influence of some of these parameters is tested by a NDS group at Aalborg University \citep{NDS_report}. However it will not be further considered here.
 
-In each of the following graphs that depicts the measured data points, the order of the parameter is the same as in \autoref{tab:par_val}. From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
+In each of the following graphs that depicts the measured data points, the order of the parameters are the same as in \autoref{tab:par_val}. From a measurement perspective some of the elements can and should be measured together, these are $E_{sync}$ and $E_{attach}$. This is because these steps are depending on each other and can only be separated during the  post processing. Likewise the $E_{release}$ could be tested simultaneously as it requires the DUT to be connected and depends on most of the same parameters.  
 
 
 
 
 %Here should be a description of the general setup (including figure) used in all test and a list of baseline values for all parameters. Including physical setup, BSE, UEE.
-All the parameters can be tested with the same setup which can be seen in \autoref{fig:IPE_test_setup}.
+All the parameters can be tested with the same setup which can be seen on \autoref{fig:IPE_test_setup}.
 
 \begin{figure}[H]
 \centering
@@ -235,13 +237,15 @@ All the parameters can be tested with the same setup which can be seen in \autor
 \end{figure}
 
 
-As seen in \autoref{fig:IPE_test_setup}, an orchestrator, in this case \gls{TAP}, maintains the system. The orchestrator has a \gls{LAN} connection with the \gls{PSU} and the UXM and in this case a serial connection with the DUT. The \gls{PSU}s connection with the DUT is wires used to power on and analyse the power consumption of the device. It should be noted that the \gls{DUT} in question have two power inputs, one for the device power and one for the RF modem power, here only the modem is connected to the power analyser. The DUT is connected to the UXM using RF SMA cables.
+As seen on \autoref{fig:IPE_test_setup}, an orchestrator, in this case \gls{TAP}, maintains the system. The orchestrator has a \gls{LAN} connection with the \gls{PSU} and the UXM and ,in this case, a serial connection with the DUT. The \gls{PSU}s connection with the DUT is wires used to power on and analyze the power consumption of the device. It should be noted that the \gls{DUT} in question have two power inputs, one for the device power and one for the RF modem power. Here only the modem is connected to the power analyser. The DUT is connected to the UXM using RF SMA cables.
 
-\gls{TAP} is a software developed by Keysight Technologies which enables quick and easy access to the computers external connection. It also allows for C\# features to be used in the test design, meaning test steps can and has been designed to enable functionalities of the instruments. This includes for instance cell activation of the UXM and data collection from the PSU among other key functionalities, this couple with the ability to use loops, parallel test steps, serial com ports and batch scripts make this a very strong tool in designing, controlling and performing measurements. \citep{TAP} 
+\gls{TAP} is a software developed by Keysight Technologies which enables quick and easy access to the computers external connection. It also allows for C\# features to be used in the test design, meaning test steps can and has been designed to enable functionalities of the instruments. This includes for instance cell activation of the UXM and data collection from the PSU among other key functionalities. This couple with the ability to use loops, parallel test steps, serial com ports and batch scripts make this a very strong tool in designing, controlling and performing measurements. \citep{TAP} 
 
 The \gls{PSU} is a N6705C DC Power Analyzer with the internal module 2Q SMU-BDA it has a range of 20 V and 3 A with a max output of 20 W. When getting data from the PSU it can be done in a couple different ways, but here it is stored in the internal RAM of the PSU before download. This though has a limitation of 512.000 data points per capture. \citep{PSU}
 
-The base station is a E7515A UXM Wireless Test Set from Keysight Technologies which is able to emulate, both LTE and NB-IoT conditions. It features most of the functionalities in the NB-IoT protocol until release 13. It has a multitude of changeable parameters with easy access through a SCPI interface. \citep{UXM}
+\todo{Husk TBD}
+
+The base station is a E7515A UXM Wireless Test Set from Keysight Technologies, which is able to emulate both LTE and NB-IoT conditions. It features most of the functionalities in the NB-IoT protocol until release 13. It has a multitude of changeable parameters with easy access through a SCPI interface. \citep{UXM}
 
 The initial settings of each component in the system can be seen in \autoref{tab:setup_parameters}.
 
@@ -295,7 +299,7 @@ T3412 (PSM period)      & 10 s       & Tx power                 & -80 dB/per 15 
 \label{tab:setup_parameters}
 \end{table}
 
-The procedures to measure the different elements can be in \appref{app:test_procedures}. When the data is procured the energy, power and time is needed for different parts of the measurement and is calculated respectively as:
+The procedures to measure the different elements can be in \appref{app:test_procedures}. When the data is procured, the energy, power and time is needed for different parts of the measurement and is calculated respectively as:
 
 \begin{align}
 E &= \int_{A_{start}}^{A_{end}} f(x) dx \label{eq:energy}\\
@@ -351,7 +355,7 @@ T &=  A_{end} - A_{start} \label{eq:time}\\
 
 \section{Energy to Connect and Disconnect the DUT to the Cell} \label{sec:performance_attach}
 
-The energy to connect and disconnect the DUT to the cell involves the elements $E_{sync}$, $E_{attach}$ and $E_{release}$. The procedure to measure these can be found in \appref{app:test_procedures}. The first step is to get an overview of the measurements, to do this an example of the raw data from a measurement is presented in \autoref{fig:Attach_raw}. The areas are related to the elements in order, area D is when the device has been release and is therefore not used.
+The energy to connect and disconnect the DUT to the network, involves the elements $E_{sync}$, $E_{attach}$ and $E_{release}$. The procedure to measure these can be found in \appref{app:test_procedures}. After testing, the next step is to get an overview of the measurements. To do this, an example of the raw data from a measurement is presented on \autoref{fig:Attach_raw}. The areas are related to the elements in order, area D is when the device has been release and is therefore not used.
 
 \tikzsetnextfilename{Attach_raw}
 \begin{figure}[H]
@@ -373,11 +377,11 @@ The energy to connect and disconnect the DUT to the cell involves the elements $
 6 & Security Protected NAS Message (Attach Complete) \\ \hline
 \end{tabular}}
 \end{minipage}
-\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure, area C is Cell release and area D is off period. Dashed line indicates log messages.}
+\caption{Example of raw data from measurement. Area A is boot up and cell synchronization, area B is attach procedure, area C is network release and area D is off period. Dashed line indicates log messages.}
 \label{fig:Attach_raw}
 \end{figure}
 
-In \autoref{sec:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
+In \autoref{sec:bat_model} it was found that three elements is needed from this measurement. First the energy used in the synchronization phase is found based on \autoref{eq:energy}. This is done for area A, which is defined as the start of the measurement to the start of the NPRACH. The start of the NPRACH is located based on the associated log. A small amount of idle time is included in this area but it is assessed that it is negligible. The result of this is presented in \autoref{fig:Sync_Points}. 
 
 
 
@@ -398,10 +402,10 @@ In \autoref{sec:bat_model} it was found that three elements is needed from this 
 \label{fig:Sync_Points}
 \end{figure}
 
-As it can be seen in \autoref{fig:Sync_Points} all of the considered parameters is without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, this is also expected as seen in \autoref{sec:bat_model}. A single point is therefore chosen as it is assumed the small discrepancies around it is due to the small difference in synchronization time, that might arise depending on where in the \gls{SIB} messages the device gets active. 
+As it can be seen on \autoref{fig:Sync_Points}, are all of the considered parameters without characteristic influence. It can be seen though that a few points is a little higher than the rest, but looking at it statistically they can be neglected, which was also expected as seen in \autoref{sec:bat_model}. A single point is therefore chosen, as it is assumed the small discrepancies around it is due to the small difference in synchronization time, that might arise depending on the receiving time of the NB-SIBs messages. 
 
-The next element to look at is the energy used to attach to the network. This is found based on the log where a messages is telling where the NPRACH starts and where the attach is complete. This can be seen as area B in \autoref{fig:Attach_raw}. It is determined to split the energy into the average power and the time it takes based on the measurements. First the power is found based on \autoref{eq:power} for area B. 
-This is done for all measurements and the results are presented in \autoref{fig:Attach_Power_Points}.
+The next element to look at is the energy used to attach to the network. This is found based on the log where a messages is telling where the NPRACH starts and where the attach is complete. This can be seen as area B on \autoref{fig:Attach_raw}. It is determined to split the energy into the average power and the time it takes based on the measurements. First the power is found based on \autoref{eq:power} for area B. 
+This is done for all measurements and the results are presented on \autoref{fig:Attach_Power_Points}.
 
 \begin{figure}[H]
 \centering
@@ -420,9 +424,9 @@ This is done for all measurements and the results are presented in \autoref{fig:
 \label{fig:Attach_Power_Points}
 \end{figure}
 
-As seen from \autoref{fig:Attach_Power_Points} the $P_{TX}$ has a significant effect on the average power consumption and is will therefore be investigated separately. It looks like almost all frequency measurements is a layer above the others, this is unexpected as a common point shared across all four parameters, which should therefore have used the same average power. It might also look like CP-format and operation mode has an influence on the average power consumption, but comparing to the spread of the frequency it is neglectable. The variance is investigated statistically, a lognormal distribution is chosen to approximate the power consumption as it is assumed, that the fluctuation of the current should be normal distributed and since the power is the current squared and therefore always positive it would should have a lognormal behaviour.  
+As seen on \autoref{fig:Attach_Power_Points} does the $P_{TX}$ have a significant effect on the average power consumption and is will therefore be investigated separately. It seems like almost all frequency measurements is a layer above the others measurements. This is unexpected as a common point shared across all four parameters should have used the same average power. It might also look like CP-format and operation mode has an influence on the average power consumption, but comparing to the spread of the frequency, it is neglectable. The variance is investigated statistically, where a lognormal distribution is chosen to approximate the power consumption, as it is assumed, that the fluctuation of the current should be a normal distributed and since the power is the current squared and therefore always positive, it should have a lognormal behavior.  
 
-As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, this can be seen in \autoref{fig:Attach_Pmax}. 
+As mentioned the parameter $P_{TX}$ influences the mean value of the power consumption during the attach procedure, which can be seen on \autoref{fig:Attach_Pmax}. 
 
 \begin{figure}[H]
 \centering
@@ -433,9 +437,9 @@ As mentioned the parameter $P_{TX}$ influences the mean value of the power consu
 \label{fig:Attach_Pmax}
 \end{figure}
 
-From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of $P_{TX}$. The need for two function to approximate the characteristic can be contributed to the usage of a power amplifier. This parameter determines the mean value of the average power consumption. 
+From \autoref{fig:Attach_Pmax} it can be seen that the power consumption can be approximated using two functions based on the value of $P_{TX}$. The need for two function to approximate the characteristic can be contributed to the usage of a power amplifier. This parameter determines the mean value of the average power consumption, compared to the other parameters. 
 
-Now the time to attach is investigated the time is found based on \autoref{eq:time} and the results can be seen in \autoref{fig:Attach_Time_Points}.
+Next are the time to attach investigated. The time is found based on \autoref{eq:time} and the results can be seen on \autoref{fig:Attach_Time_Points}.
 
 
 \begin{figure}[H]
