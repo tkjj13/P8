@@ -206,8 +206,9 @@ The execution time for the NB-SIB2 decoding step is measured from the NB-SIB1 is
 As seen on \autoref{fig:MT_SIB2_Time}, the baseline emulator and MDE have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements of 1 through 14 devices, which is also expected as the timing between decoding NB-SIB1 and NB-SIB2 should only be the time until the whole NB-SIB2 have been received, with a small additional time for the decoding. 
 \todo{explain why 15 is weird}
 
+
 \subsection{NPRACH}
-The execution time for the NPRACH step is measured from the decoding of NB-SIB2 is done until the msg1 is delivered to transmit buffer, which gives the results seen on \autoref{fig:MT_Nprach_Time}. The NPRACH error occurs only when the MDE emulates more than 12 devices with a single exception. The NPRACH error happens, when only some of the devices get through the NPRACH step. As before the shown results are only for one of the emulated devices and the sample pool is not reduced by this error.
+The execution time for the NPRACH step is measured from the decoding of NB-SIB2 is done until the msg1 is delivered to the transmit buffer, which gives the results seen on \autoref{fig:MT_Nprach_Time}. The NPRACH error occurs only when the MDE emulates more than 12 devices with a single exception. The NPRACH error happens, when only some of the devices get through the NPRACH step. As before the shown results are only for one of the emulated devices and the sample pool is not reduced by this error.
 \todo{mads bør læse det her igen}
 
 \begin{figure}[H]
@@ -240,100 +241,132 @@ When looking at the execution time, of the MDE compared to the baseline emulator
 
 
 \section{CPU usage}
-To test the CPU usage for the emulator, the test will be split up into the different steps in the code process discussed in \autoref{sub:MassStruct}. 
+To test the CPU usage of the MDE, the test is split up into different steps as discussed in \autoref{sub:MassStruct}. 
 
-The results will be shown as average CPU usage over the steps time period, as the executing time is not equal for all measurement. The same error will occur in same places as descriped thorugh \autoref{sec:exeTime} and the measurement points which have an error will not be in the following steps.
+The results is shown as average CPU usage over the steps time period, as the executing time is not equal for all measurement. The errors mentioned thorughout \autoref{sec:exeTime} is also effecting the CPU measurements and the measurement points, which have an error is removed from the sample pool for all consecutive steps.
 
-The sample rate is as mention before at 3 Hz, which is a slow sample rate, compared to the execution time for the different steps. But it have not been possible to find a tool that gave a higher sample frequency.
-
-The RAR step have a to small time window to measure with a 3 Hz sample rate, so it have not been measured.
+The sample rate is 3 Hz, this is a rather slow sample rate, compared to the execution time for the different steps. This is the highest sample rate of any tool tested. The time window for the RAR step is unfortunately too small to be measured with a 3 Hz sample rate. The tool can not distinguish between individual cores of the PC and adds the usage together. In \appref{app:PC_stat} the number of cores in the PC is shown to be 8. A conservative estimation is made, that only 7 of these is available for the MDE, with the final 1 running background programs on the PC. 
 
 \subsection{Initialization}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the initialization step.
+The initialization step is measured from the start of the emulator to the cell search begin. The average CPU usage of the MDE and baseline emulator can be seen on \autoref{fig:CPU_init}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_init}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/Initialization.tex}}
-\caption{CPU usage for the initialization step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the initialization step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_init}
 \end{figure}
 
-As seen in \autoref{fig:CPU_init}, is that the average CPU usage is rising with the number of devices used, which indicates that at some point it will hit full usage and the linear tendency, seen in \autoref{fig:MT_Init_Time} from the execution time measurement, will rise more, when it hits that point. But as the initialization will not affect the rest of the process, is this not considered a problem.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{init} = 2.50 \cdot NoD + 33.21
+\end{equation}
+
+As seen on \autoref{fig:CPU_init} the average CPU usage is rising with the number of devices, As only one thread is use during the initialization the CPU limit is 100\%, if this point is hit, the linear tendency, seen in \autoref{fig:MT_Init_Time} from the execution time measurement, would be expected to rise more. This is not an issue as the initialization is not effected by the real time constraints, like the rest of the MDE.
 
 \subsection{Synchronization}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the synchronization step.
+The synchronization is  measured from start of cell search till start of MIB-NB decoding, the average CPU usages can be seen on \autoref{fig:CPU_init}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_sync}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/Cell_Search.tex}}
-\caption{CPU usage for the synchronization step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the synchronization step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_sync}
 \end{figure}
 
-As seen in \autoref{fig:CPU_sync}, average CPU usage is rising with the number of devices used, is a problem, as it will hit full usage at some point, which can effect the ability to synchronize with the cell. The increase in CPU usage can be explain with the higher number of threads that is running in all the higher layer classes in the devices.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{sync} = 1.11 \cdot NoD + 53.24
+\end{equation}
 
-\subsection{Decoding of MIB}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the decoding of MIB-NB step. The measurements are taken from last attempt to decode the MIB-NB to it is done.
+As seen on \autoref{fig:CPU_sync}, the average CPU usage is rising with the number of devices. This is a problem, as it will hit full usage at some point, which can effect the ability to synchronize with the cell. The synchronization is performed in a single thread, which sets the limit at 100\%, but the increase in CPU usage could be explained by the higher number of threads that is running in all the higher layer classes of each device, which means the limit could be as high as 700\%. 
+
+\subsection{Decoding of MIB-NB}
+The decoding of MIB-NB is measured from just after a cell is found until the MIB-NB has been fully decoded, the average CPU usage of this step is seen on \autoref{fig:CPU_init}. The measurements are showing only the CPU usage of the last attempt at decoding the MIB-NB if multiple attempts was made.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_MIB}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/MIB.tex}}
-\caption{CPU usage for the decoding of MIB-NB step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the decoding of MIB-NB step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_MIB}
 \end{figure}
 
-As seen in \autoref{fig:CPU_MIB}, is the tendency the same as with the synchronization step, but with bigger spread on the results. The spread is expected to be cause by the big spread in execution time for this step, while the workload is the same, when looking at the decoding part. This tendency of a rising CPU usage compare to the number of devices will cause the same problem as mention before at the synchronization step and with the same cause.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{MIB-NB} = 0.92 \cdot NoD + 33.40
+\end{equation}
 
-\subsection{SIB1}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the NB-SIB1 step. As also done in \autoref{sec:exeTime}, will the measurements only be for the first device, for the same reasons.
+
+As seen on \autoref{fig:CPU_MIB} the tendency the same, as for the synchronization step, but with bigger spread on the results. The spread is expected to be caused by the big spread in execution time for this step, while the workload is the same, when looking at the decoding part. The tendency of a rising CPU usage compare to the number of devices, should have the same fundamental explanation as the CPU usage in the synchronization step.
+
+\subsection{NB-SIB1}
+The NB-SIB1 step is measured from the MIB-NB is decoded to the NB-SIB1 is fully decoded and the average CPU usage can be seen on\autoref{fig:CPU_init}. The measurements is only shown for a single device out of all the emulated devices, as each device demodulates the NB-SIB1 individually. This is done, so all number of devices have the same stand point compared to the measurements.
+
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_SIB1}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/SIB1.tex}}
-\caption{CPU usage for the NB-SIB1 step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the NB-SIB1 step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_SIB1}
 \end{figure}
 
-As seen in \autoref{fig:CPU_SIB1}, does this step also have a higher CPU usage at higher number of devices. It is also seen that the CPU usage is raising above 100\%, but as there is multiple threads in work at this point, multiple kernels is also in use, where the CPU usage for each kernel is combine to this results. With a eight kernel CPU and with the approximation that one kernel should be use for other purposes, it will give a upper limit to be 700\% or the results here should be divide by seven. But the tendency of increasing CPU usage will as with the other cases be a bottleneck at a high enough number of devices. The reason for so much higher increase in CPU usage, compared to the previous steps, is that all device works at this point, compared to the previous two, were it only was the Co\_Phy working.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{NB-SIB1} = 9.93 \cdot NoD + 38.92
+\end{equation}
 
-\subsection{SIB2}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the NB-SIB2 step.
+As seen on \autoref{fig:CPU_SIB1}, this step also have a higher CPU usage at higher number of devices. It is also seen that the CPU usage is raising above 100\%, but as there is multiple threads in work at this point, multiple kernels is also in use, where the CPU usage for each kernel is added together by the CPU stat tool. As mentioned a limit of seven CPU's are assumed, which gives a upper limit of 700\%. The reason for increase in CPU usage, compared to the previous steps, is that the individual devices is used at this point. In the previous two steps only the Co\_Phy was active.
+
+\subsection{NB-SIB2}
+The NB-SIB2 step is measured from the NB-SIB1 is decoded until NB-SIB2 is decoded, which gives the results seen on \autoref{fig:CPU_init}. 
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_SIB2}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/SIB2.tex}}
-\caption{CPU usage for the NB-SIB2 step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the NB-SIB2 step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_SIB2}
 \end{figure}
 
-As seen in \autoref{fig:CPU_SIB2}, do the results point at the same problems as for the NB-SIB1 step. A point there can be pointed out for the NB-SIB2 case, is that there looks to be two tendencies, on above the red fitting line and one below. As the NB-SIB2 step contains two parts, which is looking for the NB-SIB2 message and then decode it, where the later half is the CPU usage heavy one, and the time used is so small compared to the sample rate (four samples at max), can give a very spread results. 
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{NB-SIB2} = 6.08 \cdot NoD + 24.28
+\end{equation}
+
+As seen on \autoref{fig:CPU_SIB2}, the results show the same problems as seen for the NB-SIB1 step. An interesting tendency for the NB-SIB2 step, is that it looks to have two tendencies, one above the red fitting line and one below. This could be explained by the fact, that the NB-SIB2 step contains two parts, which is looking for the NB-SIB2 message and then decode it. As only the later half is the CPU heavy and the time used is so small compared to the sample rate (four samples at max), this can give some very spread results. 
+
+
 
 \subsection{NPRACH}
-In \autoref{fig:CPU_init} is seen the CPU usage measurements for the NB-SIB2 step.
+The NPRACH step is measured from the decoding of NB-SIB2 is done until the msg1 is delivered to the transmit buffer, which has an average CPU usage as seen on \autoref{fig:CPU_init}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_NPRACH}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/NPRACH.tex}}
-\caption{CPU usage for the NPRACH step for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{CPU usage for the NPRACH step of the MDE for different number of devices and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:CPU_NPRACH}
 \end{figure}
 
-As seen in \autoref{fig:CPU_NPRACH}, do it follow the same tendencies as the other steps. As the NPRACH step is even shorter in time that the  NB-SIB2 step (1-2 samples) the spread is even wider than at the previous step.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+CPU_{NPRACH} = 5.36 \cdot NoD + 34.13
+\end{equation}
+
+As seen on \autoref{fig:CPU_NPRACH}, the tendency is similar to the other steps. As the NPRACH step is even shorter in time than the NB-SIB2 step (1-2 samples), the spread is even wider than at the previous step.
 
 \subsection{Summary}
-At all steps in the process is there a tendency to an increase in CPU usage compared to the number of devices, which will be a bottleneck when the system hit that number of devices to hit full usage. In \autoref{tab:NoDCPU} can the number of devices to hit this limit be seen for the different steps. The number is calculated from the linear approximation, shown in all the plot through this section.
+At all steps in the process CPU usage rises with the number of devices, meaning the maximum number of devices the system can support can be found, when the system hits full usage. In \autoref{tab:NoDCPU} the maximum supported number of devices for each step can be seen. The number is calculated from the linear approximation, shown in all the plot throughout this section.
 
 \begin{table}[H]
 \centering
@@ -359,18 +392,24 @@ NPRACH & 1 & 124 \\
 \end{table}
 
 \section{Memory usage}
-To test the memory usage, the massive emulator is run once for each number of devices, as well for the baseline emulator. As all the buffer and bigger arrays reserve space in the memory in the initialization step, do the amount of memory use not change from run to run, but changes compared to many devices there is meant to be emulated. The results can be seen in \autoref{fig:RAMusage}.
+To test the memory usage, the massive emulator is run once for each number of devices, as well for the baseline emulator. As all the buffers and bigger arrays reserve space in the memory in the initialization step, the amount of memory use does not change during the emulation or between two emulations. It does change compared to number of devices, as this effects directly the amount of buffers and arrays that should be allocated. The results can be seen on \autoref{fig:RAMusage}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{RAMusage}
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/RAMusage.tex}}
-\caption{Memory usage for the whole process for different number of devices and the baseline emulator. The fitted line is a linear approximation}
+\caption{Memory usage for the whole process for different number of devices in the MDE and the baseline emulator. The fitted line is a linear approximation}
 \label{fig:RAMusage}
 \end{figure}
 
-As seen in \autoref{fig:RAMusage}, does the memory usage follow a very linear tendency. This makes sense, as all the whole structure is multiplied with the number of device and therefore also the memory usage. The reason for the difference between the baseline emulator and a single device, is the that the Co Phy use as much space as a normal device, as describe in \autoref{sec:Changes}. With the computer use for the project, the limit for number of devices that can emulated, when only looking at the memory usage, is 108 devices.
+The fitted line for the CPU usage is estimated to be:
+\begin{equation}
+RAM = 0.91 \cdot NoD + 1.63
+\end{equation}
+
+
+As seen in \autoref{fig:RAMusage}, the memory usage follow a very linear tendency. This makes sense, as the whole structure is multiplied with the number of device and therefore also the memory usage. The reason for the difference between the baseline emulator and a single device, is the that the Co Phy use as much space as a normal device, as describe in \autoref{sec:Changes}. With the computer used for the project, the limit for number of devices that can emulated, when only looking at the memory usage, is 108 devices.
 
 
 
