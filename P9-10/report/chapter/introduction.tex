@@ -5,14 +5,14 @@
 %\section{Motivation}
 %Why is the topic of interest? 
 %New technology
-%	IoT development
-%	Massive number of devices
-%	5G
+%    IoT development
+%    Massive number of devices
+%    5G
 
-The market of cellular technologies is changing and the need for a new type of technology has arisen. This is the need for \gls{LPWA} networks. \gls{LPWA} networks are classified by three main aspects: long battery lifetime, low cost units and huge number of devices. With the development of \gls{LPWA} networks, especially with the development of 5G and other \gls{IoT} technologies, an increased focus has come to the massive part of communication. The massive aspect relates to number of devices trying to connect to the network in a given area and the fact that the density of devices is increased by several folds compared to normal cellular networks. It has been estimated that in 2016 0.4 billion devices were of the \gls{LPWA} type, but this is predicted to reach 1.5 billion by 2021, equivalent to a yearly growth rate of 27 \% \citep{mobi-report}. This change sets some requirements that is not achievable with existing systems, however to accommodate this, several technologies have been developed.
+The market of cellular technologies is changing and the need for a new type of technology has arisen. This is the need for \gls{LPWA} networks. \gls{LPWA} networks are classified by long battery lifetime, low-cost units and a large number of devices.  With the development of \gls{LPWA} networks,  an increased focus has come to the massive part of communication. This is especially true for the development of 5G and other \gls{IoT} technologies. The massive aspect relates to the number of devices trying to connect to the network in a given area.  In \gls{LPWA} networks the density of devices is several folds larger compared to normal cellular networks. In 2016 a report estimated that 0.4 billion devices were of the \gls{LPWA} type. It went on and predicted an increase to 1.5 billion by 2021, equivalent to a yearly growth rate of 27 \% \citep{mobi-report}. This change sets some requirements that are not achievable with existing systems. Several technologies exist to accommodate this.
 
 
-Generally the new technologies are classified into categories: cellular networks based solution and proprietary solutions. The most renowned solutions can be seen on \autoref{fig:IoT_protocol_overview}. All these technologies are competing to be the main standard of LPWA systems. 
+Generally, the new technologies are classified as cellular network based solution and proprietary solutions. The most renowned solutions is seen on \autoref{fig:IoT_protocol_overview}. All these technologies are competing to be the main standard of LPWA systems. 
 %\textbf{Objective}
 
 \tikzsetnextfilename{IoT_fig}
@@ -28,27 +28,226 @@ Generally the new technologies are classified into categories: cellular networks
 
 \section{Problem Analysis}
 %What is the problem?
-%	Many standards 
-%	Not really tested
-%	Nothing really deployed
-%	Unity
+%    Many standards 
+%    Not really tested
+%    Nothing really deployed
+%    Unity
 %Why do we have the problem?
-%	New technology
-%	Money
-%	Competiveness
+%    New technology
+%    Money
+%    Competitiveness
 %Problem statement!
 
-Even though the technologies in question have already been designed, most are still in  development. As an effect of this, most metrics that can be found for the different protocols, are to the authors knowledge based on a theoretic approach and not on actual measurements. 
+The technologies in question are still in development. As an effect of this, the metrics found for the different protocols, are to the authors' knowledge based on a theoretic approach and not on actual measurements. 
 
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-\textbf{Feature}            & \textbf{LoRa}           & \textbf{Sigfox}        	   & \textbf{LTE Cat-1} & \textbf{LTE-M}    & \textbf{NB-IoT} \\ \hline
+\textbf{Feature}            & \textbf{LoRa}           & \textbf{Sigfox}               & \textbf{LTE Cat-1} & \textbf{LTE-M}    & \textbf{NB-IoT} \\ \hline
 Modulation                  & SS Chirp                   & UNB/GSK/BPSK                & OFDMA              & OFDMA                 & OFDMA           \\ \hline
 Rx bandwidth                & 500-125 kHz                & 100 Hz                      & 20 MHz             & 20-1.4 MHz            & 200 KHz         \\ \hline
-Data Rate                   & 290 bps – 50 Kbps          & 100 bps / 8 bytes max 	   & 10 Mbps       		& 200 kbps – 1 Mbps     & 20 Kbps         \\ \hline
+Data Rate                   & 290 bps – 50 Kbps          & 100 bps / 8 bytes max        & 10 Mbps               & 200 kbps – 1 Mbps     & 20 Kbps         \\ \hline
+Max output power            & 20 dBm                     & 20 dBm                      & 23 – 46 dBm        & 23/30 dBm             & 20 dBm          \\ \hline
+\begin{tabular}[c]{@{}l@{}}Battery lifetime \\ (2000 mAh)\end{tabular}& 105 months ($\sim$9 years) & 90 months (7.5 years)  &   & 18 months (1.5 years) &   \\ \hline
+Link budget                 & 154 dB                     & 151 dB                      & 130 dB+            & 146 dB                & 150 dB          \\ \hline
+Security                    & Yes                        & No                          & Yes                & Yes                   &                 \\ \hline
+\end{tabular}%
+}
+\caption{Comparison of performance metrics between cellular solutions and proprietary solutions \citep{NB_comp}}%http://www.3glteinfo.com/lora/lora-advantages/}
+\label{tab:tech_comparison1}
+\end{table}
+
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+%\begin{table}[H]
+%\centering
+%%\resizebox{\textwidth}{!}{%
+%\begin{tabular}{|l|l|l|l|l|}
+%\hline
+%\textbf{Feature}   & \textbf{\begin{tabular}[c]{@{}l@{}}Release 8\\ Cat 4\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Release 8\\ Cat 1\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Release 13\\ LTE-M\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Release 13\\ NB-IoT\end{tabular}} \\ \hline
+%Downlink speed     & 150 Mbps                                                           & 10 Mbps                                                            & 384 kbps - 1Mbps                                                    & 170-250 kbps                                                         \\ \hline
+%Uplink speed       & 50 Mbps                                                            & 5 Mbps                                                             & 384 kbps - 1Mbps                                                    & 50-144 kbps                                                          \\ \hline
+%Number of antennas & 2                                                                  & 2                                                                  & 1                                                                   & 1                                                                    \\ \hline
+%Duplex mode        & Full duplex                                                        & Full duplex                                                        & Full or Half duplex                                                 & Half duplex                                                          \\ \hline
+%Receive bandwidth  & 20 MHz                                                             & 20 MHz                                                             & 1.4 MHz                                                             & 200 kHz                                                              \\ \hline
+%Transmit power     & 23 dBm                                                             & 23 dBm                                                             & 20 dBm                                                              & 23 dBm                                                               \\ \hline
+%Modem complexity   & 100 \%                                                             & 80 \%                                                              & 20 \%                                                               & \textless15 \%                                                       \\ \hline
+%Voice              & Yes                                                                & Yes*                                                               & Yes                                                                 & No                                                                   \\ \hline
+%Mobility           & Full                                                               & Full                                                               & Limited                                                             & \begin{tabular}[c]{@{}l@{}}Fixed-Idle\\ Mode Only\end{tabular}       \\ \hline
+%\end{tabular}%
+%%}
+%\caption{Comparison of cellular solutions \citep{CAT_comp}} %https://www.digi.com/blog/cellular/introduction-to-lte-m-cellular-technology/
+%\label{tab:tech_comparison2}
+%\end{table}
+
+It can be seen from \autoref{tab:tech_comparison1}, that the different technologies have different properties. The main differences are the bandwidth of the receiver as well as the battery lifetime. 
+
+As none of the protocols have been deployed at a large scale, it brings up different concerns. This is because the massiveness in question is several times larger than anything seen before.  An IoT developer chooses an LPWA protocol based on performance metrics. These metrics relate to three domains: reliability, energy consumption, and massiveness. 
+
+The reliability refers to the error rate of the system. This is important, as the devices might be placed e.g. in a sewer. If this is the case the \gls{MCL} could be very high, which is very influential for the error rate. Another factor to consider here is the latency of the system.\\
+The energy consumption is important as the main power grid might not be available for the device. It would then have to run on an internal power source. The reason for this again has to do with the placement of the device. A concern is that the device is placed in a hard to get to location and the number of replacements of the battery and device should be small.\\
+The massiveness is important as the density of devices is increased several folds. Each device might not take up a lot of bandwidth, but share number of devices, means for use cases, that is new and untested so far.
+
+The general scenario of an LPWA system is a large number of devices. Each transmitting a small, not latency critical, payload at regular intervals e.g. smart meters, household equipment, and surveillance. %The aim is to have long battery lifetime,  The reliability is in most cases not critical, but depending on the re-transmission scheme chosen a low reliability might result in unnecessary stress on the network. This might decrease performance for both massiveness and energy consumption of the devices. 
+
+
+%One of the aims of \gls{IoT} devices is a battery lifetime of around 10 years, to achieve this requirement for the energy consumption is, of course, a key metric. With the scope of billions of devices, several metrics in regards to the massiveness will also be extremely important. Because of the long lifetime coupled with the extreme number of devices the reliability also needs to be very high as it is not feasible to replace devices quickly. 
+%\todo{Either add payload as an extra domain or rewrite the part about reliability}
+
+This leads to the problem statement:
+\begin{center}
+\textbf{As the IoT market is still under development, the proposed protocols need to be evaluated based on several metrics for the reliability, energy consumption and massiveness. This evaluation will allow IoT developers to determine which IoT protocol is best suited for their target application.}
+\end{center}
+
+%Several different metrics can be tested for each of the domains some are protocol specific others while others are more general. Examples of performance metrics are:
+%
+%\begin{itemize}
+%    \item[\textbf{A}] \textbf{Massiveness}
+%    \begin{itemize}
+%        \item Time to connect vs. connection request per second 
+%        \item Data rate vs. number of users
+%        \item Spectrum use vs. number of users
+%        \item Interference level vs. number of users
+%    \end{itemize}        
+%    \item[\textbf{B}] \textbf{Energy consumption}
+%    \begin{itemize}
+%        \item Energy consumption vs. data rate
+%        \item Energy consumption vs. coverage level
+%        \item Energy consumption vs. operation mode
+%        \item Energy consumption vs. number of UEs
+%        \item Energy consumption vs. cellular protocol
+%        \item Energy consumption cellular vs. proprietary
+%    \end{itemize}
+%    \item[\textbf{C}] \textbf{Reliability}
+%    \begin{itemize}
+%        \item Delay
+%        \item \gls{BER} vs. \gls{SINR}/\gls{MCL} vs. protocol
+%    \end{itemize}
+%\end{itemize}
+
+
+\section{Solution Analysis}
+%What has been done before?
+%    Last thesis
+%    Some test into battery lifetime
+%    Theoretic calculations
+%What could be a solution for the problem?
+%    An IoT emulator
+%    Comparison of theoretic metrics
+%    Choose blindly
+%    Deploy a test case
+%What are we working with and why?
+%    An IoT emulator
+%    Massiveness
+%    Power
+%Why not reliability
+
+
+
+The idea for this project is to design an emulator combining both software and hardware. The emulator should test how the protocols perform in the different domains. For this purpose, emulation of a massive number of low-performance \gls{IoT} devices is needed. This idea is illustrated on \autoref{fig:intro_fig}. Implementation of a signal processing method, that allows changing to different channel models, would be optimal. The aim is to provide a customizable emulator, that evaluates performance metrics for the different \gls{IoT} protocols. 
+
+\tikzsetnextfilename{intro_fig}
+\begin{figure}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\input{figures/intro_fig.tex}}
+\caption{Conceptual visualisation of the emulator.}
+\label{fig:intro_fig}
+\end{figure}
+
+An earlier project has focused on building a software emulator for the LTE protocol \citep{thesis_report}. The idea there was to use a single radio and then emulate multiple devices in software. They used SRS LTE UE as a baseline and added multiple functionalities on top \citep{thesis_report}. This project will leverage on this work to build a \gls{MDE}.
+
+%\textbf{Limits of project} \todo{check this when it is decided to to do track 1 or 2}\\
+As it is a huge endeavor to build an emulator fulfilling the desired concepts, the focus will be only on the core principles. When making an emulator, it generally only works for a single protocol, as designing it for several protocols would be very time-consuming. Thus the focus is on developing functionalities for a single protocol instead. Another factor is the project will build upon existing software. Because designing either of the \gls{BSE} or \gls{IoT} device emulators could easily be its own project. The choice of protocol for the project is based on different factors seen in \autoref{tab:protocol_decision}.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+                    & \textbf{LTE Cat-0}& \textbf{LTE Cat-M}    & \textbf{NB-IoT}    & \textbf{LoRa}    & \textbf{Sigfox}    \\ \hline
+Licensed spectrum    & Yes                & Yes                    & Yes                & No            & No                \\ \hline
+\gls{BS} emulator    &  Amarisoft &  Amarisoft & {\begin{tabular}{c}  Amarisoft \\ SRS \end{tabular}} & \begin{tabular}{c}  The Things Industries \\ * LoRa Server \end{tabular} &   \\ \hline
+
+Device emulator    &  & {\begin{tabular}{c}  Amarisoft \\ Asiatelco \\ AT\&T \\ Digi \\ Fibocom \\ Gemalto \\ H3C \\ Huawei \\ LinkLabs \\ Longsung \\ Meig \\ Mobiletek \\ Multitech \\ Neoway \\ NimbeLink \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink  \end{tabular}} & {\begin{tabular}{c}  Amarisoft \\ Cheerzing \\ CMCC \\ Digi \\ H3C \\ Lierda \\ Longsung \\ Meig \\ Mobiletek \\ Mokuai \\ Neoway \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink \\ SRS \end{tabular}} & {\begin{tabular}{c}  The Things Industries \\  Miromico \\  Telit \end{tabular}} &    {\begin{tabular}{c}   Murata \\  Telit \\ * Telefonicaid \end{tabular}} \\ \hline
+Modem complexity    & High                 & Middle                 & Middle             & Middle         & Low                \\ \hline
+\end{tabular}}
+\raggedright \scriptsize{ * Open source solutions} 
+\caption{Commercial solutions available for the different protocols \citep{UE_list, Amarisoft_solutions, SRS_solutions, LORA_solutions, Things_solutions, Mira_solutions, Telit_solutions, telefonicaid_solutions, murata_solutions}.}%The solutions presented is found from google searches and might not show a complete image of available solutions.}
+\label{tab:protocol_decision}
+\end{table}
+
+%Based on \autoref{tab:protocol_decision} the \gls{NB-IoT} protocol is chosen. This is based on the fact it uses the licensed spectrum as well as the solutions available. Also, it is chosen to primarily look at the massiveness aspect of the protocol. \todo{check with germans comments}%check this again before hand-in}
+
+When looking at \autoref{tab:protocol_decision} it can be seen that for \gls{LTE} Cat-0 no device emulator was found. This has to do with the development of \gls{LTE} Cat-M and \gls{NB-IoT}, which shares most of the same properties but are more specialized to the \gls{IoT} market. It can also be seen that for both \gls{LTE} Cat-M and \gls{NB-IoT} multiple device emulators exist. The reason for this is that both protocols are cellular protocols developed by \gls{3GPP}. This is very desired by the industry for various reasons. For \gls{LoRa} there exists both \gls{BS} and device emulators, as it is also one of the most used proprietary protocols on the market. For the Sigfox protocol, no \gls{BS} emulators have been found. 
+
+Based on these investigations it is chosen to use the \gls{NB-IoT}. There are two reasons for this, it has a lot of emulators already developed and the bandwidth is less than LTE CAT-M. The desire for a small bandwidth is based on the before mentioned project. The project found that decreasing the bandwidth increased the number of devices the system could support \citep{thesis_report}. 
+
+
+To make the most realistic emulation, the final solution needs to work in real time, which sets some limitations performance wise. One of the problems associated with real-time computation is the computational capacity. This implies that the emulator might not be able to handle several thousand devices simultaneously, as the deployed system is required to. This is further explored in \autoref{ch:mass_test}.
+
+Another limit that has been set for the project, is to not focus on the reliability domain. This is done partly because it is believed to be the domain with the least concern of the three domains for NB-IoT and partly because any one of the domains, are large enough to fill out the scope of a single project. The focus in the project is split between the energy consumption and massiveness domains and in both cases, further limits still need to be set. For the massiveness domain, the channel will only consist of a path loss component. As this is all that is needed to validate a proof of concept emulator. The primary concern here is also the key functionalities and an API is not prioritized. For the energy consumption, an existing emulator will be used for the BSE and an engineering device is used as a test device. The focus further limited to only show the influence of a few key parameters for the battery lifetime. %The emulator is designed in modules, which in the future could be put together to one complete system.  
+
+This outline the scope of the project. To achieve this an overview of the \gls{NB-IoT} protocol is given in \autoref{ch:NB-IoT}. Here the network structure, protocol layers, and network access are explained. The rest of the report is divided between the two domains. \autoref{ch:MassOver} and \autoref{ch:mass_test} focus on the massive domain. Here the work done to build a \gls{MDE} as well as show the capabilities of the \gls{MDE} is explained. The goal for the MDE is to make a proof of concept emulator, emulating more than 15 devices as this was the limit in the previous project. \autoref{ch:BatTest} focus on the energy consumption domain. The idea here is to use a simple model to estimate the battery lifetime of an NB-IoT device and show the influence of selected parameters. The results found from each of these domains, along with the problems encountered are discussed in \autoref{ch:dics}. The final evaluation is described in \autoref{ch:con}, together with a proposed future direction for the work done in this project. 
+
+
+
+
+
+\chapter{Introduction}\label{ch:Introduction}
+
+
+
+%\section{Motivation}
+%Why is the topic of interest? 
+%New technology
+%    IoT development
+%    Massive number of devices
+%    5G
+
+The market of cellular technologies is changing and the need for a new type of technology has arisen. This is the need for \gls{LPWA} networks. \gls{LPWA} networks are classified by three main aspects: long battery lifetime, low-cost units and a large number of devices. With the development of \gls{LPWA} networks, especially with the development of 5G and other \gls{IoT} technologies, an increased focus has come to the massive part of communication. The massive aspect relates to the number of devices trying to connect to the network in a given area and the fact that the density of devices is increased by several folds compared to normal cellular networks. It has been estimated that in 2016 0.4 billion devices were of the \gls{LPWA} type, but this is predicted to reach 1.5 billion by 2021, equivalent to a yearly growth rate of 27 \% \citep{mobi-report}. This change sets some requirements that are not achievable with existing systems, however, to accommodate this, several technologies have been developed.
+
+
+Generally, the new technologies are classified into categories: cellular network based solution and proprietary solutions. The most renowned solutions can be seen on \autoref{fig:IoT_protocol_overview}. All these technologies are competing to be the main standard of LPWA systems. 
+%\textbf{Objective}
+
+\tikzsetnextfilename{IoT_fig}
+\begin{figure}[H]
+\centering
+%\resizebox{\textwidth}{!}{
+\input{figures/IoT_fig.tex}%}
+\caption{LPWA protocol overview.}
+\label{fig:IoT_protocol_overview}
+\end{figure}
+
+
+
+\section{Problem Analysis}
+%What is the problem?
+%    Many standards 
+%    Not really tested
+%    Nothing really deployed
+%    Unity
+%Why do we have the problem?
+%    New technology
+%    Money
+%    Competitiveness
+%Problem statement!
+
+Even though the technologies in question have already been designed, most are still in development. As an effect of this, most metrics that can be found for the different protocols, are to the authors' knowledge based on a theoretic approach and not on actual measurements. 
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Feature}            & \textbf{LoRa}           & \textbf{Sigfox}               & \textbf{LTE Cat-1} & \textbf{LTE-M}    & \textbf{NB-IoT} \\ \hline
+Modulation                  & SS Chirp                   & UNB/GSK/BPSK                & OFDMA              & OFDMA                 & OFDMA           \\ \hline
+Rx bandwidth                & 500-125 kHz                & 100 Hz                      & 20 MHz             & 20-1.4 MHz            & 200 KHz         \\ \hline
+Data Rate                   & 290 bps – 50 Kbps          & 100 bps / 8 bytes max        & 10 Mbps               & 200 kbps – 1 Mbps     & 20 Kbps         \\ \hline
 Max output power            & 20 dBm                     & 20 dBm                      & 23 – 46 dBm        & 23/30 dBm             & 20 dBm          \\ \hline
 \begin{tabular}[c]{@{}l@{}}Battery lifetime \\ (2000 mAh)\end{tabular}& 105 months ($\sim$9 years) & 90 months (7.5 years)  &   & 18 months (1.5 years) &   \\ \hline
 Link budget                 & 154 dB                     & 151 dB                      & 130 dB+            & 146 dB                & 150 dB          \\ \hline
@@ -86,68 +285,72 @@ Security                    & Yes                        & No                   
 
 It can be seen from \autoref{tab:tech_comparison1}, that the different technologies have different properties. The main differences between them are the bandwidth of the receiver as well as the battery lifetime. 
 
-As none of the protocols have been deployed at a large scale, it brings up different concerns, especially because the massiveness in question is several times larger than anything seen before. Therefore to choose the most optimal LPWA protocol, several metrics are taken into consideration divided into three domains: reliability, energy consumption and massiveness. The general scenario of an LPWA system is a huge number of devices, transmitting a small, not latency critical, payload which comes at regular intervals e.g. smart meters, household equipment and surveillance. 
+As none of the protocols have been deployed at a large scale, it brings up different concerns, especially because the massiveness in question is several times larger than anything seen before. Therefore to choose the most optimal LPWA protocol, several metrics are taken into consideration divided into three domains: reliability, energy consumption, and massiveness. 
 
-The aim is to have long battery lifetime, as a lot of the devices might not be connected to a power grid and have to run on internal power source. The reliability is in most cases not critical, but depending on the re-transmission scheme chosen a low reliability might result in unnecessary stress on the network. This might decrease performance for both massiveness and energy consumption of the devices. Another concern is that some of the devices might be placed in hard to get to locations and battery change and device replacement should be kept at a minimum.
+The reliability refers to the error rate of the system. This is important, as the devices might be placed e.g. in a sewer. If this is the case the \gls{MCL} could be very high, which is very influential for the error rate. Another factor to consider here is the latency of the system.\\
+The energy consumption is important as a device might not be connected to a power grid and have to run on an internal power source. The reason for this again has to do with the placement of the device, where a concern is that the device is placed in hard to get to location and battery change and device replacement should, therefore, be kept at a minimum.\\
+The massiveness is important as the density of devices is increased several folds. Each device might not take up a lot of bandwidth, but share number of devices, means for use cases, that is new and untested so far.
+
+The general scenario of an LPWA system is a large number of devices, transmitting a small, not latency critical, payload which comes at regular intervals e.g. smart meters, household equipment, and surveillance. %The aim is to have long battery lifetime,  The reliability is in most cases not critical, but depending on the re-transmission scheme chosen a low reliability might result in unnecessary stress on the network. This might decrease performance for both massiveness and energy consumption of the devices. 
 
 
-%One of the aims of \gls{IoT} devices is a battery lifetime of around 10 years, to achieve this requirement for the energy consumption is of course a key metric. With the scope of billions of devices, several metrics in regards to the massiveness will also be extremely important. Because of the long lifetime coupled with the extreme number of devices the reliability also needs to be very high as it is not feasible to replace devices quickly. 
-%\todo{Either add payload as a extra domain or rewrite the part about reliability}
+%One of the aims of \gls{IoT} devices is a battery lifetime of around 10 years, to achieve this requirement for the energy consumption is, of course, a key metric. With the scope of billions of devices, several metrics in regards to the massiveness will also be extremely important. Because of the long lifetime coupled with the extreme number of devices the reliability also needs to be very high as it is not feasible to replace devices quickly. 
+%\todo{Either add payload as an extra domain or rewrite the part about reliability}
 
 This leads to the problem statement:
 \begin{center}
-\textbf{As the IoT market is still under development, the proposed protocols needs to be evaluated based on several metrics for the reliability, energy consumption and massiveness, to choose an optimal IoT protocol.}
+\textbf{As the IoT market is still under development, the proposed protocols need to be evaluated based on several metrics for the reliability, energy consumption and massiveness. This evaluation will allow IoT developers to determine which IoT protocol is best suited for their target application.}
 \end{center}
 
 %Several different metrics can be tested for each of the domains some are protocol specific others while others are more general. Examples of performance metrics are:
 %
 %\begin{itemize}
-%	\item[\textbf{A}] \textbf{Massiveness}
-%	\begin{itemize}
-%		\item Time to connect vs. connection request per second 
-%		\item Data rate vs. number of users
-%		\item Spectrum use vs. number of users
-%		\item Interference level vs. number of users
-%	\end{itemize}		
-%	\item[\textbf{B}] \textbf{Energy consumption}
-%	\begin{itemize}
-%		\item Energy consumption vs. data rate
-%		\item Energy consumption vs. coverage level
-%		\item Energy consumption vs. operation mode
-%		\item Energy consumption vs. number of UEs
-%		\item Energy consumption vs. cellular protocol
-%		\item Energy consumption cellular vs. proprietary
-%	\end{itemize}
-%	\item[\textbf{C}] \textbf{Reliability}
-%	\begin{itemize}
-%		\item Delay
-%		\item \gls{BER} vs. \gls{SINR}/\gls{MCL} vs. protocol
-%	\end{itemize}
+%    \item[\textbf{A}] \textbf{Massiveness}
+%    \begin{itemize}
+%        \item Time to connect vs. connection request per second 
+%        \item Data rate vs. number of users
+%        \item Spectrum use vs. number of users
+%        \item Interference level vs. number of users
+%    \end{itemize}        
+%    \item[\textbf{B}] \textbf{Energy consumption}
+%    \begin{itemize}
+%        \item Energy consumption vs. data rate
+%        \item Energy consumption vs. coverage level
+%        \item Energy consumption vs. operation mode
+%        \item Energy consumption vs. number of UEs
+%        \item Energy consumption vs. cellular protocol
+%        \item Energy consumption cellular vs. proprietary
+%    \end{itemize}
+%    \item[\textbf{C}] \textbf{Reliability}
+%    \begin{itemize}
+%        \item Delay
+%        \item \gls{BER} vs. \gls{SINR}/\gls{MCL} vs. protocol
+%    \end{itemize}
 %\end{itemize}
 
 
 \section{Solution Analysis}
-%What have been done before?
-%	Last thesis
-%	Some test into battery lifetime
-%	Theoretic calculations
+%What has been done before?
+%    Last thesis
+%    Some test into battery lifetime
+%    Theoretic calculations
 %What could be a solution for the problem?
-%	An IoT emulator
-%	Comparison of theoretic metrics
-%	Choose blindly
-%	Deploy a test case
+%    An IoT emulator
+%    Comparison of theoretic metrics
+%    Choose blindly
+%    Deploy a test case
 %What are we working with and why?
-%	An IoT emulator
-%	Massiveness
-%	Power
+%    An IoT emulator
+%    Massiveness
+%    Power
 %Why not reliability
 
 
 
-The idea for this project is to design an emulator combining both software and hardware, that can test how the protocols perform in the different domains. For this purpose, emulation of a massive number of low performance \gls{IoT} devices is needed. The system should also be able to simulate neighboring cells to achieve realistic channel conditions. The whole idea is illustrated on \autoref{fig:intro_fig}. Implementation of a signal processing method, that allow to change to different channel models, would be optimal. The aim is to provide a customizable emulator, that evaluates performance metrics for the different \gls{IoT} protocols. 
+The idea for this project is to design an emulator combining both software and hardware, that can test how the protocols perform in the different domains. For this purpose, emulation of a massive number of low-performance \gls{IoT} devices is needed, this idea is illustrated on \autoref{fig:intro_fig}. Implementation of a signal processing method, that allows changing to different channel models, would be optimal. The aim is to provide a customizable emulator, that evaluates performance metrics for the different \gls{IoT} protocols. 
 
 \tikzsetnextfilename{intro_fig}
-\begin{figure}
+\begin{figure}[H]
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{figures/intro_fig.tex}}
@@ -155,92 +358,38 @@ The idea for this project is to design an emulator combining both software and h
 \label{fig:intro_fig}
 \end{figure}
 
-A project has been done earlier, with the focus of building a software emulator for the LTE protocol \citep{thesis_report}. The focus there was to use a single radio and then emulate multiple devices in software. For this SRS LTE UE was used as a baseline to which multiple functionalities were added on top \citep{thesis_report}. Work from this project will be utilized, when designing the emulator for this project.
+A project has been done earlier, with the focus of building a software emulator for the LTE protocol \citep{thesis_report}. The focus there was to use a single radio and then emulate multiple devices in software. For this SRS LTE UE was used as a baseline to which multiple functionalities were added on top \citep{thesis_report}. This project will leverage on this work to build a \gls{MDE}.
 
 %\textbf{Limits of project} \todo{check this when it is decided to to do track 1 or 2}\\
-As it is a huge endeavour to build an emulator fulfilling the desired concepts, the focus will be on the core principles of this, making a proof of concept emulator. When making an emulator, it generally only works for a single protocol. Designing it for several protocols would be very time consuming and it is chosen that the time is better spent on developing functionalities for a single protocol. Another factor is the project will build upon existing software, as just designing the \gls{BSE} or \gls{IoT} device emulator could easily be an entire project in itself. Based on this different factors are taken into account, when choosing the protocol for the project, which can be seen in \autoref{tab:protocol_decision}.
+As it is a huge endeavor to build an emulator fulfilling the desired concepts, the focus will be on the core principles of this, making a proof of concept emulator. When making an emulator, it generally only works for a single protocol. Designing it for several protocols would be very time consuming and it is chosen that the time is better spent on developing functionalities for a single protocol. Another factor is the project will build upon existing software, as just designing the \gls{BSE} or \gls{IoT} device emulator could easily be an entire project in itself. Based on this different factors are taken into account, when choosing the protocol for the project, which can be seen in \autoref{tab:protocol_decision}.
 
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|c|} \hline
-					& \textbf{LTE Cat-0}& \textbf{LTE Cat-M}	& \textbf{NB-IoT}	& \textbf{LoRa}	& \textbf{Sigfox}	\\ \hline
-Licensed spectrum	& Yes				& Yes					& Yes				& No			& No				\\ \hline
-\gls{BS} emulator	&  Amarisoft &  Amarisoft & {\begin{tabular}{c}  Amarisoft \\ SRS \end{tabular}} & \begin{tabular}{c}  The Things Industries \\ * LoRa Server \end{tabular} &   \\ \hline
+                    & \textbf{LTE Cat-0}& \textbf{LTE Cat-M}    & \textbf{NB-IoT}    & \textbf{LoRa}    & \textbf{Sigfox}    \\ \hline
+Licensed spectrum    & Yes                & Yes                    & Yes                & No            & No                \\ \hline
+\gls{BS} emulator    &  Amarisoft &  Amarisoft & {\begin{tabular}{c}  Amarisoft \\ SRS \end{tabular}} & \begin{tabular}{c}  The Things Industries \\ * LoRa Server \end{tabular} &   \\ \hline
 
-Device emulator	&  & {\begin{tabular}{c}  Amarisoft \\ Asiatelco \\ AT\&T \\ Digi \\ Fibocom \\ Gemalto \\ H3C \\ Huawei \\ LinkLabs \\ Longsung \\ Meig \\ Mobiletek \\ Multitech \\ Neoway \\ NimbeLink \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink  \end{tabular}} & {\begin{tabular}{c}  Amarisoft \\ Cheerzing \\ CMCC \\ Digi \\ H3C \\ Lierda \\ Longsung \\ Meig \\ Mobiletek \\ Mokuai \\ Neoway \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink \\ SRS \end{tabular}} & {\begin{tabular}{c}  The Things Industries \\  Miromico \\  Telit \end{tabular}} &	{\begin{tabular}{c}   Murata \\  Telit \\ * Telefonicaid \end{tabular}} \\ \hline
-Modem complexity	& High 				& Middle 				& Middle 			& Middle 		& Low				\\ \hline
+Device emulator    &  & {\begin{tabular}{c}  Amarisoft \\ Asiatelco \\ AT\&T \\ Digi \\ Fibocom \\ Gemalto \\ H3C \\ Huawei \\ LinkLabs \\ Longsung \\ Meig \\ Mobiletek \\ Multitech \\ Neoway \\ NimbeLink \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink  \end{tabular}} & {\begin{tabular}{c}  Amarisoft \\ Cheerzing \\ CMCC \\ Digi \\ H3C \\ Lierda \\ Longsung \\ Meig \\ Mobiletek \\ Mokuai \\ Neoway \\ pycom \\ Quectel \\ Sierra Wireless \\ SimCom \\ Skyworks \\ Telit \\ u-blox \\ ZTEWelink \\ SRS \end{tabular}} & {\begin{tabular}{c}  The Things Industries \\  Miromico \\  Telit \end{tabular}} &    {\begin{tabular}{c}   Murata \\  Telit \\ * Telefonicaid \end{tabular}} \\ \hline
+Modem complexity    & High                 & Middle                 & Middle             & Middle         & Low                \\ \hline
 \end{tabular}}
 \raggedright \scriptsize{ * Open source solutions} 
 \caption{Commercial solutions available for the different protocols \citep{UE_list, Amarisoft_solutions, SRS_solutions, LORA_solutions, Things_solutions, Mira_solutions, Telit_solutions, telefonicaid_solutions, murata_solutions}.}%The solutions presented is found from google searches and might not show a complete image of available solutions.}
 \label{tab:protocol_decision}
 \end{table}
 
-%Based on \autoref{tab:protocol_decision} the \gls{NB-IoT} protocol is chosen. This is based on the fact it uses the licensed spectrum as well as the solutions available. Also it is chosen to primarily look at the massiveness aspect of the protocol. \todo{check with germans comments}%check this again before hand-in}
+%Based on \autoref{tab:protocol_decision} the \gls{NB-IoT} protocol is chosen. This is based on the fact it uses the licensed spectrum as well as the solutions available. Also, it is chosen to primarily look at the massiveness aspect of the protocol. \todo{check with germans comments}%check this again before hand-in}
 
-When looking at \autoref{tab:protocol_decision} it can be seen that for \gls{LTE} Cat-0 no device emulator was found. This has to do with the development of \gls{LTE} Cat-M and \gls{NB-IoT}, which shares most of the same properties, but are more specialized to the \gls{IoT} market. It can also be seen that for both \gls{LTE} Cat-M and \gls{NB-IoT} multiple device emulators exist. The reason for this is that both protocols are cellular protocols developed by \gls{3GPP}, which is very desired by the industry for various reasons. For \gls{LoRa} there exists both  \gls{BS} and device emulators, as it is also one of the most used proprietary protocols on the market. For the Sigfox protocol no \gls{BS} emulators has been found. 
+When looking at \autoref{tab:protocol_decision} it can be seen that for \gls{LTE} Cat-0 no device emulator was found. This has to do with the development of \gls{LTE} Cat-M and \gls{NB-IoT}, which shares most of the same properties but are more specialized to the \gls{IoT} market. It can also be seen that for both \gls{LTE} Cat-M and \gls{NB-IoT} multiple device emulators exist. The reason for this is that both protocols are cellular protocols developed by \gls{3GPP}, which is very desired by the industry for various reasons. For \gls{LoRa} there exists both  \gls{BS} and device emulators, as it is also one of the most used proprietary protocols on the market. For the Sigfox protocol, no \gls{BS} emulators have been found. 
 
 Based on these investigations it is chosen to use the \gls{NB-IoT}, both because it has a lot of emulators already developed, but mainly because the bandwidth is less than LTE CAT-M. The reason a small bandwidth is desired is based on the before mentioned project, where it was found that decreasing the bandwidth increased the number of devices the system can support \citep{thesis_report}. 
 
 
-To make the most realistic emulation, the final solution needs to work in real time, which sets some limitations performance wise. One of the problems associated with real time computation is the computational capacity, meaning the emulator might not be able to handle several thousands devices simultaneously, as the deployed system is required to. This is further explored in \autoref{ch:mass_test}.
+To make the most realistic emulation, the final solution needs to work in real time, which sets some limitations performance wise. One of the problems associated with real-time computation is the computational capacity, meaning the emulator might not be able to handle several thousand devices simultaneously, as the deployed system is required to. This is further explored in \autoref{ch:mass_test}.
 
-Another limit that has been set for the project, is to not focus on the reliability domain. This is done partly because it is believed to be the domain with the least concern of the three domain for NB-IoT and partly because any one of the domains, are large enough to fill out the scope of a single project. The focus in the project is split between the energy consumption and massiveness domains and in both cases further limits still needs to be set. For the massiveness domain, only a single cell will be used and the channel will only consist of a path loss component, as this is all that is needed to validate a proof of concept emulator. The primary concern here is also the key functionalities and an API is not prioritized. For the energy consumption, an existing emulator will be used for the BS and a engineering device is used as a test device, with the focus limited to show the influence of a few key parameters for the battery lifetime. %The emulator is designed in modules, which in the future could be put together to one complete system.  
+Another limit that has been set for the project, is to not focus on the reliability domain. This is done partly because it is believed to be the domain with the least concern of the three domain for NB-IoT and partly because any one of the domains, are large enough to fill out the scope of a single project. The focus in the project is split between the energy consumption and massiveness domains and in both cases, further limits still need to be set. For the massiveness domain, only a single cell will be used and the channel will only consist of a path loss component, as this is all that is needed to validate a proof of concept emulator. The primary concern here is also the key functionalities and an API is not prioritized. For the energy consumption, an existing emulator will be used for the BS and an engineering device is used as a test device, with the focus limited to show the influence of a few key parameters for the battery lifetime. %The emulator is designed in modules, which in the future could be put together to one complete system.  
 
-This outline the scope of the project, but before going into the details of the emulator and battery lifetime, an introduction to the \gls{NB-IoT} protocol is made in the following chapter.
+This outline the scope of the project. To achieve this an overview of the \gls{NB-IoT} protocol is given in \autoref{ch:NB-IoT}. Here the network structure, protocol layers, and network access are explained. The rest of the report is divided between the two domains. \autoref{ch:MassOver} and \autoref{ch:mass_test} focus on the massive domain. Here the work done to build a \gls{MDE} as well as show the capabilities of the \gls{MDE} is explained. The goal for the MDE is to make a proof of concept emulator, emulating more than 15 devices as this was the limit in the previous project. \autoref{ch:BatTest} focus on the energy consumption domain. The idea here is to use a simple model to estimate the battery lifetime of an NB-IoT device and show the influence of selected parameters. The results found from each of these domains, along with the problems encountered are discussed in \autoref{ch:dics}. The final evaluation is described in \autoref{ch:con}, together with a proposed future direction for the work done in this project. 
 
-
-
-% \todo{Need more fill, as why we do not focus on these parts and also very hard cut off for a section}
-
-
-
-
-
-%To make an emulator for all the technologies mentioned would not be feasible in the time frame of the project therefore one is picked to prove the concept. The \gls{NB-IoT} is chosen because it provides a good compromise of data rate and battery life time, as well as being compatible with \gls{LTE}. Another factor for choosing \gls{NB-IoT} is that Keysight has provided the opportunity to test the system with their UXM base station, as well as \gls{SRS} developing an \gls{UE} for the \gls{NB-IoT} system. 
-
- 
-%To achieve this existing software will form the base but might need to be redesigned to minimize duplicate operations along with fulfilling the massive aspect. Finally 
-
-%	\begin{itemize}
-%		\item only a few devices
-%		\item only a single channel model
-%		\item no interfering neighbours
-%		\item probably no API
-%	\end{itemize}
-
-%\newpage
-%\begin{itemize}
-%	\item Objective	(NB emulator)
-%	\begin{itemize}
-%		\item scalable embedded hardware/software combination
-%		\item multiple/massive low performance IoT devices 
-%		\item Re-design of an NB-IoT software modem that minimizes the duplicated operations
-%		\item Implementation of a signal processing method that allows the generation of a waveform containing multiple transmitting devices geographically distributed, having different channel characteristics. (Optional)
-%		\item how the network will perform under massive traffic and (ii) how the interferences of neighboring cells will impact the overall performance
-%	\end{itemize}
-%	\item Motivation
-%	\begin{itemize}
-%		\item Up and coming technology
-%		\item alternative cellular network
-%		\item problem of massiveness
-%	\end{itemize}
-%	\item Technologies
-%	\begin{itemize}
-%		 \item LTE-M
-%		 \item CAT 1
-%		 \item CAT 0
-%		 \item CAT M1
-%		 \item CAT NB1
-%		 \item Sigfox
-%		 \item LoRa
-%	\end{itemize}
-%	\item Limits of project
-%	\begin{itemize}
-%		\item only a few devices
-%		\item only a single channel model
-%		\item no interfering neighbours
-%		\item probably no API
-%	\end{itemize}
-%\end{itemize}
 
