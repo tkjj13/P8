@@ -1,17 +1,18 @@
 \chapter{Massive IoT system overview}
 \label{ch:MassOver}
-The focus of this chapter is to provide an overview over the concepts and design of the \gls{MDE}. From \autoref{ch:NB-IoT} it is known that \todo{Insert knowledge fact about massive.} and a known concept is known from the project \citep{thesis_report}.
+The focus of this chapter is to provide an overview over the concepts and design of the \gls{MDE}. From \autoref{ch:NB-IoT} it is known that massive have an impact on the performance of the NB-IoT protocol, which the MDE should be able to show and measure.
+
 
 %It has a high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individually, especially if the desire is to test the impact of massiveness on the individual devices. A more optimal solution is instead of buying a massive amount of devices, to emulate them through software.
 
-To test the scenario of massiveness can be done in two ways, with a massive amount of hardware devices that require a system to control them individually or to emulate multiple devices in software using a minimal amount of hardware. For this type of emulation the optimal solution is the latter, as the desired amount of devices numbers several thousands. 
+To test the scenario of massiveness can be done in two ways, with a massive amount of actual devices that require a system to control them individually or to emulate multiple devices in software using a minimal amount of hardware. Given the large amount of devices to be emulated (in the order of thousands), the best option is the latter.
 
-The challenges with emulating a massive amount of devices, is that every single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspects of the devices functionalities are also wanted in the emulator. So to emulate a massive amount of devices, takes a lot of CPU power to process the data for each individual device and having enough memory for then and the data they receive. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handled quickly as the system operate in real time.
+The challenges when emulating a massive amount of devices, is that every single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspects of the devices functionalities are also wanted in the emulator. So to emulate a massive amount of devices, takes a lot of CPU power to process the data for each individual device and having enough memory for then and the data they receive. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handled quickly as the system operate in real time.
 
-As seen in \autoref{tab:protocol_decision} from \autoref{ch:Introduction} there is multiple version of emulators for a single NB-IoT device, but as the protocol still is in development, these emulators are also in the development stage and they only emulate a single device. But as a foundation for the project the SRS NB-IoT emulator will be used as a baseline, as designing the emulator from scratch is undesired and to time consuming. The SRS emulator is chosen, as it was accessible to get with the source code, as there have to be some restructure in the code, and it is based on the LTE emulator from SRS, which was the baseline for an earlier project \citep{thesis_report}, which are the predecessor for this project.
+As seen in \autoref{tab:protocol_decision} from \autoref{ch:Introduction} there are multiple version of emulators for a single NB-IoT device, but as the protocol still is in development, these emulators are also in the development stage and they can only emulate a single device. But as a foundation for the project the SRS NB-IoT emulator will be used as a baseline, where its capabilities for this software will be expanded to emulate multiple devices. As the LTE version of the baseline was used in the previous project, mentioned in \autoref{ch:MassOver}, their concept will be used as a base concept for this project.
 
 
-The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As the code was never intended to emulate multiple devices, several changes is needed, to emulate multiple devices.
+The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As the code was never intended to emulate multiple devices, several changes are needed, to emulate multiple devices.
 
 
 %The concept to produce this type of emulator, with the focus on having as high a number of devices active, while they still keep all functionalities for the individual device, will be to split up the code up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
@@ -20,8 +21,7 @@ The key idea for the emulator, is to split between active and inactive devices. 
 
 To test the emulator, it needs to communicated with a BS. To not interfere with other users and cancel out any other factors that can interfere with the whole setup, it is chosen to work with a BS emulator and connect the two emulator through wires. For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE}s \citep{Amarisoft_solutions} and is tested to synchronize with the software based NB-IoT devices that will be used. 
 
-To convert the signals, that the emulators produce, from digital to analog and reverse is there use a USRP B210 for each emulator, as it have been tested to work with both emulators. A last thing that have been put into the whole setup is a 30 dB attenuator, as the wired do not have as much path loss as transmission through air would have had.
-This gives the whole setup seen in \autoref{fig:MassSetup}. 
+To convert the signals, that the emulators produce, from digital to analog and reverse is there use a USRP B210 for each emulator, as it have been tested to work with both emulators. A 30 dB attenuator is added to compensate for the lack of path loss. This gives the whole setup seen in \autoref{fig:MassSetup}. 
 
 
 
@@ -56,7 +56,7 @@ This gives the whole setup seen in \autoref{fig:MassSetup}.
 
 
 \section{Baseline emulator}
-As stated before, is the baseline emulator from SRS stil in development. The structure of the code have been copied from the LTE version, where it follows the communication layer structure known from \autoref{ch:NB-IoT}. The code process only goes up to msg2, as SRS have not developed the functionalities to transmit msg3 correctly. This blocks the possibilities to make a full attach and transmit data and all other functionalities after completing an attach. But as a prove of concept, to showcase the possibility of emulating a massive amount of device, as this aspect is one of the new aspects that have to be taken into account when using NB-IoT.
+As stated before, the baseline emulator from SRS is still in development. The structure of the code have been copied from the LTE version, where it follows the communication layer structure known from \autoref{ch:NB-IoT}. The code process only goes up to msg2, as SRS have not developed the functionalities to transmit msg3 correctly. This blocks the possibilities to make a full attach and transmit data and all other functionalities after completing an attach. But as a prove of concept, to showcase the possibility of emulating a massive amount of device, as this aspect is one of the new aspects that have to be taken into account when using NB-IoT.
 
 %The code provide by SRS is still in development and is based on the code SRS developed to LTE, which was used in \citep{thesis_report}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mentioned project.
 
@@ -64,7 +64,7 @@ As stated before, is the baseline emulator from SRS stil in development. The str
 
 \subsection{Structure}
 \label{sub:MassStruct}
-To estimate the parts of the code that should be common for all devices  and which shall be kept individual, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated with the USRP B210, and the srsUE, where the main classes and control of the system is placed. The structure of the srsUE part can be seen in \autoref{fig:MassClass}. 
+To estimate the parts of the code that should be common for all devices and which shall be kept as individual parts, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated with the USRP B210, and the srsUE, where the main classes and control of the system is placed. The structure of the srsUE part can be seen in \autoref{fig:MassClass}. 
 
 %The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
@@ -89,9 +89,9 @@ The structure designed like the communication model OSI, but do not follow the m
 
 Even if the class layout look like the OSI model but it does not follow it on point especially the lower layers (PHY and MAC). This comes from that many of the MAC layers task is moved to the PHY class and normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS and USIM classes is not used much, as their functionality is for the process after the RAP or at least msg4 have been received. Therefore have they not been though much development in the SRS code.
 
-Between these classes are there some interfaces, that handles the movement of data, grants, parameters and other information. These interfaces is build as a class for it self for each interface, with an overall interface for functionalities used multiple places. 
+Between these classes are some interfaces, that handles the  data, grants, parameters and other information. These interfaces are individual classes, with an overall interface class for functionalities used multiple places. 
 
-The PHY class contains many tasks and and contains more classes which handles these tasks. The structure and description of these classes can be seen below.
+The PHY class contains many tasks and contains more classes which handles these tasks. The structure and description of these classes can be seen below.
 
 \begin{figure}[H]
 \centering
@@ -115,20 +115,20 @@ There are multiple other classes in the srsUE part, but they are a bi-product of
 With the knowledge of the structure of the baseline, the process of code will be look into now.
 
 
-\subsection{Execution of the code}
-To understand more the changes that need to be implemented, there is looked into the processes in the code. The code is build up into multiple section which runs at different times, which is shown in \autoref{fig:MassStep}. After the initialization, the steps is matching the steps needed for a device to connect to an eNB. The different threads will go to different state, depending on which step in the process the code have made it to.
+\subsection{Execution of the baseline emulator}
+To better understand the changes required, the following text describes the current structure of the basline. The emulator is build up into multiple section which runs at different times, which is shown in \autoref{fig:MassStep}. Besides the initialization of the emulator, the other step, the emultor goes through is equal to the steps, needed synchronize and attach to a network. The different threads will go to different state, depending on which step in the process the emulator is in. The different step are shown on \autoref{fig:MassStep}.
 
 \begin{figure}[H]
 \centering
 \tikzsetnextfilename{MassStep}
 \resizebox{0.5\textwidth}{!}{
 \input{figures/MassStep.tex}}
-\caption{A simplification of the steps in the code process}
+\caption{A simplification of the steps in the emulator process.}
 \label{fig:MassStep}
 \end{figure}
 
 \textbf{Initialization} \\
-The initialization step starts up all the different classes and sets pointers to the different interfaces between them and read the config file, which includes a longer list of parameters, which can be found in \appref{app:SRSconfig}. The PHY have a number of underclasses, as shown in \autoref{fig:PhyClass} and which are initialized in the PHY thread, which close down afterwards. The main thread will wait on the PHY to finish initialize, before sending an attach request, through the NAS class. This process is shown in \autoref{fig:InitStep}.
+The initialization step starts up all the different classes and sets pointers to the different interfaces between them and read the config file, which includes a longer list of parameters, which can be found in \appref{app:SRSconfig}. The PHY have a number of underclasses, as shown in \autoref{fig:PhyClass} and which are initialized in the PHY thread, which are close down afterwards. The main thread will wait on the PHY to finish initialize, before sending an attach request, through the NAS class. This process is shown in \autoref{fig:InitStep}.
 
 \begin{figure}[H]
 \centering
@@ -223,9 +223,9 @@ These three messages is all received in the DL after the MIB and in the msg2 cas
 
 To have the emulator emulate multiple devices, some parts of the original device is needed to be duplicated. The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.
 
-\section{Changed code}
+\section{Development of MDE}
 \label{sec:Changes}
-This section looks into where the changes have been made to the code and what impact it should have had onto process and usage of the emulator.
+This section describes the changes and implementations made to the baseline emulator and the reasoning behind these.
 
 The concept mentioned in the start of this chapter, focus on making as many functionalities common for all devices, to minimize the work load, but still have the devices to be as split as possible, so they still can be seen as individual devices.
 
@@ -240,7 +240,7 @@ For the receiving part, which is sent only to PHCH recv. Here there is also a ne
 With these two buffer system, will the problem with combining and distribute the data be fixed, while the layers above can be copied and have all functionalities still intact. But with this setup, the bottleneck in the system will quickly be the workload on the CPU kernels, which is why there will be looked into lower the amount of workload. As different functionalities is tied to different classes, it will be best to look at which classes can be made common.
 
 \textbf{PHCH recv}\\
-As the control class among the PHY underclasses, can PHCH recv be common instead of individual for the different devices. One of the pros of having it as a common class, is that the buffer for receiving data, mention in the previous section about radio, can be moved up here, where it is called from. Another pro is that the synchronization and the decoding of the MIB can be made common task, as these two steps in the process will not influence other devices compared to test the limits of the NB-IoT protocol. The PHCH recv will also keep all the devices synchronized by measuring the DL channel. The con will be that devices will not be able to get off sync individual, if that wanted to be tested.
+As the control class among the PHY underclasses, can PHCH recv be common, instead of individual for the different devices. One of the pros of having it as a common class, is that the buffer for receiving data, mention in the previous section about radio, can be moved up here, where it is called from. Another pro is that the synchronization and the decoding of the MIB can be made common task, as these two steps in the process will not influence other devices compared to test the limits of the NB-IoT protocol. The PHCH recv will also keep all the devices synchronized by measuring the DL channel. The con will be that devices will not be able to get off sync individual, if that wanted to be tested.
 
 The other underclasses in the PHY class all contains parts which should be keep individual, as they include some parameters meant for the individual device (NPRACH have preamble id and PHCH common have RNTI's). A discussing can be made if a large PHCH worker array should be made, where all devices gets workers from, but to make sure that all devices always will have a worker running for it self, it will also be copied. The higher layers classes will also be copied, as these all include the state the different devices are in and to keep them still as individual as possible. 
 
@@ -284,7 +284,13 @@ As seen on the two figures above, is the big difference that the PHCH recv class
 
 Another pro is that device 1 is not any more connected more to the common PHCH recv class than other devices and needs to be active. The con is that the setup for interfaces between the Co Phy and the devices becomes more complicated, as seen earlier in this section. This choice of structure is mostly influence by the possibilities, which can be found in \autoref{ch:Future}, as the structure is more free from device 1.
 
+\textbf{PHCH workers}\\
+With the changes to having the PHCH recv being a common class and the synchronize and decoding of MIB-NB being common tasks, there comes a change when reaching the NB-SIB1 step, as here the individual devices need to activate their PHCH worker. The cell camp process, shown in \autoref{fig:Cellcamp}, starts the workers in the baseline, which still will be used in the MDE, but with the addition of a loop, were the devices PHCH worker will started up after each other. As that the PHCH workers begins to work in their own thread at the end of the loop in the cell camp process, will the loop quickly loop around and the workers shall be starter quickly after each other. The receiver buffer, which was mention in the PHCH recv section above, is placed outside this loop, so there is only received once per rotation of all devices. This requires that all PHCH workers are done, before the next data needs to received or else will the PHCH recv get a out of sync flag and go back to idle state. This problem can be solve, by having a timer, that checks when the next data need to be received and then will the late devices miss some data, but this have not been implemented, due to the lack of time resources in the project.
+
 \section{Summary}
-The design of the massive emulator follows the concept, which also was used from the old project, some changes to the lower structure and it is implemented, as the NB-IoT code have the same structure as the LTE version, but is still in development and then some changes because difference in protocol. The system process is split up into seven steps, which will be tested in the following chapter, compared against the baseline.
+The design of the massive emulator follows the concept, which  was used in the previous project, with some changes to the lower structure and it is implemented, which showcase that the concept is possible to apply to multiple protocols. The baseline is still in development, which have affected the development and result of the MDE. 
+
+With this concept have the single device baseline emulator changed to the MDE, which is cable of emulating multiple devices, with the synchronize and decoding of MIB-NB being a common task for the Co Phy. The Co Phy is an extra class designed to handle most of the common task for all the devices. With this addition and other new implementation, should the MDE be able produce a massive number of device, while still performing like the baseline, when only emulating a single device. This will be tested in the next chapter.
+
 
 \input{chapter/TestMass.tex}
