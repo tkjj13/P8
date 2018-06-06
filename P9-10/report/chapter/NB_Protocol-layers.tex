@@ -311,6 +311,7 @@ The \gls{NPDCCH} carries three types of information: one is use to indicate \gls
 The \gls{NPDSCH} is used to transmit data when an bearer is established. Depending on the coverage level the \gls{NPDSCH} might be repeated up 2048 times. A \gls{TBS} may be up to 680 bits depending on the \gls{TBS} index and the number of subframes used. \citep{NB-IoT_Book}
 
 \subsubsection{Uplink}
+\label{sec:ULphy}
 As mentioned in \autoref{ch:Introduction}, most of the data in the system is \gls{UL} data. Therefore is the \gls{UL} spectrum tuned to accommodate the massive number of devices. The timing alignment of the \gls{UL} follows the \gls{DL} meaning when synchronized to the \gls{DL} band, the device is also synchronized to the \gls{UL}, except for the delay introduced by the travelling time of the signal. This delay is found at the beginning of the \gls{RAP}, which will be further explained in \autoref{sec:RAP}. 
 
 Frame Structure\\
@@ -345,7 +346,7 @@ Compared to legacy \gls{LTE}, two differences should be noted. The channel \gls{
 Channels\\
 The \gls{UL} consists of two channels and one signal, namely the \gls{NPRACH}, \gls{NPUSCH} and \gls{DMRS}.
 
-The \gls{NPRACH} consist of a repetition of four symbol groups, for each symbol group a \gls{CP} is attached followed by five symbols. The duration of the CP is dependent on the CP-format chosen this can be seen in \autoref{fig:NPRACH_structure}, and depending on the coverage level the \gls{NPRACH} might be repeated up to 128 times. \citep{NB-IoT_Book}
+The \gls{NPRACH} consist of a repetition of four symbol groups, for each symbol group a \gls{CP} is attached followed by five symbols. The duration of the CP is dependent on the CP-format chosen this can be seen in \autoref{fig:NPRACH_structure}, and depending on the coverage level the \gls{NPRACH} might be repeated up to 128 times. The NPRACH only uses 12 subcarriers at any time, which are used for msg1 in the \gls{NRAP}, see \autoref{sec:RAP}. \citep{NB-IoT_Book}
 
 The \gls{NPUSCH} carries the data transmitted form the device and \gls{HARQ} acknowledgement from the \gls{NPDSCH}, this is referred to as format 1 and 2 respectively. Format 1 can carry up 1000 bits per \gls{TB}. As seen on \autoref{fig:NPUSCH1_structure} and \autoref{fig:NPUSCH2_structure} the DMRS, which is used for channel estimation at the base station, is multiplexed with the NPUSCH. 
 
