@@ -187,8 +187,7 @@ As both the radio error and idle after MIB-NB error occurs in this step of the p
 \end{minipage}
 \captionsetup{belowskip=-1.5em}
 
-As seen on \autoref{fig:MT_SIB1_Time} the baseline emulator and the MDE have the same tendency around four different time values, with a few measurements way off. Compared to the previous steps, this step has a long execution time and the steps between the time values is around 600 ms. On \autoref{fig:MT_SIB1_His}  the distribution can be seen, where it is seen that the values is equally distributed between the four different time values. This indicates that the MDE begins the search at four different times, compared to the repeating of the NB-SIB1 message.
-\todo{search? quite specific step size to be due to different start times}
+As seen on \autoref{fig:MT_SIB1_Time} the baseline emulator and the MDE have the same tendency around four different time values, with a few measurements way off. Compared to the previous steps, this step has a long execution time and the steps between the time values is around 600 ms. On \autoref{fig:MT_SIB1_His}  the distribution can be seen, where it is seen that the values is equally distributed between the four different time values. This indicates that the MDE begins the search for NB-SIB1, after decoding the MIB-NB, at four different times, compared to the repeating of the NB-SIB1 message.
 
 
 \subsection{NB-SIB2}
@@ -203,13 +202,11 @@ The execution time for the NB-SIB2 decoding step is measured from the NB-SIB1 is
 \end{figure}
 
 
-As seen on \autoref{fig:MT_SIB2_Time}, the baseline emulator and MDE have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements of 1 through 14 devices, which is also expected as the timing between decoding NB-SIB1 and NB-SIB2 should only be the time until the whole NB-SIB2 have been received, with a small additional time for the decoding. 
-\todo{explain why 15 is weird}
+As seen on \autoref{fig:MT_SIB2_Time}, the baseline emulator and MDE have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements of 1 through 14 devices, which is also expected as the timing between decoding NB-SIB1 and NB-SIB2 should only be the time until the whole NB-SIB2 have been received, with a small additional time for the decoding. The reason behind the bigger spread at 15 devices comes from how unstable the code is, as a NPRACH error is about to occur. The reason for this is not happening for 13 and 14 devices, can be that the system still was stable at this point, before the NPRACH error. Another factor is that there only two measurement points for these two values.
 
 
 \subsection{NPRACH}
-The execution time for the NPRACH step is measured from the decoding of NB-SIB2 is done until the msg1 is delivered to the transmit buffer, which gives the results seen on \autoref{fig:MT_Nprach_Time}. The NPRACH error occurs only when the MDE emulates more than 12 devices with a single exception. The NPRACH error happens, when only some of the devices get through the NPRACH step. As before the shown results are only for one of the emulated devices and the sample pool is not reduced by this error.
-\todo{mads bør læse det her igen}
+The execution time for the NPRACH step is measured from the decoding of NB-SIB2 is done until the msg1 is delivered to the transmit buffer, which gives the results seen on \autoref{fig:MT_Nprach_Time}. The NPRACH error occurs only when the MDE emulates more than 12 devices with a single exception at 6 devices. The NPRACH error happens, when only some of the devices get through the NPRACH step, which comes from the system becoming unstable and getting out of sync. As before the shown results are only for one of the emulated devices and the sample pool is not reduced by this error.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Nprach_Time}
@@ -237,7 +234,7 @@ The execution time for the RAR step is measured from msg1 is delivered to the tr
 As seen on \autoref{fig:MT_Rar_Time} the MDE starts out following the tendency of the baseline emulator, but around eight devices it begins to get a higher and higher execution time and getting a wider spread compared to the values at a low number of devices, which indicates a possible bottleneck in the system.
 
 \subsection{Summary}
-When looking at the execution time, of the MDE compared to the baseline emulator, it can be seen that in most steps, the two emulators perform similarly. The initialization steps is where the biggest difference is, but as the extra is performed in a single thread, this is to be expected. This is however not a problem as the real time dependency of the system has not yet been invoked. A bottleneck that can be seen in these test, comes in the RAR step, where an increase in delay is seen, when the number of number of devices gets above eight. The results from 13 to 15 device do act as the other measurements, but with no successful runs, is this expected as well. \todo{what do you mean, with the last part}
+When looking at the execution time, of the MDE compared to the baseline emulator, it can be seen that in most steps, the two emulators perform similarly. The initialization steps is where the biggest difference is, but as the extra is performed in a single thread, this is to be expected. This is however not a problem as the real time dependency of the system has not yet been invoked. A bottleneck that can be seen in these test, comes in the RAR step, where an increase in delay is seen, when the number of number of devices gets above eight. The results from 13 to 15 device do act as the other measurements at some points, but with no measurements point without errors at some point in the process, this expected as well. 
 
 
 \section{CPU usage}
