@@ -59,14 +59,14 @@
 \node (v17) at (8.5,-5) {};
 \node (v12) at (-6,-1) {};
 
-\draw [arrows={ - triangle 45}] (v8) edge (v9);
-\draw [arrows={ - triangle 45}] (v11) edge (v12);
-\draw [arrows={ - triangle 45}] (v13) edge (v14);
-\draw [arrows={ - triangle 45}] (v6) edge (v15);
-\draw [arrows={ - triangle 45}] (v16) edge (v7);
-\draw [arrows={ - triangle 45}] (v17) edge (v18);
-\draw [arrows={ - triangle 45}] (v19) edge (v21);
-\draw [arrows={ - triangle 45}] (v22) edge (v8);
+\draw [arrows={ - triangle 45}] (v8) -- (-6,7);
+\draw [arrows={ - triangle 45}] (-6,1) -- (-6,-1);
+\draw [arrows={ - triangle 45}] (-6,-3) -- (-5.5,-5);
+\draw [arrows={ - triangle 45}] (-8,-7) -- (v15);
+\draw [arrows={ - triangle 45}] (v16) -- (6,-7);
+\draw [arrows={ - triangle 45}] (8.5,-5) -- (7,-3);
+\draw [arrows={ - triangle 45}] (7,3) -- (7,5);
+\draw [arrows={ - triangle 45}] (7,7) -- (v8);
 \node [anchor=west] at (-14,7.75) {Transmitting Side};
 \node [anchor=east] at (13,7.75) {Receiving Side};
 \end{tikzpicture}

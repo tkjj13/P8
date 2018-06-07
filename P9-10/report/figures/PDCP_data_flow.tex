@@ -30,13 +30,13 @@
 \node (v8) at (-7.5,-3) {};
 \node (v10) at (-7,-5) {};
 \node (v11) at (-4.5,-6) {};
-\draw  [arrows={- triangle 45}] (v2) edge (v3);
-\draw  [arrows={- triangle 45}] (v4) edge (v5);
-\draw  [arrows={- triangle 45}] (v4) edge (v6);
-\draw  [arrows={- triangle 45}] (v7) edge (v8);
-\draw  [arrows={- triangle 45}] (v9) edge (v8);
-\draw  [arrows={- triangle 45}] (v10) edge (v11);
-\draw  [arrows={- triangle 45}] (v1) edge (v12);
+\draw  [- triangle 45] (v2) -- (-7.5,5);
+\draw  [- triangle 45] (-7.5,3) -- (-10.5,1);
+\draw  [- triangle 45] (-7.5,3) -- (-4.5,1);
+\draw  [- triangle 45] (-10.5,-1) -- (-7.5,-3);
+\draw  [- triangle 45] (-4.5,-1) -- (-7.5,-3);
+\draw  [- triangle 45] (-7.5,-5) -- (-4.5,-6);
+\draw  [- triangle 45] (-7,-8) -- (v12);
 \node[anchor=east] at (-9.2,2) {\begin{tabular}{c} \textbf{Control} \\[-0.9em] \textbf{Plane} \end{tabular}};
 \node[anchor=west] at (-5.4,2) {\begin{tabular}{c} \textbf{User} \\[-0.9em] \textbf{Plane} \end{tabular}};
 
@@ -66,13 +66,13 @@
 \node (v15) at (7,4) {};
 \node (v13) at (7,-10) {RLC};
 
-\draw [arrows={- triangle 45}] (v13) edge (v1);
-\draw [arrows={- triangle 45}] (v11) edge (v10);
-\draw [arrows={- triangle 45}] (v8) edge (v7);
-\draw [arrows={- triangle 45}] (v8) edge (v9);
-\draw [arrows={- triangle 45}] (v6) edge (v14);
-\draw [arrows={- triangle 45}] (v15) edge (v2);
-\draw [arrows={triangle 45 - triangle 45}] (v5) edge (v2);
+\draw [- triangle 45] (v13) -- (7,-8);
+\draw [- triangle 45] (9.5,-6) -- (6.5,-5);
+\draw [- triangle 45] (6.5,-3) -- (3.5,-1);
+\draw [- triangle 45] (6.5,-3) -- (9.5,-1);
+\draw [- triangle 45] (9.5,1) -- (9.5,3);
+\draw [- triangle 45] (7,4) -- (v2);
+\draw [arrows={triangle 45 - triangle 45}] (3.5,1) -- (v2);
 \node[anchor=east] at (4.3,-2) {\begin{tabular}{c} \textbf{Control} \\[-0.9em] \textbf{Plane} \end{tabular}};
 \node[anchor=west] at (8.5,-2) {\begin{tabular}{c} \textbf{User} \\[-0.9em] \textbf{Plane} \end{tabular}};
 

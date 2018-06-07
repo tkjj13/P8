@@ -5,7 +5,7 @@
 \draw  (-2.5,-1.5) rectangle (1.5,-3.5);
 \draw  (3.5,-1.5) rectangle (7.5,-3.5);
 \draw  (-2.5,-4.5) rectangle (1.5,-6.5);
-\draw (-0.5,-7.5) node (v1) {} -- (-2.5,-8.5) -- (-0.5,-9.5) node (v3) {} -- (1.5,-8.5) node (v2) {} -- (v1);
+\draw (-0.5,-7.5) node (v1) {} -- (-2.5,-8.5) -- (-0.5,-9.5) node (v3) {} -- (1.5,-8.5) node (v2) {} -- (-0.5,-7.5);
 \draw  (-2.5,-10.5) rectangle (1.5,-12.5);
 \draw  (3.5,-7.5) rectangle (7.5,-9.5);
 \draw  (9.5,-7.5) rectangle (13.5,-9.5);
@@ -16,13 +16,13 @@
 \draw [-triangle 60](-0.5,-0.5) -- (-0.5,-1.5);
 \draw [-triangle 60](1.5,-2.5) -- (3.5,-2.5);
 \draw [-triangle 60](-0.5,-3.5) -- (-0.5,-4.5);
-\draw [-triangle 60](-0.5,-6.5) -- (v1);
-\draw [-triangle 60](v2) -- (3.5,-8.5);
+\draw [-triangle 60](-0.5,-6.5) -- (-0.5,-7.5);
+\draw [-triangle 60](1.5,-8.5) -- (3.5,-8.5);
 \draw [-triangle 60](7.5,-8.5) -- (9.5,-8.5);
 \draw [-triangle 60](11.5,-9.5) -- (11.5,-10.5);
 \draw [-triangle 60](9.5,-11.5) -- (7.5,-11.5);
 \draw [-triangle 60](3.5,-11.5) -- (1.5,-11.5);
-\draw [-triangle 60](v3) -- (-0.5,-10.5);
+\draw [-triangle 60](-0.5,-9.5) -- (-0.5,-10.5);
 \node at (-0.5,0.5) {Get worker};
 \node at (-0.5,-2.5) {Receive data};
 \node at (5.5,-2) {Release worker};
@@ -36,7 +36,7 @@
 \node [rotate=-90] at (14.25,-8.5) {NPRACH};
 \node [rotate=-90] at (14.25,-11.5) {Radio};
 \node at (2.5,-2) {No sync};
-\node at (0.2,-4) {In sync};
+\node at (0.25,-4) {In sync};
 \node at (2,-8) {Yes};
 \node at (0,-10) {No};
 \node at (5.5,-3) {RRC out of sync};

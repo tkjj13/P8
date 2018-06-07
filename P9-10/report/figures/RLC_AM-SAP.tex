@@ -59,25 +59,25 @@
 \node (v17) at (8.5,-5) {};
 \node (v12) at (-6,-1) {};
 
-\draw [arrows={ - triangle 45}] (v8) edge (v9);
-\draw [arrows={ - triangle 45}] (v11) edge (v12);
-\draw [arrows={ - triangle 45}] (v13) edge (v14);
-\draw [arrows={ - triangle 45}] (v6) edge (v15);
-\draw [arrows={ - triangle 45}] (v16) edge (v7);
-\draw [arrows={ - triangle 45}] (v17) edge (v18);
-\draw [arrows={ - triangle 45}] (v19) edge (v21);
-\draw [arrows={ - triangle 45}] (v22) edge (v8);
+\draw [arrows={ - triangle 45}] (v8) -- (-12,7);
+\draw [arrows={ - triangle 45}] (-12,1) -- (-6,-1);
+\draw [arrows={ - triangle 45}] (-6,-3) -- (-7.5,-5);
+\draw [arrows={ - triangle 45}] (-10,-7) -- (v15);
+\draw [arrows={ - triangle 45}] (v16) -- (6,-7);
+\draw [arrows={ - triangle 45}] (8.5,-5) -- (7,-3);
+\draw [arrows={ - triangle 45}] (7,3) -- (7,5);
+\draw [arrows={ - triangle 45}] (7,7) -- (v8);
 \node [anchor=west] at (-17,8) {Transmitting side};
 \node [anchor=east] at (13,8) {Receiving side};
 \draw  (-10,-1) rectangle (-16,-3);
 \node at (-13,-2) {\begin{tabular}{c} Retransmission \\[-0.9em] Buffer\end{tabular}};
 \draw  (-7,4) rectangle (-2,2) node (v24) {};
 \node at (-4.5,3) {Control};
-\draw [arrows={ - triangle 45}] (v23) edge (v24);
+\draw [arrows={ - triangle 45}] (3,-2) -- (-2,2);
 \node [anchor=west] at (0,1) {Status};
 \node (v25) at (-10.2,-2) {};
 \node (v26) at (-8.8,-2) {};
 \node (v27) at (-13.5,-3) {};
-\draw [arrows={ - triangle 45}] (v25) edge (v26);
-\draw [arrows={ - triangle 45}] (v27) edge (v14);
+\draw [arrows={ - triangle 45}] (-10,-2) -- (-9,-2);
+\draw [arrows={ - triangle 45}] (-13.5,-3) -- (-7.5,-5);
 \end{tikzpicture}
