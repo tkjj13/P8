@@ -85,7 +85,7 @@ To structure the parts of the code that should be common for all devices and whi
 
 \input{figures/MassClass.tex}}
 
-\caption{Class overview of SRS emulation code}
+\caption{Class overview of SRS emulation code.}
 
 \label{fig:MassClass}
 
@@ -93,19 +93,14 @@ To structure the parts of the code that should be common for all devices and whi
 
 The structure is designed like the OSI model, but do not follow the model completely, which can be seen in the functionalities seen below.
 
-\begin{tabular}[lp{10cm}]
-
+\begin{tabular}{l p{14cm}}
 Radio & The radio controls and sets all the parameters needed to transmit and receive. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. \\
-
 PHY & The PHY class handles synchronization, receiving and decoding of MIB and SIBs messages, and decoding and encoding of the data. \\
-
 MAC & The MAC class keep track of TTI and give grants to the PHY class to decode and encode the DL and UL. It also takes control of the NRAP from the NPRACH class after msg1. \\
-
 RRC & The RRC class is the overall control class for the whole device. It manages how far through the process the device is and if it got all the needed parameters. It is therefore connected to all lower classes, besides the radio class. \\
-
 \end{tabular}
 
-Even if the class layout look like the OSI model it does not follow blindly especially in the lower layers (PHY and MAC). This is mainly because many of the MAC layers tasks are moved to the PHY class. Normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS, and USIM classes are not used much, as their functionality is for the process after the RAP or at least after msg4 have been received, and have therefore not been through much development in the SRS code.
+Even if the class layout look like the OSI model it does not follow blindly especially in the lower layers (PHY and MAC). This is mainly because many of the MAC layers tasks are moved to the PHY class. Normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS, and USIM classes are not used much, as their functionality is for the process after the NRAP or at least after msg4 have been received, and have therefore not been through much development in the SRS code.
 
 Between these classes are some interfaces, that handles the data, grants, parameters, and other information. These interfaces are individual classes. An overall interface class for functionalities used in multiple places is present in each of the interface classes. 
 
@@ -121,13 +116,13 @@ The PHY class handles many tasks and contains several smaller classes which take
 
 \input{figures/PhyClass.tex}}
 
-\caption{Class overview of the PHY layer from the SRS emulation code}
+\caption{Class overview of the PHY layer from the SRS emulation code.}
 
 \label{fig:PhyClass}
 
 \end{figure}
 
-\begin{tabular}[lp{10cm}]
+\begin{tabular}{lp{12cm}}
 
 PHCH recv & Controls the whole PHY class system. It keeps track of which state the system is in and activates the different underclasses in the PHY class. \\
 
@@ -137,7 +132,7 @@ PHCH workers & Handles all processing of data after decoding of MIB-NB and NB-SI
 
 Thread pool & Contains and controls the array of PHCH workers. \\    
 
-NPRACH & Transmit msg1 in the RAP and keep track of the parameters set for this transmission e.g. preamble id. \\
+NPRACH & Transmit msg1 in the NRAP and keep track of the parameters set for this transmission e.g. preamble id. \\
 
 \end{tabular}
 
@@ -305,7 +300,7 @@ The concept mentioned in the start of this chapter is to focus on making some fu
 
 Through the previous part about the structure of the code, it is seen that the radio class is at the bottom of the class structure. This class is the bottleneck for the simple strategy of copying the whole structure for each device, as there should only be one connection to the API of the USRP B210. Thus only one instance of the radio class should be generated.
 
-The next point is to secure that all communication to the radio class is controlled. As seen in the previous structure section and in \autoref{fig:PhyClass}, the only classes that communicate with the radio class are PHCH recv (for synchronization and decoding of MIB), NPRACH (to transmit msg1 in the RAP) and PHCH common (with the data from the PHCH worker).
+The next point is to secure that all communication to the radio class is controlled. As seen in the previous structure section and in \autoref{fig:PhyClass}, the only classes that communicate with the radio class are PHCH recv (for synchronization and decoding of MIB), NPRACH (to transmit msg1 in the NRAP) and PHCH common (with the data from the PHCH worker).
 
 In the transmission part, there is a need of combining all the signal correctly, compared to time slots and frequencies, while still being in sync with the BS. This will be fixed with a buffer system, that will receive the data and hold on to it until it is transmitted. A problem comes when the data have to be combined, as it has to be transmitted simultaneously. As different devices have the possibility for different power level, a power combiner is implemented, that takes this parameter into account.
 
