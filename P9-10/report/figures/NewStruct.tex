@@ -47,8 +47,8 @@
 \draw [-triangle 90](8,2.5) -- (8,3);
 \draw [-triangle 90](10,3) -- (10,2.5);
 
-\fill [black]  (-5,-3.5) rectangle (-1,-7.5);
-\fill [white](-3,-7.5) rectangle (-1,-5.5);
+\fill [black]  (-5,-3.5) rectangle (-1,-7.5) node (v2) {};
+\fill [white](-3,-7.5) node (v3) {} rectangle (-1,-5.5) node (v1) {};
 
 \node [white] at (-3,-4.5) {PHY};
 \node at (-2,-6.5) {Recv};
@@ -58,4 +58,5 @@
 \draw [-triangle 60][mycolor2](-3.5,-1.5) -- (-3.5,-3) -- (9.5,-3) -- (9.5,-8.5);
 \draw [mycolor2](2.5,-1.5) -- (2.5,-3);
 \draw [mycolor2](8.5,-1.5) -- (8.5,-3);
+\draw (-1,-5.5) -- (-1,-7.5) -- (-3,-7.5);
 \end{tikzpicture}

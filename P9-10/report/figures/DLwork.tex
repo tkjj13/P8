@@ -24,10 +24,10 @@
 \node at (-6,-8.75) {Send new UL grant};
 \node at (6,-3) {Decoding NPDSCH};
 \node at (12,-2.75) {Send decode data to};
-\node at (9,-8.75) {Generate ACK/NACK};
+\node at (9,-8.6) {Generate};
 \node at (3,-11.25) {Contiune with UL};
 \node at (-6,-9.25) {to MAC};
-\node at (9,-9.25) {and UL grant};
+\node at (9,-9.4) {and UL grant};
 \node at (12,-3.25) {MAC};
 \node at (0,-3.25) {to MAC};
 \node at (-2.5,0.5) {No};
@@ -36,7 +36,7 @@
 \node at (-5.5,-4.5) {No};
 \node at (-3.5,-6) {No};
 \node at (-5.5,-7.5) {Yes};
-\node at (6,-5) {Error};
+\node at (6,-4.85) {Error};
 \node at (9,-2.5) {Succes};
 
 \draw (-4,-6) -- (3,-10.5);
@@ -47,10 +47,12 @@
 \draw (9,-5) node (v10) {} -- (7,-6) node (v11) {} -- (9,-7) node (v14) {} -- (11,-6) --  (9,-5) node (v13) {};
 \draw (7,-6) -- (3,-10.5);
 \draw [-triangle 60](9,-7) -- (9,-8);
-\node at (9,-6) {Need ACK/NACK};
+\node at (9,-5.8) {Need};
 \node at (9.5,-7.5) {Yes};
 \node at (6,-6) {No};
 \draw [-triangle 60](0,2) -- (0,1);
 \draw [-triangle 60](6,-4) -- (6,-4.5) -- (9,-4.5) -- (9,-5);
 \draw (12,-4) -- (12,-4.5) -- (8.5,-4.5);
+\node at (9,-9) {ACK/NACK};
+\node at (9,-6.3) {ACK/NACK};
 \end{tikzpicture}
