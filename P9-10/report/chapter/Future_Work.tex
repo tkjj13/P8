@@ -41,14 +41,15 @@ The test campaign investigated four parameters, which was chosen due to the impo
 \subsection{Full Emulator Setup}
 Through this project, the different domains, mentioned in \autoref{ch:Introduction}, has been tested in different setups. A concept is proposed, where it is possible to emulate and measure all three domains. To do this the setup should be changed a bit as seen on \autoref{fig:Fsetup}. The concept relies on, that the other features in this chapter and \autoref{ch:dics} have been implemented. 
 
-%%Beautiful picture
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/General_test_setup.pdf}
-\caption{A setup which enables testing of all domains on a single device through the massive device emulation.}
+\tikzsetnextfilename{fullset}
+\resizebox{0.7\textwidth}{!}{
+\input{figures/FullSet.tex}}
+\caption{The concept setup, which enables testing of all three domains on a single device.}
 \label{fig:Fsetup}
 \end{figure}
 
 
-The setup contains the MDE for the massiveness domain, which will produce interference, both at a signaling level and sharing resources at different layers of the protocol. The PSU will provide power and analyze the power consumption for the DUT. The only domain not tested in this project is the reliability, this could be tested through logging of retransmissions. For this part emulation of different channel conditions for the DUT is very important, as reliability is severely affected by the channel. This is thought to be enough to measure each domain, as other parameters that affect the reliability are already built into the system, like the different cell parameters from the NB-IoT protocol.
+The setup contains the MDE for the massiveness domain, which will produce interference, both at a signaling level and sharing resources at different layers of the protocol. The power analyzer will provide power and analyze the power consumption for the DUT. The only domain not tested in this project is the reliability, this could be tested through logging of retransmissions. For this part emulation of different channel conditions for the DUT is very important, as reliability is severely affected by the channel. This is thought to be enough to measure each domain, as other parameters that affect the reliability are already built into the system, like the different cell parameters from the NB-IoT protocol. To control the full setup, an orchestrator is added, as there will be many parameters to set and to start up all parts and keep measurements in sync.
 
