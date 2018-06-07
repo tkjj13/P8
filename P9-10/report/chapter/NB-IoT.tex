@@ -112,18 +112,25 @@ This process can also be seen on \autoref{fig:RAP}
 \label{fig:RAP}
 \end{figure}
 
-The NPRACH channel, mention in \autoref{sec:ULphy}, is used for transmitting the msg1. With its 12 subcarriers and the jumping pattern shown on \autoref{fig:NPRACH_structure}, does it have 12 different preambles to select between for msg1.
+The NPRACH channel, mention in \autoref{sec:ULphy}, is used for transmitting the msg1. With its 12 subcarriers and the jumping pattern shown on \autoref{fig:NPRACH_structure}, 12 different preambles can be selected when transmitting msg1.
 
 Another important part to take from the \gls{NRAP} is that the device gets a \gls{Ra-RNTI} based on the preamble it selects for msg1. This identifier is used to decode the rest of the messages. During the attach procedure the device is also given a \gls{P-RNTI} and a \gls{C-RNTI}, which is used for decoding radio and paging transmission later on \citep{whitepaper}. If a control plane data transmission is desired it is transmitted during the \gls{NRAP} \citep{primer}.
 
 \subsection{Massiveness}
-NB-IoT is designed to handle a massive number of devices (in the orders of thousands). The reason behind this need is that the system has to share its resources with all the devices. There are two points where the massive number of device influence the system: At msg1 in the NRAP, mention in \autoref{sec:RAP} and general usage of the different DL and UL channels.
+NB-IoT is designed to handle a massive number of devices (in the orders of thousands). The reason behind this is that the system needs to share its resources between all devices. There are two points where the massive number of device influence the system: At msg1 in the NRAP, mentioned in \autoref{sec:RAP} and the general usage of the different DL and UL channels.
 
-As described in \autoref{sec:RAP}, are there 12 preambles to use, when wanting to transmit msg1. In the case of multiple devices using the same NPRACH window to transmit msg1, there is a chance that devices chose the same preamble and both transmit it. This duplication of a preamble is first detected at the eNB, when it receives the different msg3, with the same Ra-RNTI, as multiple devices will have the same Ra-RNTI by having used the same preamble. In msg4 do the eNB tell the devices, if it got connected, with no collision at msg1, or that a collision happens at msg1 and gets denied. If a device gets denied, activates it a backoff timer, which value is chosen at random, before transmitting a new preamble. On XXX are shown the success rate for a device not transmitting a preamble chosen by another device. As seen, does the number of devices trying to attach, affect negatively when increasing and with a higher number of devices, does the number of devices trying to attach at the same time increase.
+As described in \autoref{sec:RAP}, 12 preambles are available, when wanting to transmit msg1. In the case of multiple devices using the same NPRACH window to transmit msg1, there is a chance that devices chose the same preamble and both transmit it. This duplication of a preamble is first detected at the eNB, when it receives the different msg3, with the same Ra-RNTI, as multiple devices will have the same Ra-RNTI by having used the same preamble. In msg4 is only transmitted if no collision is detected during msg3. If a device gets denied, it activates a backoff timer, with a random value, before transmitting a new preamble. On \autoref{fig:NPRACH_success} the success rate for a device is shown. A success is defined as transmitting a preamble that is not chosen by another device. As seen, the number of devices trying to attach, affect the success rate negatively, the issue is that increasing the number of devices in the system, also means increasing the number of devices trying to attach at the same time.
 
 %%Insert beautiful graph
+\setnexttikzfilename{NPRACH_success}
+\begin{figure}[H]
+\centering
+\input{figures/NPRACH_success.tex}
+\caption{The probability of any single device avoiding collision, as the amount of devices attempting to connect is increased for the same NPRACH occasion.}
+\label{fig:NPRACH_success}
+\end{figure}
 
-For the general usage of channels in both DL and UL, will a higher number device give more data needed to be transmitted between them and the eNB. With the higher amount of data needed to be transmitted will the devices need to stay in connected state for a longer time, which will consume more battery power. 
+For the general usage of channels in both DL and UL, a higher number of devices means more data to be transmitted between them and the eNB. With the higher amount of data needed to be transmitted a device will be required to stay in connected state for a longer time, which will consume more battery power. 
 
 \subsection{Connection Control}
 A connected device needs to be able to move to the different device states as seen in \autoref{fig:UE-states}. To do this, different procedures are used. The primary concern here is moving in and out of idle modes. Generally, when connected, a device does not want to give up on its \gls{C-RNTI}, as this makes the attach sequence significantly longer, which is where control plane optimization comes in. The control plane optimization enables the device to save its \gls{AS} when it goes into idle mode. This \gls{AS} is then used again, when the device resumes its connection. 
