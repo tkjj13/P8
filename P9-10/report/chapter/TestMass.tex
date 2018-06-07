@@ -5,7 +5,7 @@ To emulate more than 15 devices, which do not interfere with each others workloa
 
 
 The test is done by comparing the \gls{MDE} to the baseline emulator, as well as testing the performance of the MDE at higher number of devices emulated.
-The performance criteria that will be look into are:
+The performance criteria that will be looking into are:
 
 \begin{itemize}
 \item Error rate
@@ -18,9 +18,9 @@ The error rate will showcase the stability of the MDE. This is done by starting 
 
 The execution time is looked into to see if any processes in the MDE are taking longer, after the changes. This is measured by logging the time stamps, where the MDE goes from one step to another. 
 
-CPU and memory usage is used to test for possible bottlenecks in the MDE. CPU usage is measured with the CPU stat tool, which can measure the CPU usage on the individual processes at a sample rate up to 3 Hz. The memory usage is measured using the top monitor tool, as all bigger buffers is allocated in the initialization and the used memory therefore is nearly static throughout the test. 
+CPU and memory usage is used to test for possible bottlenecks in the MDE. CPU usage is measured with the CPU stat tool, which can measure the CPU usage on the individual processes at a sample rate up to 3 Hz. The memory usage is measured using the top monitor tool, as all bigger buffers are allocated in the initialization and the used memory, therefore, is nearly static throughout the test. 
 
-The parameters used for the eNB and SRS code is the default settings shown in \appref{app:Amarisoft} and \appref{app:SRSconfig}. The MDE are measured increasing the number of devices until the emulator hit 100\% in error rate multiple times in a row. Each point is measured 20 times. Besides testing the MDE, the baseline emulator is also tested, this is what the MDE is matched against. Note that baseline emulator can only emulate one device, the results will be extrapolated for comparison with multiple devices though.
+The parameters used for the eNB and SRS code is the default settings shown in \appref{app:Amarisoft} and \appref{app:SRSconfig}. The MDE is measured increasing the number of devices until the emulator hit 100\% in error rate multiple times in a row. Each point is measured 20 times. Besides testing the MDE, the baseline emulator is also tested, this is what the MDE is matched against. Note that baseline emulator can only emulate one device, the results will be extrapolated for comparison with multiple devices though.
 
 \section{Error rate}
 \label{sec:MTerror}
@@ -35,7 +35,7 @@ The error rate is analyzed from the log messages produces by the emulators. A su
 \label{fig:MT_error}
 \end{figure}
 
-As it can be seen on \autoref{fig:MT_error}, the error rate is higher for the MDE, than the baseline emulator. Another important aspect is that, when the number of devices hit 13, the error rate goes to 100\%, which shows the limit of the emulator. It should be noted that the process of monitoring and logging from the emulators might influence the outcome as up to 18 devices has been seen running on the MDE during the development. A more detailed overview of these errors, show that six different types of errors occur during the testing as shown on \autoref{fig:MT_error_dist}.
+As it can be seen on \autoref{fig:MT_error}, the error rate is higher for the MDE, than the baseline emulator. Another important aspect is that, when the number of devices hit 13, the error rate goes to 100\%, which shows the limit of the emulator. It should be noted that the process of monitoring and logging from the emulators might influence the outcome as up to 18 devices has been seen running on the MDE during the development. A more detailed overview of these errors shows that six different types of errors occur during the testing as shown on \autoref{fig:MT_error_dist}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_error_dist}
@@ -46,25 +46,25 @@ As it can be seen on \autoref{fig:MT_error}, the error rate is higher for the MD
 \label{fig:MT_error_dist}
 \end{figure}
 
-The \textit{Cell sync error} occurs when the emulator shuts down, before the device has synchronized to the cell and it goes to the MIB-NB step. This error is very rare, but as the error occurs so early in the process, these test runs will not give any data for any other step, beside initialization.
+The \textit{Cell sync error} occurs when the emulator shuts down before the device has synchronized to the cell and it goes to the MIB-NB step. This error is very rare, but as the error occurs so early in the process, these test runs will not give any data for any other step, beside initialization.
 
-The \textit{radio error} comes from miscommunication between the radio class and the API for the USRP B210. It occurs when the process begins the search for NB-SIB1 message, where some radio parameters is changed. As the radio error is the only error occurring for the baseline emulator, this should be the only error, that is not produced by the changed made to the baseline emulator.
+The \textit{radio error} comes from miscommunication between the radio class and the API for the USRP B210. It occurs when the process begins the search for the NB-SIB1 message, where some radio parameters are changed. As the radio error is the only error occurring for the baseline emulator, this should be the only error, that is not produced by the changed made to the baseline emulator.
 
-The \textit{idle after MIB-NB} error occur in the same part of the process as the radio error, where the emulator gets stuck and runs without retrying or closing down. This error type is the most frequently occurring among the errors produced by the changes to the emulator. An optimal place to improve the error rate, of the MDE, would be to look into the reason behind this error, especially for higher number of devices.
+The \textit{idle after MIB-NB} error occurs in the same part of the process as the radio error, where the emulator gets stuck and runs without retrying or closing down. This error type is the most frequently occurring among the errors produced by the changes to the emulator. An optimal place to improve the error rate, of the MDE, would be to look into the reason behind this error, especially for a higher number of devices.
 
 
-The \textit{transmission after NB-SIB1} is an error, that occurs at the NB-SIB1 step and the radio class transmit a signal, which causes the emulator to shut down. This error type have a tendency to occur with higher number of devices and can indicate a bottleneck in the process to get a higher number of devices.
+The \textit{transmission after NB-SIB1} is an error, that occurs at the NB-SIB1 step and the radio class transmits a signal, which causes the emulator to shut down. This error type has a tendency to occur with a higher number of devices and can indicate a bottleneck in the process to get a higher number of devices.
 
-The \textit{NPRACH error}, is an error that occurs, when some devices completes the NPRACH step, but other do not, as the system shuts down beforehand. This error type also have the tendency to occur at higher number of devices and likewise indicates a potential bottleneck.
+The \textit{NPRACH error} is an error that occurs, when some devices complete the NPRACH step, but others do not, as the system shuts down beforehand. This error type also has the tendency to occur at a higher number of devices and likewise indicates a potential bottleneck.
 
-The \textit{msg2 not received} error is when all devices have gone through the NPRACH step and are waiting on msg2, which is never received or not registered if received. This error is very rare and have no tendencies.
+The \textit{msg2 not received} error is when all devices have gone through the NPRACH step and are waiting on msg2, which is never received or not registered if received. This error is very rare and has no tendencies.
 
 \section{Execution time}
 \label{sec:exeTime}
 To test the execution time for the emulator, the test is split up into the different steps of the code process discussed in \autoref{sub:MassStruct}.
 
 \subsection{Initialization}
-The execution time for the initialization step, is measured from the start of the MDE to the start of the cell seach step. The baseline emulator is measured as well, which gives the results seen on \autoref{fig:MT_Init_Time}.
+The execution time for the initialization step is measured from the start of the MDE to the start of the cell search step. The baseline emulator is measured as well, which gives the results seen on \autoref{fig:MT_Init_Time}.
 
 
 \begin{figure}[H]
@@ -88,7 +88,7 @@ From \autoref{fig:MT_Init_Time} it can be seen that there is a linear tendency s
 
 
 \subsection{Synchronization}
-The execution time for the synchronization step is measured from the start of cell search to the start of the MIB-NB decoding, which gives the results seen on \autoref{fig:MT_Sync_Time}. As the error type cell sync, mentioned in \autoref{sec:MTerror}, occurs in this step of the process, some measurements will be equal to zero, as the execution time can not be calculated, due to fact that the measurement ends when an error occur. This impacts the number of measurement points further on as well.
+The execution time for the synchronization step is measured from the start of cell search to the start of the MIB-NB decoding, which gives the results seen on \autoref{fig:MT_Sync_Time}. As the error type cell sync, mentioned in \autoref{sec:MTerror}, occurs in this step of the process, some measurements will be equal to zero, as the execution time cannot be calculated, due to fact that the measurement ends when an error occurs. This impacts the number of measurement points further on as well.
 
 \captionsetup{belowskip=0em}
 \begin{minipage}{0.48\textwidth}
@@ -114,12 +114,12 @@ The execution time for the synchronization step is measured from the start of ce
 \end{minipage}
 \captionsetup{belowskip=-1.5em}
 
-As seen on \autoref{fig:MT_Sync_Time} is the execution time for different number of devices is behaving equal to each other. Another aspect seen on the figure is that some measurements have taken some extra time to execute, but is aligning at the same time values, which also indicated on the histogram on \autoref{fig:MT_Sync_His}. Here it is seen that most measurements is placed at 0.6 s to 0.8 s and the amount at the other points is much lower. This is to be expected as the structure of the MDE only searches for the cell once independently of the number of devices.
+As seen on \autoref{fig:MT_Sync_Time} is the execution time for a different number of devices is behaving equally to each other. Another aspect seen on the figure is that some measurements have taken some extra time to execute, but is aligning at the same time values, which also indicated on the histogram on \autoref{fig:MT_Sync_His}. Here it is seen that most measurements are placed at 0.6 s to 0.8 s and the amount at the other points is much lower. This is to be expected as the structure of the MDE only searches for the cell once independently of the number of devices.
 
 
 
 \subsection{MIB-NB decoding}
-The execution time for the MIB-NB decoding step is measured from just after a cell is found until the MIB-NB has been fully decoded, which gives the results seen on \autoref{fig:MT_MIB_Time}. However as the MDE sometimes fails, which results in it retrying the decoding, a bias is made to only use the time for the final and successful decoding of MIB-NB.
+The execution time for the MIB-NB decoding step is measured from just after a cell is found until the MIB-NB has been fully decoded, which gives the results seen on \autoref{fig:MT_MIB_Time}. However, as the MDE sometimes fails, which results in it retrying the decoding, a bias is made to only use the time for the final and successful decoding of MIB-NB.
 
 
 \captionsetup{belowskip=0em}
@@ -146,7 +146,7 @@ The execution time for the MIB-NB decoding step is measured from just after a ce
 \end{minipage}
 \captionsetup{belowskip=-1.5em}
 
-As seen on \autoref{fig:MT_MIB_Time} the execution time for the MIB-NB decoding quite stable independently on the number of devices. The spread is big compared to the synchronazitation step, which also can be seen when comparing the histogram for the two steps, \autoref{fig:MT_Sync_His} and \autoref{fig:MT_MIB_His}. The baseline emulator have the same tendency as the MDE, which indicates that the changes do not effect this step, as expected. On \autoref{fig:MT_MIB_Tries} is it shown how many attempts the different measurements needed before completing the MIB-NB decoding step.
+As seen on \autoref{fig:MT_MIB_Time} the execution time for the MIB-NB decoding quite stable independently on the number of devices. The spread is big compared to the synchronization step, which also can be seen when comparing the histogram for the two steps, \autoref{fig:MT_Sync_His} and \autoref{fig:MT_MIB_His}. The baseline emulator has the same tendency as the MDE, which indicates that the changes do not affect this step, as expected. On \autoref{fig:MT_MIB_Tries} is it shown how many attempts the different measurements needed before completing the MIB-NB decoding step.
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_MIB_Tries}
@@ -157,10 +157,10 @@ As seen on \autoref{fig:MT_MIB_Time} the execution time for the MIB-NB decoding 
 \label{fig:MT_MIB_Tries}
 \end{figure}
 
-It is seen on \autoref{fig:MT_MIB_Tries} that baseline emulator is not different from the MDE at a lower number of devices. At a higher number of devices it even seems like the MDE is more efficient, as the failed attempts decreases when the number of devices increases.
+It is seen on \autoref{fig:MT_MIB_Tries} that baseline emulator is not different from the MDE at a lower number of devices. At a higher number of devices, it even seems like the MDE is more efficient, as the failed attempts decrease when the number of devices increases.
 
 \subsection{NB-SIB1}
-The execution time for the NB-SIB1 decoding step is measured from the MIB-NB is decoded to the NB-SIB1 is fully decoded, which gives the results seen on \autoref{fig:MT_SIB1_Time}. The test is executed with the different number of devices, but the results shown on \autoref{fig:MT_SIB1_Time} is only for one of the emulated devices, as each device demodulates the NB-SIB1 individually. This is done, so all number of devices have the same stand point compared to the measurements.
+The execution time for the NB-SIB1 decoding step is measured from the MIB-NB is decoded to the NB-SIB1 is fully decoded, which gives the results seen on \autoref{fig:MT_SIB1_Time}. The test is executed with the different number of devices, but the results shown on \autoref{fig:MT_SIB1_Time} is only for one of the emulated devices, as each device demodulates the NB-SIB1 individually. This is done, so all number of devices have the same standpoint compared to the measurements.
 As both the radio error and idle after MIB-NB error occurs in this step of the process, the number of measurement points are lowered further.
 
 \captionsetup{belowskip=0em}
@@ -187,7 +187,7 @@ As both the radio error and idle after MIB-NB error occurs in this step of the p
 \end{minipage}
 \captionsetup{belowskip=-1.5em}
 
-As seen on \autoref{fig:MT_SIB1_Time} the baseline emulator and the MDE have the same tendency around four different time values, with a few measurements way off. Compared to the previous steps, this step has a long execution time and the steps between the time values is around 600 ms. On \autoref{fig:MT_SIB1_His}  the distribution can be seen, where it is seen that the values is equally distributed between the four different time values. This indicates that the MDE begins the search for NB-SIB1, after decoding the MIB-NB, at four different times, compared to the repeating of the NB-SIB1 message.
+As seen on \autoref{fig:MT_SIB1_Time} the baseline emulator and the MDE have the same tendency around four different time values, with a few measurements way off. Compared to the previous steps, this step has a long execution time and the steps between the time values are around 600 ms. On \autoref{fig:MT_SIB1_His}  the distribution can be seen, where it is seen that the values are equally distributed between the four different time values. This indicates that the MDE begins the search for NB-SIB1, after decoding the MIB-NB, at four different times, compared to the repeating of the NB-SIB1 message.
 
 
 \subsection{NB-SIB2}
@@ -202,7 +202,7 @@ The execution time for the NB-SIB2 decoding step is measured from the NB-SIB1 is
 \end{figure}
 
 
-As seen on \autoref{fig:MT_SIB2_Time}, the baseline emulator and MDE have the same tendency, beside for when there is emulated 15 devices. There is not a big spread for the measurements of 1 through 14 devices, which is also expected as the timing between decoding NB-SIB1 and NB-SIB2 should only be the time until the whole NB-SIB2 have been received, with a small additional time for the decoding. The reason behind the bigger spread at 15 devices comes from how unstable the code is, as a NPRACH error is about to occur. The reason for this is not happening for 13 and 14 devices, can be that the system still was stable at this point, before the NPRACH error. Another factor is that there only two measurement points for these two values.
+As seen on \autoref{fig:MT_SIB2_Time}, the baseline emulator, and MDE have the same tendency, besides for when there is emulated 15 devices. There is not a big spread for the measurements of 1 through 14 devices, which is also expected as the timing between decoding NB-SIB1 and NB-SIB2 should only be the time until the whole NB-SIB2 have been received, with a small additional time for the decoding. The reason behind the bigger spread at 15 devices comes from how unstable the code is, as a NPRACH error is about to occur. The reason for this is not happening for 13 and 14 devices, can be that the system still was stable at this point, before the NPRACH error. Another factor is that there only two measurement points for these two values.
 
 
 \subsection{NPRACH}
@@ -220,7 +220,7 @@ The execution time for the NPRACH step is measured from the decoding of NB-SIB2 
 As seen on \autoref{fig:MT_Nprach_Time} the baseline emulator and MDE takes approximately the same time, but the MDE has a bigger spread of its measurement points. All the measurements of the MDE with more than 12 devices, does not follow the tendency of the other measurements. This should come from the fact, that all the shown measurement points for these number of devices, is measurements where the NPRACH error occurred and none of them made it error free through, as seen on \autoref{fig:MT_error_dist}.
 
 \subsection{RAR}
-The execution time for the RAR step is measured from msg1 is delivered to the transmit buffer until msg2 is received, which gives the results seen on \autoref{fig:MT_Rar_Time}. The msg2 error occurs here, if no msg2 is received and the measurements are therefore excluded. 
+The execution time for the RAR step is measured from msg1 is delivered to the transmit buffer until msg2 is received, which gives the results seen on \autoref{fig:MT_Rar_Time}. The msg2 error occurs here if no msg2 is received and the measurements are therefore excluded. 
 
 \begin{figure}[H]
 \tikzsetnextfilename{MT_Rar_Time}
@@ -234,15 +234,15 @@ The execution time for the RAR step is measured from msg1 is delivered to the tr
 As seen on \autoref{fig:MT_Rar_Time} the MDE starts out following the tendency of the baseline emulator, but around eight devices it begins to get a higher and higher execution time and getting a wider spread compared to the values at a low number of devices, which indicates a possible bottleneck in the system.
 
 \subsection{Summary}
-When looking at the execution time, of the MDE compared to the baseline emulator, it can be seen that in most steps, the two emulators perform similarly. The initialization steps is where the biggest difference is, but as the extra is performed in a single thread, this is to be expected. This is however not a problem as the real time dependency of the system has not yet been invoked. A bottleneck that can be seen in these test, comes in the RAR step, where an increase in delay is seen, when the number of number of devices gets above eight. The results from 13 to 15 device do act as the other measurements at some points, but with no measurements point without errors at some point in the process, this expected as well. 
+When looking at the execution time, of the MDE compared to the baseline emulator, it can be seen that in most steps, the two emulators perform similarly. The initialization step is where the biggest difference is, but as the extra is performed in a single thread, this is to be expected. This is however not a problem as the real-time dependency of the system has not yet been invoked. A bottleneck that can be seen in these test, comes in the RAR step, where an increase in delay is seen when the number of devices gets above eight. The results from 13 to 15 device do not act as the other measurements at some points, but with no measurements point without errors at some point in the process, this expected as well. 
 
 
 \section{CPU usage}
 To test the CPU usage of the MDE, the test is split up into different steps as discussed in \autoref{sub:MassStruct}. 
 
-The results is shown as average CPU usage over the steps time period, as the executing time is not equal for all measurement. The errors mentioned thorughout \autoref{sec:exeTime} is also effecting the CPU measurements and the measurement points, which have an error is removed from the sample pool for all consecutive steps.
+The results is shown as average CPU usage over the steps time period, as the executing time is not equal for all measurement. The errors mentioned throughout \autoref{sec:exeTime} is also affecting the CPU measurements and the measurement points, which have an error is removed from the sample pool for all consecutive steps.
 
-The sample rate is 3 Hz, this is a rather slow sample rate, compared to the execution time for the different steps. This is the highest sample rate of any tool tested. The time window for the RAR step is unfortunately too small to be measured with a 3 Hz sample rate. The tool can not distinguish between individual cores of the PC and adds the usage together. In \appref{app:PC_stat} the number of cores in the PC is shown to be 8. A conservative estimation is made, that only 7 of these is available for the MDE, with the final 1 running background programs on the PC. 
+The sample rate is 3 Hz, this is a rather slow sample rate, compared to the execution time for the different steps. This is the highest sample rate of any tool tested. The time window for the RAR step is unfortunately too small to be measured with a 3 Hz sample rate. The tool cannot distinguish between individual cores of the PC and adds the usage together. In \appref{app:PC_stat} the number of cores in the PC is shown to be 8. A conservative estimation is made, that only 7 of these is available for the MDE, with the final 1 running background programs on the PC. 
 
 \subsection{Initialization}
 The initialization step is measured from the start of the emulator to the cell search begin. The average CPU usage of the MDE and baseline emulator can be seen on \autoref{fig:CPU_init}.
@@ -261,10 +261,10 @@ The fitted line for the CPU usage is estimated to be:
 CPU_{init} = 2.50 \cdot NoD + 33.21
 \end{equation}
 
-As seen on \autoref{fig:CPU_init} the average CPU usage is rising with the number of devices, As only one thread is use during the initialization the CPU limit is 100\%, if this point is hit, the linear tendency, seen in \autoref{fig:MT_Init_Time} from the execution time measurement, would be expected to rise more. This is not an issue as the initialization is not effected by the real time constraints, like the rest of the MDE.
+As seen on \autoref{fig:CPU_init} the average CPU usage is rising with the number of devices, As only one thread is used during the initialization the CPU limit is 100\%, if this point is hit, the linear tendency, seen in \autoref{fig:MT_Init_Time} from the execution time measurement, would be expected to rise more. This is not an issue as the initialization is not affected by the real-time constraints, like the rest of the MDE.
 
 \subsection{Synchronization}
-The synchronization is  measured from start of cell search till start of MIB-NB decoding, the average CPU usages can be seen on \autoref{fig:CPU_init}.
+The synchronization is  measured from the start of cell search till the start of MIB-NB decoding, the average CPU usages can be seen on \autoref{fig:CPU_init}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_sync}
@@ -280,10 +280,10 @@ The fitted line for the CPU usage is estimated to be:
 CPU_{sync} = 1.11 \cdot NoD + 53.24
 \end{equation}
 
-As seen on \autoref{fig:CPU_sync}, the average CPU usage is rising with the number of devices. This is a problem, as it will hit full usage at some point, which can effect the ability to synchronize with the cell. The synchronization is performed in a single thread, which sets the limit at 100\%, but the increase in CPU usage could be explained by the higher number of threads that is running in all the higher layer classes of each device, which means the limit could be as high as 700\%. 
+As seen on \autoref{fig:CPU_sync}, the average CPU usage is rising with the number of devices. This is a problem, as it will hit full usage at some point, which can affect the ability to synchronize with the cell. The synchronization is performed in a single thread, which sets the limit at 100\%, but the increase in CPU usage could be explained by the higher number of threads that are running in all the higher layer classes of each device, which means the limit could be as high as 700\%. 
 
 \subsection{Decoding of MIB-NB}
-The decoding of MIB-NB is measured from just after a cell is found until the MIB-NB has been fully decoded, the average CPU usage of this step is seen on \autoref{fig:CPU_init}. The measurements are showing only the CPU usage of the last attempt at decoding the MIB-NB if multiple attempts was made.
+The decoding of MIB-NB is measured from just after a cell is found until the MIB-NB has been fully decoded, the average CPU usage of this step is seen on \autoref{fig:CPU_init}. The measurements are showing only the CPU usage of the last attempt at decoding the MIB-NB if multiple attempts were made.
 
 \begin{figure}[H]
 \tikzsetnextfilename{CPU_MIB}
@@ -300,10 +300,10 @@ CPU_{MIB-NB} = 0.92 \cdot NoD + 33.40
 \end{equation}
 
 
-As seen on \autoref{fig:CPU_MIB} the tendency the same, as for the synchronization step, but with bigger spread on the results. The spread is expected to be caused by the big spread in execution time for this step, while the workload is the same, when looking at the decoding part. The tendency of a rising CPU usage compare to the number of devices, should have the same fundamental explanation as the CPU usage in the synchronization step.
+As seen on \autoref{fig:CPU_MIB} the tendency the same, as for the synchronization step, but with a bigger spread on the results. The spread is expected to be caused by the big spread in execution time for this step, while the workload is the same when looking at the decoding part. The tendency of a rising CPU usage compared to the number of devices should have the same fundamental explanation as the CPU usage in the synchronization step.
 
 \subsection{NB-SIB1}
-The NB-SIB1 step is measured from the MIB-NB is decoded to the NB-SIB1 is fully decoded and the average CPU usage can be seen on\autoref{fig:CPU_init}. The measurements is only shown for a single device out of all the emulated devices, as each device demodulates the NB-SIB1 individually. This is done, so all number of devices have the same stand point compared to the measurements.
+The NB-SIB1 step is measured from the MIB-NB is decoded to the NB-SIB1 is fully decoded and the average CPU usage can be seen on\autoref{fig:CPU_init}. The measurements are only shown for a single device out of all the emulated devices, as each device demodulates the NB-SIB1 individually. This is done, so all number of devices have the same standpoint compared to the measurements.
 
 
 \begin{figure}[H]
@@ -320,7 +320,7 @@ The fitted line for the CPU usage is estimated to be:
 CPU_{NB-SIB1} = 9.93 \cdot NoD + 38.92
 \end{equation}
 
-As seen on \autoref{fig:CPU_SIB1}, this step also have a higher CPU usage at higher number of devices. It is also seen that the CPU usage is raising above 100\%, but as there is multiple threads in work at this point, multiple kernels is also in use, where the CPU usage for each kernel is added together by the CPU stat tool. As mentioned a limit of seven CPU's are assumed, which gives a upper limit of 700\%. The reason for increase in CPU usage, compared to the previous steps, is that the individual devices is used at this point. In the previous two steps only the Co\_Phy was active.
+As seen on \autoref{fig:CPU_SIB1}, this step also has a higher CPU usage at a higher number of devices. It is also seen that the CPU usage is raising above 100\%, but as there are multiple threads in work at this point, multiple kernels are also in use, where the CPU usage for each kernel is added together by the CPU stat tool. As mentioned a limit of seven CPU's are assumed, which gives an upper limit of 700\%. The reason for the increase in CPU usage, compared to the previous steps, is that the individual devices are used at this point. In the previous two steps, only the Co\_Phy was active.
 
 \subsection{NB-SIB2}
 The NB-SIB2 step is measured from the NB-SIB1 is decoded until NB-SIB2 is decoded, which gives the results seen on \autoref{fig:CPU_init}. 
@@ -339,7 +339,7 @@ The fitted line for the CPU usage is estimated to be:
 CPU_{NB-SIB2} = 6.08 \cdot NoD + 24.28
 \end{equation}
 
-As seen on \autoref{fig:CPU_SIB2}, the results show the same problems as seen for the NB-SIB1 step. An interesting tendency for the NB-SIB2 step, is that it looks to have two tendencies, one above the red fitting line and one below. This could be explained by the fact, that the NB-SIB2 step contains two parts, which is looking for the NB-SIB2 message and then decode it. As only the later half is the CPU heavy and the time used is so small compared to the sample rate (four samples at max), this can give some very spread results. 
+As seen on \autoref{fig:CPU_SIB2}, the results show the same problems as seen for the NB-SIB1 step. An interesting tendency for the NB-SIB2 step is that it looks to have two tendencies, one above the red fitting line and one below. This could be explained by the fact, that the NB-SIB2 step contains two parts, which is looking for the NB-SIB2 message and then decode it. As only the latter half is the CPU heavy and the time used is so small compared to the sample rate (four samples at max), this can give some very spread results. 
 
 
 
@@ -377,11 +377,11 @@ Synchronization & 1 & 43 \\
 \hline
 Decoding of MIB-NB & 1 & 73 \\
 \hline
-SIB1 & 1 & 67 \\
+SIB1 & 7 & 67 \\
 \hline
-SIB2 & 1 & 112 \\
+SIB2 & 7 & 112 \\
 \hline
-NPRACH & 1 & 124 \\
+NPRACH & 7 & 124 \\
 \hline
 \end{tabular}
 \caption{Number of devices to hit full CPU usage for the different steps.}
@@ -389,7 +389,7 @@ NPRACH & 1 & 124 \\
 \end{table}
 
 \section{Memory usage}
-To test the memory usage, the massive emulator is run once for each number of devices, as well for the baseline emulator. As all the buffers and bigger arrays reserve space in the memory in the initialization step, the amount of memory use does not change during the emulation or between two emulations. It does change compared to number of devices, as this effects directly the amount of buffers and arrays that should be allocated. The results can be seen on \autoref{fig:RAMusage}.
+To test the memory usage, the massive emulator is run once for each number of devices, as well for the baseline emulator. As all the buffers and bigger arrays reserve space in the memory in the initialization step, the amount of memory use does not change during the emulation or between two emulations. It does change compared to the number of devices, as this effects directly the number of buffers and arrays that should be allocated. The results can be seen on \autoref{fig:RAMusage}.
 
 \begin{figure}[H]
 \tikzsetnextfilename{RAMusage}
@@ -406,7 +406,7 @@ RAM = 0.91 \cdot NoD + 1.63
 \end{equation}
 
 
-As seen in \autoref{fig:RAMusage}, the memory usage follow a very linear tendency. This makes sense, as the whole structure is multiplied with the number of device and therefore also the memory usage. The reason for the difference between the baseline emulator and a single device, is the that the Co Phy use as much space as a normal device, as describe in \autoref{sec:Changes}. With the computer used for the project, the limit for number of devices that can emulated, when only looking at the memory usage, is 108 devices.
+As seen in \autoref{fig:RAMusage}, the memory usage follow a very linear tendency. This makes sense, as the whole structure is multiplied by the number of devices and therefore also the memory usage. The reason for the difference between the baseline emulator and a single device is the that the Co Phy use as much space as a normal device, as described in \autoref{sec:Changes}. With the computer used for the project, the limit for a number of devices that can be emulated, when only looking at the memory usage, is 108 devices.
 
 
 
