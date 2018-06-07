@@ -1,28 +1,30 @@
 \chapter{Massive IoT system overview}
 \label{ch:MassOver}
-The focus of this chapter is to provide an overview over the concepts and design of the \gls{MDE}. From \autoref{ch:NB-IoT} it is known that massive have an impact on the performance of the NB-IoT protocol, which the MDE should be able to show and measure.
+ 
 
+The focus of this chapter is to provide an overview of the concepts and design of the \gls{MDE}. From \autoref{ch:NB-IoT} it is known that massiveness has an impact on the performance of the NB-IoT protocol. The MDE should be able to show and measure this.
 
 %It has a high cost to test massiveness scenarios with a massive amount of hardware devices and will require a system to control them individually, especially if the desire is to test the impact of massiveness on the individual devices. A more optimal solution is instead of buying a massive amount of devices, to emulate them through software.
 
-To test the scenario of massiveness can be done in two ways, with a massive amount of actual devices that require a system to control them individually or to emulate multiple devices in software using a minimal amount of hardware. Given the large amount of devices to be emulated (in the order of thousands), the best option is the latter.
+There are two ways to emulate massiveness, using a large number of actual devices that requires a system to control them individually or using software to achieve a large number of devices. Given the desire to emulate several thousand devices the best option is the latter.
 
-The challenges when emulating a massive amount of devices, is that every single device is complex, as seen through \autoref{ch:NB-IoT}, and not easy to emulate, as all the aspects of the devices functionalities are also wanted in the emulator. So to emulate a massive amount of devices, takes a lot of CPU power to process the data for each individual device and having enough memory for then and the data they receive. Another challenge is that the signals have to be combined for the different devices and send to the eNB and the signal from the eNB have to be split up to all the devices and this have to be handled quickly as the system operate in real time.
-
-As seen in \autoref{tab:protocol_decision} from \autoref{ch:Introduction} there are multiple version of emulators for a single NB-IoT device, but as the protocol still is in development, these emulators are also in the development stage and they can only emulate a single device. But as a foundation for the project the SRS NB-IoT emulator will be used as a baseline, where its capabilities for this software will be expanded to emulate multiple devices. As the LTE version of the baseline was used in the previous project, mentioned in \autoref{ch:MassOver}, their concept will be used as a base concept for this project.
+The challenges when emulating a massive amount of devices is that every single device is complex, as seen throughout \autoref{ch:NB-IoT}. The complexity comes from the number of functionalities that are necessary. To emulate a massive number of devices takes a lot of CPU power. As each device needs to process the data. Another issue is having enough memory for the data they receive. Another challenge is the combination of the signals for the different devices before transmitting and the dividing the received signals to each device. This is is an issue as the system operates in real-time and the operations time for these tasks are very short. 
 
 
-The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. As the code was never intended to emulate multiple devices, several changes are needed, to emulate multiple devices.
+As seen in \autoref{tab:protocol_decision} from \autoref{ch:Introduction} there are many emulators available for a single NB-IoT device. As the protocol is still in development, these emulators are also still in the development stage. None of the found emulators can emulate more than one device. To build a \gls{MDE} the SRS NB-IoT emulator will act as a baseline. Its capabilities are expanded to include emulation of multiple devices. The previous project used the LTE version of the baseline\citep{thesis_report}. As mentioned in \autoref{ch:MassOver}, the design of the emulator will leverage on this project.
+
+The SRS NB-IoT emulator is a bigger c++ code project structured up into classes. The code was never intended to emulate multiple devices, so several changes are needed, to achieve this.
 
 
 %The concept to produce this type of emulator, with the focus on having as high a number of devices active, while they still keep all functionalities for the individual device, will be to split up the code up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
 
-The key idea for the emulator, is to split between active and inactive devices. This is done to achieve as high a number of devices as possible. Each device needs to keep all functionalities of a device, however some functionalities should be common for all devices. These functionalities refers to the radio layer functionalities, as only one radio is used for all devices it makes sense to only handle the radio functionalities once and share the data later to each device. To do this the code should be split up into common parts, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will be investigated.
+ 
 
-To test the emulator, it needs to communicated with a BS. To not interfere with other users and cancel out any other factors that can interfere with the whole setup, it is chosen to work with a BS emulator and connect the two emulator through wires. For the emulation of the eNB the Amarisoft LTE 100 code will be used as it can handle 1000 \gls{UE}s \citep{Amarisoft_solutions} and is tested to synchronize with the software based NB-IoT devices that will be used. 
+The key idea for the emulator is to split between active and inactive devices. This is done to achieve as many devices as possible. Each device needs to keep all functionalities of a device, however, some functionalities should be common for all devices. These functionalities refer to the radio layer functionalities, as only one radio is used for all devices it makes sense to only handle the radio functionalities once and share the data later to each device. To do this the code is split up into a common part, which can be used for all devices, and individual parts, which are only used for the individual device. To make this split between parts, the baseline code will is investigated.
 
-To convert the signals, that the emulators produce, from digital to analog and reverse is there use a USRP B210 for each emulator, as it have been tested to work with both emulators. A 30 dB attenuator is added to compensate for the lack of path loss. This gives the whole setup seen in \autoref{fig:MassSetup}. 
+To test the emulator, it needs to communicate with a BSE. A wire is used to connect the two, to limit the interference both to and from any potential real BS. AS BSE the Amarisoft LTE 100 code is used as it can handle 1000 devices \citep{Amarisoft_solutions} and is tested to synchronize with the baseline emulator devices that will be used. 
 
+To convert the signals, that the emulators produce, from digital to analog and vice versa is there use a USRP B210 for each emulator, as it has been tested to work with both emulators. A 30 dB attenuator is added to compensate for the lack of path loss, as well as to protect the USRPs. This gives the whole setup seen in \autoref{fig:MassSetup}. 
 
 
 
@@ -38,7 +40,7 @@ To convert the signals, that the emulators produce, from digital to analog and r
 \centering
 \resizebox{0.9\textwidth}{!}{
 \input{figures/Mass_setup.tex}}
-\caption{Overview of the emulator setup}
+\caption{Overview of the emulator setup.}
 \label{fig:MassSetup}
 \end{figure}
 
@@ -55,242 +57,338 @@ To convert the signals, that the emulators produce, from digital to analog and r
 
 
 
+ 
+
 \section{Baseline emulator}
-As stated before, the baseline emulator from SRS is still in development. The structure of the code have been copied from the LTE version, where it follows the communication layer structure known from \autoref{ch:NB-IoT}. The code process only goes up to msg2, as SRS have not developed the functionalities to transmit msg3 correctly. This blocks the possibilities to make a full attach and transmit data and all other functionalities after completing an attach. But as a prove of concept, to showcase the possibility of emulating a massive amount of device, as this aspect is one of the new aspects that have to be taken into account when using NB-IoT.
+
+As stated before, the baseline emulator from SRS is still in development. The structure of the code has been copied from the LTE version and it follows the communication layer structure known from \autoref{ch:NB-IoT}. The emulator is only able to get to msg2 in the NRAP, as SRS has not developed the functionalities to transmit msg3 correctly. This blocks the possibilities to make a full attach and transmit data and all other functionalities after completing an attach. It can still be used as a proof of concept model that showcases the possibility of emulating a massive number of devices. 
 
 %The code provide by SRS is still in development and is based on the code SRS developed to LTE, which was used in \citep{thesis_report}. The structure of the code is very similar and with that, some of the structure change and solutions can be copied over from the mentioned project.
 
-%Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission, can be found in \autoref{ch:Future}.
+%Unfortunately as the code is still in development, the msg3 transmission does not work, as it seems that it gets transmitted in a wrong time slot. \todo{Check up on if this is what we want to say} This block the possibility to get a complete attach request, so the project will only work up to the reception of msg2. The plans for the changes and solution for the parts including the full attach procedure and data transmission can be found in \autoref{ch:Future}.
 
 \subsection{Structure}
+
 \label{sub:MassStruct}
-To estimate the parts of the code that should be common for all devices and which shall be kept as individual parts, there is a need to understand the structure of the code and how it performs different part of the NB-IoT protocol. As stated before is that code is split up into multiple classes and it is structure much similar to the LTE version of the code and it follows the communication layer structure. Their is two part of the code which is the srsLTE, where all lower layer functionalities and the API to communicated with the USRP B210, and the srsUE, where the main classes and control of the system is placed. The structure of the srsUE part can be seen in \autoref{fig:MassClass}. 
 
-%The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handles the protocol. The code contains an amount of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes is underclasses for an overall class called ue, which therefore contains all the parts needed for running a device.The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks is needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
+To structure the parts of the code that should be common for all devices and which will be kept as individual parts. The existing structure of the code and how it performs the different parts of the NB-IoT protocol should be understood. As stated before the code is split up into multiple classes and its structure is very similar to the LTE version of the emulator. There are two parts to the code, one is the srsLTE, which handles all lower layer functionalities and the API to the USRP B210. The other is the srsUE, where the main classes and control of the system is placed. The structure of the srsUE part can be seen in \autoref{fig:MassClass}. 
 
+%The code is written in C++, with a little C in some of the lower level files. The code is divided up into two sections srsLTE, which contains all the lower layer functions and the radio layer, and srsUE, which emulate a device with all the different communication layers that handle the protocol. The code contains a number of classes for the different layers known from the OSI model, as seen in \autoref{fig:MassClass}, with the PHY layer being split up into even more classes. All these classes are underclasses for an overall class called ue, which therefore contains all the parts needed for running a device. The structure of the PHY layer can be seen in \autoref{fig:PhyClass}. As multiple tasks are needed to be handled at the same time in the different layers, threading is used in multiple classes (PHY, PHCH recv, PHCH workers, MAC, RRC, GW).
 
 \begin{figure}[H]
+
 \tikzsetnextfilename{MassClass}
+
 \centering
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/MassClass.tex}}
+
 \caption{Class overview of SRS emulation code}
+
 \label{fig:MassClass}
+
 \end{figure}
 
-The structure designed like the communication model OSI, but do not follow the model fully, which can be seen in their functionallities seen below.
+The structure is designed like the OSI model, but do not follow the model completely, which can be seen in the functionalities seen below.
 
-\begin{itemize}
-\item [Radio] The radio controls and sets all the parameters for the transmission and receiving. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. 
-\item [PHY] The PHY class handles the synchronization, the receiving and decoding of MIB and SIBs messages and decoding and encoding of transmission and received data.
-\item [MAC] Keep track of TTI and give grants to PHY class to decode and encode of DL and UL. Control flow from the PHY class to the RLC class. Take over the RAP from the NPRACH class for msg2 and onward.
-\item [RRC] Is the overall control class for the whole device. Here it control how far through the process the device is and if it got all the needed parameters, which is the reason for it being connected to all lower classes, besides the radio class.
-\end{itemize}
+\begin{tabular}[lp{10cm}]
 
-Even if the class layout look like the OSI model but it does not follow it on point especially the lower layers (PHY and MAC). This comes from that many of the MAC layers task is moved to the PHY class and normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS and USIM classes is not used much, as their functionality is for the process after the RAP or at least msg4 have been received. Therefore have they not been though much development in the SRS code.
+Radio & The radio controls and sets all the parameters needed to transmit and receive. It is the only class connected to the SDR API and sends the data to it for transmission and receives data from it too. \\
 
-Between these classes are some interfaces, that handles the  data, grants, parameters and other information. These interfaces are individual classes, with an overall interface class for functionalities used multiple places. 
+PHY & The PHY class handles synchronization, receiving and decoding of MIB and SIBs messages, and decoding and encoding of the data. \\
 
-The PHY class contains many tasks and contains more classes which handles these tasks. The structure and description of these classes can be seen below.
+MAC & The MAC class keep track of TTI and give grants to the PHY class to decode and encode the DL and UL. It also takes control of the NRAP from the NPRACH class after msg1. \\
+
+RRC & The RRC class is the overall control class for the whole device. It manages how far through the process the device is and if it got all the needed parameters. It is therefore connected to all lower classes, besides the radio class. \\
+
+\end{tabular}
+
+Even if the class layout look like the OSI model it does not follow blindly especially in the lower layers (PHY and MAC). This is mainly because many of the MAC layers tasks are moved to the PHY class. Normally the PHY layer is made up of physical components and do the task, that the SDR performs. The RLC, PDCP, GW, NAS, and USIM classes are not used much, as their functionality is for the process after the RAP or at least after msg4 have been received, and have therefore not been through much development in the SRS code.
+
+Between these classes are some interfaces, that handles the data, grants, parameters, and other information. These interfaces are individual classes. An overall interface class for functionalities used in multiple places is present in each of the interface classes. 
+
+The PHY class handles many tasks and contains several smaller classes which take care of these tasks. The structure and description of these classes can be seen below.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{PhyClass}
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/PhyClass.tex}}
+
 \caption{Class overview of the PHY layer from the SRS emulation code}
+
 \label{fig:PhyClass}
+
 \end{figure}
 
-\begin{itemize}
-\item [PHCH recv] Controls the whole PHY class system. Keeps track on which state the system is in and activates the different underclasses in the PHY class.
-\item [PHCH common] Contains most parameters for the PHY underclasses, here under the RNTI's and metrics for UL and DL, and communication up to the MAC class and sends transmission data to the radio class.
-\item [PHCH workers] Handles all processing of data after decoding of MIB and SIBs messages, both encoding and decoding dependably on the grants granted by the MAC class. Their can be multiple workers for one device, but in these cases, their will only be used one.
-\item [Thread pool] Contains and controls the array of PHCH workers.	
-\item [NPRACH] Used to send msg1 in the RAP and keep track of the parameters set for this transmission, like preamble id.
-\end{itemize}
+\begin{tabular}[lp{10cm}]
 
-There are multiple other classes in the srsUE part, but they are a bi-product of the copied structure from the LTE version and are not executed, as either the feature have not been added yet or that its functionallities are first meant to be executed after msg2.
+PHCH recv & Controls the whole PHY class system. It keeps track of which state the system is in and activates the different underclasses in the PHY class. \\
 
-With the knowledge of the structure of the baseline, the process of code will be look into now.
+PHCH common & Contains most parameters for the PHY underclasses, here under the RNTI's and metrics for UL and DL, and communication up to the MAC class. It also sends the transmission data to the radio class. \\
 
+PHCH workers & Handles all processing of data after decoding of MIB-NB and NB-SIBs messages, including encoding and decoding of the data. There can be multiple workers for one device, but in this feature is not used. \\
+
+Thread pool & Contains and controls the array of PHCH workers. \\    
+
+NPRACH & Transmit msg1 in the RAP and keep track of the parameters set for this transmission e.g. preamble id. \\
+
+\end{tabular}
+
+There are many other classes in the srsUE part, but they are a bi-product of the copied structure from the LTE version and are not executed, as either the feature have not been added yet or that its functionalities are first meant to be executed after msg2.
+
+With the knowledge of the structure of the baseline emulator, the flow of the code will be looked into now.
 
 \subsection{Execution of the baseline emulator}
-To better understand the changes required, the following text describes the current structure of the basline. The emulator is build up into multiple section which runs at different times, which is shown in \autoref{fig:MassStep}. Besides the initialization of the emulator, the other step, the emultor goes through is equal to the steps, needed synchronize and attach to a network. The different threads will go to different state, depending on which step in the process the emulator is in. The different step are shown on \autoref{fig:MassStep}.
+
+ The emulator is build up into multiple sections which run at different times, as shown in \autoref{fig:MassStep}. This flow allows the emulator to synchronize and attach to a network. %The different threads go to different states, depending on which step in the process the emulator is in. The different step is shown on \autoref{fig:MassStep}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{MassStep}
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/MassStep.tex}}
+
 \caption{A simplification of the steps in the emulator process.}
+
 \label{fig:MassStep}
+
 \end{figure}
 
 \textbf{Initialization} \\
-The initialization step starts up all the different classes and sets pointers to the different interfaces between them and read the config file, which includes a longer list of parameters, which can be found in \appref{app:SRSconfig}. The PHY have a number of underclasses, as shown in \autoref{fig:PhyClass} and which are initialized in the PHY thread, which are close down afterwards. The main thread will wait on the PHY to finish initialize, before sending an attach request, through the NAS class. This process is shown in \autoref{fig:InitStep}.
+
+The initialization step reads the config file, which includes a long list of parameters, that can be found in \appref{app:SRSconfig}. It afterward starts up all the different classes and sets pointers to the different interfaces between them. The PHY has a number of underclasses, as shown in \autoref{fig:PhyClass} which are initialized in the PHY thread and are closed down afterward. The main thread will wait on the PHY to finish the initialization, before sending an attach request, through the NAS class. This process is shown on \autoref{fig:InitStep}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{InitStep}
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/InitFlow.tex}}
-\caption{The process for the initialization. The dashed line indicates a event trigger to another thread.}
+
+\caption{The process for the initialization. The dashed line indicates an event trigger to another thread.}
+
 \label{fig:InitStep}
+
 \end{figure}
 
+\textbf{Synchronization and MIB-NB} \\
 
-\textbf{Synchronization and MIB} \\
-The synchronization is where the device tries to find the NPSS and NSSS in the right frequency. This is done in the PHCH recv class, which handles both the synchronization and MIB, which is also decode here. The PHCH recv main functionalities is triggered in the loop, which run in it threads. This functionalities is triggered dependably on which state the class is in, which is shown in \autoref{fig:RecvState}.
+The synchronization is where the device tries to find the NPSS and NSSS in the right frequency. This is done in the PHCH recv class, which handles both the synchronization and decoding of MIB-NB. This functionality of the PHCH recv is triggered dependably on which state the class is in, as shown on \autoref{fig:RecvState}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{RecvState}
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/RecvState.tex}}
-\caption{State machine for PHCH recv. The whole process start in ilde.}
+
+\caption{State machine for PHCH recv. The whole process start in idle.}
+
 \label{fig:RecvState}
+
 \end{figure}
 
+The PHCH recv is in idle until it gets triggered by the attach request, which goes through the NAS and RRC to the PHY class. The PHY class then call \textit{sync start}, so the state becomes \textit{cell search}.
 
-The PHCH recv is in idle, until it gets triggered by the attach request, which have gone from the NAS to the RRC to the PHY, which then call sync start, so the state becomes cell search.
+In \textit{cell search}, the PHCH recv starts up the radio class and begins to receive signals from it. It looks for the NPSS and NSSS through all the different frequencies and chooses the strongest NPSS. If it does not find a frequency, where there is supposed to be a cell, it tries again. If it finds a cell, it will then try to locate the MIB-NB from the information obtained from the NPSS and NSSS. If it is found, the state changes to \textit{cell select}.
 
-In cell search, the PHCH recv starts up the radio class and begins to receive signals from it, where it looks for the NPSS and NSSS through all different frequencies, where it will chose the one with the highest peak, over a certain level. If it does not find a frequency, where there supposed to be a cell, it retries and are stuck in this loop. If it finds a cell, it will then try to locate the MIB from the information from NPSS and NSSS. If it is found, the change the state from cell search to cell select.
+In \textit{cell select} the MIB-NB is received, decoded, and send to the MAC. In the case that it can not be decoded in the first try, it will try to do a soft combination with the next received data. This is possible due to the design of the MIB-NB  as seen in \autoref{sec:cellsync}. If the MIB-NB gets decode it will change state to \textit{cell measure} if there are no \gls{RSRP} measurements or change directly to  \textit{cell camp}. 
 
-In cell select the MIB is received and decoded and send to the MAC. In the case that it is not received well and can not be decoded in the first try, it will try to do soft combination with the next received data, which is possible with the way the MIB is designed (see \autoref{sec:cellsync}). If it gets decode it will jump to cell measure, if their is none \gls{RSRP} measurements or directly jump to cell camp, where it will begin to look into the SIB messages.
+In \textit{cell measure} it measures the RSRP to correct the receiving parameters and before changing state to \textit{cell camp}.
 
-In cell measure it will measure the rsrp to correct the receiving parameters and then change to the cell camp stage.
+In \textit{cell camp} the PHCH recv stage, where all further process will be handled, starts out by locating the NB-SIB messages.
 
-Cell camp is the PHCH recv stage, where all further process will be handle, which starts out with the locating the SIB messages.
-
-From all stages can the process be triggered to go into idle state, if an error occurred or the system tries to reset. Here it will try to start up into cell search again unless if it is the close down trigger.
+From all stages, the process is triggered to go into idle state, if an error occurred or the system tries to reset. Here it will try to start up into cell search again unless it receives a close down trigger.
 
 \textbf{PHCH recv cell camp state} \\
-When the PHCH recv is in cell camp state, is it ready to activate the PHCH workers, but first it will receive data and see if it have to transmit msg1 through the NPRACH class. The process can be seen in \autoref{fig:Cellcamp}.
+
+In \textit{cell camp} the PHCH recv is ready to activate the PHCH workers. A control signal informs the PHCH recv to transmit msg1 through the NPRACH class. This process can be seen on \autoref{fig:Cellcamp}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{CellCamp}
+
 \resizebox{0.7\textwidth}{!}{
+
 \input{figures/Cellcamp.tex}}
-\caption{The process for the PHCH recv, when it is in cell camp state}
+
+\caption{The process for the PHCH recv, when it is in cell camp state.}
+
 \label{fig:Cellcamp}
+
 \end{figure}
 
-At first it need to find a idle worker and as long as no worker is not in idle, it will be blocking the main thread for continue. After finding a worker and setting it to be working, it request data from the radio, which receives data from the API for the USRP. If the data is not collected in time or if code is out of sync with the API, it will return a out of sync. If this is returned, the PHCH recv will release the worker and send a signal to the RRC, that it is out of sync, which cause the state of the PHCH recv to jump back to idle. If the radio returns in sync, the data is received with some synchronization parameter, such as \gls{CFO}, which are measured while receiving the data.
+At first, it needs to find an idle worker and as long as no worker is idle, it will be blocking the main thread for continue. After finding and starting a worker, it requests data from the radio, which is received through API for the USRP. If the data is not collected in time or if the emulator is out of sync with the API, it will return an out of sync. If this is returned, the PHCH recv will release the worker and send a signal to the RRC, that it is out of sync. This causes the state of the PHCH recv to jump back to idle. If the radio returns in sync, the data is received with synchronization parameters, such as \gls{CFO}.
 
-In the case that the device have received both SIB1 and SIB2 at this point, a flag in MAC class is set indicating that the msg1 in the \gls{RAP} needs to be send. If it is set, the PHCH recv will call the function in the NPRACH class to prepare a msg1, where it also chose a preamble id. When it is done, the NPRACH class sends the msg1 data to the radio, which transmit it and close down the transmission afterwards. This is the only place in the code, where it is not the working which handles uplink transmission.
+In the case that the device has received both NB-SIB1 and NB-SIB2 at this point, a flag in MAC class is set indicating that  msg1 in the \gls{NRAP} needs to be sent. If it is set, the PHCH recv calls the NPRACH function that chooses a  preamble id and prepares the msg1. When it is done, the NPRACH class sends the msg1 data to the radio, which transmit it and close down the transmission afterward. This is the only place in the code, where it is not the PHCH worker, which handles uplink transmission.
 
-When the process reached this point, after either transmitted the msg1 or not, the workers thread is activated and it begins to handle the data there. Meanwhile goes the PHCH recv thread back to the start of the process, if it still in cell camp state. If there is more workers for the device, it can now begin to handle the next data, before the previous worker is done, else it will have to wait for the single worker to go into idle state.
+When the process reaches this point, after transmitting the msg1, the PHCH worker thread is activated and it begins to handle the data. Meanwhile, the PHCH recv thread goes back to the start of the process, if it is still in cell camp state. If there are more PHCH workers, it can begin to handle the next data, before the previous PHCH worker is done, if not it waits for the PHCH worker to go into idle state.
 
 \textbf{Downlink decoding} \\
-The first part of the process in the PHCH workers thread, is decoding of the DL data, received in the PHCH recv class. The process can be seen in \autoref{fig:DLwork}.
+
+The first part of the process in the PHCH workers thread is decoding of the DL data, received in the PHCH recv class. The process can be seen on \autoref{fig:DLwork}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{DLwork}
+
 \resizebox{0.8\textwidth}{!}{
+
 \input{figures/DLwork.tex}}
+
 \caption{The process for the downlink decoding in PHCH worker.}
+
 \label{fig:DLwork}
+
 \end{figure}
 
-Firstly does the worker ask the MAC if it has a DL grant from earlier. If not, it will assume that the receive data is from NPDCCH, where it first search for a new DL grant and if that is not in the data, it search for a new UL grant. After the search for new grants, will it continue with the UL.
+Firstly the PHCH worker asks the MAC if it has a DL grant from earlier. If not, it will assume that the received data is from NPDCCH, where it first searches for a new DL grant and if that is not in the data, it searches for a new UL grant. After the search for new grants, it continues with the UL.
 
-If the MAC have a DL grant from earlier, it will try to decode the data, which is send through the NPDSCH. If this is successful, it will send the decoded data up to MAC to handle it. After sending the data to the MAC or error in the decoding, there is a check if there should be send a ACK/NACK back to the BS. If this flag is set, it will generate the ACK/NACK and a new UL grant. Following this will the UL process begin.
+If the MAC has a DL grant from earlier, it will try to decode the data, which is sent through the NPDSCH. If this is successful, it will send the decoded data up to MAC to handle it. After sending the data to the MAC for decoding, it checks if ACK/NACK is enabled. If this flag is set, the ACK/NACK is generated. Following this, the UL process begins.
 
 \textbf{Uplink encoding and transmission} \\
-After the DL, does the system check if it need to send data through UL and have a UL grant, which is encode and UL parameters is set and this is send to PHCH common, which calls the transmission function in the radio class. Next time the worker is finish with a run through the thread and it have nothing to transmit, will the PHCH common tell the radio class to end transmission. This whole process is seen in \autoref{fig:ULwork}.
+
+After the DL, the system checks if it needs to send data through UL and have a UL grant. It then encodes the data and sends it along with the UL parameters to the PHCH common. The PHCH common calls the transmission function in the radio class. Next time the worker is finished with a run through the thread and it has nothing to transmit, the PHCH common tell the radio class to end transmission. This whole process is seen on \autoref{fig:ULwork}.
 
 \begin{figure}[H]
+
 \centering
+
 \tikzsetnextfilename{ULwork}
+
 \resizebox{0.8\textwidth}{!}{
+
 \input{figures/ULwork.tex}}
+
 \caption{The process for the uplink decoding in PHCH worker.}
+
 \label{fig:ULwork}
+
 \end{figure}
 
+\textbf{NB-SIB1, NB-SIB2 and msg2 in NRAP} \\
 
-\textbf{SIB1, SIB2 and msg2 in RAP} \\
-These three messages is all received in the DL after the MIB and in the msg2 case, after transmitted msg1. When the NPDCCH is decode, there can be a grant to one of these messages and it will begin to look for it in the NPDSCH and decode it, when it is received. After decoding it will go to the next step in the code.
+These three messages are all received in the DL after the MIB-NB and in the msg2 case, after transmitted msg1. When the NPDCCH is decoded, there can be a grant to one of these messages and it will begin to look for it in the NPDSCH and decode it when it is received. After decoding it will go to the next step in the code.
 
-
-
-
-
-
-
-To have the emulator emulate multiple devices, some parts of the original device is needed to be duplicated. The goal of these changes will be to have a massive amount of individual devices emulated, without them effecting each other through their processing time and combining their signals and transmit it as one to the eNB.
+To have the emulator emulate multiple devices, some parts of the original device is needed to be duplicated. The goal of these changes is to have a more than 15 individual and independent devices emulated.
 
 \section{Development of MDE}
+
 \label{sec:Changes}
+
 This section describes the changes and implementations made to the baseline emulator and the reasoning behind these.
 
-The concept mentioned in the start of this chapter, focus on making as many functionalities common for all devices, to minimize the work load, but still have the devices to be as split as possible, so they still can be seen as individual devices.
+The concept mentioned in the start of this chapter is to focus on making some functionalities common for all devices. This is to minimize the workload, but still have the devices split enough to see them as independent devices.
 
 \textbf{Radio}\\
-Through the previous part about the structure of the code, it is seen that the radio class is at the bottom of the class structure and is the bottleneck for the simple strategy of copy the whole structure for each device, as there should only be one connection to communicate with the API to the USRP B210. Therefore should there only be one radio class.
 
-The next point is to secure that all communication to the radio class is controlled. As seen in the previous structure section and in \autoref{fig:PhyClass}, is the only classes communication with the radio class: PHCH recv (for synchronazation and decoding of MIB), NPRACH (to transmit msg1 in the RAP) and PHCH common (with the data from the PHCH worker).
+Through the previous part about the structure of the code, it is seen that the radio class is at the bottom of the class structure. This class is the bottleneck for the simple strategy of copying the whole structure for each device, as there should only be one connection to the API of the USRP B210. Thus only one instance of the radio class should be generated.
 
-For the tranmission part, which comes from both the NPRACH and PHCH common, is there a need of combining all the signal correctly, compared to time slots and frequencies, while still being in sync with eNB. This will be fixed with a buffer system, that will receive data from the two classes and hold on to it, until it shall be transmitted. A problem comes when data have to be combine, as it have to be transmitted simultaneously. As different devices have possibility for different power level, a power combiner is implemented, that takes this parameter into account.
+The next point is to secure that all communication to the radio class is controlled. As seen in the previous structure section and in \autoref{fig:PhyClass}, the only classes that communicate with the radio class are PHCH recv (for synchronization and decoding of MIB), NPRACH (to transmit msg1 in the RAP) and PHCH common (with the data from the PHCH worker).
 
-For the receiving part, which is sent only to PHCH recv. Here there is also a need of a buffer, so that all devices can get the data, before the next data is received. 
-With these two buffer system, will the problem with combining and distribute the data be fixed, while the layers above can be copied and have all functionalities still intact. But with this setup, the bottleneck in the system will quickly be the workload on the CPU kernels, which is why there will be looked into lower the amount of workload. As different functionalities is tied to different classes, it will be best to look at which classes can be made common.
+In the transmission part, there is a need of combining all the signal correctly, compared to time slots and frequencies, while still being in sync with the BS. This will be fixed with a buffer system, that will receive the data and hold on to it until it is transmitted. A problem comes when the data have to be combined, as it has to be transmitted simultaneously. As different devices have the possibility for different power level, a power combiner is implemented, that takes this parameter into account.
+
+In the receiving part, the data is sent only to the PHCH recv. Here there is also a need for a buffer so that all devices can get the data before the next data is received. 
+
+With these two buffer system, the problem with combining and distributing the data is fixed, while the layers above can be copied and have all their functionalities intact. But with this setup, the bottleneck in the system will quickly be the workload on the CPU kernels, which is why it is looked into how to lower the overall workload. As different functionalities are tied to different classes, it will be best to look at which classes can be made common.
 
 \textbf{PHCH recv}\\
-As the control class among the PHY underclasses, can PHCH recv be common, instead of individual for the different devices. One of the pros of having it as a common class, is that the buffer for receiving data, mention in the previous section about radio, can be moved up here, where it is called from. Another pro is that the synchronization and the decoding of the MIB can be made common task, as these two steps in the process will not influence other devices compared to test the limits of the NB-IoT protocol. The PHCH recv will also keep all the devices synchronized by measuring the DL channel. The con will be that devices will not be able to get off sync individual, if that wanted to be tested.
 
-The other underclasses in the PHY class all contains parts which should be keep individual, as they include some parameters meant for the individual device (NPRACH have preamble id and PHCH common have RNTI's). A discussing can be made if a large PHCH worker array should be made, where all devices gets workers from, but to make sure that all devices always will have a worker running for it self, it will also be copied. The higher layers classes will also be copied, as these all include the state the different devices are in and to keep them still as individual as possible. 
+The control class among the PHY underclasses, PHCH recv, can be a common class instead of an individual class. One of the pros of having it as a common class is that the buffer for receiving data can be moved up here, where it can be called from. Another pro is that the synchronization and the decoding of the MIB can be made common tasks, as these two steps in the process will not influence other devices. The PHCH recv will also keep all the devices synchronized by measuring the DL channel. The con will be that devices will not be able to get off sync individually if that is wanted to be tested.
+
+The other underclasses in the PHY class all contain parts which should be kept individual, as they include some parameters meant for the individual device (NPRACH have preamble id and PHCH common have RNTI's). A solution could be to make a large PHCH worker array, where all devices get workers from. But to ensure that all devices always have a worker available, the PHCH worker array will also be copied. The higher layers classes will also be copied, as these all include the state the different devices are in and this is also needed to achieve independence between the devices.
 
 With all classes, besides radio and PHCH recv being copied for each device emulated, some changes have to be made in the initialization.
 
 \textbf{Initialization}\\
-As seen in \autoref{fig:MassClass}, are the both the MAC and RRC connected to the PHY class and to add are there the interaction between the PHCH recv and the other underclasses from the PHY class, as seen in \autoref{fig:PhyClass}. So when the initialization step begins, the PHCH recv needs pointer to all the different MAC, RRC and other PHY classes to move data around and its other tasks. A problem when implemented this, is that the MAC class need the PHY class to be initialized, before it can initialize itself and the PHCH recv is in need of all the MAC classes to be initialized, before it can it self. So is done by splitting the PHY initialize up into two parts, where first all the PHY underclasses, beside the PHCH recv is initialized, while all higher layer classes (besides MAC) and radio is next, then MAC and lastly the PHCH recv. This up splitting can be seen in \autoref{fig:InitNew}.
+
+As seen in \autoref{fig:MassClass}, are both the MAC and RRC connected to the PHY class. There is also interactions between the PHCH recv and the other PHY underclasses, as seen on \autoref{fig:PhyClass}. So when the initialization step begins, the PHCH recv needs pointers to all the different MAC, RRC and other PHY classes to move data around and for its other tasks. A problem when implemented this, is that the MAC class needs the PHY class to be initialized before it can initialize itself and the PHCH recv is in need of all the MAC classes to be initialized before it can be initialized itself. This is done by splitting the PHY initialize up into two parts, where the PHY underclasses, except the PHCH recv, is initialized first. The higher layer classes (besides MAC) and radio are initialized next, then MAC and finally the PHCH recv is initialized. This process can be seen on \autoref{fig:InitNew}.
 
 \begin{figure}[H]
+
 \tikzsetnextfilename{InitNew}
+
 \centering
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/InitNew.tex}}
-\caption{Overview of the emulator setup}
+
+\caption{Overview of the emulator setup.}
+
 \label{fig:InitNew}
+
 \end{figure}
 
-Another change for the initialization step, is that instead of start the attach request in the NAS class, it will directly start up in the PHCH recv, as it else will give many devices asking for starting the attach, instead of only doing it a single time.
+Another change for the initialization step is that instead of calling the attach request in the NAS class. It is called directly in the PHCH recv, as else the receiver is started multiple times, instead of only once.
 
-This way of splitting up the classes into common and individual for the individual devices was also done in the project, which was the predecessor to this project. This mostly comes from the likelihood of the two baseline used. But the way that the common classes is different from each other. The old version is seen in \autoref{fig:OldStruct}, while the new version used in this project is seen in \autoref{fig:NewStruct}.
+This way of splitting the classes up into common and individual for each device was also done in the previous project \citep{thesis_report}. This comes from the similarities of the two baselines used. The way that the common classes structured are different from each other though. The old version is seen on \autoref{fig:OldStruct}, while the version used in this project is seen on \autoref{fig:NewStruct}.
 
 \begin{figure}[H]
+
 \tikzsetnextfilename{OldStruct}
+
 \centering
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/OldStruct.tex}}
-\caption{Low layer design for old project. Black boxes is not used. Blue lines is for DL and orange is for UL}
+
+\caption{Low layer design for the old project. Black boxes are not used. Blue lines are for DL and orange is for UL.}
+
 \label{fig:OldStruct}
+
 \end{figure}
 
 \begin{figure}[H]
+
 \tikzsetnextfilename{NewStruct}
+
 \centering
+
 \resizebox{0.5\textwidth}{!}{
+
 \input{figures/NewStruct.tex}}
-\caption{Low layer design for this project. Black boxes is not used. Blue lines is for DL and orange is for UL}
+
+\caption{Low layer design for this project. Black boxes are not used. Blue lines are for DL and orange is for UL.}
+
 \label{fig:NewStruct}
+
 \end{figure}
 
-As seen on the two figures above, is the big difference that the PHCH recv class use as the common class for all devices, is in the old version placed in device 1, while in the new version, it a full PHY class, which shall be named Co Phy for future reference, where only the PHCH recv is active. By moving the common PHCH recv out of device 1 and into it owns, gives new possibilities to use other PHY class function and underclasses, such as having a PHCH worker in the Co Phy used to go through the SIB1 and SIB2 steps, so not all device has to decode these messages. Other possibilities are listed in \autoref{ch:Future}. 
+As seen on the two figures above, the big difference is that the PHCH recv class, used as the common class for all devices. In the old version it is placed in device 1, while in the new version, it is a full PHY class, which is named Co-Phy for future reference. By moving the common PHCH recv out of device 1 and into it owns, gives new possibilities to use other PHY class functions and underclasses e.g. having a PHCH worker in the Co-Phy to decode the NB-SIB1 and SIB2 steps, so not all device has to decode these messages. Other possibilities are listed in \autoref{ch:Future}. 
 
-Another pro is that device 1 is not any more connected more to the common PHCH recv class than other devices and needs to be active. The con is that the setup for interfaces between the Co Phy and the devices becomes more complicated, as seen earlier in this section. This choice of structure is mostly influence by the possibilities, which can be found in \autoref{ch:Future}, as the structure is more free from device 1.
+Another pro is that device 1 does not contain the PHCH recv class anymore and is not required to be active. The con is that the setup for the interfaces between the Co-Phy and the devices becomes more complicated, as seen earlier in this section. The choice of structure is mostly influenced by the possibilities, which can be found in \autoref{ch:Future}, as the structure, is freer from device 1.
 
 \textbf{PHCH workers}\\
-With the changes to having the PHCH recv being a common class and the synchronize and decoding of MIB-NB being common tasks, there comes a change when reaching the NB-SIB1 step, as here the individual devices need to activate their PHCH worker. The cell camp process, shown in \autoref{fig:Cellcamp}, starts the workers in the baseline, which still will be used in the MDE, but with the addition of a loop, were the devices PHCH worker will started up after each other. As that the PHCH workers begins to work in their own thread at the end of the loop in the cell camp process, will the loop quickly loop around and the workers shall be starter quickly after each other. The receiver buffer, which was mention in the PHCH recv section above, is placed outside this loop, so there is only received once per rotation of all devices. This requires that all PHCH workers are done, before the next data needs to received or else will the PHCH recv get a out of sync flag and go back to idle state. This problem can be solve, by having a timer, that checks when the next data need to be received and then will the late devices miss some data, but this have not been implemented, due to the lack of time resources in the project.
 
-\section{Summary}
-The design of the massive emulator follows the concept, which  was used in the previous project, with some changes to the lower structure and it is implemented, which showcase that the concept is possible to apply to multiple protocols. The baseline is still in development, which have affected the development and result of the MDE. 
+With the changes to having the PHCH recv being a common class, it is first when reaching the NB-SIB1 step, that the individual devices need to activate their PHCH worker. The \textit{cell camp} state, shown on \autoref{fig:Cellcamp} starts the workers in the baseline, which is still case for the MDE. This is done through a loop, where each device PHCH worker is started up after each other. As that the PHCH workers begin to work in their own thread at the end of the loop in the \textit{cell camp} state, the loop quickly loop around and the workers are started quickly after each other. The receiver buffer is placed outside this loop, so there is only received once per rotation of all devices. This requires that all PHCH workers are done before the next data needs to received or else will the PHCH recv get an out of sync flag and go back to idle state. This problem can be solved, by having a timer, that checks when the next data need to be received and then the late devices miss some data, but this has not been implemented, due to the lack of time resources in the project.
 
-With this concept have the single device baseline emulator changed to the MDE, which is cable of emulating multiple devices, with the synchronize and decoding of MIB-NB being a common task for the Co Phy. The Co Phy is an extra class designed to handle most of the common task for all the devices. With this addition and other new implementation, should the MDE be able produce a massive number of device, while still performing like the baseline, when only emulating a single device. This will be tested in the next chapter.
+\subsection{Summary}
 
+A baseline emulator capable of emulating one device has been changed to an MDE, which is cable of emulating multiple devices. The design of the MDE follows the concept, which was used in the previous project. Some changes were made to the lower structure to achieve multiple emulated devices. The baseline emulator is still in development, which has affected the development and result of the MDE. 
+
+The synchronization and decoding of MIB-NB were made a common task for the Co-Phy. The Co-Phy is an extra class designed to handle most of the common task for all the devices. With this addition and the other changes, the MDE should be able to produce a massive number of devices, while still performing like the baseline, which only emulates a single device. This will be tested in the next chapter.
 
 \input{chapter/TestMass.tex}
